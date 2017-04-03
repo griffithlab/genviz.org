@@ -11,12 +11,10 @@
 # 1. Files excluded from Jekyll builds
 exclude:
 - README.md
-- screenshot.png
 - LICENSE
 - CNAME
 - Gemfile
 - Gemfile.lock
-- demo/*
 - alembic-jekyll-theme.gemspec
 
 # 2. Installed Gems
@@ -35,22 +33,19 @@ paginate_path: blog/page:num # jekyll-paginate > blog page
 jekyll-mentions: https://twitter.com # jekyll-mentions > service used when @replying
 twitter:
   username: zlskidmore # jekyll-seo-tag > Owners twitter username
-author: Zach Skidmore # jekyll-seo-tag > default author
+author: Zachary Skidmore # jekyll-seo-tag > default author
 social: # jekyll-seo-tag > social overrides
-  name: Zach Skidmore # jekyll-seo-tag > real name
+  name: Zachary Skidmore # jekyll-seo-tag > real name
   links:  # jekyll-seo-tag > social aliases (sameAs)
-    #- https://twitter.com/DavidDarnes
-    #- https://www.facebook.com/daviddarnes
-    #- https://www.linkedin.com/in/daviddarnes
-    #- https://plus.google.com/+DavidDarnes
-    #- https://github.com/daviddarnes
+    - https://twitter.com/zlskidmore
+    - https://github.com/zlskidmore
 
 # 4. Jekyll settings
 sass:
   style: compressed # Style compression
 permalink: pretty  # Permalink style (/YYYY/MM/DD/page-name/)
 excerpt_separator: <!-- more --> # Marks end of excerpt in posts
-timezone: Europe/London # Timezone for blog posts and alike
+timezone: America/Chicago # Timezone for blog posts and alike
 
 # 5. Collections
 collections:
@@ -70,24 +65,23 @@ defaults:
       type: pages
     values:
       layout: page # Default layout
-      image: "/assets/placeholder-social.png" # Default image for sharing
+      image: "/assets/DNA.jpg" # Default image for sharing
   -
     scope:
       path: ""
       type: posts
     values:
       layout: post # Default layout
-      image: "/assets/placeholder-social.png" # Default image for sharing
+      image: "/assets/DNA.jpg" # Default image for sharing
 
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
 title: "Griffith Lab" # Site name or title, also used in jekyll-seo-tag
-logo: "/assets/placeholder-logo.svg" # Site logo, also used in jekyll-seo-tag
+logo: "/assets/Site_Logo.jpg" # Site logo, also used in jekyll-seo-tag
 description: "This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a requirement unless stated otherwise." # Site description and default description, also used in jekyll-seo-tag
 url: "https://alembic.darn.es" # Site url, also used in jekyll-seo-tag
-#repo: "https://github.com/daviddarnes/alembic"
+repo: "https://griffithlab.github.io/gen-viz-workshop/"
 email: "zskidmor@wustl.edu"
-disqus: "alembic-1"
 avatarurl:  # Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
 
 # 8. Site navigation
@@ -95,11 +89,26 @@ navigation_header:
   Home: /
   Elements: /elements/
   Course: /course/
+  About: /about/
   Authors: /authors/
   Search: /search/
 
 navigation_footer:
   Adpoted Alembic Theme: https://alembic.darn.es/
+
+contact_obi:
+    twitter:    https://twitter.com/obigriffith
+    github:     https://github.com/obigriffith
+    link:       "https://obigriffith.github.io/"
+
+contact_malachi:
+    twitter:    https://twitter.com/malachigriffith
+    github: https://github.com/malachig
+    link: "https://malachig.github.io/"
+
+contact_zach:
+    twitter:    https://twitter.com/zlskidmore
+    github: https://github.com/zlskidmore
 
 social_links:
   #Twitter:
