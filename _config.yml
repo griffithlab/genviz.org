@@ -77,20 +77,20 @@ defaults:
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
 title: "Griffith Lab" # Site name or title, also used in jekyll-seo-tag
-logo: "/assets/Site_Logo.jpg" # Site logo, also used in jekyll-seo-tag
+logo: "/gen-viz-workshop/assets/Site_Logo.jpg" # Site logo, also used in jekyll-seo-tag
 description: "This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a requirement unless stated otherwise." # Site description and default description, also used in jekyll-seo-tag
-url: "https://griffithlab.github.io" # Site url, also used in jekyll-seo-tag
+url: "https://griffithlab.github.io/gen-viz-workshop/" # Site url, also used in jekyll-seo-tag
 repo: "https://griffithlab/gen-viz-workshop/"
 email: "zskidmor@wustl.edu"
 avatarurl:  "/assets/DNA.jpg"# Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
 
 # 8. Site navigation
 navigation_header:
-  Home: /
-  About: /about/
-  Course: /course/
-  Authors: /authors/
-  Search: /search/
+  Home: /gen-viz-workshop/
+  About: /gen-viz-workshop/about/
+  Course: /gen-viz-workshop/course/
+  Authors: /gen-viz-workshop/authors/
+  Search: /gen-viz-workshop/search/
 
 navigation_footer:
   Adopted Alembic Theme: https://alembic.darn.es/
