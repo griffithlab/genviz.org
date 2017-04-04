@@ -90,7 +90,7 @@ navigation_header:
   About: /about/
   Course: /course/
   Authors: /gen-viz-workshop/authors/
-  Search: /search/
+  Search: /gen-viz-workshop/search/
 
 navigation_footer:
   Adopted Alembic Theme: https://alembic.darn.es/
