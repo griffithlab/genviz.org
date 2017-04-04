@@ -65,14 +65,14 @@ defaults:
       type: pages
     values:
       layout: page # Default layout
-      image: "/assets/DNA.jpg" # Default image for sharing
+      image: "/gen-viz-workshop/assets/DNA.jpg" # Default image for sharing
   -
     scope:
       path: ""
       type: posts
     values:
       layout: post # Default layout
-      image: "/assets/DNA.jpg" # Default image for sharing
+      image: "/gen-viz-workshop/assets/DNA.jpg" # Default image for sharing
 
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
