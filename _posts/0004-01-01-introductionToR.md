@@ -1,3 +1,10 @@
+---
+title: Introduction to R
+categories:
+    - Day 2
+feature_image: "https://unsplash.it/1200/400?image=200"
+---
+
 ## R and Rstudio
 
 R is an open source functional programming language developed for statistical computing and graphics. The language includes a number of features which make it ideal for data analysis and visualization and is the primary computing language used in this course.
@@ -46,7 +53,7 @@ biocLite("BiocUpgrade")
 
 When working in any language you need to store values into variables. Defining a variable tells the language to allocate space in memory to store that variable. In R A variable is assigned with the assignment operator "<-" or "=", which assign in the user workspace or the current scope respectively (For the purposes of this course assignment should always occur with the "<-" operator). All variables are stored in objects the least complex of which is the atomic vector, these in turn are of a specific type. There are six main data types which are: "numeric", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the is.foo() family of function which will return a logical vector, alternatively the data type can be determined with the class() function. An example of each data type is shown below:
 ```R
-# numeric 
+# numeric
 foo <- 1.0
 is.numeric(foo)
 class(foo)
@@ -70,7 +77,7 @@ is.raw(corge)
 # complex
 grault <- 4 + 4i
 is.complex(grault)
-``` 
+```
 
 ## Data structures
 Data structures in R are objects which hold the data types mentioned above. The type of data structure to use depends on the homogeneity of the data types stored and the number of dimensions needed. The most common data structure in R is the vector which contains data in 1 dimension and comes in two types called Atomic vectors and lists. Atomic vectors are homogeneous in that all the data contained within them must be homogeneous (i.e. all numeric, all character, etc.). In contrast lists can contain a mix of data types and can even contain other data structures. Atomic vectors are created with the c() function, the type of atomic vector can be determined with the typeof() function. Vectors in R can be spliced with the [] brackets, using either a boolean vector, or a numeric index.
@@ -100,7 +107,7 @@ myList <- list(c(1:10), matrix(1:10, nrow=2), c("foo", "bar"))
 # extract the first element of the list
 myList[[1]]
 ```
-It is important to cover attributes in our discussion of data structures. All objects can contain attributes which are used to hold metadata regarding the object. An example of an attribute for vectors are names, we can give names to each element within a vector with the names function. Another attribute is a factor, which is used extensively in ggplot2 to determine order. Factors hold metadata regarding the order and the expected values within a vector. they are defined with the factor function() 
+It is important to cover attributes in our discussion of data structures. All objects can contain attributes which are used to hold metadata regarding the object. An example of an attribute for vectors are names, we can give names to each element within a vector with the names function. Another attribute is a factor, which is used extensively in ggplot2 to determine order. Factors hold metadata regarding the order and the expected values within a vector. they are defined with the factor function()
 ```R
 # create a named vector
 vec <- c("foo"=1, "bar"=2)
