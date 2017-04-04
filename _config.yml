@@ -82,19 +82,18 @@ description: "This resource is structured in a modular format. Users would benef
 url: "https://alembic.darn.es" # Site url, also used in jekyll-seo-tag
 repo: "https://griffithlab.github.io/gen-viz-workshop/"
 email: "zskidmor@wustl.edu"
-avatarurl:  # Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
+avatarurl:  "/assets/DNA.jpg"# Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
 
 # 8. Site navigation
 navigation_header:
   Home: /
-  Elements: /elements/
-  Course: /course/
   About: /about/
+  Course: /course/
   Authors: /authors/
   Search: /search/
 
 navigation_footer:
-  Adpoted Alembic Theme: https://alembic.darn.es/
+  Adopted Alembic Theme: https://alembic.darn.es/
 
 contact_obi:
     twitter:    https://twitter.com/obigriffith
