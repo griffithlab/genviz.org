@@ -89,7 +89,7 @@ navigation_header:
   Home: /
   About: /about/
   Course: /course/
-  Authors: /authors/
+  Authors: /gen-viz-workshop/authors/
   Search: /search/
 
 navigation_footer:
