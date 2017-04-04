@@ -79,8 +79,8 @@ encoding: utf-8 # Make sure the encoding is right
 title: "Griffith Lab" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/Site_Logo.jpg" # Site logo, also used in jekyll-seo-tag
 description: "This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a requirement unless stated otherwise." # Site description and default description, also used in jekyll-seo-tag
-url: "https://alembic.darn.es" # Site url, also used in jekyll-seo-tag
-repo: "https://griffithlab.github.io/gen-viz-workshop/"
+url: "https://griffithlab.github.io/gen-viz/workshop" # Site url, also used in jekyll-seo-tag
+repo: "https://griffithlab/gen-viz-workshop/"
 email: "zskidmor@wustl.edu"
 avatarurl:  "/assets/DNA.jpg"# Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
 
