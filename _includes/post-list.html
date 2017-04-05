@@ -1,3 +1,4 @@
+{{paginator.posts}}
 {% if paginator.posts %}
 
 	<section class="section  typeset">
@@ -8,7 +9,7 @@
 
 						<h2><a href="{{ page.url | relative_url }}" title="Post - {{ page.title }}">{{ page.title }}</a></h2>
 						{% include post-meta.html %}
-						{{ page.excerpt | markdownify | truncatewords: 60 }}
+						{{ page.excerpt | markdownify | truncatewords: 20 }}
 
 					</article>
 				</li>
@@ -26,7 +27,7 @@
 
 					<h4><a href="{{ page.url | relative_url }}" title="Post - {{ page.title }}">{{ page.title }}</a></h4>
 					{% include post-meta.html %}
-					{{ page.excerpt | markdownify | truncatewords: 60 }}
+					{{ page.excerpt | markdownify | truncatewords: 20 }}
 
 				</article>
 			</li>
