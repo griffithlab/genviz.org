@@ -3,6 +3,7 @@ title: Introduction to R
 categories:
     - Day 2
 feature_image: "https://unsplash.it/1200/400?image=200"
+date: 0004-01-01
 ---
 
 ## R and Rstudio
