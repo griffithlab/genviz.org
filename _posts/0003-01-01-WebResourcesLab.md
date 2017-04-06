@@ -1,7 +1,7 @@
 ---
 title: Web resources for variant annotation and visualization
 categories:
-    - Day 1
+    - Module 1
 feature_image: "https://unsplash.it/1200/400?image=200"
 date: 0003-01-01
 ---

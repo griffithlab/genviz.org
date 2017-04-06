@@ -1,7 +1,7 @@
 ---
 title: Introduction to ggplot2
 categories:
-    - Day 2
+    - Module 2
 feature_image: "https://unsplash.it/1200/400?image=200"
 date: 0005-01-01
 ---
