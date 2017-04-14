@@ -65,14 +65,14 @@ defaults:
       type: pages
     values:
       layout: page # Default layout
-      image: "/gen-viz-workshop/assets/DNA.jpg" # Default image for sharing
+      image: "/assets/DNA.jpg" # Default image for sharing
   -
     scope:
       path: ""
       type: posts
     values:
       layout: post # Default layout
-      image: "/gen-viz-workshop/assets/DNA.jpg" # Default image for sharing
+      image: "/assets/DNA.jpg" # Default image for sharing
 
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
@@ -80,18 +80,18 @@ title: "Griffith Lab" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/Site_Logo.jpg" # Site logo, also used in jekyll-seo-tag
 description: "This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a requirement unless stated otherwise." # Site description and default description, also used in jekyll-seo-tag
 url: "http://www.genviz.org/" # Site url, also used in jekyll-seo-tag
-baseurl: /gen-viz-workshop
+baseurl: ""
 repo: "https://griffithlab/gen-viz-workshop/"
 email: "zskidmor@wustl.edu"
 avatarurl:  "/assets/DNA.jpg"# Uses avatars for favicons to get multple sites, eg Gravatar, Twitter, GitHub
 
 # 8. Site navigation
 navigation_header:
-  Home: /gen-viz-workshop/
-  About: /gen-viz-workshop/about/
-  Course: /gen-viz-workshop/course/
-  Authors: /gen-viz-workshop/authors/
-  Search: /gen-viz-workshop/search/
+  Home: /
+  About: /about/
+  Course: /course/
+  Authors: /authors/
+  Search: /search/
 
 navigation_footer:
   Adopted Alembic Theme: https://alembic.darn.es/
