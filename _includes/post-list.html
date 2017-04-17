@@ -19,15 +19,15 @@
 	</section>
 
 {% else %}
-	<h3>Latest blog posts</h3>
+	<h3>Latest Course Content</h3>
 	<ul class="list  list--posts">
-		{% for page in site.posts limit: 4 %}
+		{% for page in site.posts limit: 2 %}
 			<li class="item  item--post">
 				<article class="article  article--post">
 
 					<h4><a href="{{ page.url | relative_url }}" title="Post - {{ page.title }}">{{ page.title }}</a></h4>
 					{% include post-meta.html %}
-					{{ page.excerpt | markdownify | truncatewords: 20 }}
+					{{ page.excerpt | markdownify | truncatewords: 10 }}
 
 				</article>
 			</li>
