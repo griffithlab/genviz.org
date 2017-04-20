@@ -3,8 +3,8 @@ title: About
 feature_text: |
   ## Genomic Visualization and Interpretations
   Tutorial series for visualizing and interpreting omic data
-feature_image: "https://unsplash.it/1300/400?image=971"
-image: "https://unsplash.it/600/400?image=971"
+feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
+image: "assets/genvis-dna-bg_optimized_v1a.png"
 layout: "home"
 ---
 

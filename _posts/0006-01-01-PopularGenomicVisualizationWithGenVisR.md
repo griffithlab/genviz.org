@@ -2,7 +2,7 @@
 title: Introduction to GenVisR
 categories:
     - Module 3
-feature_image: "https://unsplash.it/1200/400?image=200"
+feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0006-01-01
 ---
 

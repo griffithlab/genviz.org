@@ -2,7 +2,7 @@
 title: Introduction to R
 categories:
     - Module 2
-feature_image: "https://unsplash.it/1200/400?image=200"
+feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-01-01
 ---
 

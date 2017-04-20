@@ -55,7 +55,7 @@ collections:
     description: "My thoughts and ideas" # The post list page content
     feature_text: |
       Welcome to the blog
-    feature_image: "https://unsplash.it/1300/400?image=1067"
+    feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 
 # 6. Jekyll collections settings
 defaults:

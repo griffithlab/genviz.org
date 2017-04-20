@@ -2,7 +2,7 @@
 title: Clinical Variant Interpretations
 categories:
     - Module 4
-feature_image: "https://unsplash.it/1200/400?image=200"
+feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0010-01-01
 ---
 
