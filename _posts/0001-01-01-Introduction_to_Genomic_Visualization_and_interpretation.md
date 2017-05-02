@@ -12,7 +12,7 @@ Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. 
 
 {% include figure.html image="/assets/central_dogma.png" position="right" %}
 
-"The Central Dogma. This states that once information has passed into protein it cannot get out again. In more detail, the transfer of information from nucleic acid to nucleic acid, or from nucleic acid to protein may be possible, but transfer from protein to protein, or from protein to nucleic acid is impossible. Information means here the precise determination of sequence, either of bases in the nucleic acid or of amino acid residues in the protein.""
+"The Central Dogma. This states that once information has passed into protein it cannot get out again. In more detail, the transfer of information from nucleic acid to nucleic acid, or from nucleic acid to protein may be possible, but transfer from protein to protein, or from protein to nucleic acid is impossible. Information means here the precise determination of sequence, either of bases in the nucleic acid or of amino acid residues in the protein."
 
 --Francis Crick 1956
 
