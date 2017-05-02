@@ -1,4 +1,6 @@
 ---
+feature_text: |
+  ## Genomic Visualization and Interpretations
 title: Pathway Visualization
 categories:
     - Module 4

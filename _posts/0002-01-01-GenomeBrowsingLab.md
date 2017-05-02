@@ -1,4 +1,6 @@
 ---
+feature_text: |
+  ## Genomic Visualization and Interpretations
 title: Genome Browsing and Visualization exercises
 categories:
     - Module 1

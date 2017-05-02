@@ -1,4 +1,6 @@
 ---
+feature_text: |
+  ## Genomic Visualization and Interpretations
 title: Web resources for variant annotation and visualization
 categories:
     - Module 1

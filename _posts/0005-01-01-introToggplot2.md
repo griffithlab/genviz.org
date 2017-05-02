@@ -1,4 +1,6 @@
 ---
+feature_text: |
+  ## Genomic Visualization and Interpretations
 title: Introduction to ggplot2
 categories:
     - Module 2

@@ -1,4 +1,6 @@
 ---
+feature_text: |
+  ## Genomic Visualization and Interpretations
 title: Introduction to Genomic Visualization and Interpretation
 categories:
     - Module 1

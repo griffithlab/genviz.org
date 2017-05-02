@@ -1,4 +1,6 @@
 ---
+feature_text: |
+  ## Genomic Visualization and Interpretations
 title: Differential Expression with DEseq2
 categories:
     - Module 3

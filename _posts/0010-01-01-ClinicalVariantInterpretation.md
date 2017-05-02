@@ -1,4 +1,6 @@
 ---
+feature_text: |
+  ## Genomic Visualization and Interpretations
 title: Clinical Variant Interpretations
 categories:
     - Module 4
