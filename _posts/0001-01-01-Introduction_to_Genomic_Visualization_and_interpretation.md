@@ -24,7 +24,8 @@ Delving in a bit deeper, DNA takes the form of a double stranded helix comprised
 
 ***
 
-{% include question.html question="this is my question" answer="this is my answer"%}
+{% include question.html question="What is the translated sequence of: ATGTTTACTGCTGATGGCCGCTGA?" answer="AUGUUUACUGCUUGAUGGCCGCUGA"%}
+{% include question.html question="What is the translated peptide sequence in the previous question?" answer="Met-Phe-Thr-Ala-Asp-Gly-Arg-Opal"%}
 
 ## Omic technologies and Data
 

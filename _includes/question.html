@@ -1,12 +1,10 @@
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ "/assets/scripts/question.js" | relative_url }}"></script>
 
-<ul class="question">
+<div class="accordion">
+<p class="q">{{ include.question }}</p>
 
-  <li class="q">
-    <img src="img/arrow.png">
-    {{ include.question }}
-  </li>
-  <li class="a">{{ include.answer }}</li>
-
-</ul>
+      <p class="a">{{ include.answer }}</p>
+    
+</div>

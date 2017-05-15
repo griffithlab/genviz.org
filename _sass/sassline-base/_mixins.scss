@@ -418,3 +418,10 @@ $max-widths: map-values($maxwidths);
     clear: both;
   }
 }
+
+// round corners
+@mixin rounded($radius: 0.5em) {
+-webkit-border-radius: $radius;
+-moz-border-radius: $radius;
+border-radius: $radius;
+}
