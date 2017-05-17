@@ -8,9 +8,11 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-01-01
 ---
 
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
+Over this tutorial series we be extensively using R. This is the language which underlies with graphical programs ggplot2, ggvis, and GenVisR. As such a familiarity with R is highly reccommended for students. To this end this topic page intended to provide a brief overview of R however there are a myriad of resources available that we reccomend users investigate to supplement the information given here.
 
 ## R and Rstudio
+
+{% include figure.html image="/assets/Rlogo.svg" position="right" width="200" link="https://www.r-project.org/logo/Rlogo.svg" title="R logo" author="R Foundation" license="CC-BY-SA 4.0" license_link="https://creativecommons.org/licenses/by-sa/4.0/"%}
 
 R is an open source functional programming language developed for statistical computing and graphics. The language includes a number of features which make it ideal for data analysis and visualization and is the primary computing language used in this course.
 
