@@ -12,7 +12,7 @@ Over this tutorial series we be extensively using R. This is the language which 
 
 ## R and Rstudio
 
-{% include figure.html image="/assets/Rlogo.svg" position="right" width="200" link="https://www.r-project.org/logo/Rlogo.svg" title="R logo" author="R Foundation" license="CC-BY-SA 4.0" license_link="https://creativecommons.org/licenses/by-sa/4.0/"%}
+{% include figure.html image="/assets/Rlogo.svg" position="right" width="250" link="https://www.r-project.org/logo/Rlogo.svg" title="R logo" author="R Foundation" license="CC-BY-SA 4.0" license_link="https://creativecommons.org/licenses/by-sa/4.0/"%}
 
 R is an open source functional programming language developed for statistical computing and graphics. The language includes a number of features which make it ideal for data analysis and visualization and is the primary computing language used in this course.
 
@@ -20,17 +20,17 @@ RStudio in an open source integrated development environment (IDE) written and m
 
 ## Installation
 
-### R
+#### R
 
-To use R go to https://www.r-project.org/, select a mirror via the CRAN link located on the top right, download the appropriate binary distribution for your operating system, and follow the on screen instructions when opening the downloaded file.
+To use R go to [https://www.r-project.org/](https://www.r-project.org/), select a mirror via the CRAN link located on the top right, download the appropriate binary distribution for your operating system, and follow the on screen instructions when opening the downloaded file.
 
-### Rstudio
+#### Rstudio
 
-Rstudio can be downloaded at https://www.rstudio.com/, select the Products->Rstudio tab within the navigation links at the top, then download the "RStudio Desktop - Open Source Edition", and follow the on screen instructions. Rstudio will automatically detect the current R on your operating system and call the R executable on startup.
+Rstudio can be downloaded at [https://www.rstudio.com/](https://www.rstudio.com/), select the Products->Rstudio tab within the navigation links at the top, then download the "RStudio Desktop - Open Source Edition", and follow the on screen instructions. Rstudio will automatically detect the current R on your operating system and call the R executable on startup.
 
 ## CRAN and Bioconductor
 
-### CRAN
+#### CRAN
 
 Part of what makes R an attractive option for data analysis and visualization is the support it receives from a large community of developers. Part of this support comes from users adding additional functionality to core R via functions and data through packages. The Comprehensive R Archive network (CRAN) is a network of servers that stores R, documentation, and many of the packages available for R. To date there are 9,975 [packages on CRAN](https://cran.r-project.org/web/packages/), these packages can be installed by running the following in an R terminal:
 ```R
@@ -38,7 +38,7 @@ Part of what makes R an attractive option for data analysis and visualization is
 install.packages("plyr")
 ```
 
-### Bioconductor
+#### Bioconductor
 
 Bioconductor is another archive of R packages specific to bioinformatics and genomics. The archive is maintained by the bioconductor core team and is updated bi-annually. To date there are 2,541 [packages available via bioconductor](http://bioconductor.org/packages/release/BiocViews.html#___Software). Packages can be found using biocViews which act as tags for relevant topics. Bioconductor packages can be installed by running the following in an R terminal:
 
@@ -55,10 +55,13 @@ biocLite("GenomicFeatures")
 source("https://bioconductor.org/biocLite.R")
 biocLite("BiocUpgrade")
 ```
+## Documentation and example data in R
+
+As with any software, documentation is key to the usefullness for a user. In this regard R excels, to find the documentation for a specific function in R simply prepend a ? to the function name. This will pull up a manual specific to that function. Further many packages have additional documentation in the form of vignettes, to view these vignettes from R use the vignette() function. In addition the source code for any function in R can be viewed by typing the function name into R without any params or parentheses. In addition to it's exceptional documentation R has a variety of data sets pre-loaded, in order to view these simply type data() in your R terminal. We will be using a few of these data sets to illustrate key concepts in this lesson.
 
 ## Assignment and Data types
 
-When working in any language you need to store values into variables. Defining a variable tells the language to allocate space in memory to store that variable. In R A variable is assigned with the assignment operator "<-" or "=", which assign in the user workspace or the current scope respectively (For the purposes of this course assignment should always occur with the "<-" operator). All variables are stored in objects the least complex of which is the atomic vector, these in turn are of a specific type. There are six main data types which are: "numeric", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the is.foo() family of function which will return a logical vector, alternatively the data type can be determined with the class() function. An example of each data type is shown below:
+When working in any language you need to store values into variables. Defining a variable tells the language to allocate space in memory to store that variable. In R A variable is assigned with the assignment operator "<-" or "=", which assign in the user workspace or the current scope respectively (For the purposes of this course assignment should always occur with the "<-" operator). All variables are stored in objects the least complex of which is the atomic vector, these in turn are of a specific type. There are six main data types which are: "numeric", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the is.foo() family of function which will return a logical vector, alternatively the data type can be determined with the class() function. An example of each data type is shown below.
 
 <iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=0K2pRVez&version=1' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
 
@@ -92,7 +95,7 @@ is.complex(grault)
 {:/comment}
 
 ## Data structures
-Data structures in R are objects which hold the data types mentioned above. The type of data structure to use depends on the homogeneity of the data types stored and the number of dimensions needed. The most common data structure in R is the vector which contains data in 1 dimension and comes in two types called Atomic vectors and lists. Atomic vectors are homogeneous in that all the data contained within them must be homogeneous (i.e. all numeric, all character, etc.). In contrast lists can contain a mix of data types and can even contain other data structures. Atomic vectors are created with the c() function, the type of atomic vector can be determined with the typeof() function. Vectors in R can be spliced with the [] brackets, using either a boolean vector, or a numeric index.
+Data structures in R are objects which hold the data types mentioned above. The type of data structure to use depends on the homogeneity of the data types stored and the number of dimensions needed. The most common data structure in R is the vector which contains data in 1 dimension and comes in two types called Atomic vectors and lists. Atomic vectors are homogeneous in that all the data contained within them must be of the same type (i.e. all numeric, all character, etc.). In contrast lists can contain a mix of data types and can even contain other data structures. Atomic vectors are created with the c() function, the type of atomic vector can be determined with the typeof() function. Vectors in R can be spliced with the [] brackets, using either a boolean vector, or a numeric index.
 
 <iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=0K2pRVez&version=2' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
 
@@ -131,7 +134,7 @@ myList[[1]]
 ```
 {:/comment}
 
-It is important to cover attributes in our discussion of data structures. All objects can contain attributes which are used to hold metadata regarding the object. An example of an attribute for vectors are names, we can give names to each element within a vector with the names function. Another attribute is a factor, which is used extensively in ggplot2 to determine order. Factors hold metadata regarding the order and the expected values within a vector. they are defined with the factor function()
+It is important to cover attributes in our discussion of data structures. All objects can contain attributes which are used to hold metadata regarding the object. An example of an attribute for vectors are names, we can give names to each element within a vector with the names function. Another attribute is a factor, which is used extensively in ggplot2 to determine order. Factors hold metadata regarding the order and the expected values within a vector. they are defined with the function factor().
 
 <iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=CwYp9cWT' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
 
@@ -148,10 +151,85 @@ vec <- factor(vec, levels=c(2, 1))
 ```
 {:/comment}
 
-Within this course the majority of our work will be with data frames. This is the input ggplot2 expects and is common and useful object throughout the R language. Dataframes are 2 dimensional and store vectors, these vectors can be accessed with either the square brackets or the $ function. When using [] brackets a comma is needed to specify whether a column or row extracted (see Data Frames, slicing and manipulation). They are created using the data.frame() function and is usually the format of data when reading into R. Data frames can be combined in R using the cbind() and rbind() functions assuming the data frames being combined have the same columns and rows respectively. If they do not functions exist within the plyr package cbind.fill() and rbind.fill() to bind data frames and fill in NA values for columns or rows that do no match.
-## Reading and writing data
+## importing and exporting data
+
+As we have seen, we can create data on the fly in R with the various data structure functions. However it is much more likely that you will need to import data into R to perform analysis. Given the number of packages available, if a common filetype exists (XML, JSON, XLSX) R can probably import it. The most common situation is a simple delimited text file. For this the read.table() function and it's various deriviatives are immenseley usefull. Once data has been imported and analysis completed you will need to get data back out of R. Similar to read.table(), R has functions for this purpose. write.table() will export the data given to the file on disk specified.
+
 ## Data Frames, slicing and manipulation
-## Counting, aggregating
-## Basic control structures
+
+Within this course the majority of our work will be with data frames. This is the input ggplot2 expects and is a common and useful object throughout the R language. Dataframes are 2 dimensional and store vectors, these vectors can be accessed with either the square brackets or the $ operator. When using [] brackets a comma is needed to specify whether a column or row extracted (see Data Frames, slicing and manipulation). They are created using the data.frame() function and is usually the format of data when reading into R. Data frames can be combined in R using the cbind() and rbind() functions assuming the data frames being combined have the same columns and rows respectively. If they do not functions exist within various packages to bind data frames and fill in NA values for columns or rows that do no match.
+
+<iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=G2rkRtZm' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
+
+{::comment}
+# view the column names of a dataframe
+colnames(mtcars)
+
+# view row names of a dataframe
+rownames(mtcars)
+
+# subset dataframe to cars with only 8 cyl
+mtcars[mtcars$cyl == 8,]
+
+# subset dataframe to first two columns
+mtcars[,1:2]
+{:/comment}
+
+## Counting and aggregating
+
+During the course of an analysis it is often usefull to determine the frequency of an event. A useful function exists for this purpose in the plyr package ironically called count(). Let's answer a few questions regarding a few internal R data sets using the count function.
+
+<iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=G2rkRtZm&version=1' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
+
+{::comment}
+# first load the plyr package if it's not loaded already
+library(plyr)
+
+# How many replicates are there for each species of the iris data?
+count(iris$Species)
+
+# How many cars in the mtcars dataset have both 8 cylinders and 4 carburetors
+count(mtcars, c("cyl", "carb"))
+{:/comment}
+
+As we can see count() is exceptionally usefull but what if we want to do something more complicated like find the average displacement of cars with 8 cylinders and 4 carburetors in the mtcars dataset. Luckily theres a function for that, aggregate() will splice data based on a formula and apply a function across those subsets. Lets go over a few examples and work up to what we want.
+
+<iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=G2rkRtZm&version=3' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
+
+{::comment}
+# find the mean displacement based on the number of cylinders
+aggregate(data=mtcars, disp~cyl, mean)
+
+# find the mean displacement based on the number of cylinders and carburetors
+aggregate(data=mtcars, disp~cyl + carb, mean)
+{:/comment}
+
 ## Apply family of functions
+
+The apply() functions provide the ablility to loop over differing data structures through various ways. There are there a many of these functions however over this course we will primarily use apply(), lapply(), and mapply(). apply() will apply a function over either the rows or columns of a matrix the determination of which is provided by the second argument to the function call. For example given a matrix x, apply(x, 1, min) will apply the min function to every row of the matrix x. Similarily apply(x, 2, min) will apply the min function to every column of the matrix x.
+
+{% include figure.html image="/assets/applyTable.png" width="750" %}
+
+<iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=G2rkRtZm&version=4' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
+
+{::comment}
+# set a seed for consistency
+set.seed(426)
+
+# create a matrix
+x <- matrix(runif(40, 1, 100), ncol=5)
+
+# find the minimum value in each row
+apply(x, 1, min)
+
+# find the minimum value in each column
+apply(x, 2, min)
+{:/comment}
+
+lapply() loops over either a list or vector of elements and returns the results of the applied funciton as a list. sapply() is similar and is in fact a wrapper for lapply(), the primary difference between the two is that
+sapply will simplify the data structure if possible.
+
+<iframe width='100%' height='300' src='http://www.r-fiddle.org/#/embed?id=G2rkRtZm&version=6' allowfullscreen='allowfullscreen' frameborder='0'></iframe>
+
+## Basic control structures
 ## Additional resources
