@@ -30,7 +30,8 @@ Dr. Obi Griffith is Assistant Professor of Medicine and Assistant Director at th
 {% endfor %}
 </nav>
 {% include figure.html image="/assets/MG14.jpg" position="right" %}
-Lorem ipsum dolor sit amet, feugiat constituto intellegebat nam te, sit rebum explicari ex, cu paulo ludus albucius quo. Mollis meliore adversarium ei vim, partem omnesque dissentiunt ad duo. Eum an illud doming vulputate, nibh saperet cum ne. Nisl iisque te vix, no quo tale dicit, minimum accusamus vix cu. Duis equidem ut sea, aliquam vivendo consequat est ne, has te nibh partiendo efficiantur. Graeco ancillae iudicabit eu sed, cu mei libris ancillae deterruisset.
+Dr. Malachi Griffith is an Assistant Director of the McDonnell Genome Institute and an Assistant Professor in the Department of Medicine. Dr. Griffith's research is focused on the development of genomics, bioinformatics and statistical methods as they apply to the study of cancer biology and medicine. A particular focus of his work is in the translation of genomics data from whole genome, exome and transcriptome sequencing into clinically actionable observations and personalized cancer therapies.
+ Dr. Griffith is a regular instructor for the Canadian Bioinformatics Workshops series and Cold Spring Harbor Laboratories. Dr. Griffith is currently supported by an NIH R00 pathway to independence grant. Before coming to Washington University Dr. Griffith was a bioinformatics post-doctoral fellow at the BC Cancer Agency Genome Sciences center in Vancouver, British Columbia. He received his Ph.D. (Medical Genetics, 2009) from the University of British Columbia and B.S. (Biochemistry and Biology with Honors, 2002) from the University of Winnipeg.
 
 ***
 
