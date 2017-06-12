@@ -17,7 +17,7 @@ layout: "home"
 {% endfor %}
 </nav>
 {% include figure.html image="/assets/obig2.jpg" position="right" %}
-Lorem ipsum dolor sit amet, feugiat constituto intellegebat nam te, sit rebum explicari ex, cu paulo ludus albucius quo. Mollis meliore adversarium ei vim, partem omnesque dissentiunt ad duo. Eum an illud doming vulputate, nibh saperet cum ne. Nisl iisque te vix, no quo tale dicit, minimum accusamus vix cu. Duis equidem ut sea, aliquam vivendo consequat est ne, has te nibh partiendo efficiantur. Graeco ancillae iudicabit eu sed, cu mei libris ancillae deterruisset.
+Dr. Obi Griffith is Assistant Professor of Medicine and Assistant Director at the McDonnell Genome Institute. Dr. Griffith's research is focused on the development of personalized medicine strategies for cancer using genomic technologies with a particular focus on gene regulatory changes associated with breast cancer. He develops and uses bioinformatics and statistical methods for the analysis of high throughput sequence data and identification of biomarkers for diagnostic, prognostic and drug response prediction. Dr. Griffith has developed and instructs a workshop on RNA sequence analysis for Cold Spring Harbor Laboratories and is a regular instructor for the Canadian Bioinformatics Workshops series. Before coming to Washington University, Dr. Griffith completed bioinformatics post-doctoral fellowships at Lawrence Berkeley National Laboratory in Berkeley, California and at the BC Cancer Agency Genome Sciences Centre in Vancouver, British Columbia. He received his Ph.D. (Medical Genetics, 2008) from the University of British Columbia and B.S. (Biochemistry and Biology with Honors, 2002) from the University of Winnipeg.
 
 ***
 
