@@ -220,4 +220,42 @@ sapply(x, sd)
 ```
 
 ## Basic control structures
+
+In general it is preferable to "vectorize" your R code wherever possible. Using functions which take vector arguments will greatly speed up your R code. Under the hood these "vector" functions are generally written in compiled languages such as C++, FORTRAN, etc. and the corresponding R functions are just wrappers. These functions are much faster when applied over a vector of elements because the compiled code is taking care of the low level processes such as allocating memory rather than forcing R to do it. There are cases when it is impossible to "vectorize" your code. In such cases there are control structures to help out. Let's take a look at the syntax of a for loop to sum a vector of elements and see how it compares to just running sum().
+
+```R
+# install and load a benchmarking package
+install.packages("microbenchmark")
+library(microbenchmark)
+
+# create a numeric vector to sum
+x <- c(2, 4, 6, 8, 10)
+
+# write a function to sum all numbers
+mySum <- function(x){
+
+    if(!is.numeric(x)){
+        stop("non-numeric argument")
+    }
+
+	y <- 0
+	for(i in 1:length(x)){
+		y <- x[i] + y
+	}
+
+	return(y)
+}
+
+# both functions produce the correct answer
+mySum(x)
+sum(x)
+
+# run benchmark testss
+microbenchmark(mySum(x), sum(x))
+```
+
+In mySum we use a for loop to sum all the elements of the vector. The syntax is fairly straight forward, we loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that we use an if statement to make sure the user has supplied a numeric vector. This statement simply executes the block of code in curly brackets if the expression in parenthesis is TRUE, we use an ! to reverse the outcome of the result give by is.numeric(). All of this is defined as a function which is just a way to store a piece of code so we don't have to type the same code over and over. As we can see sum() is 2-3 orders of magnitude faster.
+
 ## Additional resources
+
+* http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html
