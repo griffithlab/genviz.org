@@ -258,4 +258,4 @@ In mySum we use a for loop to sum all the elements of the vector. The syntax is 
 
 ## Additional resources
 
-* http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html
+* [http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html](http://www.noamross.net/blog/2014/4/16/vectorization-in-r–why.html)
