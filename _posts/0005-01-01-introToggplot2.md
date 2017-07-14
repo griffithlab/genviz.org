@@ -19,7 +19,7 @@ install.packages("ggplot2")
 library(ggplot2)
 
 # load Supplemental Table S5
-variantData <- read.delim("~/Desktop/ggplot2ExampleData.tsv.txt")
+variantData <- read.delim("ggplot2ExampleData.tsv")
 
 # make a coverage column since this doesn't exist yet
 variantData$tumor_COV <- variantData$tumor_ref_count + variantData$tumor_var_count
@@ -92,7 +92,7 @@ We can use this to answer a few questions, what if we wanted to know if the "dis
 
 ```
 # get a density curve of tumor vafs
-p1 <- ggplot() + geom_denstiy(aes(x=tumor_VAF, colour=dataset))
+p1 <- ggplot() + geom_density(aes(x=tumor_VAF, colour=dataset))
 p1
 
 # let's add a bit more detail
@@ -104,9 +104,11 @@ p3 <- p2 + scale_fill_manual(values=c("discovery"="#a13242", "extension"="#1a293
 p3
 ```
 
-In the first plot we've told ggplot to differentiate the data based on the "dataset" column using color. As we can see it separated the data out based on this variable resulting in two density curves. In the second plot we are telling ggplot to do the same thing however we are using the aesthetic fill to differentiate the data instead and are globally assigning the colour and alpha instead which correspond to the transparency and line colour respectively. We also set the adjust parameter which will reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Finally in the last plot we manually adjust the fill colours ggplot uses with [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html)
+In the first plot we've told ggplot to differentiate the data based on the "dataset" column using color. As we can see it separated the data out based on this variable resulting in two density curves. In the second plot we are telling ggplot to do the same thing however we are using the aesthetic fill to differentiate the data instead and are globally assigning the colour and alpha which correspond to the transparency and line colour respectively. We also set the adjust parameter which will reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Finally in the last plot we manually adjust the fill colours ggplot uses with [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html)
 
 ### faceting
+
+Depending on the geometric object used there are up to 10 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets. Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. Let's try and answer a few quick questions about our data using facets.
 
 ### displaying additional variables
 
