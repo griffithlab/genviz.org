@@ -68,6 +68,8 @@ p1
 
 Perhaps the easiest thing to do is simply plot just the points within the range we want, we can achieve this by adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layer. [ylim()](http://ggplot2.tidyverse.org/reference/lims.html) is a shortcut which does the same thing. You'll see a warning when doing this, all it's saying is that it's removing rows from the data frame not within the specified range. There is an "out of bounds" parameter within [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) to control what happens with these points but perhaps this isn't the best method to achieve our goal. In method 2 we actually transform the data values themselves applying a log2 transform. While this works beautifully it perhaps isn't intuitive to interpret the log2 of read coverage. A better method might be to not transform the values but rather adjust the plotting scale itself (method 3).
 
+### using different aesthetics
+
 This plot is looking pretty good but is lacking color we can add some by simply defining that aesthetic. We can specify a color by either the hex code or by naming it from R's internal colour pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf), alternatively you can list colors by typing colors() in the R terminal.
 
 ```R
@@ -86,11 +88,27 @@ p3
 
 Above we chose "darkorchid4" which has a hex value of "#68228B", however the points in the first plot (p2) are red not purple as would be expected so what is going on? The answer is reliant on how ggplot interprets aesthetic mappings. When we specified our quoted hex code in the aesthetic ggplot assummed we wanted to add another variable to the data. It did this for us and then used it's internal color scheme to color that variable. To actually color the points purple we can specify the color outside the aesthetic mapping as in the latter plot (p3).
 
-We can use this to answer a few questions, what if we wanted to know if the "discovery" or "extension" cohorts within the data have a higher tumor purity. Let's use [geom_density()]() in combination with color to find out.
+We can use this to answer a few questions, what if we wanted to know if the "discovery" or "extension" cohorts within the data have a higher tumor purity. Let's use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html), which will plot a density kernel, in combination with color to find out.
 
-### displaying additional variables
+```
+# get a density curve of tumor vafs
+p1 <- ggplot() + geom_denstiy(aes(x=tumor_VAF, colour=dataset))
+p1
+
+# let's add a bit more detail
+p2 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, fill=dataset), alpha=.75, colour="black", adjust=.5)
+p2
+
+# and let's change the colors some more
+p3 <- p2 + scale_fill_manual(values=c("discovery"="#a13242", "extension"="#1a2930"))
+p3
+```
+
+In the first plot we've told ggplot to differentiate the data based on the "dataset" column using color. As we can see it separated the data out based on this variable resulting in two density curves. In the second plot we are telling ggplot to do the same thing however we are using the aesthetic fill to differentiate the data instead and are globally assigning the colour and alpha instead which correspond to the transparency and line colour respectively. We also set the adjust parameter which will reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Finally in the last plot we manually adjust the fill colours ggplot uses with [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html)
 
 ### faceting
+
+### displaying additional variables
 
 ### wide vs long format
 
