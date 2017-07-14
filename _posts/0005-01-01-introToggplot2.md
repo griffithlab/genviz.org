@@ -8,10 +8,10 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0005-01-01
 ---
 
-There are three primary graphics program available within the R environment. Base-r graphics are installed by default and provide a simple mechanism to quickly create graphs, lattice is a graphics program influenced by trellis graphics, and ggplot2 is a graphics program based on the grammar of graphics idealogy. In this course we will be focusing on ggplot2 as our graphics package of choice and use it to explore Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only).
+There are three primary graphics program available within the R environment. base-r graphics are installed by default and provide a simple mechanism to quickly create graphs. lattice is a graphics program influenced by trellis graphics. ggplot2 is a graphics program based on the grammar of graphics idealogy. In this course, we will be focusing on ggplot2 as our graphics package of choice and use it to explore Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only).
 
-### basic ggplot2 syntax
-ggplot is based on a system of layering graphical object to create a final plot and takes data frames as it's input. Let's start with loading the ggplot2 library and plotting the tumor variant allele fractions and coverage.
+### Basic ggplot2 syntax
+ggplot is based on a system of layering graphical objects to create a final plot, utilizing data frames as its input. We will start by installing and loading the ggplot2 library. After importing our data ('ggplot2ExampleData.tsv.txt'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our ggplot() function and compare the coverage variable to the variant allele frequency (tumor_VAF).
 
 ```R
 # install the ggplot2 library and load it
@@ -30,7 +30,7 @@ p1
 ```
 
 ### geom and aes
-you should see a blank plot at this point so what is going on. Well we invoked ggplot with [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) and gave it the data frame we wish to plot. We then supplied aesthetic mappings with [aes()](http://ggplot2.tidyverse.org/reference/aes.html) which told ggplot which columns should be assigned to the geometric objects aesthetics. In this specific case we are telling ggplot that the data is in the data frame "varaintData" and we want the column tumor_VAF to be assigned to the x-axis and tumor_COV to be assigned to the y-axis. ggplot has done this and we can see it has automatically determined the axis scales given the ranges in the data supplied however nothing is actually plotted because we have not said what geometric object to use. let's try adding a geometric object as a layer to the plot and see what happens, all layers can be added with a [+](http://ggplot2.tidyverse.org/reference/gg-add.html).
+The variable p1 generates a blank plot in the bottom right "Plot" window in Rstudio. We invoked ggplot with [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) and specified the data frame we are trying to plot. We then supplied aesthetic mappings with [aes()](http://ggplot2.tidyverse.org/reference/aes.html), which told ggplot which columns should be assigned to the geometric objects aesthetics. In this specific case, we are telling ggplot that the data is in the data frame "variantData", the column tumor_VAF should be plotted along the x-axis, and tumor_COV should be plotted along the y-axis. ggplot has determined the axis scales, given the ranges in the data supplied. However, nothing is actually plotted because we have not specified what geometric object to use. The geometric objects in ggplot describe how we are plotting the data (e.g. geom_point() for scatterplots, geom_bar() for bar charts). Geometric objects are added as plot layers to the ggplot() command using a [+](http://ggplot2.tidyverse.org/reference/gg-add.html).
 
 ```R
 # add a point geom to the plot (method 1)
