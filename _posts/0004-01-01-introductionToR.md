@@ -176,7 +176,7 @@ count(iris$Species)
 count(mtcars, c("cyl", "carb"))
 ```
 
-We can also use the aggregate() function to splice our data frames and perform more complicated analyses. For example, what if we want to find the average displacement of cars with 8 cylinders or 4 carburetors in the mtcars dataset?  This requires a formula to splice the data frame based upon the number of cylinders or carburetors and apply the function mean() to each subset. 
+We can also use the aggregate() function to splice our data frames and perform more complicated analyses. The aggregate() function requires a formula, by which to splice the data frame, and a function to apply to the subsets described in the formula. In the example below, we will find the average displacement (disp) of cars with 8 cylinders (cyl) and/or 4 carburetors (carb). We will use formulas to splice the data frame by displacement and number of cylinders (disp~cyl) or displacement and number of cylinders and carburetors (disp~cyl + carb) and apply the function mean() to each subset.
 
 ```R
 # find the mean displacement based on the number of cylinders
@@ -190,9 +190,23 @@ aggregate(data=mtcars, disp~cyl + carb, mean)
 
 If you are familiar with other coding languages, you are probably comfortable with looping through the elements of a data structure using functions such as 'for' and 'while'. The apply() family of functions in R make this much easier by inherently looping through a data structure without having to increment throught the indices of the structure. The apply() family consists of lapply() and sapply() for lists, vectors, and data frames and apply() for data frames, which we will discuss here. Note that there are other members of the apply() family of functions.
 
-lapply() loops through a list, vector, or data frame, and returns the results of the applied function as a list. sapply()
+lapply() loops through a list, vector, or data frame, and returns the results of the applied function as a list. sapply() loops through a list, vector, or data frame, and returns the results of the function as a vector or a simplified data structure (in comparison to lapply).
 
-The apply() functions provide the ablility to loop over differing data structures through various ways. There are there a many of these functions however over this course we will primarily use apply(), lapply(), and mapply(). apply() will apply a function over either the rows or columns of a matrix the determination of which is provided by the second argument to the function call. For example given a matrix x, apply(x, 1, min) will apply the min function to every row of the matrix x. Similarily apply(x, 2, min) will apply the min function to every column of the matrix x.
+```R
+# set a seed for consistency
+set.seed(426)
+
+# create a list of distributions
+x <- list("dist1"=rnorm(20, sd=5), "dist2"=rnorm(20, sd=10))
+
+# find the standard deviation of each list element
+lapply(x, sd)
+
+# return the simplified result
+sapply(x, sd)
+```
+
+apply() loops over a data frame or matrix, applying the specified function to every row (specified by '1') or column (specified by '2'). For example, given a matrix x, apply(x, 1, min) will apply the min() function to every row of the matrix x, returning the minimum value of each row. Similarly, apply(x, 2, min) will apply the min() function to every column of matrix x, returning the minimum value in each column. 
 
 {% include figure.html image="/assets/applyTable.png" width="750" %}
 
@@ -209,27 +223,11 @@ apply(x, 1, min)
 # find the minimum value in each column
 apply(x, 2, min)
 ```
-
-lapply() loops over either a list or vector of elements and returns the results of the applied funciton as a list. sapply() is similar and is in fact a wrapper for lapply(), the primary difference between the two is that
 sapply will simplify the data structure if possible.
-
-```R
-# set a seed for consistency
-set.seed(426)
-
-# create a list of distributions
-x <- list("dist1"=rnorm(20, sd=5), "dist2"=rnorm(20, sd=10))
-
-# find the standard deviation of each list element
-lapply(x, sd)
-
-# return the simplified result
-sapply(x, sd)
-```
 
 ## Basic control structures
 
-In general it is preferable to "vectorize" your R code wherever possible. Using functions which take vector arguments will greatly speed up your R code. Under the hood these "vector" functions are generally written in compiled languages such as C++, FORTRAN, etc. and the corresponding R functions are just wrappers. These functions are much faster when applied over a vector of elements because the compiled code is taking care of the low level processes such as allocating memory rather than forcing R to do it. There are cases when it is impossible to "vectorize" your code. In such cases there are control structures to help out. Let's take a look at the syntax of a for loop to sum a vector of elements and see how it compares to just running sum().
+In general, it is preferable to "vectorize" your R code wherever possible. Using functions which take vector arguments will greatly speed up your R code. Under the hood, these "vector" functions are generally written in compiled languages such as C++, FORTRAN, etc. and the corresponding R functions are just wrappers. These functions are much faster when applied over a vector of elements because the compiled code is taking care of the low level processes, such as allocating memory rather than forcing R to do it. There are cases when it is impossible to "vectorize" your code. In such cases there are control structures to help out. Let's take a look at the syntax of a for loop to sum a vector of elements and see how it compares to just running sum().
 
 ```R
 # install and load a benchmarking package
@@ -258,11 +256,11 @@ mySum <- function(x){
 mySum(x)
 sum(x)
 
-# run benchmark testss
+# run benchmark tests
 microbenchmark(mySum(x), sum(x))
 ```
 
-In mySum we use a for loop to sum all the elements of the vector. The syntax is fairly straight forward, we loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that we use an if statement to make sure the user has supplied a numeric vector. This statement simply executes the block of code in curly brackets if the expression in parenthesis is TRUE, we use an ! to reverse the outcome of the result give by is.numeric(). All of this is defined as a function which is just a way to store a piece of code so we don't have to type the same code over and over. As we can see sum() is 2-3 orders of magnitude faster.
+In mySum(), we use a for loop to sum all the elements of the vector. The syntax is fairly straight forward. We loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that, we use an if statement to make sure the user has supplied a numeric vector. This statement simply executes the block of code in curly brackets. If the expression in parenthesis is TRUE, we use an ! to reverse the outcome of the result give by is.numeric(). All of this is defined as a function, which is a way to store a piece of code so we don't have to type the same code snippet repeatedly. These benchmark tests show that sum() is 2-3 orders of magnitude faster than our handwritten mySum() function.
 
 ## Additional resources
 
