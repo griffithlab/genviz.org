@@ -10,8 +10,11 @@ date: 0005-01-01
 
 There are three primary graphics program available within the R environment. base-r graphics are installed by default and provide a simple mechanism to quickly create graphs. lattice is a graphics program influenced by trellis graphics. ggplot2 is a graphics program based on the grammar of graphics idealogy. In this course, we will be focusing on ggplot2 as our graphics package of choice and use it to explore Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only).
 
+### Wide vs long format
+Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data should be in long instead of wide format. This simply means that instead of each variable having it's own column there should be a column designating the variable and another column designating the value for that variable.
+
 ### Basic ggplot2 syntax
-ggplot is based on a system of layering graphical objects to create a final plot, utilizing data frames as its input. We will start by installing and loading the ggplot2 library. After importing our data ('ggplot2ExampleData.tsv.txt'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our ggplot() function and compare the coverage variable to the variant allele frequency (tumor_VAF).
+ggplot is based on a system of layering graphical objects to create a final plot, utilizing data frames as its input. We will start by installing and loading the ggplot2 library. After importing our data ('ggplot2ExampleData.tsv.txt'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) function and compare the coverage variable to the variant allele frequency (tumor_VAF).
 
 ```R
 # install the ggplot2 library and load it
@@ -149,13 +152,12 @@ p4
 # altering a few more visual apects
 p5 <- p4 + theme(legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"))
 p5
+
+# Let's remove the y-axis ticks as well
+p6 <- p5 + theme(axis.title.x=element_blank())
 ```
 
-Let's take a few minutes to discuss what is going on here. In p3, we've used [theme_bw()](http://ggplot2.tidyverse.org/reference/ggtheme.html)
-
-
-### Wide vs long format
-
+Let's take a few minutes to discuss what is going on here. In p3, we've used [theme_bw()](http://ggplot2.tidyverse.org/reference/ggtheme.html), this function just changes a series of values from the basic default [theme()](). There are many such "complete themes" in ggplot and a few external packages as well containing additional "complete themes" such as [ggtheme](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html). In p4, we alter the axis.text.x parameter, we can see from the documentation that axis.text.x inherits from [element_text()](http://ggplot2.tidyverse.org/reference/element.html) which is just saying that any parameters in [element_text()](http://ggplot2.tidyverse.org/reference/element.html) also apply to axis.text.x. In this specific case we alter the angle of text to 45 degrees, and set the horizontal justification to the right. In p5 we change the position of the legend, change the colour of the strip.text, and change the strip background. Finally in p6 we remove the x-axis label with [element_blank()](http://ggplot2.tidyverse.org/reference/element.html) which will draw nothing.
 
 ### Practice examples
 
@@ -165,6 +167,5 @@ Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. 
 Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
 
 ### Additional resources
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
 
-Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
+* http://seananderson.ca/2013/10/19/reshape.html
