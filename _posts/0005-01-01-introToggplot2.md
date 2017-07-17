@@ -108,11 +108,53 @@ In the first plot we've told ggplot to differentiate the data based on the "data
 
 ### faceting
 
-Depending on the geometric object used there are up to 10 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets. Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. Let's try and answer a few quick questions about our data using facets.
+Depending on the geometric object used there are up to 10 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets. Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. There are two facet commands, [facet_wrap()](http://ggplot2.tidyverse.org/reference/facet_wrap.html) will create a 1 dimensional sequence of panels based on a one sided linear formula. Similarly [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) will create a 2 dimensional grid of panels. Let's try and answer a few quick questions about our data using facets.
 
-### displaying additional variables
+```R
+# what is the most common mutation type among SNP's
+p1 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type))
+p1
+
+# what is the relation of tiers to mutation type
+p2 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier))
+p2
+
+# which reference base is most often mutated
+p2 <- p2 + facet_wrap(~reference)
+
+# which transitions and transversions occur most frequently
+p2 <- p2 + facet_grid(reference ~ variant)
+```
+
+### ggplot themes
+
+Almost every aspect of a ggplot object can be altered. We've already gone over how to alter the display of data but what if we want to alter the display of the non data elements? Fortunately there is a function for that called [theme()](http://ggplot2.tidyverse.org/reference/theme.html). You'll notice in the previous plot some of the x-axis names are colliding with one another, let's fix that and alter some of the theme parameters to make the plot more visually appealing.
+
+```R
+# recreate plot p2 if it's not in your environment
+p2 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(reference ~ variant)
+p2
+
+# load in a theme with a few presets set
+p3 <- p2 + theme_bw()
+p3
+
+# put the x-axis labels on a 45 degree angle
+p4 <- p3 + theme(axis.text.x=element_text(angle=45, hjust=1))
+p4
+
+# altering a few more visual apects
+p5 <- p4 + theme(legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"))
+p5
+```
+
+Let's take a few minutes to discuss what is going on here. In p3, we've used [theme_bw()](http://ggplot2.tidyverse.org/reference/ggtheme.html)
+
 
 ### wide vs long format
+
+
+### Practice examples
 
 ### ggvis
 Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
