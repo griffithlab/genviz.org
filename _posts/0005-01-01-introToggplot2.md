@@ -13,7 +13,7 @@ There are three primary graphics program available within the R environment. bas
 ### Wide vs long format
 Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data should be in long instead of wide format. This simply means that instead of each variable having it's own column there should be a column designating the variable and another column designating the value for that variable.
 
-### Basic ggplot2 syntax
+### Introducing ggplot2 syntax
 ggplot is based on a system of layering graphical objects to create a final plot, utilizing data frames as its input. We will start by installing and loading the ggplot2 library. After importing our data ('ggplot2ExampleData.tsv.txt'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) function and compare the coverage variable to the variant allele frequency (tumor_VAF).
 
 ```R
@@ -31,6 +31,9 @@ variantData$tumor_COV <- variantData$tumor_ref_count + variantData$tumor_var_cou
 p1 <- ggplot(data=variantData, aes(x=tumor_VAF, y=tumor_COV))
 p1
 ```
+
+### Data frame manipulation for ggplot2
+In the plot above, we are comparing two continuous variables along the x and y axes. Any aesthetic mapped within the ggplot() command is based upon the titles of these variables.  
 
 ### Geometric objects and aesthetic mapping
 The variable p1 generates a blank plot in the bottom right "Plot" window in Rstudio. We invoked ggplot with [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) and specified the data frame we are trying to plot. We then supplied aesthetic mappings with [aes()](http://ggplot2.tidyverse.org/reference/aes.html), which told ggplot which columns should be assigned to the geometric objects aesthetics. In this specific case, we are telling ggplot that the data is in the data frame "variantData", the column tumor_VAF should be plotted along the x-axis, and tumor_COV should be plotted along the y-axis. ggplot has determined the axis scales, given the ranges in the data supplied. However, nothing is actually plotted because we have not specified what geometric object to use. The geometric objects in ggplot describe how we are plotting the data (e.g. geom_point() for scatterplots, geom_bar() for bar charts). Geometric objects are added as plot layers to the ggplot() command using a [+](http://ggplot2.tidyverse.org/reference/gg-add.html).
