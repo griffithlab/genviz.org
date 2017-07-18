@@ -9,7 +9,7 @@ date: 0006-01-01
 ---
 
 <!-- Introduce GenVisR and the problem it solves -->
-Over the years, the efficiency of __. This has generated a massive amount of data (on the level of __ ) that is availabe for analysis. To date, there are insufficient bioinformatics tools that can __. To alleviate this bottleneck, GenVisR is a bioconductor package in R that aids in the analysis of cohort-level genomic data. In this module, we will become familiar with the GenVisR package and work with several functions to visualize genomic data at the level of single nucleotide variants (SNVs), insertions, deletions, loss of heterozygosity, copy number variants, and coverage. 
+The advent of next generation sequencing (NGS) has allowed for the production of massive amounts of genomic data that is available for analysis. While there exist bioinformatics tools to identify mutational events found within individual samples, these tools are insufficient to fully and accurately understand the biological impact these variants have in a disease like cancer. To help alleviate this bottleneck, GenVisR is a bioconductor package in R that allows for the generation of highly-customized publication quality visualizations that aid in the analysis of cohort-level genomic data. In this module, we will become familiar with the GenVisR package and work with several functions to visualize/analyze genomic data at the level of single nucleotide variants (SNVs), insertions, deletions, loss of heterozygosity, copy number variants, and coverage. 
 
 The GenVisR package from the Bioconductor website and following the installation instructions: [https://bioconductor.org/packages/release/bioc/html/GenVisR.html] (https://bioconductor.org/packages/release/bioc/html/GenVisR.html).
 
