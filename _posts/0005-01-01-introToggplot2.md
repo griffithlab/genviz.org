@@ -11,7 +11,9 @@ date: 0005-01-01
 There are three primary graphics program available within the R environment. base-r graphics are installed by default and provide a simple mechanism to quickly create graphs. lattice is a graphics program influenced by trellis graphics. ggplot2 is a graphics program based on the grammar of graphics idealogy. In this course, we will be focusing on ggplot2 as our graphics package of choice and use it to explore Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only).
 
 ### Wide vs long format
-Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data should be in long instead of wide format. This simply means that instead of each variable having it's own column there should be a column designating the variable and another column designating the value for that variable.
+Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data should be in long instead of wide format. This simply means that instead of each variable having it's own column there should be a column/columns designating a key/value pair.
+
+{% include figure.html image="/assets/long_v_wide.png" width="750" %}
 
 ### Introducing ggplot2 syntax
 ggplot is based on a system of layering graphical objects to create a final plot, utilizing data frames as its input. We will start by installing and loading the ggplot2 library. After importing our data ('ggplot2ExampleData.tsv.txt'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) function and compare the coverage variable to the variant allele frequency (tumor_VAF).
@@ -33,7 +35,7 @@ p1
 ```
 
 ### Data frame manipulation for ggplot2
-In the plot above, we are comparing two continuous variables along the x and y axes. Any aesthetic mapped within the ggplot() command is based upon the titles of these variables.  
+In the plot above, we are comparing two continuous variables along the x and y axes. Any aesthetic mapped within the [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) command is based upon the titles of these variables.
 
 ### Geometric objects and aesthetic mapping
 The variable p1 generates a blank plot in the bottom right "Plot" window in Rstudio. We invoked ggplot with [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) and specified the data frame we are trying to plot. We then supplied aesthetic mappings with [aes()](http://ggplot2.tidyverse.org/reference/aes.html), which told ggplot which columns should be assigned to the geometric objects aesthetics. In this specific case, we are telling ggplot that the data is in the data frame "variantData", the column tumor_VAF should be plotted along the x-axis, and tumor_COV should be plotted along the y-axis. ggplot has determined the axis scales, given the ranges in the data supplied. However, nothing is actually plotted because we have not specified what geometric object to use. The geometric objects in ggplot describe how we are plotting the data (e.g. geom_point() for scatterplots, geom_bar() for bar charts). Geometric objects are added as plot layers to the ggplot() command using a [+](http://ggplot2.tidyverse.org/reference/gg-add.html).
