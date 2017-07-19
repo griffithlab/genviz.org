@@ -13,12 +13,24 @@ Differential expression analysis is used to identify differences in the transcri
 ### dataset
 For this analysis we will use the RNAseq data from [E-GEOD-50760](https://www.ncbi.nlm.nih.gov/pubmed/25049118). This data consists of 54 samples from 18 individuals, each individual has a primary colorectal cancer sample, a metastatic liver sample, and a normal sample of the surrounding colonic epithilium. The quantification data required to run differential expression analysis using DEseq2 are raw readcounts for either genes or transcripts. We will use the output from HTseq as a starting point which can be downloaded [here](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts), sample information can be downloaded [here](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design). A full description of the experimental design can be found at [array express](http://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-50760/) and the [expression atlas](http://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Results).
 
-### dEseq2
+### How does DEseq2 work
+[DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) is a popular differential expression analysis package available through bioconductor. It's differential expression tests are based on a negative binomial generalized linear model. To get started we will first need to install the package and load the library so let's begin.
+```R
+# install the latest version of DEseq2
+source("https://bioconductor.org/biocLite.R")
+biocLite("DESeq2")
+```
+### Input data
+Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of un-normalized sequence read counts at either the gene or transcript level. No normalization of this data is needed because [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) internally corrects for factors, specifically library size using these raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our [example data](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts), let's go ahead and load this data and the [sample information](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design) into R.
 
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
+```R
+# Read in the raw read counts
+rawCounts <- read.delim("E-GEOD-50760-raw-counts.tsv")
 
-Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
-
+# Read in the sample mappings
+sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
+```
 
 ### Additional information and references
 * [Experimental Data, Kim et al.](https://www.ncbi.nlm.nih.gov/pubmed/25049118)
+* [DEseq2](https://www.ncbi.nlm.nih.gov/pubmed/25516281)
