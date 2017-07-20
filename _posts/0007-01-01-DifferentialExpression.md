@@ -36,7 +36,7 @@ The next step is to create an object of class DESeqDataSet, this will store the 
 
 ```R
 # convert count data to a matrix of appropriate form that DEseq2 can read
-geneID <- rownames(rawCounts)
+geneID <- rawCounts$Gene.ID
 sampleIndex <- grepl("SRR\\d+", colnames(rawCounts))
 rawCounts <- as.matrix(rawCounts[,sampleIndex])
 rownames(rawCounts) <- geneID
@@ -46,6 +46,14 @@ rownames(sampleData) <- sampleData$Run
 keep <- c("Sample.Characteristic.clinical.information.", "Sample.Characteristic.individual.")
 sampleData <- sampleData[,keep]
 colnames(sampleData) <- c("tissueType", "individualID")
+sampleData$individualID <- factor(sampleData$individualID)
+
+# put the columns of the count data in the same order as rows names of the sample mapping
+all(unique(rownames(sampleData)) %in% unique(colnames(rawCounts)))
+rawCounts <- rawCounts[,unique(rownames(sampleData))]
+
+# create the DEseq2DataSet object
+DESeqDataSetFromMatrix(countData=rawCounts, colData=sampleData, design= ~ individualID + tissueType)
 ```
 
 ### Additional information and references
