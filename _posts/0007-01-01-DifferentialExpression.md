@@ -19,6 +19,7 @@ For this analysis we will use the RNAseq data from [E-GEOD-50760](https://www.nc
 # install the latest version of DEseq2
 source("https://bioconductor.org/biocLite.R")
 biocLite("DESeq2")
+library(DESeq2)
 ```
 ### Input data
 Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of un-normalized sequence read counts at either the gene or transcript level. No normalization of this data is needed because [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) internally corrects for factors, specifically library size using these raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our [example data](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts), let's go ahead and load this data and the [sample information](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design) into R.
@@ -29,6 +30,22 @@ rawCounts <- read.delim("E-GEOD-50760-raw-counts.tsv")
 
 # Read in the sample mappings
 sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
+```
+
+The next step is to create an object of class DESeqDataSet, this will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula which is used to estimate dispersion and log2 fold changes used within the model. When specifying the formula it should take the form of a ~ followed by + signs separating variables. When using the default DEseq2 parameters the variable of interest (tissue type in this case) should be specified last and the control within that variable should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. There are 4 methods to create this object depending on the format the input data is in. Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
+
+```R
+# convert count data to a matrix of appropriate form that DEseq2 can read
+geneID <- rownames(rawCounts)
+sampleIndex <- grepl("SRR\\d+", colnames(rawCounts))
+rawCounts <- as.matrix(rawCounts[,sampleIndex])
+rownames(rawCounts) <- geneID
+
+# convert sample variable mappings to an appropriate form that DESeq2 can read
+rownames(sampleData) <- sampleData$Run
+keep <- c("Sample.Characteristic.clinical.information.", "Sample.Characteristic.individual.")
+sampleData <- sampleData[,keep]
+colnames(sampleData) <- c("tissueType", "individualID")
 ```
 
 ### Additional information and references
