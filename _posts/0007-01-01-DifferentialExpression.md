@@ -85,9 +85,13 @@ The next step is to run the function [DEseq()](https://www.rdocumentation.org/pa
 2. estimation of dispersion
 3. Negative Binomial GLM fitting and Wald statistic.
 
-This step can take a few minutes to perform, for convenience a .RData object containing an R environment up to this step is available to download here.
+This step can take a few minutes to perform, for convenience a .RData object containing an R environment up to this step is available to download [here](http://genomedata.org/gen-viz-workshop/differentialExpression.RData). You can load this into your R environment with [load()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/load).
 ```R
+# run pipeline for differential expression steps
 deseq2Data <- DESeq(deseq2Data)
+
+# load the R environment with this object (optional)
+load(differentialExpression.RData)
 ```
 
 ### Extracting results
