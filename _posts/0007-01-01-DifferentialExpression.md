@@ -32,7 +32,7 @@ rawCounts <- read.delim("E-GEOD-50760-raw-counts.tsv")
 sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
 ```
 
-The next step is to create an object of class DESeqDataSet, this will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula which is used to estimate dispersion and log2 fold changes used within the model. When specifying the formula it should take the form of a ~ followed by + signs separating variables. When using the default DEseq2 parameters the variable of interest (tissue type in this case) should be specified last and the control within that variable should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. There are 4 methods to create this object depending on the format the input data is in. Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
+The next step is to create an object of class DESeqDataSet, this will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula which is used to estimate dispersion and log2 fold changes used within the model. When specifying the formula it should take the form of a ~ followed by + signs separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. There are 4 methods to create this object depending on the format the input data is in. Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
 
 ```R
 # convert count data to a matrix of appropriate form that DEseq2 can read
@@ -49,11 +49,52 @@ colnames(sampleData) <- c("tissueType", "individualID")
 sampleData$individualID <- factor(sampleData$individualID)
 
 # put the columns of the count data in the same order as rows names of the sample mapping
-all(unique(rownames(sampleData)) %in% unique(colnames(rawCounts)))
 rawCounts <- rawCounts[,unique(rownames(sampleData))]
+all(colnames(rawCounts) == rownames(sampleData))
+
+# Check the levels of tissue type to make sure the control variable is first
+sampleData$tissueType <- factor(sampleData$tissueType, levels=c("normal-looking surrounding colonic epithelium", "primary colorectal cancer", "metastatic colorectal cancer to the liver"))
 
 # create the DEseq2DataSet object
-DESeqDataSetFromMatrix(countData=rawCounts, colData=sampleData, design= ~ individualID + tissueType)
+deseq2Data <- DESeqDataSetFromMatrix(countData=rawCounts, colData=sampleData, design= ~ individualID + tissueType)
+```
+
+This was quite a bit of code, let's go over whats going on here. The first thing we do is coerce the data frame containing the read counts into a format DESeq2 can accept. Specifically this must be a matrix with row names as genomic features (i.e. genes), and column names as samples. Next DESeq2 requires a data frame specifying the mapping of samples to variables, we load this in and clean it up some keeping only the variables we care about and making sure everything is a factor. For DEseq2 to work properly the column names of the count matrix must be in the same order as the row names of the sample mapping data, to ensure this we re-order the column names of the count data and run a check to ensure this has occurred correctly. To take advantage of the default settings of DEseq2 the control of the variable of interest, in our case the tissue type, should be the first element in the levels of that variable. Because we have more than 2 conditions for this variable we will not be taking advantage of the default settings however it's good to get into the practice of doing this so we do it here. We then create a DEseq2DataSet object with this information and supply a formula where we use the individual id as a blocking factor and tissue type as the comparison variable.
+
+### Pre-filtering of data
+While not strictly necessary it is good to do some preliminary filtering of the data before running the differential expression analysis. This will reduce the size of the DESeq2 object and speed up the the speed of the algorithm. Here we are performing relatively minor filtering requiring genes to have more than 1 read of support.
+```R
+# perform pre-filtering of the data
+deseq2Data <- deseq2Data[rowSums(counts(deseq2Data)) > 1, ]
+```
+
+# set up multi-cores (optional)
+The next two steps can take some time to perform, we can offset this somewhat by enabling multiple cores using [BiocParallel](http://bioconductor.org/packages/release/bioc/html/BiocParallel.html). To take advantage of this you will need to install the [BiocParallel](http://bioconductor.org/packages/release/bioc/html/BiocParallel.html) library and register the number of cores to use depending on your machine. Then when calling [DESeq()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeq) and [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) add parallel=TRUE as a parameter to these function calls.
+```R
+# install and load the library
+source("https://bioconductor.org/biocLite.R")
+biocLite("BiocParallel")
+
+# register the number of cores to use
+register(MulticoreParam(4))
+```
+
+### Differential Expression Analysis
+The next step is to run the function [DEseq()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeq) on our DESeq2 data set object. In this step the algorithm will perform the following steps:
+1. estimation of size factors
+2. estimation of dispersion
+3. Negative Binomial GLM fitting and Wald statistic.
+
+This step can take a few minutes to perform, for convenience a .RData object containing an R environment up to this step is available to download here.
+```R
+deseq2Data <- DESeq(deseq2Data)
+```
+
+### Extracting results
+Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell DESeq2 what comparison to make. This is only neccessary if the design formula is multi-factorial or as in our case the variable in the design formula has more than 2 levels. This is done with the contrast parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator, and the denominator (i.e. control). Let's get output for normal vs primary expression results.
+```R
+# Extract differential expression results
+deseq2Results <- results(deseq2Data, contrast=c("tissueType", primary colorectal cancer", "normal-looking surrounding colonic epithelium"))
 ```
 
 ### Additional information and references
