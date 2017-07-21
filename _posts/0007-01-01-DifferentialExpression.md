@@ -98,7 +98,7 @@ load(differentialExpression.RData)
 Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell DESeq2 what comparison to make. This is only neccessary if the design formula is multi-factorial or as in our case the variable in the design formula has more than 2 levels. This is done with the contrast parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator, and the denominator (i.e. control). Let's get output for normal vs primary expression results.
 ```R
 # Extract differential expression results
-deseq2Results <- results(deseq2Data, contrast=c("tissueType", primary colorectal cancer", "normal-looking surrounding colonic epithelium"))
+deseq2Results <- results(deseq2Data, contrast=c("tissueType", "primary colorectal cancer", "normal-looking surrounding colonic epithelium"))
 ```
 
 ### Additional information and references
