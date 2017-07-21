@@ -27,8 +27,8 @@ When conducting genomic analysis, it is important for a researcher to know which
 #### Waterfall - Input Data
 The input data for the waterfall function can come from a .maf file, which was discussed in Module 1: Introduction to Genomic Visualization and Interpretation ([http://genviz.org/module%201/0001/01/01/Introduction_to_Genomic_Visualization_and_interpretation/](http://genviz.org/module%201/0001/01/01/Introduction_to_Genomic_Visualization_and_interpretation/)). The MAF filetype must be specified in the waterfall function with the <font color = "green">fileType</font> parameter. Alternatively, if you do not have a .maf file containing annotated variants, you can set fileType = "custom" and input a custom dataframe containing columns with the names: "sample", "gene", and "variant_class".
 
-For example:
-```R <!--Example taken from GenVisR vignette-->
+For example: <!--Example taken from GenVisR vignette-->
+```R 
 # Specify the fileType 
 waterfall(x=brcaMAF, fileType="MAF)
 
@@ -44,7 +44,8 @@ Due to the large number of genes mutated in at least 1 sample in this cohort, it
 <li>The plotGenes parameter will use a character vector to plot the specified genes of interest.</li> 
 </ol>
 
-```R <!--Example taken from GenVisR vignette-->
+<!--Example taken from GenVisR vignette-->
+```R 
 # Set the mainRecurCutoff parameter
 cutoff <- 0.3
 waterfall(brcaMAF, mainRecurCutoff = cutoff)
@@ -82,7 +83,8 @@ waterfall(x=sv_data, fileType="custom", variant_class_order = variant_order, mai
 #### Waterfall - Specify the Clinical Information
 To provide both the user and reader more information on the clinical significance of the observed mutations, it is useful to illustrate relevant clinical information for each sample. This can be done by manually creating a clinical information dataframe that contains all of the variables and corresponding values for each sample. For instance, in the following example, we will want to obtain the following information: [list out the variables that we want/have]. Similar to the variant classes, both the order and the color of each clinical variables is fully customizable. 
 
-```R <!--Example taken from GenVisR vignette-->
+<!--Example taken from GenVisR vignette-->
+```R 
 # Create clinical data
 subtype <- c("lumA", "lumB", "her2", "basal", "normal")
 subtype <- sample(subtype, 50, replace = TRUE)
@@ -107,7 +109,8 @@ waterfall(brcaMAF, clinDat = clinical, clinVarCol = c(lumA = "blue4", lumB = "de
 #### Waterfall - Mutation Burden
 The last panel of the watefall plot that has yet to be discussed is the mutational burden panel at the top. This value is determined based on the input data to the waterfall plot, and caluclates the following value in each sample: mutations per sample/coverage space * 1000000. By default, the coverage space is equivalent to the size of the SeqCap EZ Human Exome Library v2.0, but the coverage space could be changed by the user using the parameter coverageSpace. Alternatively, the user can provide a dataframe that has the claculated mutational burden for each sample. The columns for this dataframe must be "sample" and "mut_burden", and is supplied to the argument, mutBurden. 
 
-```R <!--Example taken from GenVisR vignette-->
+<!--Example taken from GenVisR vignette-->
+```R 
 # Make the mutBurden data
 
 
@@ -118,7 +121,8 @@ To better characterize single nucleotide variants (SNVs), it is important to the
 ## cnSpec
 Large-scale chromosomal rearrangements can occur in the form of copy number variants (CNV) with loss of function (DEL) or gain of function (AMP) consequence. The cnSpec function plots regions of CNV loss and amplification across the genome of all samples in a cohort. This allows for the quick identification of regions that are recurrently amplified or deleted. A dataframe consisting of the column names and values for chromosome, start, end, segmean, and sample serves as the necessary input for this function. The segmean variable contains values that indicate regions of CNV (can be obtained through CBS algorithm and DNAcopy). To specify the boundaries for each chromosome, the UCSC genome 'hg19' is used by default. When working with non-human genomes, or with UCSC genome hg38, other genomes can be specified. These include hg38, mm10, mm9, and rn5. If the UCSC genome assembly is still not one of these, cnSpec will query the UCSC sql database to obtain the necessary chromosomal boundary information. Alternatively, the chromosomal boundaries can be specified by the parameter, y. Input for this argument is a dataframe containing the columns: chromosome, start, and end.   
 
-```R <!--Example taken from GenVisR vignette-->
+<!--Example taken from GenVisR vignette-->
+```R 
 #hg19chr dataframe defines the choromosomal boundaries
 head(hg19chr)
 
@@ -128,7 +132,9 @@ cnSpec(lucCNseg, y=hg19chr)
 
 <!--Talk about difference between absolute and relative-->
 As seen in the above plot, CN values are color-coded based on a gradient where segment values below 2 are blue (indicating a deletion) and segment values above 2 are red (indicating an amplification). This represents an absolute scale where copy neutral events are specified by a segment value of 2 (there are 2 alleles). Sometimes, CN data is provided on a relative scale, where copy neutral events correspond to a segment value of 0, where negative values represent a segment of copy number loss and positive values represent a segment of copy number gain. The absolute and relative scale can be specified with the <font color="green">CNscale</font> parameter. 
-```R <!--Example taken from GenVisR vignette-->
+
+<!--Example taken from GenVisR vignette-->
+```R 
 # Generate a cnSpec plot on a relative scale
 cnSpec(lucCNseg, CNscale = "relative")
 ```
@@ -139,7 +145,8 @@ While cnSpec can illustrate the genome and cohort-wide CNV landscape, cnView foc
 The cnView function will generate an ideogram for the identified chromsome that is on the same scale as the plot for the CNV data points. Information for the ideogram and chromosomal boundaries is obtained in the same manner as the CNspec function (from a preloaded genome or the UCSC sql database). This cytogenetic information can also be provided to the parameter <font color="green">y</font> as a dataframe with the column names: chrom, chromStart, chromEnd, name, and gieStain. <!--This overlaps significantly with the vignette--> 
 The optional p-value column is provided to specify genomic coordinates in regions that are significantly amplified/deleted. If the p-value is provided in the dataframe, the transparency of the points plotted in the cnView panel will vary with low transparency occuring with lower p-values. Additionally, if you have segmentation data that contains information of the copy number loss/gain, the user can specify the segments of CNV by inputting the values as a dataframe into the <font color="green">z</font> parameter. Required columns include: chromosome, start, end, and segmean. 
 
-```R  <!--Example taken from GenVisR vignette-->
+  <!--Example taken from GenVisR vignette-->
+```R
 # create copy number data
 chromosome <- "chr14"
 coordinate <- sort(sample(0:106455000, size = 2000, replace = FALSE))
