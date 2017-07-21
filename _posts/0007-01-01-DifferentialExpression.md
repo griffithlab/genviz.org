@@ -62,10 +62,10 @@ deseq2Data <- DESeqDataSetFromMatrix(countData=rawCounts, colData=sampleData, de
 This was quite a bit of code, let's go over whats going on here. The first thing we do is coerce the data frame containing the read counts into a format DESeq2 can accept. Specifically this must be a matrix with row names as genomic features (i.e. genes), and column names as samples. Next DESeq2 requires a data frame specifying the mapping of samples to variables, we load this in and clean it up some keeping only the variables we care about and making sure everything is a factor. For DEseq2 to work properly the column names of the count matrix must be in the same order as the row names of the sample mapping data, to ensure this we re-order the column names of the count data and run a check to ensure this has occurred correctly. To take advantage of the default settings of DEseq2 the control of the variable of interest, in our case the tissue type, should be the first element in the levels of that variable. Because we have more than 2 conditions for this variable we will not be taking advantage of the default settings however it's good to get into the practice of doing this so we do it here. We then create a DEseq2DataSet object with this information and supply a formula where we use the individual id as a blocking factor and tissue type as the comparison variable.
 
 ### Pre-filtering of data
-While not strictly necessary it is good to do some preliminary filtering of the data before running the differential expression analysis. This will reduce the size of the DESeq2 object and speed up the the speed of the algorithm. Here we are performing relatively minor filtering requiring genes to have more than 1 read of support.
+While not strictly necessary it is good to do some preliminary filtering of the data before running the differential expression analysis. This will reduce the size of the DESeq2 object and speed up the the speed of the algorithm. Here we are performing relatively minor filtering requiring genes to have more than 5 read of support.
 ```R
 # perform pre-filtering of the data
-deseq2Data <- deseq2Data[rowSums(counts(deseq2Data)) > 1, ]
+deseq2Data <- deseq2Data[rowSums(counts(deseq2Data)) > 5, ]
 ```
 
 # set up multi-cores (optional)
