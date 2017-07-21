@@ -95,11 +95,44 @@ load(differentialExpression.RData)
 ```
 
 ### Extracting results
-Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell DESeq2 what comparison to make. This is only neccessary if the design formula is multi-factorial or as in our case the variable in the design formula has more than 2 levels. This is done with the contrast parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator, and the denominator (i.e. control). Let's get output for normal vs primary expression results.
+Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell DESeq2 what comparison to make. This is only neccessary if the design formula is multi-factorial or as in our case the variable in the design formula has more than 2 levels. This is done with the contrast parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator, and the denominator (i.e. control). Let's get output for normal vs primary expression results and view a summary of results.
 ```R
 # Extract differential expression results
 deseq2Results <- results(deseq2Data, contrast=c("tissueType", "primary colorectal cancer", "normal-looking surrounding colonic epithelium"))
+
+# view summary of results
+summary(deseq2Results)
 ```
+### MA-plot
+An MA plot plots a log ratio (M) over an average (A), it is a way to visualize the differences between two groups. In general we would expect the expression of genes to remain consistent between conditions and so the MA plot should be similar to the shape of a trumpet with most points residing on the 0 intercept of the y axis. DEseq2 has a built in method for constructing an MA plot of our results however as this is a a visualization course let's go ahead and construct our own plot.
+```R
+# using DEseq2 built in method
+plotMA(deseq2Results)
+```
+
+```R
+# load libraries
+library(ggplot2)
+library(scales) # needed for oob parameter
+
+# coerce to a data frame
+deseq2ResDF <- as.data.frame(deseq2Results)
+
+# set a boolean column for significance
+deseq2ResDF$significant <- ifelse(deseq2ResDF$padj < .1, "Significant", NA)
+
+# plot the results similar to DEseq2
+ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=significant)) + geom_point(size=1) + scale_y_continuous(limits=c(-3, 3), oob=squish) + scale_x_log10() + geom_hline(yintercept = 0, colour="tomato1", size=2) + labs(x="mean of normalized counts", y="log fold change") + scale_colour_manual(name="q-value", values=("Significant"="red"), na.value="grey50") + theme_bw()
+
+# let's add some more detail
+ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=padj)) + geom_point(size=1) + scale_y_continuous(limits=c(-3, 3), oob=squish) + scale_x_log10() + geom_hline(yintercept = 0, colour="darkorchid4", size=1, linetype="longdash") + labs(x="mean of normalized counts", y="log fold change") + scale_colour_viridis(direction=-1, trans='sqrt') + theme_bw() + geom_density_2d(colour="black", size=2)
+```
+We can see from the above plots that it is in the shape of a trumpet characteristic MA plots. Further we have overlayed density contours in the last plot and as expected these density contours are centered around a 0 ratio. We can further see that as the average counts increase there is more power to call a gene as differentially expressed based on the fold change. You'll also notice that we have quite a few points without an adjusted p value on the left side of the x axis. This is occuring because the results() function automatically performs independent filtering using the mean of normalized counts as a filter statistic. This is done to increase the power to detect an event by not testing those genes which are unlikely to be significant based on their high dispersion.
+
+# Viewing normalized counts for a single geneID
+Often it will be usefull to plot the normalized counts for a single gene in order to get an idea of what is occurring at a per sample basis. Fortunately
+
+plotCounts(deseq2Data, gene="ENSG00000000005", intgroup="tissueType", returnData=TRUE)
 
 ### Additional information and references
 * [Experimental Data, Kim et al.](https://www.ncbi.nlm.nih.gov/pubmed/25049118)
