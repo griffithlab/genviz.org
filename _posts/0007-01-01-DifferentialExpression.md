@@ -130,9 +130,17 @@ ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=padj)) + geom_point(siz
 We can see from the above plots that it is in the shape of a trumpet characteristic MA plots. Further we have overlayed density contours in the last plot and as expected these density contours are centered around a 0 ratio. We can further see that as the average counts increase there is more power to call a gene as differentially expressed based on the fold change. You'll also notice that we have quite a few points without an adjusted p value on the left side of the x axis. This is occuring because the results() function automatically performs independent filtering using the mean of normalized counts as a filter statistic. This is done to increase the power to detect an event by not testing those genes which are unlikely to be significant based on their high dispersion.
 
 # Viewing normalized counts for a single geneID
-Often it will be usefull to plot the normalized counts for a single gene in order to get an idea of what is occurring at a per sample basis. Fortunately
+Often it will be usefull to plot the normalized counts for a single gene in order to get an idea of what is occurring at a per sample basis. Fortunately the [plotCounts()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/plotCounts) function from DEseq2 will extract the data we need for plotting.
 
-plotCounts(deseq2Data, gene="ENSG00000000005", intgroup="tissueType", returnData=TRUE)
+```R
+# extract counts for the gene otop2
+otop2Counts <- plotCounts(deseq2Data, gene="ENSG00000183034", intgroup=c("tissueType", "individualID"), returnData=TRUE)
+
+# plot the data using ggplot2
+colourPallette <- c("#bbcfc4","#7145cd","#90de4a","#cd46c1","#77dd8e","#592b79","#d7c847","#6378c9","#619a3c","#d44473","#63cfb6","#dd5d36","#5db2ce","#8d3b28","#b1a4cb","#af8439","#c679c0","#4e703f","#753148","#cac88e","#352b48","#cd8d88","#463d25","#556f73")
+ggplot(otop2Counts, aes(x=tissueType, y=count, colour=individualID, group=individualID)) + geom_point() + geom_line() + theme_bw() + theme(axis.text.x=element_text(angle=15, hjust=1), ) + scale_colour_manual(values=colourPallette) + guides(colour=guide_legend(ncol=3)) + ggtitle("OTOP2")
+```
+From the resulting plot we can see that almost all individuals show down-regulation of this gene in both the primary and met samples compared to the normal. We've also introduced a few new ggplot2 concepts, let's breifly go over them. You will notice that we have specified a [group](http://ggplot2.tidyverse.org/reference/aes_group_order.html) when we initalized our plot. By default ggplot would have assumed the groups were for the discrete variables plotted on the x-axis, when connecting  points with [geom_line()](http://ggplot2.tidyverse.org/reference/geom_path.html) this would have connected all points for each discrete variable instead of connecting by the individual id. Try removing the grouping to get a sense of what happens. We have also altered the legend using [guides()](http://ggplot2.tidyverse.org/reference/guides.html) to specify the legend to act on and [guide_legend()](http://ggplot2.tidyverse.org/reference/guide_legend.html) to specify that the colour legend should have 3 columns for values instead of just 1. Lastly we have added a main title with [ggtitle()](http://ggplot2.tidyverse.org/reference/labs.html). 
 
 ### Additional information and references
 * [Experimental Data, Kim et al.](https://www.ncbi.nlm.nih.gov/pubmed/25049118)
