@@ -158,6 +158,9 @@ colnames(mtcars)
 # view row names of a dataframe
 rownames(mtcars)
 
+# view a summary of the dataframe
+str(mtcars)
+
 # subset dataframe to cars with only 8 cyl
 mtcars[mtcars$cyl == 8,]
 
