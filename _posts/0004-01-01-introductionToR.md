@@ -170,7 +170,7 @@ mtcars[,1:2]
 
 ## Counting and aggregating data
 
-During the course of an analysis, it is often usefull to determine the frequency of an event. A useful function exists for this purpose in the plyr package called count(). Here is an example of how we can apply the count() function to the internal R datasets 'iris' and 'mtcars.'
+During the course of an analysis, it is often useful to determine the frequency of an event. A function exists for this purpose in the plyr package called count(). Here is an example of how we can apply the count() function to the internal R datasets 'iris' and 'mtcars.'
 
 ```R
 # first load the plyr package if it's not loaded already
