@@ -53,7 +53,7 @@ Over this course we will be working with a number of refernce files to aid in an
 - [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification){:target="_blank"} (Mutation Annotation Format) Annotation file used to provide additional information for sequence variations. Widely used in the cancer genome atlas.
 
 {% include question.html question="What character designates a header in a fasta file?" answer="\">\""%}
-{% include question.html question="What is the difference between 0-based and 1-based coordiantes?" answer="0-based coordiantes number between nucleotides, 1-based coordinates number nucleotides directly."%}
+{% include question.html question="What is the difference between 0-based and 1-based coordinates?" answer="0-based coordiantes number between nucleotides, 1-based coordinates number nucleotides directly."%}
 
 ***
 
