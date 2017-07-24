@@ -173,7 +173,7 @@ Navigate to position `chr21:19,611,925-19,631,555`. Note that the range contains
 
 {% include figure.html image="/assets/IGV/example3.png" width="750" %}
 
-{% include question.html question="Why are there blue and read reads throughout the alignments?" answer='The reads are colored by strand'%}
+{% include question.html question="Why are there blue and red reads throughout the alignments?" answer='The reads are colored by insert size, in paired data a blue read indicates the insert size is smaller than expected indicating a deletion. Conversely a red read indicates the insert size is larger than expected indicating an insertion.'%}
 
 ## Heterozygous SNPs on different alleles
 
