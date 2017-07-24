@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-01-01
 ---
 
-Over this tutorial series, we be extensively using R, the language underlying graphical programs ggplot2, ggvis, and GenVisR. We highly recommend familiarity with R for all students. This topic page is intended to provide a brief overview of R. However, there are a myriad of resources available that we recommend to supplement the information given here (See Additional Resources).
+Over this tutorial series, we be extensively using R, the language underlying graphical programs [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [ggvis](https://cran.r-project.org/web/packages/ggvis/index.html), and [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). We highly recommend familiarity with R for all students. This topic page is intended to provide a brief overview of R. However, there are a myriad of resources available that we recommend to supplement the information given here (See Additional Resources).
 
 ## R and Rstudio
 
