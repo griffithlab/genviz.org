@@ -99,9 +99,10 @@ Data structures in R are objects comprising the data types mentioned above. The 
 # Create an atomic vector
 vec <- c(1:10)
 
-# test that it is atomic, and of type numeric
+# test that it is atomic, and of type numeric, and report the type
 is.atomic(vec)
 is.numeric(vec)
+typeof(vec)
 
 # coerce the numeric vector to character
 vec <- as.character(vec)
