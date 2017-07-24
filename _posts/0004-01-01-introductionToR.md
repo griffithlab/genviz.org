@@ -113,6 +113,9 @@ vec[1]
 
 # extract the character 5
 vec[vec == "5"]
+
+# determine with element of the vector contains a "5"
+which(vec == "5")
 ```
 
 Lists are created using the list() function and are used to make more complicated data structures. As mentioned lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets []. However, single brackets [] are used to return an element of the list as a list. Double brackets [[]] are used to return the the designated element from the list. In general, you should always use double brackets [[]] when working with lists.
