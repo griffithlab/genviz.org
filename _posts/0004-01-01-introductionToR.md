@@ -93,7 +93,7 @@ is.complex(grault)
 ```
 
 ## Data structures
-Data structures in R are objects comprising the data types mentioned above. The type of data structure is dependent upon the homogeneity of the stored data types and the number of dimensions. The most common data structure in R is the vector, which contains data in 1 dimension. There are two types: atomic vectors, which contain one data type (i.e. all numeric, all character, etc.) and lists, which contain multiple data types. Atomic vectors are created with the c() function, and the data type contained within the atomic vector can be determined using the typeof() funtion. Vectors in R can be spliced with brackets [], using either a boolean vector or a numeric index.
+Data structures in R are objects comprising the data types mentioned above. The type of data structure is dependent upon the homogeneity of the stored data types and the number of dimensions. The most common data structure in R is the vector, which contains data in 1 dimension. There are two types: atomic vectors, which contain one data type (i.e. all numeric, all character, etc.) and lists, which contain multiple data types. Atomic vectors are created with the c() function, and the data type contained within the atomic vector can be determined using the typeof() funtion. Vectors in R can be sliced with brackets [], using either a boolean vector or a numeric index.
 
 ```R
 # Create an atomic vector
