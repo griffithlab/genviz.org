@@ -8,68 +8,21 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-01-01
 ---
 
-## Table of contents
-1. [Introduction](IGV-Tutorial#introduction)
-  1. [Description of the lab](IGV-Tutorial#description-of-the-lab)
-  2. [Requirements](IGV-Tutorial#requirements)
-  3. [Compatibility](IGV-Tutorial#compatibility)
-  4. [Data Set for IGV](IGV-Tutorial#compatibility)
-2. [Visualization Part 1: Getting familiar with IGV](IGV-Tutorial#visualization-part-1-getting-familiar-with-igv)
-  1. [Get familiar with the interface](IGV-Tutorial#get-familiar-with-the-interface)
-    1. [Load a Genome and Data Tracks](IGV-Tutorial#load-a-genome-and-some-data-tracks)
-    2. [Navigation](IGV-Tutorial#navigation)
-  2. [Region Lists](IGV-Tutorial#region-lists)
-  3. [Loading Read Alignments](IGV-Tutorial#loading-read-alignments)
-  4. [Visualizing read alignments](IGV-Tutorial#visualizing-read-alignments)
-3. [Visualization Part 2: Inspecting SNPs, SNVs, and SVs](IGV-Tutorial#visualization-part-2-inspecting-snps-snvs-and-svs-)
-  1. [Neighbouring somatic SNV and germline SNP](IGV-Tutorial#neighbouring-somatic-snv-and-germline-snp)
-  2. [Homopolymer repeat with indel](IGV-Tutorial#homopolymer-repeat-with-indel)
-  3. [Coverage by GC](IGV-Tutorial#coverage-by-gc)
-  4. [Heterozygous SNPs on different alleles](IGV-Tutorial#heterozygous-snps-on-different-alleles)
-  5. [Low mapping quality](IGV-Tutorial#low-mapping-quality)
-  6. [Homozygous deletion](IGV-Tutorial#homozygous-deletion)
-  7. [Mis-alignment](IGV-Tutorial#mis-alignment)
-  8. [Translocation](IGV-Tutorial#translocation)
-4. [Visualization Part 3: Automating Tasks in IGV](IGV-Tutorial#visualization-part-3-automating-tasks-in-igv)
-
-
-## Introduction
-
-### Description of the lab
-
-Welcome to the lab for **Genome Visualization**! This lab will introduce you to the [Integrative Genomics Viewer]**(http://www.broadinstitute.org/igv/home)**, one of the most popular visualization tools for High Throughput Sequencing (HTS) data.
-
-Lecture files that accompany this tutorial:
-* [IGV Lecture - Brief](LectureFiles/cshl/2016/IGV_Tutorial_Brief.pdf)
-* [IGV Lecture - Long, from Broad Institute](LectureFiles/cshl/2016/IGV_Tutorial_Long_BroadInstitute.pdf)
-
-After this lab, you will be able to:
-* Visualize a variety of genomic data
-* Quickly navigate around the genome
-* Visualize read alignments
-* Validate SNP/SNV calls and structural re-arrangements by eye
+It is often necessary to examine sequencing data aligned to specific regions of the genome in order to obtain a clearer picture of genomic events. One of the most popular tools for this is the [Integrative Genomics Viewer](http://www.broadinstitute.org/igv/home). After this lab you should be able to perform the following tasks:
+1. Visualize a variety of genomic data
+2. Quickly navigate around the genome
+3. Visualize read alignments
+4. Validate SNP/SNV calls and structural re-arrangements by eye
 
 Things to know before you start:
 * The lab may take between **1-2 hours**, depending on your familiarity with genome browsing. Do not worry if you do not complete the lab. It will remain available to review later.
-* There are a few thought-provoking **Questions** or **Notes** pertaining to sections of the lab. These are **optional**, and may take more time, but are meant to help you better understand the visualizations you are seeing. These questions will be denoted by boxes, as follows:
- **Question(s):**
 
-```
-Thought-provoking question goes here
-```
+### Installing IGV
 
-### Requirements
-
-* [Integrative Genomics Viewer](http://www.broadinstitute.org/igv/home)
-* Ability to run Java
-* Note that while most tutorials in this course are performed on the cloud, IGV will always be run on your **local** machine
-
-### Compatibility
-
-This tutorial was intended for **IGV v2.3**, which is available on the [IGV Download](http://www.broadinstitute.org/software/igv/download) page. It is *strongly* recommended that you use this version.
+Java is necessary to run IGV, you can download the jave runtime environment (JRE) for your operating system [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html). To determine if this step is necessary type `java -version` at your command prompt, if the program is not >= 1.7 you'll need to upgrade it. IGV can be downloaded [here](https://software.broadinstitute.org/software/igv/download). This tutorial will make use of IGV version 2.3, we strongly recommend that you upgrade IGV if you have an older version installed.
 
 ### Data Set for IGV
-We will be using publicly available Illumina sequence data from the HCC1143 cell line. The HCC1143 cell line was generated from a 52 year old caucasian woman with breast cancer. Additional information on this cell line can be found here: <a href="http://www.atcc.org/products/all/CRL-2321.aspx">HCC1143</a> (tumor, TNM stage IIA, grade 3, primary ductal carcinoma) and <a href="http://www.atcc.org/products/all/CRL-2362.aspx">HCC1143/BL</a> (matched normal EBV transformed lymphoblast cell line).
+We will be using publicly available Illumina sequence data from the HCC1143 cell line. The HCC1143 cell line was generated from a 52 year old caucasian woman with breast cancer. Additional information on this cell line can be found [here](http://www.atcc.org/products/all/CRL-2321.aspx): (tumor, TNM stage IIA, grade 3, primary ductal carcinoma) and [HCC1143/BL](http://www.atcc.org/products/all/CRL-2362.aspx) (matched normal EBV transformed lymphoblast cell line).
 
 * Sequence read alignments generated from a cell line HCC1143 that have been filtered to this region:
 * Chromosome 21: 19,000,000-20,000,000
@@ -183,11 +136,8 @@ In this section we will be looking in detail at 8 positions in the genome, and d
 * High base qualities in all reads except one (where the alt allele is the last base of the read)
 * Good mapping quality of reads, no strand bias, allele frequency consistent with heterozygous mutation
 
-**Question(s):**
-```
-* What does *Shade base by quality* do? How might this be helpful?
-* How does Color by *read strand* help?
-```
+{% include question.html question="What does Shade base by quality do?" answer='This will change the opacity of the base in IGV based on how confident the sequencer was in calling that base using the phred score. This is beneficial in determining if a called variant is real or artifactual.'%}
+{% include question.html question="How does Color by read strand help?" answer='Coloring by read strand will indicate if the DNA fragment sequenced was on the positive or negative strand. A variant occurring on only one strand could indicate an artifact.'%}
 
 ## Homopolymer region with indel
 
@@ -223,10 +173,7 @@ Navigate to position `chr21:19,611,925-19,631,555`. Note that the range contains
 
 {% include figure.html image="/assets/IGV/example3.png" width="750" %}
 
-**Question:**
-```
-* Why are there blue and red reads throughout the alignments?
-```
+{% include question.html question="Why are there blue and read reads throughout the alignments?" answer='The reads are colored by strand'%}
 
 ## Heterozygous SNPs on different alleles
 
