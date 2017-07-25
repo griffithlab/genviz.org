@@ -13,6 +13,9 @@ This work would not be possible without building upon what others have contribut
 ### Genome Browsing and Visualization - IGV
 
 ### Genome Browsing and Visualization - UCSC Genome Browser
+* [Guide to the UCSC Genome Browser](https://www.nature.com/scitable/ebooks/guide-to-the-ucsc-genome-browser-16569863)
+* [Genome Browser Training](https://genome.ucsc.edu/training/index.html)
+* [UCSC Genome Browser Training Videos](https://genome.ucsc.edu/training/vids/)
 
 ### Web Resources for Variant Annotation and Visualization
 
