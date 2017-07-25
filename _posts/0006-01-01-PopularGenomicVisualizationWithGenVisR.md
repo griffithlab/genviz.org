@@ -7,10 +7,8 @@ categories:
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0006-01-01
 ---
-
 <!-- Introduce GenVisR and the problem it solves -->
-The advent of next generation sequencing (NGS) has allowed for the production of massive amounts of genomic data that is available for analysis. While there exist bioinformatics tools to identify mutational events found within individual samples, these tools are insufficient to fully understand the biological impact these variants have in a disease like cancer. To help alleviate this bottleneck, GenVisR is a bioconductor package in R that allows for the generation of highly-customized publication quality visualizations that aid in the analysis of cohort-level genomic data. In this module, we will become familiar with the GenVisR package and work with several functions to visualize/analyze genomic variations in the form of single nucleotide variants (SNVs), insertions, deletions, loss of heterozygosity, and copy number variants. We will also look into a function that can visualize the coverage sequencing depth acquired across all samples in a cohort. We will work with the most important parameters to fully customize the waterfall plot, but a full list of parameters and their description cna be found on the GenVisR vignette from the Bioconductor website. [https://bioconductor.org/packages/release/bioc/html/GenVisR.html](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). Here, you will also be given the script to install the GenVisR package into your library of packages. 
-
+The advent of next generation sequencing (NGS) has allowed for the production of massive amounts of genomic data that is available for analysis. While there exist bioinformatics tools to identify mutational events found within individual samples, these tools are insufficient to fully understand the biological impact these variants have in a disease like cancer. To help alleviate this bottleneck, GenVisR is a bioconductor package in R that allows for the generation of highly-customized publication quality visualizations that aid in the analysis of cohort-level genomic data. In this module, we will become familiar with the GenVisR package and work with several functions to visualize/analyze genomic variations in the form of single nucleotide variants (SNVs), insertions, deletions, loss of heterozygosity, and copy number variants. We will also look into a function that can visualize the coverage sequencing depth acquired across all samples in a cohort. For each function, we will work with the fundamental parameters needed to generate plots that convey enough information for analysis. A full list of parameters with their description, and other functions as part of the GenVisR package can be found on the GenVisR vignette from the Bioconductor website. [https://bioconductor.org/packages/release/bioc/html/GenVisR.html](https://bioconductor.org/packages/release/bioc/html/GenVisR.html).
 <!-- Install GenVisR in Rstudio -->
 ```R
 # install the GenVisR package from Bioconductor. Try http:// if https:// URLs are not supported
@@ -116,7 +114,27 @@ The last panel of the watefall plot that has yet to be discussed is the mutation
 
 ```
 ## tvti
-To better characterize single nucleotide variants (SNVs), it is important to the frequency of transitions and transversions across the cohort. The TvTi function in GenVisR  
+To better characterize single nucleotide variants (SNVs), it is important to know the frequency of transitions and transversions across the cohort. The TvTi function in GenVisR uses a stacked bar plot to illustrate the proportion/frequency of transition and transversions (specified by the <font color = "green">fileType</font> argument). Similar to the waterfall plot, the input to the tvti function is a maf file or a custom input dataframe with the column names: "sample", "reference", and "variant". Multinucleotide substitutions will be excluded from the plot. To change the color of the tvti bars, change the <font color = "green">pallete</font> parameter and supply it with a character vector with 6 different colors to represent each of the transition and tranversion types. 
+
+<!--Example taken from GenVisR vignette-->
+```R
+## Generate TvTi plot and visualize Proportion/Frequency of each transition and transversion
+tvti_type <- "Proportion"
+TvTi(brcaMAF, lab_txtAngle=75, fileType="MAF, type = tvti_type)
+```
+
+What makes TvTi even more powerful as a genomic visualization tool is the option for the user to plot the expected frequency/proportion of transitions and transversions, and compare the cohort data to these expected values. The expected rate of transitions and transversions is supplied to the parameter <font color = "green">y</font> as a vector with names that match each transition and transversion type. These names must be:  “A->C or T->G (TV)”, “A->G or T->C (TI)”, “A->T or T->A (TV)”, “G->A or C->T (TI)”, “G->C or C->G (TV)”, and “G->T or C->A (TV)”. If this vector is supplied to <font color = "green">y</font>, an additional subplot will be generated to illustrate the expected transition and transversion rates. 
+
+<!--Example taken from GenVisR vignette-->
+```R
+## Fill out vector with expected rates for each transition and transversion type
+expec <- c(`A->C or T->G (TV)` = 0.055, `A->G or T->C (TI)` = 0.217, `A->T or T->A (TV)` = 0.076, 
+    `G->A or C->T (TI)` = 0.4945, `G->C or C->G (TV)` = 0.0645, `G->T or C->A (TV)` = 0.093)
+
+## Illustrate expected transition and transversion rates
+TvTi(brcaMAF, y=expec, lab_txtAngle = 45, fileType = "MAF")
+```
+
 
 ## cnSpec
 Large-scale chromosomal rearrangements can occur in the form of copy number variants (CNV) with loss of function (DEL) or gain of function (AMP) consequence. The cnSpec function plots regions of CNV loss and amplification across the genome of all samples in a cohort. This allows for the quick identification of regions that are recurrently amplified or deleted. A dataframe consisting of the column names and values for chromosome, start, end, segmean, and sample serves as the necessary input for this function. The segmean variable contains values that indicate regions of CNV (can be obtained through CBS algorithm and DNAcopy). To specify the boundaries for each chromosome, the UCSC genome 'hg19' is used by default. When working with non-human genomes, or with UCSC genome hg38, other genomes can be specified. These include hg38, mm10, mm9, and rn5. If the UCSC genome assembly is still not one of these, cnSpec will query the UCSC sql database to obtain the necessary chromosomal boundary information. Alternatively, the chromosomal boundaries can be specified by the parameter, y. Input for this argument is a dataframe containing the columns: chromosome, start, and end.   
@@ -145,7 +163,7 @@ While cnSpec can illustrate the genome and cohort-wide CNV landscape, cnView foc
 The cnView function will generate an ideogram for the identified chromsome that is on the same scale as the plot for the CNV data points. Information for the ideogram and chromosomal boundaries is obtained in the same manner as the CNspec function (from a preloaded genome or the UCSC sql database). This cytogenetic information can also be provided to the parameter <font color="green">y</font> as a dataframe with the column names: chrom, chromStart, chromEnd, name, and gieStain. <!--This overlaps significantly with the vignette--> 
 The optional p-value column is provided to specify genomic coordinates in regions that are significantly amplified/deleted. If the p-value is provided in the dataframe, the transparency of the points plotted in the cnView panel will vary with low transparency occuring with lower p-values. Additionally, if you have segmentation data that contains information of the copy number loss/gain, the user can specify the segments of CNV by inputting the values as a dataframe into the <font color="green">z</font> parameter. Required columns include: chromosome, start, end, and segmean. 
 
-  <!--Example taken from GenVisR vignette-->
+ <!--Example taken from GenVisR vignette-->
 ```R
 # create copy number data
 chromosome <- "chr14"
@@ -160,18 +178,21 @@ dataSeg <- data.frame(chromosome = c(14, 14, 14), start = coordinate[c(1, 301,
 # call cnView with included segment data
 cnView(data, z = dataSeg, chr = "chr14", genome = "hg19", ideogram_txtSize = 4)
 ```
+<!--Will make object oriented-->
+## lohSpec (IN THE PROCESS OF MAKING THIS OBJECT ORIENTED)
+lohSpec uses a sliding window approach to calcualte the average variant allele frequency (VAF) difference between matched tumor normal samples. Essentially, a window of a specified size (defined by <font color="green">window_size</font>) will obtain the absolute mean difference between the tumor and normal VAF (set at 0.5) for each genomic position within the window's position. This window will then move forward by, specified by the parameter <font color="green">step</font>, and again cauclate the absolute mean tumor-normal VAF difference. This value across all overlapping windows is averaged. Each value is then stored for the overlapping region and this process is repeated for each chromosome in all samples in the cohort. Plotting the X and Y chromosome is optional but can be included when a character vector containing the gender of each sample ("M" for male and "F" for female) is supplied to the <font color="green">gender</font> parameter. 
 
-## lohSpec
-lohSpec uses a sliding window approach to calcualte the average variant allele frequency (VAF) difference between matched tumor normal samples. Essentially, a window of a specified size will obtain the absolute mean difference between the tumor and normal VAF for each genomic position within the window's position. This window will then move forward by, specified by the parameter step, and again cauclate the absolute mean tumor-normal VAF difference. For overlapping regions, the reported values provided by each window are averaged. Each value is then stored and this process is repeated for each chromosome in all samples in the cohort. . 
+<!--Example taken from GenVisR vignette-->
+```R
+## Generate LOHspec with default parameters
+lohSpec(x=HCC1395_Germline)
+````
 
-Before carefuly when interpretating this data however. Copy neutral loss: __. Not all LOH results in deletions: ___. For this reason, it is important to look at coverage to see LOH truly results in a deleted region. 
+<!--Talk about caveats with LOH-->
+When interpreting this visualization and other LOH data, it is important to understand that not all LOH corresponds to an actual deletion event. For instance, an amplification of a specific allele/genomic region can appear as LOH since one region will have significantly more copies than the corresponding region on the other chromosome. Additionally, copy neutral loss of heterozygosity can occur where an individual receives a chromosomal pair from one parent and nothing from the other parent. While this situation may appear as LOH since there is only a single chromosomal type present, the individual still has 2 chromosomes (hence neutral copy number). Therefore, it is important to look at coverage to see LOH truly results in a deleted region. 
 
 ## genCov
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
 
-Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
 
 ## More GenVisR Functions
-For a full list of GenVisR functions with descriptions and more examples, see the GenVisR reference manual and vignette on the GenVisR Bioconductor page at [https://bioconductor.org/packages/release/bioc/html/GenVisR.html](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). 
-
-
+For a full list of GenVisR functions with descriptions and examples, see the GenVisR reference manual and vignette on the Bioconductor page at [https://bioconductor.org/packages/release/bioc/html/GenVisR.html](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). 
