@@ -88,8 +88,8 @@ layout: "home"
 
 ## Module 5: Additional Exercises
 
-    * Lecture 5: Review. Question and Answer. Open discussion.
+* Lecture 5: Review. Question and Answer. Open discussion.
 
-    * Lab 11a: Optional integrated exercises
+* Lab 11a: Optional integrated exercises
 
-    * Lab 11b: Customized visualization and interpretation of your own data
+* Lab 11b: Customized visualization and interpretation of your own data
