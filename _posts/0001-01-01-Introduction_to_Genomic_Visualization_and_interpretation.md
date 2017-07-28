@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Introduction to Genomic Visualization and Interpretation
+title: Introduction to Genomic Data Visualization and Interpretation
 categories:
     - Module 1
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"

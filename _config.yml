@@ -89,8 +89,9 @@ avatarurl:  "/assets/DNA.jpg"# Uses avatars for favicons to get multple sites, e
 navigation_header:
   Home: /
   Course: /course/
+  Schedule: /schedule/
   Authors: /authors/
-  Additional Resources: /additional_resources/
+  Resources: /resources/
   Acknowledgments: /acknowledgements/
   Search: /search/
 
