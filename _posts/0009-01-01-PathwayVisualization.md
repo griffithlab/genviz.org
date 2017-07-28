@@ -3,7 +3,7 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Pathway Visualization
 categories:
-    - Module 4
+    - Module 3
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0009-01-01
 ---
