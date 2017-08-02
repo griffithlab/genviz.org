@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-01-01
 ---
 
-Over this tutorial series, we be extensively using R, the language underlying graphical programs [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [ggvis](https://cran.r-project.org/web/packages/ggvis/index.html), and [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). We highly recommend familiarity with R for all students. This topic page is intended to provide a brief overview of R. However, there are a myriad of resources available that we recommend to supplement the information given here (See Additional Resources).
+Over this tutorial series, we will be using R extensively, the language underlying graphical programs [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [ggvis](https://cran.r-project.org/web/packages/ggvis/index.html), and [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). We highly recommend familiarity with R for all students. This page is intended to provide a brief overview of R. However, there are a myriad of resources available that we recommend to supplement the information given here (See Additional Resources below).
 
 ## R and Rstudio
 
@@ -40,7 +40,7 @@ install.packages("plyr")
 
 #### Bioconductor
 
-Bioconductor is another archive of R packages specific to bioinformatics and genomics. This archive is maintained by the Bioconductor core team and is updated bi-annually. To date, there are 2,541 [packages available via bioconductor](http://bioconductor.org/packages/release/BiocViews.html#___Software). Packages are categorized within biocViews as 'Software', 'AnnotationData', and 'ExperimentData.' You can take time to explore the packages available on this webpage by searching within these tags, categorizing packages based upon relevant topics or types of analysis. Bioconductor packages are managed using the [biocLite()](https://www.rdocumentation.org/packages/BiocInstaller/versions/1.22.3/topics/biocLite) function. Note that this function must be sourced before trying to install any Bioconductor packages. Bioconductor packages can be installed by running the following in an R terminal:
+Bioconductor is another archive of R packages specific to bioinformatics and genomics. This archive is maintained by the Bioconductor core team and is updated bi-annually. To date, there are 2,541 [packages available via bioconductor](http://bioconductor.org/packages/release/BiocViews.html#___Software). Packages are categorized within biocViews as 'Software', 'AnnotationData', and 'ExperimentData.' You can explore the packages available on this webpage by searching within these tags, categorizing packages based upon relevant topics or types of analysis. Bioconductor packages are managed and installed using the [biocLite()](https://www.rdocumentation.org/packages/BiocInstaller/versions/1.22.3/topics/biocLite) function. Note that this function must be sourced (loaded from source code) before trying to install any Bioconductor packages. Bioconductor packages can be installed by running the following in an R terminal:
 
 ```R
 # Install core bioconductor packages
@@ -63,7 +63,7 @@ R also has a variety of datasets pre-loaded. In order to view these, type [data(
 
 ## Assignment and data types
 
-When working in any language, values are stored as variables. Defining a variable tells the language to allocate space in memory to store that variable. In R, a variable is assigned with the assignment operator "<-" or "=", which assigns a value to the variable in the user workspace or the current scope respectively. For the purposes of this course assignment should always occur with the "<-" operator. All variables are stored in objects. The least complex object is the atomic vector, which are of a specific type. The six main data types are: "numeric", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the is.*() family of functions which will return a logical vector. Alternatively, the data type can be determined with the [class()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/class) function. An example of each data type is shown below.
+When working in any programming language, values are stored as variables. Defining a variable tells the language to allocate space in memory to store that variable. In R, a variable is assigned with the assignment operator "<-" or "=", which assigns a value to the variable in the user workspace or the current scope respectively. For the purposes of this course assignment should always occur with the "<-" operator. All variables are stored in objects. The least complex object is the atomic vector, which are of a specific type. The six main data types are: "numeric", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the is.*() family of functions which will return a logical vector. Alternatively, the data type can be determined with the [class()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/class) function. An example of each data type is shown below.
 
 ```R
 # numeric
