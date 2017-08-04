@@ -114,21 +114,24 @@ vec[1]
 # extract the character 5
 vec[vec == "5"]
 
-# determine with element of the vector contains a "5"
+# determine which element of the vector contains a "5"
 which(vec == "5")
 ```
 
-Lists are created using the [list()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/list) function and are used to make more complicated data structures. As mentioned lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract). However, single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return an element of the list as a list. Double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return the the designated element from the list. In general, you should always use double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) when working with lists.
+Lists are created using the [list()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/list) function and are used to make more complicated data structures. As mentioned lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract). However, single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return an element of the list as a list. Double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return the the designated element from the list. In general, you should always use double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) when you wish to extract a single item from a list in its expected type. You would use the single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) if you want to extract a subset of the list.
 
 ```R
 # create list
 myList <- list(c(1:10), matrix(1:10, nrow=2), c("foo", "bar"))
 
-# extract the first element of the list
+# extract the first element of the list (the vector of integers)
 myList[[1]]
+
+# extract a subset (e.g., the first and third items) of the list into a new list
+myList[c(1,3)]
 ```
 
-It is important to address attributes in our discussion of data structures. All objects can contain attributes, which hold metadata regarding the object. An example of an attribute for vectors are names. We can give names to each element within a vector with the [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) function, labeling each element of the list with a corresponding name in addition to its index. Another attribute is a factor, which we will use extensively in ggplot2 to define the order of categorical variables. Factors hold metadata regarding the order and the expected values within a vector. A factor can be specifically defined with the function [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor), assigning the order of the expected values with the "levels" param.
+It is important to address attributes in our discussion of data structures. All objects can contain attributes, which hold metadata regarding the object. An example of an attribute for vectors are names. We can give names to each element within a vector with the [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) function, labeling each element of the list with a corresponding name in addition to its index. Another type of data structure is a factor, which we will use extensively in ggplot2 to define the order of categorical variables. Factors hold metadata (attributes) regarding the order and the expected values. A factor can be specifically defined with the function [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor). The expected values and order attributes of a factor are specified with the "levels" param.
 
 ```R
 # create a named vector
@@ -143,7 +146,22 @@ vec <- factor(vec, levels=c(2, 1))
 
 ## Importing and exporting data
 
-As we have seen, data can be created on the fly in R with the various data structure functions. However it is much more likely that you will need to import data into R to perform analysis. Given the number of packages available, if a common filetype exists (XML, JSON, XLSX) R can probably import it. The most common situation is a simple delimited text file. For this the [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table) function and its various deriviatives are immenseley useful. Type in ?read.table in your terminal for more information about its usage. Once data has been imported and analysis completed, you may need to export data back out of R. Similar to [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table), R has functions for this purpose. [write.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/write.table) will export the data given to the file on disk specified. See ?write.table for more information.
+As we have seen, data can be created on the fly in R with the various data structure functions. However it is much more likely that you will need to import data into R to perform analysis. Given the number of packages available, if a common filetype exists (XML, JSON, XLSX) R can probably import it. The most common situation is a simple delimited text file. For this the [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table) function and its various deriviatives are immensely useful. Type in ?read.table in your terminal for more information about its usage. Once data has been imported and analysis completed, you may need to export data back out of R. Similar to [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table), R has functions for this purpose. [write.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/write.table) will export the data given, in a variety of simple delimited text files, to the file path specified. See ?write.table for more information. Two common issues with importing data use these functions have to do with unrecognized missing/NULL values and unexpected data type coercion by R. Missing values are considered in a special way by R. If you use a notation for missing values that R doesn't expect (e.g., "N/A") in a data column that otherwise contains numbers, R may import that column as a vector of character values instead of a vector of numeric/integer values with missing values. To avoid this, you should always list your missing value notations using the `na.strings` parameter or use the default "NA" that R assumes. Similarly, R will attempt to recognize the data structure type for each column and coerce it to that type. Often with biological data, this results in creation of undesired factors and unexpected results down stream. This can be avoided with the `as.is` parameter.    
+
+
+```R
+# import data from a tab-delimited file hosted on the course data server
+data <- read.table(file="http://genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv", header=TRUE, sep="\t", na.strings = c("NA","N/A","na"), as.is=c(1:27,29:30))
+
+# view the first few rows of the imported data
+head(data)
+
+# create a new dataframe with just the first 10 rows of data and write that to file
+subsetdata <- data[1:10,]
+outpath <- getwd()
+write.table(x=subsetdata, file=paste(outpath,"/subset.txt", sep=""), sep="\t", quote=FALSE, row.names=FALSE)
+
+```
 
 ## Data frames, slicing and manipulation
 
