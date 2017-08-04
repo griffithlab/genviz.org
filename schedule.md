@@ -19,7 +19,7 @@ layout: "home"
 |     | 12:00-13:00 | 1:00     |        | Lunch |
 |     | 13:00-15:30 | 2:30     |        | Introduction to ggplot2 - part 1 |
 |  3  | 09:30-11:00 | 1:30     | 2      | Introduction to ggplot2 - part 2 |
-|     | 11:00-12:00 | 2:00     |        | Introduction to GenVisR - part 1 |
+|     | 11:00-12:00 | 1:00     |        | Introduction to GenVisR - part 1 |
 |     | 12:00-13:00 | 1:00     |        | Lunch |
 |     | 13:00-17:30 | 4:30     |        | Introduction to GenVisR - part 2 |
 |  4  | 09:30-10:30 | 1:00     | 3      | Lecture: Expression Profiling, Visualization, and Interpretation |
