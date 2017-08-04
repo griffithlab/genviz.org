@@ -158,4 +158,4 @@ shinyServer(function(input, output) {
 We have given a very quick overview of [shiny](https://shiny.rstudio.com/), and have really only scraped the surface of what [shiny](https://shiny.rstudio.com/) can be used for. Using the knowledge we have already learned however let's try modifying our existing shiny app with a few exercises.
 
 Right now the plot looks fairly bland, try adding the ability for the user to enter a column as text to colour points by. You'll want to use [textInput()](https://www.rdocumentation.org/packages/shinybootstrap2/versions/0.2.1/topics/textInput) within the ui.R file for this and then link the input to the ggplot call.
-{% include question.html question="Change the ui.R and server.R files to color points on based text input." answer=%}
+{% include question.html question="Change the ui.R and server.R files to color points on based text input." answer='todo'%}
