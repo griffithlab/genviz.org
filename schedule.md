@@ -6,7 +6,7 @@ excerpt: ""
 layout: "home"
 ---
 
-| Priority apples | Second priority | Third priority |
+| Module | Day | Topic |
 |-------|--------|---------|
 | ambrosia | gala | red delicious |
 | pink lady | jazz | macintosh |
