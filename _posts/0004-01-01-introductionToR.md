@@ -150,6 +150,7 @@ As we have seen, data can be created on the fly in R with the various data struc
 
 
 ```R
+
 # import data from a tab-delimited file hosted on the course data server
 data <- read.table(file="http://genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv", header=TRUE, sep="\t", na.strings = c("NA","N/A","na"), as.is=c(1:27,29:30))
 
@@ -165,7 +166,7 @@ write.table(x=subsetdata, file=paste(outpath,"/subset.txt", sep=""), sep="\t", q
 
 ## Data frames, slicing and manipulation
 
-Within this course, the majority of our analysis will involve analyzing data in the structure of data frames. This is the input ggplot2 expects and is a common and useful data structure throughout the R language. Data frames are 2 dimensional and store vectors, which can be accessed with either single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) or the ($)[https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame] operator. When using single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame), a comma is necessary for specifying rows and columns. This is done by calling the data frame [row(s), column(s)]. The [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator is used to specify a column name or variable within the data frame. In the following example, we will use the mtcars dataset, one of the preloaded datasets within the R framework. "cyl" is one of the categorical variables within the mtcars data frame, which allows us to specifically call as an atomic vector.
+Within this course, the majority of our analysis will involve analyzing data in the structure of data frames. This is the input ggplot2 expects and is a common and useful data structure throughout the R language. Data frames are 2 dimensional and store vectors, which can be accessed with either single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) or the [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator. When using single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame), a comma is necessary for specifying rows and columns. This is done by calling the data frame [row(s), column(s)]. The [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator is used to specify a column name or variable within the data frame. In the following example, we will use the `mtcars` dataset, one of the preloaded datasets within the R framework. "cyl" is one of the categorical variables within the mtcars data frame, which allows us to specifically call an atomic vector.
 
 Data frames can be created using the [data.frame()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/data.frame) function and is generally the format of data imported into R. We can learn about the format of our data frame with functions such as [colnames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [rownames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [dim()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/dim), [nrow()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), [ncol()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), and [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/str). The example below shows the usefulness of some of these functions, but please use the help documentation for further information. Data frames can be combined in R using the [cbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/cbind) and [rbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/rbind) functions assuming the data frames being combined have the same column or row names, respectively. If they do not, functions exist within various packages to bind data frames and fill in NA values for columns or rows that do no match (refer to the plyr package for more information).
 
@@ -197,7 +198,7 @@ library(plyr)
 # How many replicates are there for each species of the iris data?
 count(iris$Species)
 
-# How many cars in the mtcars dataset have both 8 cylinders and 4 carburetors
+# How many cars in the mtcars dataset have both 8 cylinders and 4 carburetors?
 count(mtcars, c("cyl", "carb"))
 ```
 
@@ -213,9 +214,7 @@ aggregate(data=mtcars, disp~cyl + carb, mean)
 
 ## Apply family of functions
 
-If you are familiar with other coding languages, you are probably comfortable with looping through the elements of a data structure using functions such as [for()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control) and [while](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control). The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions in R make this much easier by inherently looping through a data structure without having to increment throught the indices of the structure. The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family consists of [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) and [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) for lists, vectors, and data frames and [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) for data frames, which we will discuss here. Note that there are other members of the [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions.
-
-[lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the applied function as a list. [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the function as a vector or a simplified data structure (in comparison to lapply).
+If you are familiar with other coding languages, you are probably comfortable with looping through the elements of a data structure using functions such as [for()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control) and [while](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control). The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions in R make this much easier (and faster) by inherently looping through a data structure without having to increment throught the indices of the structure. The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family consists of [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) and [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) for lists, vectors, and data frames and [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) for data frames. [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the applied function as a list. [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the function as a vector or a simplified data structure (in comparison to lapply).
 
 ```R
 # set a seed for consistency
@@ -248,7 +247,10 @@ apply(x, 1, min)
 # find the minimum value in each column
 apply(x, 2, min)
 ```
-sapply will simplify the data structure if possible.
+
+## Functions in R
+
+TO DO - give a brief introduction and example of writing your own function. A function is a way to store a piece of code so we don't have to type the same code repeatedly. Combining your own functions with the apply commands above is a powerful way to complete complex or custom analysis on your biological data.
 
 ## Basic control structures
 
@@ -282,10 +284,10 @@ mySum(x)
 sum(x)
 
 # run benchmark tests
-microbenchmark(mySum(x), sum(x))
+microbenchmark(mySum(x), sum(x), times = 1000L)
 ```
 
-In mySum(), we use a for loop to sum all the elements of the vector. The syntax is fairly straight forward. We loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that, we use an if statement to make sure the user has supplied a numeric vector. This statement simply executes the block of code in curly brackets. If the expression in parenthesis is TRUE, we use an [!](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Logic) to reverse the outcome of the result give by [is.numeric()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/numeric). All of this is defined as a function, which is a way to store a piece of code so we don't have to type the same code snippet repeatedly. These benchmark tests show that [sum()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/sum) is 2-3 orders of magnitude faster than our handwritten mySum() function.
+In mySum(), we use a for loop to sum all the elements of the vector. The syntax is fairly straightforward. We loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that, we use an if statement to make sure the user has supplied only numeric values. This statement simply executes the block of code in curly brackets. If the expression in parenthesis is TRUE, we use an [!](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Logic) to reverse the outcome of the result given by [is.numeric()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/numeric). All of this is defined as a function. These benchmark tests show that [sum()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/sum) is 2-3 orders of magnitude faster than our handwritten mySum() function.
 
 ## Additional resources
 
