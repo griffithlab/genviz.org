@@ -114,21 +114,24 @@ vec[1]
 # extract the character 5
 vec[vec == "5"]
 
-# determine with element of the vector contains a "5"
+# determine which element of the vector contains a "5"
 which(vec == "5")
 ```
 
-Lists are created using the [list()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/list) function and are used to make more complicated data structures. As mentioned lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract). However, single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return an element of the list as a list. Double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return the the designated element from the list. In general, you should always use double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) when working with lists.
+Lists are created using the [list()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/list) function and are used to make more complicated data structures. As mentioned lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract). However, single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return an element of the list as a list. Double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return the the designated element from the list. In general, you should always use double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) when you wish to extract a single item from a list in its expected type. You would use the single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) if you want to extract a subset of the list.
 
 ```R
 # create list
 myList <- list(c(1:10), matrix(1:10, nrow=2), c("foo", "bar"))
 
-# extract the first element of the list
+# extract the first element of the list (the vector of integers)
 myList[[1]]
+
+# extract a subset (e.g., the first and third items) of the list into a new list
+myList[c(1,3)]
 ```
 
-It is important to address attributes in our discussion of data structures. All objects can contain attributes, which hold metadata regarding the object. An example of an attribute for vectors are names. We can give names to each element within a vector with the [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) function, labeling each element of the list with a corresponding name in addition to its index. Another attribute is a factor, which we will use extensively in ggplot2 to define the order of categorical variables. Factors hold metadata regarding the order and the expected values within a vector. A factor can be specifically defined with the function [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor), assigning the order of the expected values with the "levels" param.
+It is important to address attributes in our discussion of data structures. All objects can contain attributes, which hold metadata regarding the object. An example of an attribute for vectors are names. We can give names to each element within a vector with the [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) function, labeling each element of the list with a corresponding name in addition to its index. Another type of data structure is a factor, which we will use extensively in ggplot2 to define the order of categorical variables. Factors hold metadata (attributes) regarding the order and the expected values. A factor can be specifically defined with the function [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor). The expected values and order attributes of a factor are specified with the "levels" param.
 
 ```R
 # create a named vector
@@ -143,11 +146,27 @@ vec <- factor(vec, levels=c(2, 1))
 
 ## Importing and exporting data
 
-As we have seen, data can be created on the fly in R with the various data structure functions. However it is much more likely that you will need to import data into R to perform analysis. Given the number of packages available, if a common filetype exists (XML, JSON, XLSX) R can probably import it. The most common situation is a simple delimited text file. For this the [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table) function and its various deriviatives are immenseley useful. Type in ?read.table in your terminal for more information about its usage. Once data has been imported and analysis completed, you may need to export data back out of R. Similar to [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table), R has functions for this purpose. [write.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/write.table) will export the data given to the file on disk specified. See ?write.table for more information.
+As we have seen, data can be created on the fly in R with the various data structure functions. However it is much more likely that you will need to import data into R to perform analysis. Given the number of packages available, if a common filetype exists (XML, JSON, XLSX) R can probably import it. The most common situation is a simple delimited text file. For this the [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table) function and its various deriviatives are immensely useful. Type in ?read.table in your terminal for more information about its usage. Once data has been imported and analysis completed, you may need to export data back out of R. Similar to [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table), R has functions for this purpose. [write.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/write.table) will export the data given, in a variety of simple delimited text files, to the file path specified. See ?write.table for more information. Two common issues with importing data use these functions have to do with unrecognized missing/NULL values and unexpected data type coercion by R. Missing values are considered in a special way by R. If you use a notation for missing values that R doesn't expect (e.g., "N/A") in a data column that otherwise contains numbers, R may import that column as a vector of character values instead of a vector of numeric/integer values with missing values. To avoid this, you should always list your missing value notations using the `na.strings` parameter or use the default "NA" that R assumes. Similarly, R will attempt to recognize the data structure type for each column and coerce it to that type. Often with biological data, this results in creation of undesired factors and unexpected results down stream. This can be avoided with the `as.is` parameter.    
+
+
+```R
+
+# import data from a tab-delimited file hosted on the course data server
+data <- read.table(file="http://genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv", header=TRUE, sep="\t", na.strings = c("NA","N/A","na"), as.is=c(1:27,29:30))
+
+# view the first few rows of the imported data
+head(data)
+
+# create a new dataframe with just the first 10 rows of data and write that to file
+subsetdata <- data[1:10,]
+outpath <- getwd()
+write.table(x=subsetdata, file=paste(outpath,"/subset.txt", sep=""), sep="\t", quote=FALSE, row.names=FALSE)
+
+```
 
 ## Data frames, slicing and manipulation
 
-Within this course, the majority of our analysis will involve analyzing data in the structure of data frames. This is the input ggplot2 expects and is a common and useful data structure throughout the R language. Data frames are 2 dimensional and store vectors, which can be accessed with either single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) or the ($)[https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame] operator. When using single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame), a comma is necessary for specifying rows and columns. This is done by calling the data frame [row(s), column(s)]. The [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator is used to specify a column name or variable within the data frame. In the following example, we will use the mtcars dataset, one of the preloaded datasets within the R framework. "cyl" is one of the categorical variables within the mtcars data frame, which allows us to specifically call as an atomic vector.
+Within this course, the majority of our analysis will involve analyzing data in the structure of data frames. This is the input ggplot2 expects and is a common and useful data structure throughout the R language. Data frames are 2 dimensional and store vectors, which can be accessed with either single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) or the [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator. When using single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame), a comma is necessary for specifying rows and columns. This is done by calling the data frame [row(s), column(s)]. The [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator is used to specify a column name or variable within the data frame. In the following example, we will use the `mtcars` dataset, one of the preloaded datasets within the R framework. "cyl" is one of the categorical variables within the mtcars data frame, which allows us to specifically call an atomic vector.
 
 Data frames can be created using the [data.frame()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/data.frame) function and is generally the format of data imported into R. We can learn about the format of our data frame with functions such as [colnames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [rownames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [dim()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/dim), [nrow()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), [ncol()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), and [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/str). The example below shows the usefulness of some of these functions, but please use the help documentation for further information. Data frames can be combined in R using the [cbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/cbind) and [rbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/rbind) functions assuming the data frames being combined have the same column or row names, respectively. If they do not, functions exist within various packages to bind data frames and fill in NA values for columns or rows that do no match (refer to the plyr package for more information).
 
@@ -179,7 +198,7 @@ library(plyr)
 # How many replicates are there for each species of the iris data?
 count(iris$Species)
 
-# How many cars in the mtcars dataset have both 8 cylinders and 4 carburetors
+# How many cars in the mtcars dataset have both 8 cylinders and 4 carburetors?
 count(mtcars, c("cyl", "carb"))
 ```
 
@@ -195,9 +214,7 @@ aggregate(data=mtcars, disp~cyl + carb, mean)
 
 ## Apply family of functions
 
-If you are familiar with other coding languages, you are probably comfortable with looping through the elements of a data structure using functions such as [for()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control) and [while](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control). The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions in R make this much easier by inherently looping through a data structure without having to increment throught the indices of the structure. The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family consists of [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) and [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) for lists, vectors, and data frames and [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) for data frames, which we will discuss here. Note that there are other members of the [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions.
-
-[lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the applied function as a list. [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the function as a vector or a simplified data structure (in comparison to lapply).
+If you are familiar with other coding languages, you are probably comfortable with looping through the elements of a data structure using functions such as [for()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control) and [while](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control). The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions in R make this much easier (and faster) by inherently looping through a data structure without having to increment throught the indices of the structure. The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family consists of [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) and [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) for lists, vectors, and data frames and [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) for data frames. [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the applied function as a list. [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the function as a vector or a simplified data structure (in comparison to lapply).
 
 ```R
 # set a seed for consistency
@@ -230,7 +247,10 @@ apply(x, 1, min)
 # find the minimum value in each column
 apply(x, 2, min)
 ```
-sapply will simplify the data structure if possible.
+
+## Functions in R
+
+TO DO - give a brief introduction and example of writing your own function. A function is a way to store a piece of code so we don't have to type the same code repeatedly. Combining your own functions with the apply commands above is a powerful way to complete complex or custom analysis on your biological data.
 
 ## Basic control structures
 
@@ -264,10 +284,10 @@ mySum(x)
 sum(x)
 
 # run benchmark tests
-microbenchmark(mySum(x), sum(x))
+microbenchmark(mySum(x), sum(x), times = 1000L)
 ```
 
-In mySum(), we use a for loop to sum all the elements of the vector. The syntax is fairly straight forward. We loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that, we use an if statement to make sure the user has supplied a numeric vector. This statement simply executes the block of code in curly brackets. If the expression in parenthesis is TRUE, we use an [!](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Logic) to reverse the outcome of the result give by [is.numeric()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/numeric). All of this is defined as a function, which is a way to store a piece of code so we don't have to type the same code snippet repeatedly. These benchmark tests show that [sum()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/sum) is 2-3 orders of magnitude faster than our handwritten mySum() function.
+In mySum(), we use a for loop to sum all the elements of the vector. The syntax is fairly straightforward. We loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that, we use an if statement to make sure the user has supplied only numeric values. This statement simply executes the block of code in curly brackets. If the expression in parenthesis is TRUE, we use an [!](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Logic) to reverse the outcome of the result given by [is.numeric()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/numeric). All of this is defined as a function. These benchmark tests show that [sum()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/sum) is 2-3 orders of magnitude faster than our handwritten mySum() function.
 
 ## Additional resources
 
