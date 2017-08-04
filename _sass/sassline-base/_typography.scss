@@ -217,16 +217,62 @@ a {
     font-feature-settings: 'liga', 'lnum', 'tnum', 'kern';
     font-style: normal;
     font-weight: map-get($headingtype, regular);
-    width: 100%;
+    font-size: 14px;
+      margin:20px 0 0;
+      padding:0;
+    border-collapse:separate;
+      border-spacing: 0;
 
     thead {
 
       th {
         @include sassline(zeta, $headingtype, 2, 0, all);
         padding-bottom: 1px;
+        background-color: darken($color__site--link, 10%);
+        color: #f9f9f9;
+      }
+      th:first-child {
+          border-radius: 6px 0 0 0;
+      }
+
+      th:last-child {
+          border-radius: 0 6px 0 0;
+      }
+
+      th:only-child{
+        border-radius: 6px 6px 0 0;
       }
     }
   }
+
+table tr
+{
+	border-top:1px solid #ccc;
+	background-color: #e0e0e0;
+	margin:0;
+	padding:0;
+
+    tr:only-child {
+        border-radius: 0 6px 0 0;
+      }
+}
+
+tr:hover {background-color: lighten($color__site--link, 20%)}
+
+table tr:nth-child(2n)
+{
+	background-color: #e0e0e0;
+}
+table tr th[align="center"], table tr td[align="center"] {
+	text-align:center;
+}
+table tr th, table tr td
+{
+	border:1px solid #ccc;
+	text-align:left;
+	margin:0;
+	padding:6px 13px;
+}
 
   // Bold.
   b, strong, .bold {

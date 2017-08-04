@@ -6,6 +6,12 @@ excerpt: ""
 layout: "home"
 ---
 
+| Priority apples | Second priority | Third priority |
+|-------|--------|---------|
+| ambrosia | gala | red delicious |
+| pink lady | jazz | macintosh |
+| honeycrisp | granny smith | fuji |
+
 ## Module 1: Introduction to Genomic Data Visualization and Interpretation
 
 * Lecture 1: Introduction to Genomic Data Visualization and Interpretation
@@ -46,7 +52,6 @@ layout: "home"
     * axis scaling and manipulation
     * faceting
     * themes and colours
-    * ggvis
 
 * Lab 5: Real world examples using ggplot
     * Heatmaps
