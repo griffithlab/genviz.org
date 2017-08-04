@@ -252,16 +252,19 @@ table tr
 	margin:0;
 	padding:0;
 
-    tr:only-child {
-        border-radius: 0 6px 0 0;
-      }
+    /*tr:last-child {
+        td:first-child{
+            border-radius: 6px 0 0 0;
+        }
+        td:last-child{
+            border-radius: 0 6px 0 0;
+        }
+    }*/
 }
-
-tr:hover {background-color: lighten($color__site--link, 20%)}
 
 table tr:nth-child(2n)
 {
-	background-color: #e0e0e0;
+	background-color: #e9e9e9;
 }
 table tr th[align="center"], table tr td[align="center"] {
 	text-align:center;

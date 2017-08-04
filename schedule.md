@@ -6,95 +6,37 @@ excerpt: ""
 layout: "home"
 ---
 
-| Module | Day | Topic |
-|-------|--------|---------|
-| ambrosia | gala | red delicious |
-| pink lady | jazz | macintosh |
-| honeycrisp | granny smith | fuji |
-
-## Module 1: Introduction to Genomic Data Visualization and Interpretation
-
-* Lecture 1: Introduction to Genomic Data Visualization and Interpretation
-    * Central dogma
-    * Omic technologies and data
-    * Reference files: GTF, BAM, VCF, MAF, BED, etc
-    * Genome annotation resources, browsers, etc.
-    * Introduction to demonstration data sets
-
-* Lab 1: Genome Browsing and Visualization exercises
-    * IGV
-    * Basics
-    * Creating custom genomes
-    * Sashimi plots
-    * UCSC
-    * Ensembl
-
-* Lab 2: Web resources for variant annotation and visualization
-    * VEP/SnpEff
-    * ProteinPaint
-    * CBioportal
-    * Ensembl BioMart
-
-## Module 2: Introduction to R for Genomic Data Visualization and Interpretation
-
-* Lab 3: Intro to R
-    * Installation
-    * CRAN and Bioconductor
-    * Data types
-    * Reading and writing Data
-    * Data Frames, slicing, and manipulation
-    * Basic control structures
-    * apply() family of functions
-
-* Lab 4: Intro to ggplot
-    * wide vs long format
-    * geom and aes
-    * axis scaling and manipulation
-    * faceting
-    * themes and colours
-
-* Lab 5: Real world examples using ggplot
-    * Heatmaps
-    * Regression lines
-    * Survival analysis
-    * circos
-
-* Lab 6. Popular genomic visualizations with GenVisR
-    * Waterfall plots
-    * TvTi plots
-    * cnSpec plots
-    * cnView plots
-    * lohSpec plots
-    * genCov plots
-
-## Module 3: Differential Gene Expression and Pathway Analysis
-
-* Lab 7: Differential expression analysis
-    * DEseq2
-
-* Lab 8: Tools and datasets for pathway analysis
-    * KEGG
-    * GO
-    * GAGE (R package)
-
-* Lab 9: Pathway visualization
-    * Pathview (R package)
-    * Cytoscape
-
-## Module 4: Clinical interpretation of variants
-
-* Lab 10: Clinical variant interpretations
-    * Variant identity
-    * HGVS
-    * TransVar
-    * Mutalyzer
-    * ClinVar
-    * CIViC
-
-## Module 5: Additional Exercises
-
-* Lecture 5: Review. Question and Answer. Open discussion.
-
-* Lab 11a: Optional integrated exercises
-
-* Lab 11b: Customized visualization and interpretation of your own data
+| Day | Time | Duration | Module | Topic |
+|-------|--------|---------|---------|
+| 1 | 9:30-10:30 |  1:00 | 1 | Review of Central Concepts |
+|  | 10:30-12:00 | 1:30 |  | Genome Browsing with IGV |
+|  | 12:00-13:00 | 1:00 |  | Lunch |
+|  | 13:00-14:00 | 1:00 |  | Genome Browsing with UCSC |
+|  | 14:00-15:00 | 1:00 |  | Genome Browsing with Ensembl |
+|  | 15:00-15:10 | 0:10 |  | Break |
+|  | 15:10-17:30 | 2:20 |  | Web Resources for Variant Annotation and Visualization |
+| 2 | 9:30-10:30 | 1:00 | 2 | Introduction to R |
+| | 10:30-12:00 | 1:30 |  | Introduction to ggplot2 |
+| | 12:00-13:00 | 1:00 |  | Lunch |
+| | 13:00-14:00 | 1:00 |  | Introduction to shiny|
+| | 14:00-15:30 | 1:30 |  | Introduction to GenVisR - part 1 |
+|  | 15:30-15:40 | 0:10 |  | Break |
+| | 15:40-17:30 | 1:50 | | Introduction to GenVisR - part 2 |
+| 3 | 9:30-11:30 | 2:00 | 3 | Differential Expression with DEseq2 |
+| | 12:00-13:00 | 1:00 |  | Lunch |
+| | 13:00-14:00 | 1:00 | | Pathway Analysis |
+| | 14:00-15:00 | 1:00 | | Pathway Visualization |
+| | 15:00-15:10 | 0:10 | | Break |
+| | 15:10-17:30 | 2:20 | | TODO |
+| 4 | 9:30-10:45 | 1:15 | 4 | Variant Identify|
+| | 10:45-12:00 |  1:15 |   | Cosmic Variants|
+| | 12:00-13:00 | 1:00 |  | Lunch |
+| | 13:00-14:00 | 1:00 |  | cBioPortal |
+| | 14:00-15:00 | 1:00 |  | ClinVar|
+| | 15:00-15:10 | 0:10 | | Break |
+| | 15:10-16:30 | 1:20 | | CIViC |
+| | 16:30-17:30 | 1:00 | | DGIdb |
+| 5 | 9:30-11:00 | 1:30 | 5 | Review |
+|   | 11:00-12:00 | 1:00 | | Questions |
+|   | 12:00-13:00 | 1:00 | | Lunch |
+|   | 13:00-17:30 | 4:30 | | Work on your own data or additional exercises |
