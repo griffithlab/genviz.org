@@ -6,37 +6,31 @@ excerpt: ""
 layout: "home"
 ---
 
-| Day | Time | Duration | Module | Topic |
-|-------|--------|---------|---------|
-| 1 | 9:30-10:30 |  1:00 | 1 | Review of Central Concepts |
-|  | 10:30-12:00 | 1:30 |  | Genome Browsing with IGV |
-|  | 12:00-13:00 | 1:00 |  | Lunch |
-|  | 13:00-14:00 | 1:00 |  | Genome Browsing with UCSC |
-|  | 14:00-15:00 | 1:00 |  | Genome Browsing with Ensembl |
-|  | 15:00-15:10 | 0:10 |  | Break |
-|  | 15:10-17:30 | 2:20 |  | Web Resources for Variant Annotation and Visualization |
-| 2 | 9:30-10:30 | 1:00 | 2 | Introduction to R |
-| | 10:30-12:00 | 1:30 |  | Introduction to ggplot2 |
-| | 12:00-13:00 | 1:00 |  | Lunch |
-| | 13:00-14:00 | 1:00 |  | Introduction to shiny|
-| | 14:00-15:30 | 1:30 |  | Introduction to GenVisR - part 1 |
-|  | 15:30-15:40 | 0:10 |  | Break |
-| | 15:40-17:30 | 1:50 | | Introduction to GenVisR - part 2 |
-| 3 | 9:30-11:30 | 2:00 | 3 | Differential Expression with DEseq2 |
-| | 12:00-13:00 | 1:00 |  | Lunch |
-| | 13:00-14:00 | 1:00 | | Pathway Analysis |
-| | 14:00-15:00 | 1:00 | | Pathway Visualization |
-| | 15:00-15:10 | 0:10 | | Break |
-| | 15:10-17:30 | 2:20 | | TODO |
-| 4 | 9:30-10:45 | 1:15 | 4 | Variant Identify|
-| | 10:45-12:00 |  1:15 |   | Cosmic Variants|
-| | 12:00-13:00 | 1:00 |  | Lunch |
-| | 13:00-14:00 | 1:00 |  | cBioPortal |
-| | 14:00-15:00 | 1:00 |  | ClinVar|
-| | 15:00-15:10 | 0:10 | | Break |
-| | 15:10-16:30 | 1:20 | | CIViC |
-| | 16:30-17:30 | 1:00 | | DGIdb |
-| 5 | 9:30-11:00 | 1:30 | 5 | Review |
-|   | 11:00-12:00 | 1:00 | | Questions |
-|   | 12:00-13:00 | 1:00 | | Lunch |
-|   | 13:00-17:30 | 4:30 | | Work on your own data or additional exercises |
+| Day |     Time    | Duration | Module | Topic |
+|-----|-------------|----------|--------|-------|
+|  1  | 09:30-10:30 | 1:00     | 1      | Lecture: Introduction to Genomic Data Visualization and Interpretation |
+|     | 10:30-11:00 | 0:30     |        | Review of Central Concepts and Resources |
+|     | 11:00-12:00 | 1:00     |        | Genome Browsing with IGV, UCSC and Ensembl - part 1 |
+|     | 12:00-13:00 | 1:00     |        | Lunch |
+|     | 13:00-15:00 | 2:00     |        | Genome Browsing with IGV, UCSC and Ensembl - part 2|
+|     | 15:00-17:30 | 2:30     |        | Web Resources for Genomic Data Visualization and Interpretation (BioMart, ProteinPaint, CBioPortal, COSMIC) |
+|  2  | 09:30-10:30 | 1:00     | 2      | Lecture: Using R for Genomic Data Visualization and Interpretation |
+|     | 10:30-12:00 | 1:30     |        | Introduction to R |
+|     | 12:00-13:00 | 1:00     |        | Lunch |
+|     | 13:00-15:30 | 2:30     |        | Introduction to ggplot2 - part 1 |
+|  3  | 09:30-11:00 | 1:30     | 2      | Introduction to ggplot2 - part 2 |
+|     | 11:00-12:00 | 2:00     |        | Introduction to GenVisR - part 1 |
+|     | 12:00-13:00 | 1:00     |        | Lunch |
+|     | 13:00-17:30 | 4:30     |        | Introduction to GenVisR - part 2 |
+|  4  | 09:30-10:30 | 1:00     | 3      | Lecture: Expression Profiling, Visualization, and Interpretation |
+|     | 10:30-11:30 | 1:00     |        | Differential Expression with DEseq2 |
+|     | 11:30-12:30 | 1:00     |        | Pathway Analysis |
+|     | 12:30-13:30 | 1:00     |        | Lunch |
+|     | 13:30-14:00 | 0:30     |        | Pathway Visualization |
+|     | 14:00-14:30 | 0:30     | 4      | Lecture: Variant Annotation and Interpretation |
+|     | 14:30-15:30 | 1:00     |        | Variant Annotation with VEP |
+|     | 15:30-17:30 | 2:00     |        | Web resources for Variant Interpretation (ClinVar, CIViC) |
+| 5   | 09:30-11:00 | 1:30     | 5      | Review |
+|     | 11:00-12:00 | 1:00     |        | Open Forum for Questions |
+|     | 12:00-13:00 | 1:00     |        | Lunch |
+|     | 13:00-17:30 | 4:30     |        | Work on your own data or additional exercises |
