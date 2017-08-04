@@ -13,7 +13,7 @@ layout: "home"
 |     | 11:00-12:00 | 1:00     |        | Genome Browsing with IGV, UCSC and Ensembl - part 1 |
 |     | 12:00-13:00 | 1:00     |        | Lunch |
 |     | 13:00-15:00 | 2:00     |        | Genome Browsing with IGV, UCSC and Ensembl - part 2|
-|     | 15:00-17:30 | 2:30     |        | Web Resources for Genomic Data Visualization and Interpretation (BioMart, ProteinPaint, CBioPortal, COSMIC) |
+|     | 15:00-17:30 | 2:30     |        | Web Resources for Genomic Data Visualization and Interpretation |
 |  2  | 09:30-10:30 | 1:00     | 2      | Lecture: Using R for Genomic Data Visualization and Interpretation |
 |     | 10:30-12:00 | 1:30     |        | Introduction to R |
 |     | 12:00-13:00 | 1:00     |        | Lunch |
@@ -29,7 +29,7 @@ layout: "home"
 |     | 13:30-14:00 | 0:30     |        | Pathway Visualization |
 |     | 14:00-14:30 | 0:30     | 4      | Lecture: Variant Annotation and Interpretation |
 |     | 14:30-15:30 | 1:00     |        | Variant Annotation with VEP |
-|     | 15:30-17:30 | 2:00     |        | Web resources for Variant Interpretation (ClinVar, CIViC) |
+|     | 15:30-17:30 | 2:00     |        | Web resources for Variant Interpretation |
 | 5   | 09:30-11:00 | 1:30     | 5      | Review |
 |     | 11:00-12:00 | 1:00     |        | Open Forum for Questions |
 |     | 12:00-13:00 | 1:00     |        | Lunch |
