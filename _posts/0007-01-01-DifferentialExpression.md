@@ -22,7 +22,7 @@ biocLite("DESeq2")
 library(DESeq2)
 ```
 ### Input data
-Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of un-normalized sequence read counts at either the gene or transcript level. No normalization of this data is needed because [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) internally corrects for factors, specifically library size using these raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our [example data](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts), let's go ahead and load this data and the [sample information](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design) into R.
+Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of un-normalized sequence read counts at either the gene or transcript level. No normalization of this data is needed because [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) internally corrects for factors, specifically library size using these raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our [example data](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts), let's go ahead and load this data and the [sample information](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design) into R. If you look at the data, individual 2 appears to be associated with two normal samples. This is contrary to the described experimental design so we will remove this individual.
 
 ```R
 # Read in the raw read counts
@@ -30,6 +30,11 @@ rawCounts <- read.delim("E-GEOD-50760-raw-counts.tsv")
 
 # Read in the sample mappings
 sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
+
+# remove ambiguous data from individual 2
+removeSamples <- sampleData[sampleData$Sample.Characteristic.individual == 2,"Run"]
+sampleData <- sampleData[!sampleData$Run %in% removeSamples,]
+rawCounts <- rawCounts[,!colnames(rawCounts) %in% removeSamples]
 ```
 
 The next step is to create an object of class DESeqDataSet, this will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula which is used to estimate dispersion and log2 fold changes used within the model. When specifying the formula it should take the form of a ~ followed by + signs separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. There are 4 methods to create this object depending on the format the input data is in. Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
@@ -85,13 +90,13 @@ The next step is to run the function [DEseq()](https://www.rdocumentation.org/pa
 2. estimation of dispersion
 3. Negative Binomial GLM fitting and Wald statistic.
 
-This step can take a few minutes to perform, for convenience a .RData object containing an R environment up to this step is available to download [here](http://genomedata.org/gen-viz-workshop/differentialExpression.RData). You can load this into your R environment with [load()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/load).
+This step can take a few minutes to perform, for convenience a .RData object containing an R environment up to this step is available to download [here](http://genomedata.org/gen-viz-workshop/intro_to_deseq2/differentialExression.RData). You can load this into your R environment with [load()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/load).
 ```R
 # run pipeline for differential expression steps
 deseq2Data <- DESeq(deseq2Data)
 
 # load the R environment with this object (optional)
-load(differentialExpression.RData)
+load(differentialExression.RData)
 ```
 
 ### Extracting results
@@ -112,8 +117,10 @@ plotMA(deseq2Results)
 
 ```R
 # load libraries
+# install.packages(c("ggplot2", "scales", "viridis"))
 library(ggplot2)
 library(scales) # needed for oob parameter
+library(viridis)
 
 # coerce to a data frame
 deseq2ResDF <- as.data.frame(deseq2Results)
@@ -163,11 +170,6 @@ library(reshape2)
 deseq2VST <- melt(deseq2VST, id.vars=c("Gene"))
 
 # make a heatmap
-install.packages("ggplot2")
-library(ggplot2)
-install.packages("viridis")
-library(viridis)
-
 heatmap <- ggplot(deseq2VST, aes(x=variable, y=Gene, fill=value)) + geom_raster() + scale_fill_viridis(trans="sqrt") + theme(axis.text.x=element_text(angle=65, hjust=1), axis.text.y=element_blank(), axis.ticks.y=element_blank())
 ```
 
@@ -212,9 +214,9 @@ Our graph is looking pretty good, but you'll notice that the two plots don't see
 
 ```R
 # load in libraries necessary for modifying plots
-#install.packages(c("gtable", gridExtra))
-library(gridExtra)
+#install.packages("gtable")
 library(gtable)
+library(grid)
 
 # modify the ggplot objects
 sampleDendrogram_1 <- sampleDendrogram + scale_x_continuous(expand=c(.0085, .0085))
@@ -244,4 +246,23 @@ finalGrob <- arrangeGrob(sampleDendrogramGrob, heatmapGrob, ncol=1, heights=c(2,
 grid.draw(finalGrob)
 ```
 
-You will notice that we are loading in a few additional packages to help solve this problem. The [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) package is used to arrange grid based graphics such as those from ggplot on a page. All plots within ggplot are graphical objects (grobs) from the [grid] package. The [gtable](https://cran.r-project.org/web/packages/gtable/index.html) allows us to view and manipulate these grobs as tables making them easier to work with. The first step after loading these packages is to alter the x-axis scales in our plots. By default [ggplot](http://ggplot2.tidyverse.org/reference) adds a padding within all plots so data is not plotted on the edge of the plot. We can control this padding with the `expand` parameter within ggplot's [scale](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layers. To get things just right you will need to alter these parameters so data within the plots line up, aproximate alterations are provided above so let's move on the the next step. We need to make sure the main panels in both plots line up exactly, in order to do this we must first convert these plots to table grobs to make them easier to manipulate, this is achieved with the [ggplotGrob()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplotGrob) function. Now that these are grobs we compare the widths of each grob, you might notice that two widths seem to be missing from the the dendrogram plot. These two widths correspond to the legend in the heatmap, we use the [gtable_add_cols()](https://www.rdocumentation.org/packages/gtable/versions/0.2.0/topics/gtable_add_cols) function to insert in the widths for these two elements from the heatmap grob into the dendrogram grob. The next step is to then find the maximum widths for each grob object using [unit.pmax()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/unit.pmin) and to overwrite each grobs width with these maximum widths. Finally we arrange the grobs on the page we are plotting to using [arrangeGrob()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob) and draw the final plot with [grid.draw()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/grid.draw).
+You will notice that we are loading in a few additional packages to help solve this problem. The [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) package is used to arrange grid based graphics such as those from ggplot on a page. All plots within ggplot are graphical objects (grobs) from the [grid]() package. The [gtable](https://cran.r-project.org/web/packages/gtable/index.html) allows us to view and manipulate these grobs as tables making them easier to work with. The first step after loading these packages is to alter the x-axis scales in our plots. By default [ggplot](http://ggplot2.tidyverse.org/reference) adds a padding within all plots so data is not plotted on the edge of the plot. We can control this padding with the `expand` parameter within ggplot's [scale](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layers. To get things just right you will need to alter these parameters so data within the plots line up, aproximate alterations are provided above so let's move on the the next step. We need to make sure the main panels in both plots line up exactly, in order to do this we must first convert these plots to table grobs to make them easier to manipulate, this is achieved with the [ggplotGrob()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplotGrob) function. Now that these are grobs we compare the widths of each grob, you might notice that two widths seem to be missing from the the dendrogram plot. These two widths correspond to the legend in the heatmap, we use the [gtable_add_cols()](https://www.rdocumentation.org/packages/gtable/versions/0.2.0/topics/gtable_add_cols) function to insert in the widths for these two elements from the heatmap grob into the dendrogram grob. The next step is to then find the maximum widths for each grob object using [unit.pmax()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/unit.pmin) and to overwrite each grobs width with these maximum widths. Finally we arrange the grobs on the page we are plotting to using [arrangeGrob()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob) and draw the final plot with [grid.draw()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/grid.draw).
+
+### Exercises
+
+In the tutorial above we have completed the steps necessary to produce a dendrogram for samples, we could also do this for genes. Try to reproduce the plot below, if you get stuck you'll find an rscript that below which will produce the correct answer! Your steps should look something like this:
+
+<div>
+{% include figure.html image="/assets/Deseq2/heatmap_deseq2_final.png" position="right" %}
+</div>
+
+1. Create a dendrogram for genes
+    1. use [cord_flip()](http://ggplot2.tidyverse.org/reference/coord_flip.html) and [scale_y_reverse()](http://ggplot2.tidyverse.org/reference/scale_continuous.html)
+2. re-arrange the gene cells on the y-axis to match the gene dendrogram
+3. convert the dendrogram and heatmaps to grobs
+4. align the gene dendrogram heights to match the heatmap (note: you don't need to worry about the legend in this case)
+    1. you'll also need to repeat the tutorial steps for aligning the sample dendrogram since we have a new heatmap, consider this step 4B.
+5. create a blank panel you can use this: `blankPanel<-grid.rect(gp=gpar(col="white"))`
+6. use the gridExtra package to position the panels and plot the result.
+
+{% include question.html question="Reproduce the plot above, follow the steps outlined." answer='This Rscript <a href="http://genomedata.org/gen-viz-workshop/intro_to_deseq2/exercise1_diferentialExpression.R">file</a> contains the correct answer.'%}
