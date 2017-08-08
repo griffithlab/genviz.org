@@ -29,6 +29,9 @@ Below are some additional resources users may find usefull to suppplement the in
 
 ### Differential Expresion with DEseq2
 
+* [Experimental Data, Kim et al.](https://www.ncbi.nlm.nih.gov/pubmed/25049118)
+* [DEseq2](https://www.ncbi.nlm.nih.gov/pubmed/25516281)
+
 ### Pathway Analysis
 
 ### Pathway Visualization

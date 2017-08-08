@@ -211,30 +211,37 @@ grid.arrange(sampleDendrogram, heatmap, ncol=1, heights=c(1,5))
 Our graph is looking pretty good, but you'll notice that the two plots don't seem to line up. This is because the plot widths from our two plots don't quite match up. This can occur for a variety of reasons however in this case it is because we have a legend in one plot but not in the other. Fortuanately this sort of problem is generally easy to fix.
 
 ```R
-# convert both grid based objects to grobs
-heatmapGrob <- ggplotGrob(heatmap)
-sampleDendrogramGrob <- ggplotGrob(sampleDendrogram)
-
-# add an empty column for the legend
-install.packages("gtable")
+# load in libraries necessary for modifying plots
+#install.packages(c("gtable", gridExtra))
+library(gridExtra)
 library(gtable)
-sampleDendrogramGrob <- gtable_add_cols(sampleDendrogramGrob, unit(0,"mm"))
 
+# modify the ggplot objects
+sampleDendrogram_1 <- sampleDendrogram + scale_x_continuous(expand=c(.0085, .0085))
+heatmap_1 <- heatmap + scale_x_discrete(expand=c(0, 0))
 
-# find the max widths for the grob objects
-library(grid)
-maxWidth <- unit.pmax(heatmapGrob$widths, sampleDendrogramGrob$widths)
+# convert both grid based objects to grobs
+sampleDendrogramGrob <- ggplotGrob(sampleDendrogram_1)
+heatmapGrob <- ggplotGrob(heatmap_1)
 
-# reassign the grob widths based on the max plot widths
-heatmapGrob$widths <- as.list(maxWidth)
+# check the widths of each grob
+sampleDendrogramGrob$widths
+heatmapGrob$widths
+
+# add in the missing columns
+sampleDendrogramGrob <- gtable_add_cols(sampleDendrogramGrob, heatmapGrob$widths[7], 6)
+sampleDendrogramGrob <- gtable_add_cols(sampleDendrogramGrob, heatmapGrob$widths[8], 7)
+
+# make sure every width between the two grobs is the same
+maxWidth <- unit.pmax(sampleDendrogramGrob$widths, heatmapGrob$widths)
 sampleDendrogramGrob$widths <- as.list(maxWidth)
+heatmapGrob$widths <- as.list(maxWidth)
 
 # arrange the grobs into a plot
-finalGrob <- arrangeGrob(sampleDendrogram, heatmap, ncol=1, heights=c(1,5))
+finalGrob <- arrangeGrob(sampleDendrogramGrob, heatmapGrob, ncol=1, heights=c(2,5))
 
 # draw the plot
 grid.draw(finalGrob)
 ```
-### Additional information and references
-* [Experimental Data, Kim et al.](https://www.ncbi.nlm.nih.gov/pubmed/25049118)
-* [DEseq2](https://www.ncbi.nlm.nih.gov/pubmed/25516281)
+
+You will notice that we are loading in a few additional packages to help solve this problem. The [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) package is used to arrange grid based graphics such as those from ggplot on a page. All plots within ggplot are graphical objects (grobs) from the [grid] package. The [gtable](https://cran.r-project.org/web/packages/gtable/index.html) allows us to view and manipulate these grobs as tables making them easier to work with. The first step after loading these packages is to alter the x-axis scales in our plots. By default [ggplot](http://ggplot2.tidyverse.org/reference) adds a padding within all plots so data is not plotted on the edge of the plot. We can control this padding with the `expand` parameter within ggplot's [scale](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layers. To get things just right you will need to alter these parameters so data within the plots line up, aproximate alterations are provided above so let's move on the the next step. We need to make sure the main panels in both plots line up exactly, in order to do this we must first convert these plots to table grobs to make them easier to manipulate, this is achieved with the [ggplotGrob()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplotGrob) function. Now that these are grobs we compare the widths of each grob, you might notice that two widths seem to be missing from the the dendrogram plot. These two widths correspond to the legend in the heatmap, we use the [gtable_add_cols()](https://www.rdocumentation.org/packages/gtable/versions/0.2.0/topics/gtable_add_cols) function to insert in the widths for these two elements from the heatmap grob into the dendrogram grob. The next step is to then find the maximum widths for each grob object using [unit.pmax()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/unit.pmin) and to overwrite each grobs width with these maximum widths. Finally we arrange the grobs on the page we are plotting to using [arrangeGrob()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob) and draw the final plot with [grid.draw()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/grid.draw).
