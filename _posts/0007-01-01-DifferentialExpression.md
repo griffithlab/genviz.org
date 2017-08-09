@@ -252,9 +252,8 @@ You will notice that we are loading in a few additional packages to help solve t
 
 In the tutorial above we have completed the steps necessary to produce a dendrogram for samples, we could also do this for genes. Try to reproduce the plot below, if you get stuck you'll find an rscript that below which will produce the correct answer! Your steps should look something like this:
 
-<div>
+
 {% include figure.html image="/assets/Deseq2/heatmap_deseq2_final.png" position="right" %}
-</div>
 
 1. Create a dendrogram for genes
     1. use [cord_flip()](http://ggplot2.tidyverse.org/reference/coord_flip.html) and [scale_y_reverse()](http://ggplot2.tidyverse.org/reference/scale_continuous.html)
