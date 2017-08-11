@@ -281,7 +281,7 @@ In the tutorial above we have completed the steps necessary to produce a dendrog
 {% include figure.html image="/assets/Deseq2/heatmap_deseq2_final.png" position="right" %}
 
 1. Create a dendrogram for genes
-    1. use [cord_flip()](http://ggplot2.tidyverse.org/reference/coord_flip.html) and [scale_y_reverse()](http://ggplot2.tidyverse.org/reference/scale_continuous.html)
+    1. use [coord_flip()](http://ggplot2.tidyverse.org/reference/coord_flip.html) and [scale_y_reverse()](http://ggplot2.tidyverse.org/reference/scale_continuous.html)
 2. re-arrange the gene cells on the y-axis to match the gene dendrogram
 3. convert the dendrogram and heatmaps to grobs
 4. align the gene dendrogram heights to match the heatmap (note: you don't need to worry about the legend in this case)
@@ -289,4 +289,4 @@ In the tutorial above we have completed the steps necessary to produce a dendrog
 5. create a blank panel you can use this: `blankPanel<-grid.rect(gp=gpar(col="white"))`
 6. use the gridExtra package to position the panels and plot the result.
 
-{% include question.html question="Reproduce the plot above, follow the steps outlined." answer='This Rscript <a href="http://genomedata.org/gen-viz-workshop/intro_to_deseq2/exercise1_diferentialExpression.R">file</a> contains the correct answer.'%}
+{% include question.html question="Reproduce the plot above, follow the steps outlined." answer='This Rscript <a href="http://genomedata.org/gen-viz-workshop/intro_to_deseq2/exercise_1/exercise1_deseq2_final_heatmap.R">file</a> contains the correct answer.'%}

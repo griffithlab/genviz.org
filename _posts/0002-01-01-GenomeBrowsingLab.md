@@ -21,8 +21,8 @@ Java is necessary to run IGV, you can download the jave runtime environment (JRE
 ### Data Set for IGV
 We will be using publicly available Illumina sequence data from the HCC1143 cell line. The HCC1143 cell line was generated from a 52 year old caucasian woman with breast cancer. Additional information on this cell line can be found [here](http://www.atcc.org/products/all/CRL-2321.aspx): (tumor, TNM stage IIA, grade 3, primary ductal carcinoma) and [HCC1143/BL](http://www.atcc.org/products/all/CRL-2362.aspx) (matched normal EBV transformed lymphoblast cell line). Reads within these cell lines have been filtered to Chromosome 21: 19,000,000-20,000,000 in order to reduce file sizes.
 
-* [HCC1143.normal.21.19M-20M.bam](http://genomedata.org/gen-viz-workshop/HCC1143.normal.21.19M-20M.bam)
-* [HCC1143.normal.21.19M-20M.bam.bai](http://genomedata.org/gen-viz-workshop/HCC1143.normal.21.19M-20M.bam.bai)
+* [HCC1143.normal.21.19M-20M.bam](http://genomedata.org/gen-viz-workshop/IGV/HCC1143.normal.21.19M-20M.bam)
+* [HCC1143.normal.21.19M-20M.bam.bai](http://genomedata.org/gen-viz-workshop/IGV/HCC1143.normal.21.19M-20M.bam.bai)
 
 ### Visualization Part 1: Getting familiar with IGV
 
@@ -79,8 +79,8 @@ Sometimes, it is really useful to save where you are, or to load regions of inte
 We will be using the breast cancer cell line HCC1143 to visualize alignments. For speed, only a small portion of chr21 will be loaded (19M:20M).
 
 **HCC1143 Alignments to hg19:**
-* [HCC1143.normal.21.19M-20M.bam](http://genomedata.org/gen-viz-workshop/HCC1143.normal.21.19M-20M.bam)
-* [HCC1143.normal.21.19M-20M.bam.bai](http://genomedata.org/gen-viz-workshop/hcc1143/HCC1143.normal.21.19M-20M.bam.bai)
+* [HCC1143.normal.21.19M-20M.bam](http://genomedata.org/gen-viz-workshop/IGV/HCC1143.normal.21.19M-20M.bam)
+* [HCC1143.normal.21.19M-20M.bam.bai](http://genomedata.org/gen-viz-workshop/IGV/hcc1143/HCC1143.normal.21.19M-20M.bam.bai)
 
 Copy the files to your local drive, and in IGV choose `File` > `Load from File...`, select the bam file, and click `OK`. Note that the bam and index files must be in the same directory for IGV to load these properly.
 
@@ -248,8 +248,8 @@ We can use the Tools menu to invoke running a batch script. Batch scripts are de
 * We also need to provide sample attribute file as described here: [http://software.broadinstitute.org/software/igv/DisplayOptionsAttributes](http://software.broadinstitute.org/software/igv/DisplayOptionsAttributes)
 
 Download the batch script and the attribute file for our dataset:
-* Batch script: [Run_batch_IGV_snapshots.txt](http://genomedata.org/gen-viz-workshop/Run_batch_IGV_snapshots.txt)
-* Attribute file: [Igv_HCC1143_attributes.txt](http://genomedata.org/gen-viz-workshop/Igv_HCC1143_attributes.txt)
+* Batch script: [Run_batch_IGV_snapshots.txt](http://genomedata.org/gen-viz-workshop/IGV/Run_batch_IGV_snapshots.txt)
+* Attribute file: [Igv_HCC1143_attributes.txt](http://genomedata.org/gen-viz-workshop/IGV/Igv_HCC1143_attributes.txt)
 
 Now run the file from the `Tools` menu:
 
