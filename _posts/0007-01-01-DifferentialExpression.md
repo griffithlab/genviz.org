@@ -160,7 +160,7 @@ deseq2VST <- as.data.frame(deseq2VST)
 deseq2VST$Gene <- rownames(deseq2VST)
 
 # Keep only the significantly differentiated genes
-sigGenes <- rownames(deseq2ResDF[deseq2ResDF$significant == "Significant" & abs(deseq2ResDF$log2FoldChange) > 2,])
+sigGenes <- rownames(deseq2ResDF[deseq2ResDF$padj <= .05 & abs(deseq2ResDF$log2FoldChange) > 3,])
 deseq2VST <- deseq2VST[deseq2VST$Gene %in% sigGenes,]
 
 # covert the VST counts to long format for ggplot2
@@ -171,7 +171,7 @@ deseq2VST <- melt(deseq2VST, id.vars=c("Gene"))
 heatmap <- ggplot(deseq2VST, aes(x=variable, y=Gene, fill=value)) + geom_raster() + scale_fill_viridis(trans="sqrt") + theme(axis.text.x=element_text(angle=65, hjust=1), axis.text.y=element_blank(), axis.ticks.y=element_blank())
 ```
 
-Let's briefly talk about the steps we took to obtain the heatmap we plotted above. First we took our [DESeq2DataSet](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeqDataSet-class) object we obtained from the command [DESeq()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeq) and transformed the values using the variance stabilizing tranform algorithm from the [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst) function. We then extracted these transformed values with the [assay()](https://www.rdocumentation.org/packages/SummarizedExperiment/versions/1.2.3/topics/SummarizedExperiment-class) function and converted the resulting object to a data frame with a column for gene id's. We next used the differential expression results we had previously obtained to filter our transformed matrix to only those genes which were significantly differentially expressed and with a log2 fold change greater than 2. Up to this point our transformed values have been in "wide" format, however [ggplot2](http://ggplot2.tidyverse.org/reference/) required long format, we achieve this with [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) function from the [reshape2](https://cran.r-project.org/web/packages/reshape2/index.html) package. Finally we use [ggplot2](http://ggplot2.tidyverse.org/reference/) and the [geom_raster()](http://ggplot2.tidyverse.org/reference/geom_tile.html) function to create a heatmap using the color scheme available from the [viridis](https://cran.r-project.org/web/packages/viridis/index.html) package.
+Let's briefly talk about the steps we took to obtain the heatmap we plotted above. First we took our [DESeq2DataSet](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeqDataSet-class) object we obtained from the command [DESeq()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeq) and transformed the values using the variance stabilizing tranform algorithm from the [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst) function. We then extracted these transformed values with the [assay()](https://www.rdocumentation.org/packages/SummarizedExperiment/versions/1.2.3/topics/SummarizedExperiment-class) function and converted the resulting object to a data frame with a column for gene id's. We next used the differential expression results we had previously obtained to filter our transformed matrix to only those genes which were significantly differentially expressed (q-value <= .05)and with a log2 fold change greater than 3. Up to this point our transformed values have been in "wide" format, however [ggplot2](http://ggplot2.tidyverse.org/reference/) required long format, we achieve this with [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) function from the [reshape2](https://cran.r-project.org/web/packages/reshape2/index.html) package. Finally we use [ggplot2](http://ggplot2.tidyverse.org/reference/) and the [geom_raster()](http://ggplot2.tidyverse.org/reference/geom_tile.html) function to create a heatmap using the color scheme available from the [viridis](https://cran.r-project.org/web/packages/viridis/index.html) package.
 
 Now that we have a heatmap let's start clustering using the functions available with base R. The first step is to convert our transformed values back to wide format using [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) with row names and columns names as genes and samples respectively. Next we can compute a distance matrix using [dist()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/dist) which will compute the distance based on the rows of our data frame. This will give us the distance matrix based on our genes, but we also want a distance matrix based on the samples, for this we simply have to transpose our matrix before calling [dist()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/dist) with the function [t()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/t). From there we can perform hierarchical clustering with the [hclust()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/hclust) function. We then install the [ggdendro](https://cran.r-project.org/web/packages/ggdendro/index.html) package to construct a dendrogram as described in their [vignette](https://cran.r-project.org/web/packages/ggdendro/vignettes/ggdendro.html). Finally we re-create the heatmap to match the dendrogram using the [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor) function to re-order how samples are plotted. Because ggplot plots use grid graphics underneath we can use the [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) package to combine both plots into one with the function [grid.arrange()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob).
 
@@ -186,8 +186,8 @@ distanceGene <- dist(deseq2VSTMatrix)
 distanceSample <- dist(t(deseq2VSTMatrix))
 
 # cluster based on the distance calculations
-clusterGene <- hclust(distanceGene)
-clusterSample <- hclust(distanceSample)
+clusterGene <- hclust(distanceGene, method="average")
+clusterSample <- hclust(distanceSample, method="average")
 
 # construct a dendogram for samples
 install.packages("ggdendro")
@@ -254,7 +254,7 @@ sampleData_v2 <- sampleData
 sampleData_v2$Run <- factor(sampleData_v2$Run, levels=clusterSample$labels[clusterSample$order])
 
 # construct a plot to show the clinical data
-colours <- c("#84A5D6", "#F69275", "#B91E6F")
+colours <- c("#743B8B", "#8B743B", "#8B3B52")
 sampleClinical <- ggplot(sampleData_v2, aes(x=Run, y=1, fill=Factor.Value.clinical.information.)) + geom_tile() + scale_x_discrete(expand=c(0, 0)) + scale_y_discrete(expand=c(0, 0)) + scale_fill_manual(name="Tissue", values=colours) + theme_void()
 
 # convert the clinical plot to a grob
@@ -277,8 +277,7 @@ grid.draw(finalGrob)
 
 In the tutorial above we have completed the steps necessary to produce a dendrogram for samples, we could also do this for genes. Try to reproduce the plot below, if you get stuck you'll find an rscript that below which will produce the correct answer! Your steps should look something like this:
 
-
-{% include figure.html image="/assets/Deseq2/heatmap_deseq2_final.png" position="right" %}
+{% include figure.html image="/assets/Deseq2/heatmap_deseq2_final.png" position="center" %}
 
 1. Create a dendrogram for genes
     1. use [coord_flip()](http://ggplot2.tidyverse.org/reference/coord_flip.html) and [scale_y_reverse()](http://ggplot2.tidyverse.org/reference/scale_continuous.html)

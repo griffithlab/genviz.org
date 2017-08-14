@@ -58,7 +58,7 @@ deseq2Data <- DESeq(deseq2Data)
 load(url("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/deseq2Data_v1.RData"))
 
 # or directly after downloading the file (optional)
-load("deseq2Data_v1.RData")
+# load("deseq2Data_v1.RData")
 
 # Extract differential expression results
 deseq2Results <- results(deseq2Data, contrast=c("tissueType", "primary colorectal cancer", "normal-looking surrounding colonic epithelium"))
@@ -103,7 +103,7 @@ deseq2VST <- as.data.frame(deseq2VST)
 deseq2VST$Gene <- rownames(deseq2VST)
 
 # Keep only the significantly differentiated genes
-sigGenes <- rownames(deseq2ResDF[deseq2ResDF$significant == "Significant" & abs(deseq2ResDF$log2FoldChange) > 2,])
+sigGenes <- rownames(deseq2ResDF[deseq2ResDF$padj <= .05 & abs(deseq2ResDF$log2FoldChange) > 3,])
 deseq2VST <- deseq2VST[deseq2VST$Gene %in% sigGenes,]
 
 # covert the VST counts to long format for ggplot2
@@ -123,11 +123,11 @@ distanceGene <- dist(deseq2VSTMatrix)
 distanceSample <- dist(t(deseq2VSTMatrix))
 
 # cluster based on the distance calculations
-clusterGene <- hclust(distanceGene)
-clusterSample <- hclust(distanceSample)
+clusterGene <- hclust(distanceGene, method="average")
+clusterSample <- hclust(distanceSample, method="average")
 
 # construct a dendogram for samples
-install.packages("ggdendro")
+# install.packages("ggdendro")
 library(ggdendro)
 sampleModel <- as.dendrogram(clusterSample)
 sampleDendrogramData <- segment(dendro_data(sampleModel, type = "rectangle"))
@@ -140,7 +140,7 @@ deseq2VST$variable <- factor(deseq2VST$variable, levels=clusterSample$labels[clu
 heatmap <- ggplot(deseq2VST, aes(x=variable, y=Gene, fill=value)) + geom_raster() + scale_fill_viridis(trans="sqrt") + theme(axis.text.x=element_text(angle=65, hjust=1), axis.text.y=element_blank(), axis.ticks.y=element_blank())
 
 # combine the dendrogram and the heatmap
-install.packages("gridExtra")
+# install.packages("gridExtra")
 library(gridExtra)
 grid.arrange(sampleDendrogram, heatmap, ncol=1, heights=c(1,5))
 
@@ -181,7 +181,7 @@ sampleData_v2 <- sampleData
 sampleData_v2$Run <- factor(sampleData_v2$Run, levels=clusterSample$labels[clusterSample$order])
 
 # construct a plot to show the clinical data
-colours <- c("#84A5D6", "#F69275", "#B91E6F")
+colours <- c("#743B8B", "#8B743B", "#8B3B52")
 sampleClinical <- ggplot(sampleData_v2, aes(x=Run, y=1, fill=Factor.Value.clinical.information.)) + geom_tile() + scale_x_discrete(expand=c(0, 0)) + scale_y_discrete(expand=c(0, 0)) + scale_fill_manual(name="Tissue", values=colours) + theme_void()
 
 # convert the clinical plot to a grob
