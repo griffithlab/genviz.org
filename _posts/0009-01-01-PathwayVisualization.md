@@ -8,14 +8,27 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0009-01-01
 ---
 
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
+A common task after pathway analysis is contructing visualizations to represent experimental data on interesting pathways of interest. There are many tools for this however we will focus on the bioconductor [pathview](https://bioconductor.org/packages/release/bioc/html/pathview.html) for this task.
 
 ### Pathview
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
+[Pathview](https://bioconductor.org/packages/release/bioc/html/pathview.html) is used to integrate data on KEGG pathway maps which it retrieves through API queries to [KEGG](http://www.genome.jp/kegg/), please refer to the pathview [vignette](https://bioconductor.org/packages/release/bioc/vignettes/pathview/inst/doc/pathview.pdf) and [KEGG](http://www.genome.jp/kegg/) website for license information as there may be restrictions for comercial use due to these API queries. [Pathview](https://bioconductor.org/packages/release/bioc/html/pathview.html) itself is open source and is able to map a wide variety of biological data relevant to pathway views. In this section we will be mapping the overall expression results for a few pathways from the [pathway analysis](http://genviz.org/module%203/0008/01/01/pathwayAnalysis/) section of this course. Let's start by installing [pathview](https://bioconductor.org/packages/release/bioc/html/pathview.html) from bioconductor and loading the data we created in the previous section.
 
-Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
+```R
+# install pathview from bioconductor
+source("https://bioconductor.org/biocLite.R")
+biocLite("pathview")
+library(pathview)
 
-### Cytoscape
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
+load(url("http://genomedata.org/gen-viz-workshop/pathway_visualization/pathview_Data.RData"))
+```
 
-Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
+# Visualizing KEGG pathways
+Now that we have our initial data loaded let's choose a few pathways to visualize. The "Mismatch repair" repair pathway is significantly perturbed by up regulated genes, and corresponds to the following kegg id: "hsa03430". We can view this using the row names of the pathway dataset `fc.kegg.sigmet.p.up`. Let's use our experiments expression in the data frame `tumor_v_normal_DE.fc` and view it in the context of this pathway. Two graphs will be written to your current working directory by the [pathview()](https://www.rdocumentation.org/packages/pathview/versions/1.12.0/topics/pathview) function, one will be the original kegg pathway view and the second one will have expression values overlayed. You can find your current working directory with the function [getwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd).
+
+```R
+# view the hsa03430 pathway from the pathway analysis
+fc.kegg.sigmet.p.up[grepl("hsa03430", rownames(fc.kegg.sigmet.p.up), fixed=TRUE),]
+
+# Overlay the expression data onto this pathway
+pathview(gene.data=tumor_v_normal_DE.fc, species="hsa", pathway.id="hsa03430")
+```
