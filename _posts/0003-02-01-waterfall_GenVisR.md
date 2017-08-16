@@ -66,3 +66,11 @@ grid.arrange(p1, p2, ncol=2)
 ```
 
 {% include figure.html image="/assets/GenVisR/waterfall_hierarchy_example.png" width="950" %}
+
+Notice that in the figure above the top right left cell (sample: c, gene: d) has two possible mutation types (x and z). Between the two plots we reversed the hierarchy of the mutations specified in `variant_class_order` causing mutation "x" to have a higher precedence in the right most plot. As we would expect [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) then plots mutation "x" instead of "z" in this plot. Let's go ahead and set a `variant_class_order` that makes sense for the breast cancer plot we're working on. Remember this must be a character vector and contain all mutation types in the data frame `mutationData`.
+```R
+# define a mutation hierarchy and recreate the waterfall plot
+mutationHierarchy <- c(c("nonsense", "frame_shift_ins", "frame_shift_del", "in_frame_del", "missense", "splice_site_del", "splice_site", "splice_region", "rna"))
+waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy)
+```
+{% include figure.html image="/assets/GenVisR/BKM120_waterfall_v1.png" width="950" %}
