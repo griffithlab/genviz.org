@@ -32,3 +32,13 @@ fc.kegg.sigmet.p.up[grepl("hsa03430", rownames(fc.kegg.sigmet.p.up), fixed=TRUE)
 # Overlay the expression data onto this pathway
 pathview(gene.data=tumor_v_normal_DE.fc, species="hsa", pathway.id="hsa03430")
 ```
+
+It is often nice to see the relationship between genes in the kegg pathview diagrams, this can be achieved by setting the parameter `kegg.native=FALSE`. Below we show an example for the Fanconi anemia pathway.
+
+```R
+# view the hsa03430 pathway from the pathway analysis
+fc.kegg.sigmet.p.up[grepl("hsa03460", rownames(fc.kegg.sigmet.p.up), fixed=TRUE),]
+
+# Overlay the expression data onto this pathway
+pathview(gene.data=tumor_v_normal_DE.fc, species="hsa", pathway.id="hsa03460", kegg.native=FALSE)
+```
