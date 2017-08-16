@@ -15,7 +15,7 @@ In this module, we will explore basic use of ggplot2 to plot genomic data. For i
 ### Wide vs long format
 Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data should be in long instead of wide format. This simply means that instead of each non-id variable having it's own column there should be a column/columns designating a key/value pair. We can change between wide and long formats with the [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) and [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) functions from the reshape2 package. For simplicity our example dataset [ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv) is already in long format.
 
-{% include figure.html image="/assets/long_v_wide.png" width="750" %}
+{% include figure.html image="/assets/ggplot2/long_v_wide.png" width="750" %}
 
 ### Introducing ggplot2 syntax
 ggplot is based on a system of layering graphical objects to create a final plot, and as mentioned utilizes data frames as its input. We will start by installing and loading the [ggplot2](http://ggplot2.tidyverse.org/) library. After importing our data ('ggplot2ExampleData.tsv'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) function and compare the coverage variable to the variant allele frequency (tumor_VAF).
@@ -212,13 +212,13 @@ Often it is useful to compare tumor variant allele frequencies among samples to 
 variantData <- read.delim("ggplot2ExampleData.tsv")
 variantData <- variantData[variantData$dataset == "discovery",]
 ```
-{% include figure.html image="/assets/ggplot2Example1.png" width="950" %}
+{% include figure.html image="/assets/ggplot2/ggplot2Example1.png" width="950" %}
 {% include question.html question="Get a hint!" answer='look at geom_violin(), change labels with xlab() and ylab()'%}
 {% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("Sample") + ylab("Variant Allele Fraction")'%}
 
 Looking good, but the plot looks dull, try adding some color to the violin plots and let's see where the points for the underlying data actually reside.
 
-{% include figure.html image="/assets/ggplot2Example2.png" width="950" %}
+{% include figure.html image="/assets/ggplot2/ggplot2Example2.png" width="950" %}
 {% include question.html question="Get a hint!" answer='Try using geom_jitter() to offset points'%}
 {% include question.html question="What is the code to create the violin plot above?" answer='ggplot(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + geom_violin(aes(fill=Simple_name)) + geom_jitter(width=.1, alpha=.5) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
 
@@ -230,7 +230,7 @@ variantDataMax <- aggregate(data=variantData, tumor_VAF ~ Simple_name, max)
 variantDataMerge <- merge(variantDataMax, variantDataCount)
 ```
 
-{% include figure.html image="/assets/ggplot2Example3.png" width="950" %}
+{% include figure.html image="/assets/ggplot2/ggplot2Example3.png" width="950" %}
 {% include question.html question="Get a hint!" answer='You will need to pass variantDataMerge to geom_text()'%}
 {% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF, fill=Simple_name)) + geom_jitter(data=variantData, aes(x=Simple_name, y=tumor_VAF), width=.1, alpha=.5) + geom_text(data=variantDataMerge, aes(x=Simple_name, y=tumor_VAF + 5, label=freq)) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
 
