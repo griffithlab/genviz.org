@@ -3,9 +3,9 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Pathway Visualization
 categories:
-    - Module 3
+    - Module 4
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0009-01-01
+date: 0004-04-01
 ---
 
 A common task after pathway analysis is contructing visualizations to represent experimental data on interesting pathways of interest. There are many tools for this however we will focus on the bioconductor [pathview](https://bioconductor.org/packages/release/bioc/html/pathview.html) for this task.

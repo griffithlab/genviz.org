@@ -5,7 +5,7 @@ title: Genome Browsing and Visualization - UCSC
 categories:
     - Module 1
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0002-01-02
+date: 0001-04-01
 ---
 
 The [UCSC genome browser](https://genome.ucsc.edu/cgi-bin/hgGateway) is a powerful web application for exploring the genomes of a variety of organisms in the context of annotation tracks. Let's start by navigating to the UCSC genome browser homepage at [http://genome.ucsc.edu](http://genome.ucsc.edu) and clicking on Genome Browser. Over the course of this tutorial we will be highlighting features with a transparent textbox, please pay attention to these as they are relevant to the discussion.

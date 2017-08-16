@@ -3,9 +3,9 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Pathway Analysis
 categories:
-    - Module 3
+    - Module 4
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0008-01-01
+date: 0004-03-01
 ---
 
 In the previous section we examined differential expression of genes from the [E-GEOD-50760](https://www.ncbi.nlm.nih.gov/pubmed/25049118) data set. In this section we will use the [gage](https://bioconductor.org/packages/release/bioc/html/gage.html) package to determine if there are any coordinated differential expression patterns in the data set we used for differential expression,  [E-GEOD-50760](https://www.ncbi.nlm.nih.gov/pubmed/25049118).

@@ -3,9 +3,9 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Differential Expression with DEseq2
 categories:
-    - Module 3
+    - Module 4
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0007-01-01
+date: 0004-02-01
 ---
 
 Differential expression analysis is used to identify differences in the transcriptome (gene expression) across a cohort of samples. Oftentimes, it will be used to define the differences between multiple biological conditions (e.g. post-treatment vs. untreated samples). There are many tools available to perform this type of analysis, in this course we will rely on the bioconductor package [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). We will then make various visualizations to help interpret our results.

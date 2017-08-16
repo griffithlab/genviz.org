@@ -1,9 +1,9 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: CIViC
+title: Introduction to waterfall plots
 categories:
-    - Module 4
+    - Module 3
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0010-01-05
+date: 0003-02-01
 ---

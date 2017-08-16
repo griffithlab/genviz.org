@@ -5,7 +5,7 @@ title: Introduction to ggplot2
 categories:
     - Module 2
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0005-01-01
+date: 0002-03-01
 ---
 
 There are at least three primary graphics programs available within the R environment. A package for [base R graphics](https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/00Index.html) is installed by default and provides a simple mechanism to quickly create graphs. [lattice](https://cran.r-project.org/web/packages/lattice/index.html) is another graphics package that attempts to improve on base R graphics by providing better defaults and the ability to easily display multivariate relationships. In particular, the package supports the creation of trellis graphs - graphs that display a variable or the relationship between variables, conditioned on one or more other variables. Finally, [ggplot2](http://ggplot2.org/) is a graphics program based on the grammar of graphics idealogy, and will be the primary focus of this course.
