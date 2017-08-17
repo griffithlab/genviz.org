@@ -113,7 +113,7 @@ As stated previously [waterfall()](https://www.rdocumentation.org/packages/GenVi
 # reformat clinical data to long format
 library(reshape2)
 clinicalData_2 <- clinicalData[,c(1,2,3,5)]
-colnames(clinicalData_2) <- c("sample", "Months on Study", "Best Response", "Treatment Setting (# lines of ET)")
+colnames(clinicalData_2) <- c("sample", "Months on Study", "Best Response", "Treatment Setting")
 clinicalData_2 <- melt(data=clinicalData_2, id.vars=c("sample"))
 
 
