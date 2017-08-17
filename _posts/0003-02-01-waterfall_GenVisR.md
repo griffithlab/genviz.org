@@ -107,7 +107,7 @@ At this stage it is appropriate to talk about the subsetting functions within [w
 {% include question.html question="How would you create a waterfall plot showing only genes which are mutated in 25% of samples?" answer="set the mainRecurCutoff parameter to .25"%}
 
 ### adding clinical data
-As stated previously [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) can display additional data in the bottom sub-plot. In order to do this a data frame in long format with column names "sample", "variable", "value" must be given to the parameter `clinData`. As with the `mutBurden` parameter the samples in both data frames must match. Let's go ahead and reproduce the clinical sub-plot from the manuscript figure. We will also use the `clinLegCol`, `clinVarCol` and `clinVarOrder` parameters to specify the number of columns the colours and the order of variables for the legend respectively.
+As stated previously [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) can display additional data in the bottom sub-plot. In order to do this a data frame in long format with column names "sample", "variable", "value" must be given to the parameter `clinData`. As with the `mutBurden` parameter the samples in both data frames must match. Let's go ahead and reproduce the clinical sub-plot from the manuscript figure. We will also use the `clinLegCol`, `clinVarCol` and `clinVarOrder` parameters to specify the number of columns the colours and the order of variables for the legend respectively. We also apply the `section_heights` parameter which takes a numeric vector providing the ratio of each verticle plot. In this situation we have a total of three verticle plots, the mutation burden, main, and clinical plot so we need a numeric vctor of length 3.
 
 ```R
 # reformat clinical data to long format
@@ -125,5 +125,11 @@ sampleVec[!sampleVec %in% clinicalData$sample]
 clinicalData_2$sample <- gsub("^WU(0)+", "", clinicalData_2$sample)
 
 # create the waterfall plot
-waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy, mainPalette=mutationColours, mutBurden=mutationBurden, clinData=clinicalData, clinLegCol=3, clinVarCol=c('0-6'='#ccbadc', '6.1-12'='#9975b9', '12.1+'='#663096', 'Partial Response'='#c2ed67', 'Progressive Disease'='#E63A27', 'Stable Disease'='#e69127', '1'='#90ddee', '2'='#649aa6', '3+'='#486e77'), clinVarOrder=c('1', '2', '3+', 'Partial Response', 'Stable Disease', 'Progressive Disease', '0-6', '6.1-12', '12.1+'))
+waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy, mainPalette=mutationColours, mutBurden=mutationBurden, clinData=clinicalData, clinLegCol=3, clinVarCol=c('0-6'='#ccbadc', '6.1-12'='#9975b9', '12.1+'='#663096', 'Partial Response'='#c2ed67', 'Progressive Disease'='#E63A27', 'Stable Disease'='#e69127', '1'='#90ddee', '2'='#649aa6', '3+'='#486e77'), clinVarOrder=c('1', '2', '3+', 'Partial Response', 'Stable Disease', 'Progressive Disease', '0-6', '6.1-12', '12.1+'), section_heights=c(1, 5, 1))
 ```
+
+{% include figure.html image="/assets/GenVisR/BKM120_waterfall_v2.png" width="950" %}
+
+### adding cell labels
+
+### re-arranging genes and samples
