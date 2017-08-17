@@ -31,8 +31,8 @@ mutationBurden <- read.delim("BKM120_MutationBurden.tsv")
 The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function is designed to work with specific filetypes read in as data frames, the default being [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification) files, however the option exist to use custom file types as long as the column names "sample", "gene", and "variant_class" are present. This is done by setting `fileType="Custom"`. Let's go ahead and re-format our mutation data and create an initial plot using this parameter. Note that when using a custom file type the priority of mutation types must be specified with the `variant_class_order` parameter which accepts a character vector. We'll explain what this does a bit more in the next section, for now just give it a character vector containing all mutation types present in `mutationData`.
 ```R
 # reformat the mutation data for waterfall()
-mutationData <- mutationData[,c("patient", "gene.name", "trv.type")]
-colnames(mutationData) <- c("sample", "gene", "variant_class")
+mutationData <- mutationData[,c("patient", "gene.name", "trv.type", "amino.acid.change")]
+colnames(mutationData) <- c("sample", "gene", "variant_class", "amino.acid.change")
 
 # create an inital plot
 waterfall(mutationData, fileType = "Custom", variant_class_order=as.character(unique(mutationData$variant_class)))
@@ -67,10 +67,39 @@ grid.arrange(p1, p2, ncol=2)
 
 {% include figure.html image="/assets/GenVisR/waterfall_hierarchy_example.png" width="950" %}
 
-Notice that in the figure above the top right left cell (sample: c, gene: d) has two possible mutation types (x and z). Between the two plots we reversed the hierarchy of the mutations specified in `variant_class_order` causing mutation "x" to have a higher precedence in the right most plot. As we would expect [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) then plots mutation "x" instead of "z" in this plot. Let's go ahead and set a `variant_class_order` that makes sense for the breast cancer plot we're working on. Remember this must be a character vector and contain all mutation types in the data frame `mutationData`.
+Notice that in the figure above the top right left cell (sample: c, gene: d) has two possible mutation types (x and z). Between the two plots we reversed the hierarchy of the mutations specified in `variant_class_order` causing mutation "x" to have a higher precedence in the right most plot. As we would expect [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) then plots mutation "x" instead of "z" in this cell. Let's go ahead and set a `variant_class_order` that makes sense for the breast cancer plot we're working on. Remember this must be a character vector and contain all mutation types in the data frame `mutationData`.
 ```R
-# define a mutation hierarchy and recreate the waterfall plot
-mutationHierarchy <- c(c("nonsense", "frame_shift_ins", "frame_shift_del", "in_frame_del", "missense", "splice_site_del", "splice_site", "splice_region", "rna"))
+# define a mutation hierarchy
+mutationHierarchy <- c("nonsense", "frame_shift_del", "frame_shift_ins", "in_frame_del", "splice_site_del", "splice_site", "missense", "splice_region", "rna")
+
+# create waterfall plot
 waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy)
 ```
 {% include figure.html image="/assets/GenVisR/BKM120_waterfall_v1.png" width="950" %}
+
+# Changing the color of tiles
+Often it is desireable to change the colors of the plotted cells, either for purely aesthetic reasons, or to group similar mutation types. The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) parameter which allows this is `mainPalette` which expects a character vector mapping mutation types to acceptable R colors.  Let's go ahead and match the colors in our plot to the one in the paper.
+
+```R
+# define colours for all mutations
+mutationColours <- c("nonsense"='#4f00A8', "frame_shift_del"='#A80100', "frame_shift_ins"='#CF5A59', "in_frame_del"='#ff9b34', "splice_site_del"='#750054', "splice_site"='#A80079', "missense"='#009933', "splice_region"='#ca66ae', "rna"='#888811')
+
+# create waterfall plot
+waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy, mainPalette=mutationColours)
+```
+
+# adding a custom mutation burden
+You might notice that while the mutation burden between the manuscript plot and our plot are very similar they are not exactly the same. The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function aproximates the mutation burden via the formula `(# of mutations)/(coverage space) * 1,000,000` where the coverage space is controlled by the `coverageSpace` parameter and takes an integer giving the number of base pairs adequately covered in the experiment. This is only an aproximation as the coverage per sample can fluctuate, in situations such as this the user has the option of providing user defined mutation burden calculation for each sample for which to plot. This is done with the `mutBurden` parameter which takes a data frame with two columns, "sample" (which should match the samples in `mutationData`) and "mut_burden" (giving the actual value to plot). We've downloaded what the actual values are and stored them in the `mutationBurden` data frame we created above. You'll notice the samples between `mutationBurden` and `mutationData` don't quite match. Specifically it looks like an identifier "WU0" is added to each sample in the `mutationBurden` data frame. Let's fix this using a regular expression with [gsub](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/grep) and use these mutation burden values for our plot.
+```R
+# find which samples are not in the mutationBurden data frame
+sampleVec <- unique(mutationData$sample)
+sampleVec[!sampleVec %in% mutationBurden$sample]
+
+# fix mutationBurden to match mutationData
+mutationBurden$sample <- gsub("^WU(0)+", "", mutationBurden$sample)
+
+# create the waterfall plot
+waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy, mainPalette=mutationColours, mutBurden=mutationBurden)
+```
+
+At this stage it is appropriate to talk about the subsetting functions within [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall). We could subset `mutationData` to include for example just those genes we wish to plot, however doing so would reduce the accuracy of the mutation burden top sub-plot if not using custom values. The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function contains a number of parameters for limiting the genes and mutations plotted without affecting the mutation burden calculation. These parameters are `mainRecurCutoff`, `plotGenes`, `maxGenes` and `rmvSilent`.
