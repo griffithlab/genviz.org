@@ -103,3 +103,27 @@ waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarc
 ```
 
 At this stage it is appropriate to talk about the subsetting functions within [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall). We could subset `mutationData` to include for example just those genes we wish to plot, however doing so would reduce the accuracy of the mutation burden top sub-plot if not using custom values. The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function contains a number of parameters for limiting the genes and mutations plotted without affecting the mutation burden calculation. These parameters are `mainRecurCutoff`, `plotGenes`, `maxGenes` and `rmvSilent`.
+
+{% include question.html question="How would you create a waterfall plot showing only genes which are mutated in 25% of samples?" answer="set the mainRecurCutoff parameter to .25"%}
+
+### adding clinical data
+As stated previously [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) can display additional data in the bottom sub-plot. In order to do this a data frame in long format with column names "sample", "variable", "value" must be given to the parameter `clinData`. As with the `mutBurden` parameter the samples in both data frames must match. Let's go ahead and reproduce the clinical sub-plot from the manuscript figure. We will also use the `clinLegCol`, `clinVarCol` and `clinVarOrder` parameters to specify the number of columns the colours and the order of variables for the legend respectively.
+
+```R
+# reformat clinical data to long format
+library(reshape2)
+clinicalData_2 <- clinicalData[,c(1,2,3,5)]
+colnames(clinicalData_2) <- c("sample", "Months on Study", "Best Response", "Treatment Setting (# lines of ET)")
+clinicalData_2 <- melt(data=clinicalData_2, id.vars=c("sample"))
+
+
+# find which samples are not in the mutationBurden data frame
+sampleVec <- unique(mutationData$sample)
+sampleVec[!sampleVec %in% clinicalData$sample]
+
+# fix mutationBurden to match mutationData
+clinicalData_2$sample <- gsub("^WU(0)+", "", clinicalData_2$sample)
+
+# create the waterfall plot
+waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy, mainPalette=mutationColours, mutBurden=mutationBurden, clinData=clinicalData, clinLegCol=3, clinVarCol=c('0-6'='#ccbadc', '6.1-12'='#9975b9', '12.1+'='#663096', 'Partial Response'='#c2ed67', 'Progressive Disease'='#E63A27', 'Stable Disease'='#e69127', '1'='#90ddee', '2'='#649aa6', '3+'='#486e77'), clinVarOrder=c('1', '2', '3+', 'Partial Response', 'Stable Disease', 'Progressive Disease', '0-6', '6.1-12', '12.1+'))
+```
