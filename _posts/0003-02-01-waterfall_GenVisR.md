@@ -131,5 +131,14 @@ waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarc
 {% include figure.html image="/assets/GenVisR/BKM120_waterfall_v2.png" width="950" %}
 
 ### adding cell labels
+You might have noticed when we subsetted our data frame at the begining of this tutorial we kept an extra column named "amino.acid.change". This was done so that we could use this column to add cell labels to our plot as the authors of the manuscript figure did. In order to do this we only need specify the column in `mutationData` from which to pull lables from, we do this with `mainLabelCol="amino.acid.change"`. Further we adjust the size of the labels so that they fit in the cells with `mainLabelSize = 3`. You can also change the angle of labels with the parameter `mainLabelAngle` which may be usefull if the the cells on a plot are higher than they are longer.
+
+```R
+# create the waterfall plot
+waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy, mainPalette=mutationColours, mutBurden=mutationBurden, clinData=clinicalData_2, clinLegCol=3, clinVarCol=c('0-6'='#ccbadc', '6.1-12'='#9975b9', '12.1+'='#663096', 'Partial Response'='#c2ed67', 'Progressive Disease'='#E63A27', 'Stable Disease'='#e69127', '1'='#90ddee', '2'='#649aa6', '3+'='#486e77'), clinVarOrder=c('1', '2', '3+', 'Partial Response', 'Stable Disease', 'Progressive Disease', '0-6', '6.1-12', '12.1+'), section_heights=c(1, 5, 1), mainLabelCol="amino.acid.change", mainLabelSize = 3)
+```
+
+{% include figure.html image="/assets/GenVisR/BKM120_waterfall_v3.png" width="950" %}
 
 ### re-arranging genes and samples
+c
