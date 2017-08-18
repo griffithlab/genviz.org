@@ -13,7 +13,7 @@ There are at least three primary graphics programs available within the R enviro
 In this module, we will explore basic use of ggplot2 to plot genomic data. For illustration, we will use a set of mutation data from Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only). You can download a cleaned up version of Supplemental Table S5 at [http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv)
 
 ### Wide vs long format
-Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data should be in long instead of wide format. This simply means that instead of each non-id variable having it's own column there should be a column/columns designating a key/value pair. We can change between wide and long formats with the [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) and [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) functions from the reshape2 package. For simplicity our example dataset [ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv) is already in long format.
+Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data may be expected in long instead of wide format. This simply means that instead of each non-id variable having it's own column there should be a column/columns designating key/value pairs. We can change between wide and long formats with the [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) and [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) functions from the reshape2 package.
 
 {% include figure.html image="/assets/ggplot2/long_v_wide.png" width="750" %}
 
@@ -26,7 +26,10 @@ install.packages("ggplot2")
 library(ggplot2)
 
 # load Supplemental Table S5
-variantData <- read.delim("http://www.genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv")
+variantData <- read.delim("http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
+
+#Familiarize yourself with the data in this file by looking at the 'head' (top) of the file
+head(variantData)
 
 # make a coverage column since this doesn't exist yet
 variantData$tumor_COV <- variantData$tumor_ref_count + variantData$tumor_var_count
@@ -78,36 +81,36 @@ p3 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=log2(tumor_COV)
 p3
 
 # method 3, transform the axis using ggplot
-p1 <- p1 + scale_y_continuous(trans="log2")
-p1
+p4 <- p1 + scale_y_continuous(trans="log2")
+p4
 ```
 
-Note that adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layer will plot only the points within the specified range by setting the limits. [ylim()](http://ggplot2.tidyverse.org/reference/lims.html) is a shortcut that achieves the same thing. You'll see a warning when doing this, stating that rows are being removed from the data frame that contain values outside of the specified range. There is an "out of bounds" parameter within [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) to control what happens with these points, but this isn't necessarily the best method for this particular plot. In method 2 (plot p2), we actually transform the data values themselves by applying a log2 transform. This method allows us to better visualize all of the points, but it is not intuitive to interpret the log2 of a value (tumor coverage). Alternatively, method 3 (plot p3) does not transform the values, but adjusts the scale the points are plotted on and does a better job of displaying all of our data without having to convert the log2 values.
+Note that adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layer will plot only the points within the specified range by setting the limits. [ylim()](http://ggplot2.tidyverse.org/reference/lims.html) is a shortcut that achieves the same thing. You'll see a warning when doing this, stating that rows are being removed from the data frame that contain values outside of the specified range. There is an "out of bounds" parameter within [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) to control what happens with these points, but this isn't necessarily the best method for this particular plot. In method 2 (plot p3), we actually transform the data values themselves by applying a log2 transform. This method allows us to better visualize all of the points, but it is not intuitive to interpret the log2 of a value (tumor coverage). Alternatively, method 3 (plot p4) does not transform the values, but adjusts the scale the points are plotted on and does a better job of displaying all of our data without having to convert the log2 values.
 
 ### Applying different aesthetics
-While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
+While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code ([hex codes explained](http://research.stowers.org/mcm/efg/R/Color/Chart/)) or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
 
 ```R
 # list colors in R
 colors()
 
-# what happens when we try and add colour withing the aesthetic
-p2 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, colour="#68228B")) + scale_y_continuous(trans="log2")
+# what happens when we try to add color within the aesthetic?
+p2 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color="#68228B")) + scale_y_continuous(trans="log2")
 p2
 
-# and what happens when we try and add colour within the geom
-p3 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV), colour="#68228B") + scale_y_continuous(trans="log2")
+# and what happens when we try to add color within the geom?
+p3 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV), color="#68228B") + scale_y_continuous(trans="log2")
 p3
 
 ```
 
-Above we chose "darkorchid4" which has a hex value of "#68228B". However the points in the first plot (p2) are red and not the expected purple color. Our points are appearing miscolored based upon how ggplot is interpreting the aesthetic mappings. When we specified our quoted hex code in the aesthetic in p2, ggplot assummed we wanted to add another variable to the data. It did this for us and then used its internal color scheme to color that variable. By specifying the color outside the aesthetic mapping, geom_point knows to apply the color 'darkorchid4' to all of the points specified in the [geom_point()](http://ggplot2.tidyverse.org/reference/geom_point.html) layer (p3).
+Above we chose "darkorchid4" which has a hex value of "#68228B". However the points in the first plot (p2) are red and not the expected purple color. Our points are appearing miscolored based upon how ggplot is interpreting the aesthetic mappings. When the color aesthetic is specified for geom_point it expects a factor variable by which to color points. If we wanted to, for example, color all missense variants with one color, nonsense variants with another color, and so on we could supply a factor for variant type to the color aesthetic in this way. But, when we specified a quoted hex code, ggplot assumed we wanted to create such a factor with all values equal to the provided text string. It did this for us and then used its internal color scheme to color that variable. By specifying the color outside the aesthetic mapping, geom_point knows to apply the color 'darkorchid4' to all of the points specified in the [geom_point()](http://ggplot2.tidyverse.org/reference/geom_point.html) layer (p3).
 
 We can utilize the colour aesthetic to more specifically visualize our data. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but divide the cohort based upon the dataset subsets (specified within the colour aesthetic).
 
 ```
 # get a density curve of tumor vafs
-p1 <- ggplot() + geom_density(aes(x=tumor_VAF, colour=dataset))
+p1 <- ggplot() + geom_density(aes(x=tumor_VAF, color=dataset))
 p1
 
 # let's add a bit more detail
