@@ -141,4 +141,17 @@ waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarc
 {% include figure.html image="/assets/GenVisR/BKM120_waterfall_v3.png" width="950" %}
 
 ### re-arranging genes and samples
-c
+In some cases it may be desireable to forgo the default hierarchical ordering of cells in favor of a more custom approach. We can see in the authors original figure they elected to do this such that samples were grouped by months on study and gene were grouped by pathway. We can achieve this with the parameters `geneOrder` and `sampOrder` both of which take a character vector giving the order in which to plot row and column cells respectively.
+
+```R
+# create a sample ordering
+sample_ordering <- c("19", "5", "31", "22", "12", "2", "32", "8", "28", "18", "4", "24", "23", "17", "11", "14")
+
+# create a gene ordering
+gene_ordering <- c("CDH1", "MALAT1", "RUNX1", "NCOR1", "GATA3", "FOXA1", "ESR1", "CBFB", "TBX3", "TAB1", "MED12", "XBP1", "TP53", "RB1CC1", "BRCA2", "ATM", "SMARCD1", "MLL3", "MLL2", "ARID1A", "FBXW7", "CAV1", "MAP3K1", "MAP2K4", "NOTCH4", "PDGFRA", "ERBB3", "ERBB2", "RELN", "MAGI3", "MTOR", "AKT2", "AKT1", "PTEN", "PIK3CA")
+
+# create a gene ordering
+waterfall(mutationData, fileType = "Custom", variant_class_order=mutationHierarchy, mainPalette=mutationColours, mutBurden=mutationBurden, clinData=clinicalData_2, clinLegCol=3, clinVarCol=c('0-6'='#ccbadc', '6.1-12'='#9975b9', '12.1+'='#663096', 'Partial Response'='#c2ed67', 'Progressive Disease'='#E63A27', 'Stable Disease'='#e69127', '1'='#90ddee', '2'='#649aa6', '3+'='#486e77'), clinVarOrder=c('1', '2', '3+', 'Partial Response', 'Stable Disease', 'Progressive Disease', '0-6', '6.1-12', '12.1+'), section_heights=c(1, 5, 1), mainLabelCol="amino.acid.change", mainLabelSize = 3, sampOrder=sample_ordering, geneOrder=gene_ordering)
+```
+
+{% include figure.html image="/assets/GenVisR/BKM120_waterfall_v4.png" width="950" %}
