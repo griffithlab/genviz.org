@@ -14,27 +14,19 @@ This section will provide a brief introduction to ProteinPaint features and demo
 
 The tool is entirely web based. First navigate to the tool's homepage: [ProteinPaint](https://pecan.stjude.org/proteinpaint). Note that is has its own [simple tutorial](https://docs.google.com/document/d/1JWKq3ScW62GISFGuJvAajXchcRenZ3HAvpaxILeGaw0/edit). Go through the following exercise to explore the functionality of this resource.
 
-* Choose an example gene to explore.
+* Choose an example gene to explore (e.g. *EGFR*).
 * Select the gene name (top left) to view a summary of the gene.
-* Use the CONFIG option to change between display modes.
-* Select pre-loaded data to display (Pediatric, COSMIC, and ClinVar). Select COSMIC for this example. Use the ABOUT popup to learn more about each data source. 
-* Zoom In on a mutation hotspot and navigate around that region. Once done, Zoom Out x50 to return to a view of the entire gene.
-
-Use the Tracks button to view the list of available tracks and turn on the RefGene track. 
-
-Under the More menu, Select a region to highlight. Select a region contain a hotspot mutation. 
-
-Use the + add protein domain button to add a custom domain of interest.
-
-Mouse over the gene diagram to view details on individual domains and amino acid positions.
-
-Select specific variants to learn more about what diseases they occur in. For example, load ERBB2 and the COSMIC track. Two of the most common mutations are S310F and L755S. Select both of these. Which is more common in breast cancer? Use the `List` option to learn more about individual variant observations.
-
-Use the Microarray and RNA-seq expression tracks (if collapsed these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high ERBB2 expression.
-
-Lets load a custom data set into ProteinPaint. We'll use CIViC's list of VHL variants as an example. To get that list go to www.civicdb.org, select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting into ProteinPaint.
-
-Open this file in R and perform the following clean-up.
+* Use the `CONFIG` option (right side) to change between display modes by selecting `switch display mode`. 
+* Select pre-loaded data to display (Pediatric, COSMIC, and ClinVar). Select COSMIC for this example. Use the `ABOUT` popup to learn more about each data source.
+* Zoom `In` on a mutation hotspot and navigate around that region. Once done, Zoom Out `x50` to return to a view of the entire gene.
+* Use the `Tracks` button to view the list of available tracks and turn on the RefGene track. 
+* Under the `More` menu, Select a region to highlight. Select a region contain a hotspot mutation. 
+* Use the `+ add protein domain` button (bottom left) to add a custom domain of interest.
+* Mouse over the gene diagram to view details on individual domains and amino acid positions.
+* Select specific variants to learn more about what diseases they occur in. For example, load *ERBB2* and the COSMIC data track. Two of the most common mutations are **S310F** and **L755S**. Select both of these. Which is more common in breast cancer? Use the `List` option to learn more about individual variant observations.
+* Use the Microarray and RNA-seq expression tracks (if collapsed these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high ERBB2 expression.
+* Finally, suppose we want to load a custom data set of our own variants into ProteinPaint? As a test, we will use [CIViCs](www.civicdb.org) list of VHL variants as an example. To get that list go to www.civicdb.org, select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting into ProteinPaint.
+* Open this file in R and perform the following clean-up.
 
 ```R
 # Load the data downloaded from CIViC
@@ -81,6 +73,6 @@ output = apply(vhl_variants_final, 1, format_string)
 write(output, file="CIViC-VHL-Variants.formatted.csv")
 ```
 
-Open the resulting file (CIViC-VHL-Variants.formatted.csv). In ProteinPaint use the + button to add add, and choose the SNV/Indel option. Then paste the variant formatted in R into that box. Compare the VHL variants in CIViC compared to those in ClinVar.
-
+* Open the resulting file (CIViC-VHL-Variants.formatted.csv) in a text editor. Then, in ProteinPaint use the + button to add data (top center), and choose the SNV/Indel option.
+* Then paste the variant formatted in R into that box. Compare the VHL variants in CIViC compared to those in ClinVar.
 
