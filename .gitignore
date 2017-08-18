@@ -4,5 +4,5 @@ _site
 .DS_Store
 .ruby-version
 .Rproj.user
-.swp
+*.swp
 gen-viz-workshop.Rproj
