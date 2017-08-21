@@ -8,7 +8,6 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0003-03-01
 ---
 
-## tvti
 To better characterize single nucleotide variants (SNVs), it is important to know the frequency of transitions and transversions across the cohort. The TvTi function in GenVisR uses a stacked bar plot to illustrate the proportion/frequency of transition and transversions (specified by the <font color = "green">fileType</font> argument). Similar to the waterfall plot, the input to the tvti function is a maf file or a custom input dataframe with the column names: "sample", "reference", and "variant". Multinucleotide substitutions will be excluded from the plot. To change the color of the tvti bars, change the <font color = "green">pallete</font> parameter and supply it with a character vector with 6 different colors to represent each of the transition and tranversion types.
 
 <!--Example taken from GenVisR vignette-->
