@@ -35,3 +35,7 @@ The Navigation Header is defined in the `_config.yml` file. Navigation header pa
 In General all markdown files should have a `layout:` front matter tag. The exception to this are files in the _posts directory which default to a post layout format. Layouts are defined in the _layouts directory which consist of html files specifying content. Jekyll uses liquid templating and this syntax is commonly seen throughout these html pages. A command such as `{% include post-list.html %}` will look in the _includes directory and add in the html content for post-list.html.
 
 ### Hints and Tips
+
+### License
+
+The code base for this website originates from the [alembic jekyll theme](https://github.com/daviddarnes/alembic) by David Darnes and is licensed under an [MIT license](https://github.com/griffithlab/gen-viz-workshop/blob/gh-pages/LICENSE). Course content, is licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) unless otherwise stated. 
