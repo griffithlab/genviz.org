@@ -62,7 +62,51 @@ seqCovMatrix <- as.matrix(seqCovDataframe)
 colnames(seqCovMatrix) <- c("sample1", "sample2", "sample3", "sample4")
 ```
 
+### Running the covBars function
+Now that we have our matrix we can simply call [covBars()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/covBars) on the resulting object. The output looks significantly different from the manuscript version though so what exactly is going on? The problem is with the coverage outliers in the data, the graph shows that 99% of the genome is covered up to a depth of 2000X however are scale is linear and so the outliers are forcing are scale to cover a range from 0 to 11,802, obviously this is problematic.
+
 ```R
-# run covbars
+# run covBars
 covBars(seqCovMatrix)
 ```
+{% include figure.html image="/assets/GenVisR/Coverage_Summary_v2.png" width="650" %}
+
+### ceiling coverage output
+If we look closely at the manuscript figure we can see that the scale is actually limited to a coverage depth of 1,200. This ceilings the outliers in the data and puts everything on an easily interpretable scale. Let's go ahead and do this to our data; First we need to calculate the column sums for every coverage value (i.e. row in our data) beyond 1,200X, for this we use the function [colSums()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/colSums). The previous function returns a vector, we convert this to a matrix with the appropriate row name 1200. From there we subset our original matrix up to a coverage of 1,199X and use [rbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/cbind) to add in the final row corresponding to a coverage of 1,200X.
+
+```R
+# ceiling pileups to 1200
+column_sums <- colSums(seqCovMatrix[1200:nrow(seqCovMatrix),])
+column_sums <- t(as.matrix(column_sums))
+rownames(column_sums) <- 1200
+seqCovMatrix2 <- seqCovMatrix[1:1199,]
+seqCovMatrix2 <- rbind(seqCovMatrix2, column_sums)
+
+# run covBars
+covBars(seqCovMatrix2)
+```
+{% include figure.html image="/assets/GenVisR/Coverage_Summary_v3.png" width="650" %}
+
+### Interpreting the results
+Now that we have a descent scale let's change the colours within the scale to more closely match that of the figure. Adding more colours in our colour ramp will also provide more resolution for our interpretation of the data. For this we can use the function [rainbow()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/Palettes) and subset the vector at the end to avoid repeating red hues at both ends of the palette. From the resulting plot we can see that sample SL_d3072_I achieved the best coverage with 25% of the targeted genome achieving at least 1000X coverage and 75% of the genome acheiving greater than 800X coverage. Sample M_d3068_A appears to have the worst coverage overall with around 50% of the targeted genome covered up to 700X. Sample SB_d3072_A while achieving good coverage over all, has poor coverage for a greater proportion of the genome with 6% of the targeted space covered only up to 200-250X.
+
+```R
+# change the colours in our Plots
+colorRamp <- rainbow(1200)[1:1050]
+covBars(seqCovMatrix2, colour=colorRamp)
+```
+{% include figure.html image="/assets/GenVisR/Coverage_Summary_v4.png" width="650" %}
+
+### Exercises
+
+As with the majority of ggplot2 functions [covBars()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/covBars) can accept additional [ggplot2](http://ggplot2.tidyverse.org/reference/index.html) layers to alter the plot as long as they are passed as a list. Try using what you know to alter the plot we created above to more closely resemble that of the manuscript. Specifically this will entail the following:
+
+1. change the y-axis facet labels, change the underlying data in seqCovMatrix2 for this
+2. remove the grey facet boxes (keeping the labels) and position them on the right side
+3. Add the title "Custom Capture Data"
+4. Change the x-axis title
+5. alter the legend to add 1200+ and change the legend title. You'll need to overwrite [scale_fill_gradientn()](http://ggplot2.tidyverse.org/reference/scale_gradient.html)
+
+{% include question.html question="Make the changes listed above to the GenVisR plot, the final output should look like the plot below." answer='This Rscript <a href="http://genomedata.org/gen-viz-workshop/GenVisR/GenVisR_covBars_Exercise1.R">file</a> contains the correct answer.'%}
+
+{% include figure.html image="/assets/GenVisR/Coverage_Summary_v5.png" width="650" %}
