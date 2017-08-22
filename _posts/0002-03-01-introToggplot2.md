@@ -131,58 +131,60 @@ This could also be done with the colour aesthetic in p9 using [scale_colour_manu
 
 
 ### Faceting
-Depending on the geometric object used there are up to 10 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets. Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. There are two facet commands, [facet_wrap()](http://ggplot2.tidyverse.org/reference/facet_wrap.html) will create a 1 dimensional sequence of panels based on a one sided linear formula. Similarly [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) will create a 2 dimensional grid of panels. Let's try and answer a few quick questions about our data using facets.
+Depending on the geometric object used there are up to 9 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets. Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. There are two facet commands, [facet_wrap()](http://ggplot2.tidyverse.org/reference/facet_wrap.html) will create a 1 dimensional sequence of panels based on a one sided linear formula. Similarly [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) will create a 2 dimensional grid of panels. Let's try and answer a few quick questions about our data using facets.
 
 ```R
 # what is the most common mutation type among SNP's
-p1 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type))
-p1
+p12 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type))
+p12
 
 # what is the relation of tiers to mutation type
-p2 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier))
-p2
+p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier))
+p13
 
 # which reference base is most often mutated
-p2 <- p2 + facet_wrap(~reference)
+p14 <- p13 + facet_wrap(~reference)
+p14
 
 # which transitions and transversions occur most frequently
-p2 <- p2 + facet_grid(variant ~ reference)
+p15 <- p14 + facet_grid(variant ~ reference)
+p15
 ```
 
 ### ggplot themes
 Almost every aspect of a ggplot object can be altered. We've already gone over how to alter the display of data but what if we want to alter the display of the non data elements? Fortunately there is a function for that called [theme()](http://ggplot2.tidyverse.org/reference/theme.html). You'll notice in the previous plot some of the x-axis names are colliding with one another, let's fix that and alter some of the theme parameters to make the plot more visually appealing.
 
 ```R
-# recreate plot p2 if it's not in your environment
-p2 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference)
-p2
+# recreate plot p13 if it's not in your environment
+p16 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference)
+p16
 
 # load in a theme with a few presets set
-p3 <- p2 + theme_bw()
-p3
+p17 <- p16 + theme_bw()
+p17
 
 # put the x-axis labels on a 45 degree angle
-p4 <- p3 + theme(axis.text.x=element_text(angle=45, hjust=1))
-p4
+p18 <- p17 + theme(axis.text.x=element_text(angle=45, hjust=1))
+p18
 
 # altering a few more visual apects
-p5 <- p4 + theme(legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"))
-p5
+p19 <- p18 + theme(legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"))
+p19
 
 # Let's remove the y-axis ticks as well
-p6 <- p5 + theme(axis.title.x=element_blank())
-p6
+p20 <- p19 + theme(axis.title.x=element_blank())
+p20
 ```
 
-Let's take a few minutes to discuss what is going on here. In p3, we've used [theme_bw()](http://ggplot2.tidyverse.org/reference/ggtheme.html), this function just changes a series of values from the basic default [theme()](http://ggplot2.tidyverse.org/reference/theme.html). There are many such "complete themes" in ggplot and a few external packages as well containing additional "complete themes" such as [ggtheme](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html). In p4, we alter the axis.text.x parameter, we can see from the documentation that axis.text.x inherits from [element_text()](http://ggplot2.tidyverse.org/reference/element.html) which is just saying that any parameters in [element_text()](http://ggplot2.tidyverse.org/reference/element.html) also apply to axis.text.x. In this specific case we alter the angle of text to 45 degrees, and set the horizontal justification to the right. In p5 we change the position of the legend, change the colour of the strip.text, and change the strip background. Finally in p6 we remove the x-axis label with [element_blank()](http://ggplot2.tidyverse.org/reference/element.html) which will draw nothing.
+Let's take a few minutes to discuss what is going on here. In p17, we've used [theme_bw()](http://ggplot2.tidyverse.org/reference/ggtheme.html), this function just changes a series of values from the basic default [theme()](http://ggplot2.tidyverse.org/reference/theme.html). There are many such "complete themes" in ggplot and a few external packages as well containing additional "complete themes" such as [ggtheme](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html). In p18, we alter the axis.text.x parameter, we can see from the documentation that axis.text.x inherits from [element_text()](http://ggplot2.tidyverse.org/reference/element.html) which is just saying that any parameters in [element_text()](http://ggplot2.tidyverse.org/reference/element.html) also apply to axis.text.x. In this specific case we alter the angle of text to 45 degrees, and set the horizontal justification to the right. In p19 we change the position of the legend, change the colour of the strip.text, and change the strip background. Finally in p20 we remove the x-axis label with [element_blank()](http://ggplot2.tidyverse.org/reference/element.html), which will draw nothing.
 
 ### Changing the order of aesthetic mappings
 In ggplot the order in which a variable is plotted is determined by the levels of the factor for that variable.
-We can view the levels of a column within a dataframe with the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) command and we can subsequently change the order of those levels with the [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor) command. We can then use these to change the order in which aesthetic mappings such as plot facets and discrete axis variables are plotted. Lets look at an example using the previous faceted plots we made (p6)
+We can view the levels of a column within a dataframe with the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) command and we can subsequently change the order of those levels with the [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor) command. We can then use these to change the order in which aesthetic mappings such as plot facets and discrete axis variables are plotted. Lets look at an example using the previous faceted plots we made (p20).
 
 ```R
-# recreate plot p6 if it's not in your environment
-p6 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
+# recreate plot p20 if it's not in your environment
+p20 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
 
 # view the order of levels in the reference and trv_type columns
 levels(variantData$reference)
@@ -192,9 +194,9 @@ levels(variantData$trv_type)
 variantData$reference <- factor(variantData$reference, levels=rev(levels(variantData$reference)))
 variantData$trv_type <- factor(variantData$trv_type, levels=rev(levels(variantData$trv_type)))
 
-# view plot p6 with the new order of variables
-p6 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
-p6
+# view plot p20 with the new order of variables
+p20 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
+p20
 ```
 
 We can see that reversing the order of levels in the reference column has subsequently reversed the reference facets (right side of plot). Similarily reversing the order of the trv_type column levels has reversed the labels on the x-axis.
@@ -204,21 +206,21 @@ To save a plot or any graphical object in R, you first have to initalize a graph
 
 ```R
 # save the last plot we made.
-pdf(file="p1.pdf", height="8", width="11")
-p1
+pdf(file="p20.pdf", height="8", width="11")
+p20
 dev.off()
 
 # alternatively ggsave will save the last plot made
-ggsave("p1.pdf", device="pdf")
+ggsave("p20.pdf", device="pdf")
 ```
 
 ### ggplot2 Practice examples
-Now that we've had an introduction to ggplot2 let's try a few practice example. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
+Now that we've had an introduction to ggplot2 let's try a few practice examples. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
 
 Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv) dataset we've been using to explore this.
 ```R
 # load the dataset
-variantData <- read.delim("ggplot2ExampleData.tsv")
+variantData <- read.delim("http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
 variantData <- variantData[variantData$dataset == "discovery",]
 ```
 {% include figure.html image="/assets/ggplot2/ggplot2Example1.png" width="950" %}
@@ -234,6 +236,7 @@ Looking good, but the plot looks dull, try adding some color to the violin plots
 Finally let's add some more detail, specifically let's annotate how many points actually make up each violin. The code below will construct the extra data you'll need to make the final plot.
 
 ```R
+library(plyr)
 variantDataCount <- count(variantData, "Simple_name")
 variantDataMax <- aggregate(data=variantData, tumor_VAF ~ Simple_name, max)
 variantDataMerge <- merge(variantDataMax, variantDataCount)
