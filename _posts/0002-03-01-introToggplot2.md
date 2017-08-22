@@ -72,20 +72,22 @@ Note that these transformations can be applied to the x axis as well ([scale_x_c
 
 ```R
 # method 1, set y limits for the plot
-p2 <- p1 + scale_y_continuous(limits=c(0, 500))
-p2 <- p1 + ylim(c(0, 500)) # shortcut method
-p2
+p4 <- p1 + scale_y_continuous(limits=c(0, 500))
+p4
+# alternatively, the following is a shortcut method for the same
+p4 <- p1 + ylim(c(0, 500))
+p4
 
 # method 2, transform the actual values in the data frame
-p3 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=log2(tumor_COV)))
-p3
+p5 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=log2(tumor_COV)))
+p5
 
 # method 3, transform the axis using ggplot
-p4 <- p1 + scale_y_continuous(trans="log2")
-p4
+p6 <- p1 + scale_y_continuous(trans="log2")
+p6
 ```
 
-Note that adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layer will plot only the points within the specified range by setting the limits. [ylim()](http://ggplot2.tidyverse.org/reference/lims.html) is a shortcut that achieves the same thing. You'll see a warning when doing this, stating that rows are being removed from the data frame that contain values outside of the specified range. There is an "out of bounds" parameter within [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) to control what happens with these points, but this isn't necessarily the best method for this particular plot. In method 2 (plot p3), we actually transform the data values themselves by applying a log2 transform. This method allows us to better visualize all of the points, but it is not intuitive to interpret the log2 of a value (tumor coverage). Alternatively, method 3 (plot p4) does not transform the values, but adjusts the scale the points are plotted on and does a better job of displaying all of our data without having to convert the log2 values.
+Note that adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layer will plot only the points within the specified range by setting the limits. [ylim()](http://ggplot2.tidyverse.org/reference/lims.html) is a shortcut that achieves the same thing. You'll see a warning when doing this, stating that rows are being removed from the data frame that contain values outside of the specified range. There is an "out of bounds" parameter within [scale_y_continuous()](http://ggplot2.tidyverse.org/reference/scale_continuous.html) to control what happens with these points, but this isn't necessarily the best method for this particular plot. In method 2 (plot p5), we actually transform the data values themselves by applying a log2 transform. This method allows us to better visualize all of the points, but it is not intuitive to interpret the log2 of a value (tumor coverage). Alternatively, method 3 (plot p6) does not transform the values, but adjusts the scale the points are plotted on and does a better job of displaying all of our data without having to convert the log2 values.
 
 ### Applying different aesthetics
 While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code ([hex codes explained](http://research.stowers.org/mcm/efg/R/Color/Chart/)) or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
@@ -95,34 +97,38 @@ While these plots look pretty good, we can make them more aesthetically pleasing
 colors()
 
 # what happens when we try to add color within the aesthetic?
-p2 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color="#68228B")) + scale_y_continuous(trans="log2")
-p2
+p7 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color="#68228B")) + scale_y_continuous(trans="log2")
+p7
 
 # and what happens when we try to add color within the geom?
-p3 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV), color="#68228B") + scale_y_continuous(trans="log2")
-p3
+p8 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV), color="#68228B") + scale_y_continuous(trans="log2")
+p8
 
 ```
 
-Above we chose "darkorchid4" which has a hex value of "#68228B". However the points in the first plot (p2) are red and not the expected purple color. Our points are appearing miscolored based upon how ggplot is interpreting the aesthetic mappings. When the color aesthetic is specified for geom_point it expects a factor variable by which to color points. If we wanted to, for example, color all missense variants with one color, nonsense variants with another color, and so on we could supply a factor for variant type to the color aesthetic in this way. But, when we specified a quoted hex code, ggplot assumed we wanted to create such a factor with all values equal to the provided text string. It did this for us and then used its internal color scheme to color that variable. By specifying the color outside the aesthetic mapping, geom_point knows to apply the color 'darkorchid4' to all of the points specified in the [geom_point()](http://ggplot2.tidyverse.org/reference/geom_point.html) layer (p3).
+Above we chose "darkorchid4" which has a hex value of "#68228B". However the points in the first plot (p7) are red and not the expected purple color. Our points are appearing miscolored based upon how ggplot is interpreting the aesthetic mappings. When the color aesthetic is specified for geom_point it expects a factor variable by which to color points. If we wanted to, for example, color all missense variants with one color, nonsense variants with another color, and so on we could supply a factor for variant type to the color aesthetic in this way. But, when we specified a quoted hex code, ggplot assumed we wanted to create such a factor with all values equal to the provided text string. It did this for us and then used its internal color scheme to color that variable all according to the single category in the factor variable. By specifying the color outside the aesthetic mapping, geom_point knows to apply the color 'darkorchid4' to all of the points specified in the [geom_point()](http://ggplot2.tidyverse.org/reference/geom_point.html) layer (p8).
 
-We can utilize the colour aesthetic to more specifically visualize our data. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but divide the cohort based upon the dataset subsets (specified within the colour aesthetic).
+Building on the above concept, we can utilize the colour aesthetic to more specifically visualize our data. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor the colour aesthetic.
 
 ```
 # get a density curve of tumor vafs
-p1 <- ggplot() + geom_density(aes(x=tumor_VAF, color=dataset))
-p1
+p9 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, color=dataset))
+p9
 
 # let's add a bit more detail
-p2 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, fill=dataset), alpha=.75, colour="black", adjust=.5)
-p2
+p10 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, fill=dataset), alpha=.75, colour="black", adjust=.5)
+p10
 
 # and let's change the colors some more
-p3 <- p2 + scale_fill_manual(values=c("discovery"="#a13242", "extension"="#1a2930"))
-p3
+p11 <- p10 + scale_fill_manual(values=c("discovery"="#a13242", "extension"="#1a2930"))
+p11
 ```
 
-In p1, we told the [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the data based upon the 'dataset' column using the colour aesthetic. We see this in our p1 plot, that our result contains two density curves that use two different colored lines to specify our datasets. In p2, we are telling our [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the datasets using the "fill" aesthetic instead. We globally assign the line colour ("black") and the fill transparency (alpha=0.75). In addition, we utilize the adjust parameter to reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Now, our datasets are specificed by the fill (or filled in color) of each density curve. In p3, we append the [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html) layer to manually define the fill colours we would like to appear in the plot. This can be done with the colour aesthetic in p1 using [scale_colour_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html), since we define the colour by the dataset variable.
+In the p9 plot, we told the [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the data based upon the 'dataset' column using the colour aesthetic. We see that our result contains two density curves that use two different colored lines to specify our datasets. In p10, we are telling our [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the datasets using the "fill" aesthetic instead. We globally assign the line colour ("black") and the fill transparency (alpha=0.75). In addition, we utilize the adjust parameter to reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Now, our datasets are specified by the fill (or filled in color) of each density curve. In p11, we append the [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html) layer to manually define the fill colours we would like to appear in the plot. 
+
+### Make this an exercise 
+This could also be done with the colour aesthetic in p9 using [scale_colour_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html), since we define the colour by the dataset variable.
+
 
 ### Faceting
 Depending on the geometric object used there are up to 10 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets. Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. There are two facet commands, [facet_wrap()](http://ggplot2.tidyverse.org/reference/facet_wrap.html) will create a 1 dimensional sequence of panels based on a one sided linear formula. Similarly [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) will create a 2 dimensional grid of panels. Let's try and answer a few quick questions about our data using facets.
