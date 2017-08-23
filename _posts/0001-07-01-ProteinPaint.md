@@ -88,15 +88,15 @@ write(output, file="CIViC-VHL-Variants.formatted.csv")
 
 ### ProteinPaint practice examples
 
-* What are the three most recurrent mutation in *PIK3CA* according to COSMIC?
+* 1. What are the three most recurrent mutation in *PIK3CA* according to COSMIC?
 {% include question.html question="Get a hint!" answer='Load PIK3CA, activate the COSMIC track, and look for the mutations with highest patient counts'%}
 {% include question.html question="Answer" answer='H1047R, E545K, and E542K are the most recurrent mutations in PIK3CA according to COSMIC'%}
 
-* What is the top tissue of origin observed for each of these three mutations?
+* 2. What is the top tissue of origin observed for each of these three mutations?
 {% include question.html question="Get a hint!" answer='Click on the circle for each mutation and examine the tissue distribution plot'%}
 {% include question.html question="Answer" answer='H1047R (breast), E545K (large intestine), and E542K (large intestine)'%}
 
-* Repeat the exercise above where we extract variants from CIViC for *KRAS*, create a clean version of these data, and load them into ProteinPaint 
+* 4. Repeat the exercise above where we extract variants from CIViC for *KRAS*, create a clean version of these data, and load them into ProteinPaint 
 {% include question.html question="Get a hint!" answer='You should be able to do almost exactly what we did with VHL, but for KRAS instead'%}
 
 
