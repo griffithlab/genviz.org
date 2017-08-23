@@ -21,6 +21,9 @@ The tool is entirely web based. First navigate to the tool's homepage: [ProteinP
 Go through the following exercise to explore the functionality of this resource:
 
 * Choose an example gene to explore (e.g. *EGFR*). Enter it in the search box and select it from the drop down of suggestions.
+
+{% include figure.html image="/assets/proteinpaint/proteinpaint1.png" width="950" %}
+
 * Select the gene name (top left) to view a summary of the gene.
 * Use the `CONFIG` option (right side) to change between display modes by selecting `switch display mode`. 
 * Select pre-loaded data to display (Pediatric, COSMIC, and ClinVar). Select COSMIC for this example. Use the `ABOUT` popup to learn more about each data source.
