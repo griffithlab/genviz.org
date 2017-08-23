@@ -96,9 +96,7 @@ write(output, file="CIViC-VHL-Variants.formatted.csv")
 {% include question.html question="Get a hint!" answer='Click on the circle for each mutation and examine the tissue distribution plot'%}
 {% include question.html question="Answer" answer='H1047R (breast), E545K (large intestine), and E542K (large intestine)'%}
 
-
-
-
-
+* Repeat the exercise above where we extract variants from CIViC for *KRAS*, create a clean version of these data, and load them into ProteinPaint 
+{% include question.html question="Get a hint!" answer='You should be able to do almost exactly what we did with VHL, but for KRAS instead'%}
 
 
