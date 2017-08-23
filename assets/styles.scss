@@ -458,7 +458,7 @@ pre code {
     p.a {
         background: lighten($color__site--accent, 50%);
         font-weight: normal;
-        font-size: 100%;
+        font-size: 80%;
         border-bottom: 1px #ddd solid;
         @include rounded($radius: .5em);
         margin: auto;
@@ -469,7 +469,7 @@ pre code {
         margin: auto;
         padding: 10px;
         font-weight: normal;
-        font-size: 100%;
+        font-size: 80%;
         border-bottom: 1px #ddd solid;
         cursor: pointer;
         @include rounded($radius: .5em);
