@@ -96,10 +96,10 @@ write(output, file="CIViC-VHL-Variants.formatted.csv")
 {% include question.html question="Get a hint!" answer='Click on the circle for each mutation and examine the tissue distribution plot'%}
 {% include question.html question="Answer" answer='H1047R (breast), E545K (large intestine), and E542K (large intestine)'%}
 
-* Load the Pediatric data for *RUNX1T1*. (A) What special kind of variant is indicated? (B) Load the RNA-seq plot for these data. Mouse over the RUNX1 variant. What interesting pattern do you observe? (C) Highlight the top 25 samples. What type of cancer dominates?
+* Load the Pediatric data for *RUNX1T1*. (A) What special kind of variant is indicated? (B) Load the RNA-seq plot for these data. Mouse over the RUNX1 variant. What interesting pattern do you observe? (C) Highlight the top 25 samples in the RNA-seq expression plot. What type of cancer dominates?
 
-{% include question.html question="Get a hint!" answer='Load RUNX1T1, make sure the Pediatric data track is activated, and make sure the RNA-seq gene expression panel is open'%}
-{% include question.html question="Answer" answer='(A) RNA gene fusion variants. (B) The RUNX1-RUNX1T1 (aka AML-ETO) fusion variant corresponds to samples with very high RUNX1T1 expression. (C) AML cancer dominates the top 25 samples with highest RUNX1T1 expression.'%}
+{% include question.html question="Get a hint!" answer='Load *RUNX1T1*, make sure the Pediatric data track is activated, and make sure the RNA-seq gene expression panel is open'%}
+{% include question.html question="Answer" answer='(A) RNA gene fusion variants. (B) The *RUNX1*-*RUNX1T1* (aka AML-ETO) fusion variant corresponds to samples with very high *RUNX1T1* expression. (C) AML cancer dominates the top 25 samples with highest *RUNX1T1* expression.'%}
 
 * Repeat the exercise above where we extract variants from CIViC for *KRAS*, create a clean version of these data, and load them into ProteinPaint 
 {% include question.html question="Get a hint!" answer='You should be able to do almost exactly what we did with VHL, but for KRAS instead'%}
