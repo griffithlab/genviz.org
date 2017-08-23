@@ -92,6 +92,9 @@ write(output, file="CIViC-VHL-Variants.formatted.csv")
 {% include question.html question="Get a hint!" answer='Load PIK3CA, activate the COSMIC track, and look for the mutations with highest patient counts'%}
 {% include question.html question="Answer" answer='H1047R, E545K, and E542K are the most recurrent mutations in PIK3CA according to COSMIC'%}
 
+* What is the top tissue of origin observed for each of these three mutations?
+{% include question.html question="Get a hint!" answer='Click on the circle for each mutation and examine the tissue distribution plot'%}
+{% include question.html question="Answer" answer='H1047R (breast), E545K (large intestine), and E542K (large intestine)'%}
 
 
 
