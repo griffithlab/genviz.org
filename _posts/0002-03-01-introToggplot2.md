@@ -124,9 +124,9 @@ p11 <- p10 + scale_fill_manual(values=c("discovery"="#a13242", "extension"="#1a2
 p11
 ```
 
-In the p9 plot, we told the [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the data based upon the 'dataset' column using the colour aesthetic. We see that our result contains two density curves that use two different colored lines to specify our datasets. In p10, we are telling our [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the datasets using the "fill" aesthetic instead. We globally assign the line colour ("black") and the fill transparency (alpha=0.75). In addition, we utilize the adjust parameter to reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Now, our datasets are specified by the fill (or filled in color) of each density curve. In p11, we append the [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html) layer to manually define the fill colours we would like to appear in the plot. 
+In the p9 plot, we told the [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the data based upon the 'dataset' column using the colour aesthetic. We see that our result contains two density curves that use two different colored lines to specify our datasets. In p10, we are telling our [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the datasets using the "fill" aesthetic instead. We globally assign the line colour ("black") and the fill transparency (alpha=0.75). In addition, we utilize the adjust parameter to reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Now, our datasets are specified by the fill (or filled in color) of each density curve. In p11, we append the [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html) layer to manually define the fill colours we would like to appear in the plot.
 
-### Make this an exercise 
+### Make this an exercise
 This could also be done with the colour aesthetic in p9 using [scale_colour_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html), since we define the colour by the dataset variable.
 
 
@@ -217,7 +217,7 @@ ggsave("p20.pdf", device="pdf")
 ### ggplot2 Practice examples
 Now that we've had an introduction to ggplot2 let's try a few practice examples. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
 
-Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv) dataset we've been using to explore this.
+Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv) dataset we've been using to explore this.  Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
 ```R
 # load the dataset
 variantData <- read.delim("http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
