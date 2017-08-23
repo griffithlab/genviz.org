@@ -8,25 +8,35 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-07-01
 ---
 
-[ProteinPaint](https://pecan.stjude.org/proteinpaint) is a tool made available as part of the [PeCan Data Portal](https://pecan.stjude.org/home). The principle goal of the this data portal is to facilitate exploration of childhood cancer genomics data. However, some tools such as ProteinPaint are generally useful for visualizing the recurrence of any set of variants in a gene in the context of protein domains and other information.
+### Introduction
 
-This section will provide a brief introduction to ProteinPaint features and demonstrate its use with a few examples and exercises.
+[ProteinPaint](https://pecan.stjude.org/proteinpaint) is a tool made available as part of the [PeCan Data Portal](https://pecan.stjude.org/home). The principle goal of this data portal is to facilitate exploration of childhood cancer genomics data. However, some tools, such as ProteinPaint are generally useful for visualizing the recurrence of any set of variants in a gene in the context of protein domains and other information.
 
-The tool is entirely web based. First navigate to the tool's homepage: [ProteinPaint](https://pecan.stjude.org/proteinpaint). Note that is has its own [simple tutorial](https://docs.google.com/document/d/1JWKq3ScW62GISFGuJvAajXchcRenZ3HAvpaxILeGaw0/edit). Go through the following exercise to explore the functionality of this resource.
+This section will provide a brief introduction to ProteinPaint's features and demonstrate its use with a few examples and exercises.
 
-* Choose an example gene to explore (e.g. *EGFR*).
+The tool is entirely web based. First navigate to the tool's homepage: [ProteinPaint](https://pecan.stjude.org/proteinpaint). Note that it has its own [simple tutorial](https://docs.google.com/document/d/1JWKq3ScW62GISFGuJvAajXchcRenZ3HAvpaxILeGaw0/edit). 
+
+### Guided tour of pre-loaded data
+
+Go through the following exercise to explore the functionality of this resource:
+
+* Choose an example gene to explore (e.g. *EGFR*). Enter it in the search box and select it from the drop down of suggestions.
 * Select the gene name (top left) to view a summary of the gene.
 * Use the `CONFIG` option (right side) to change between display modes by selecting `switch display mode`. 
 * Select pre-loaded data to display (Pediatric, COSMIC, and ClinVar). Select COSMIC for this example. Use the `ABOUT` popup to learn more about each data source.
 * Zoom `In` on a mutation hotspot and navigate around that region. Once done, Zoom Out `x50` to return to a view of the entire gene.
 * Use the `Tracks` button to view the list of available tracks and turn on the RefGene track. 
-* Under the `More` menu, Select a region to highlight. Select a region contain a hotspot mutation. 
+* Under the `More` menu, try `Select a region to highlight`. Select a region containing a hotspot mutation. 
 * Use the `+ add protein domain` button (bottom left) to add a custom domain of interest.
 * Mouse over the gene diagram to view details on individual domains and amino acid positions.
 * Select specific variants to learn more about what diseases they occur in. For example, load *ERBB2* and the COSMIC data track. Two of the most common mutations are **S310F** and **L755S**. Select both of these. Which is more common in breast cancer? Use the `List` option to learn more about individual variant observations.
-* Use the Microarray and RNA-seq expression tracks (if collapsed these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high ERBB2 expression.
-* Finally, suppose we want to load a custom data set of our own variants into ProteinPaint? As a test, we will use [CIViCs](www.civicdb.org) list of VHL variants as an example. To get that list go to www.civicdb.org, select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting into ProteinPaint.
-* Open this file in R and perform the following clean-up.
+* Use the Microarray and RNA-seq expression tracks (if missing, these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high *ERBB2* expression.
+
+### Importing custom data
+
+* Suppose we want to load a custom data set of our own variants into ProteinPaint? As a test, we will use [CIViCs](www.civicdb.org) list of VHL variants as an example. To get that list go to www.civicdb.org, select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting it into ProteinPaint.
+
+* Open this file in R and perform the clean-up as follows:
 
 ```R
 # Load the data downloaded from CIViC
@@ -75,4 +85,17 @@ write(output, file="CIViC-VHL-Variants.formatted.csv")
 
 * Open the resulting file (CIViC-VHL-Variants.formatted.csv) in a text editor. Then, in ProteinPaint use the + button to add data (top center), and choose the SNV/Indel option.
 * Then paste the variant formatted in R into that box. Compare the VHL variants in CIViC compared to those in ClinVar.
+
+### ProteinPaint practice examples
+
+* What are the three most recurrent mutation in *PIK3CA* according to COSMIC?
+{% include question.html question="Get a hint!" answer='Load PIK3CA, activate the COSMIC track, and look for the mutations with highest patient counts'%}
+{% include question.html question="Answer" answer='H1047R, E545K, and E542K are the most recurrent mutations in PIK3CA according to COSMIC'%}
+
+
+
+
+
+
+
 
