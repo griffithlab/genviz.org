@@ -63,5 +63,23 @@ clin_colors <- c('0'="lightblue",'1'='dodgerblue2','2'='blue1','3'='darkblue','4
 # add the clinical data to the plots
 tvtiFreqGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="frequency")
 tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", clinData=clinicalData, clinLegCol = 2, clinVarCol = clin_colors)
-finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1)
+finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1, heights=c(2,5))
 grid.draw(finalGrob)
+
+# grab the widths
+proportionPlotWidth <- finalGrob[[1]][[2]][[1]][[1]]$widths
+clinicalPlotWidth <- finalGrob[[1]][[2]][[1]][[2]]$widths
+transitionPlotWidth <- finalGrob[[1]][[1]][[1]][[1]]$widths
+
+maxWidth <- unit.pmax(proportionPlotWidth, clinicalPlotWidth, transitionPlotWidth)
+finalGrob[[1]][[2]][[1]][[1]]$widths <- as.list(maxWidth)
+finalGrob[[1]][[2]][[1]][[2]]$widths <- as.list(maxWidth)
+finalGrob[[1]][[1]][[1]][[1]]$widths <- as.list(maxWidth)
+
+pdf(file="~/Desktop/tmp2.pdf", height=10, width=15)
+grid.draw(finalGrob)
+dev.off()
+
+pdf(file="~/Desktop/tmp.pdf", height=10, width=15)
+gtable_show_layout(finalGrob)
+dev.off()

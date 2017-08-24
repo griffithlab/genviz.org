@@ -91,9 +91,7 @@ grid.draw(finalGrob)
 
 ### adding clinical data
 
-As with many other [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) functions we can add a heatmap of clinical data via the parameter `clinData` which expects a data frame with column names "sample", "variable", and "value". A subset of the clinical data is available to download [here](http://genomedata.org/gen-viz-workshop/GenVisR/FL_ClinicalData.tsv), go ahead and load it into R. The clinical data contains information for all samples in the experiment however we are only interested in the discovery cohort, the next step then is to subset our clinical data to only those samples in our main plot.
-
- The clinical data for this cohort is available in supplemental table S1 from the ["follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only?sso-checked=true) manuscript. You can download a tsv file of this data [here](http://genomedata.org/gen-viz-workshop/GenVisR/FL_ClinicalData.tsv).
+As with many other [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) functions we can add a heatmap of clinical data via the parameter `clinData` which expects a data frame with column names "sample", "variable", and "value". A subset of the clinical data is available to download [here](http://genomedata.org/gen-viz-workshop/GenVisR/FL_ClinicalData.tsv), go ahead and load it into R. The clinical data contains information for all samples in the experiment however we are only interested in the discovery cohort, the next step then is to subset our clinical data to only those samples in our main plot. From there we can use [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) to coerce the data frame into the required "long" format and add the clinical data to the proportions plot with the `clinData` parameter. In order to more closely match the manuscript figure we will also define a custom color pallette and set the number of columns in the legend with the parameters `clinVarCol` and `clinLegCol` respectively.
 
 ```R
 # read in the clinical data
@@ -112,10 +110,43 @@ clin_colors <- c('0'="lightblue",'1'='dodgerblue2','2'='blue1','3'='darkblue','4
 
 # add the clinical data to the plots
 tvtiFreqGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="frequency")
-tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", clinData=clinicalData)
-finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1)
+tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", clinData=clinicalData, clinLegCol = 2, clinVarCol = clin_colors)
+finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1, heights=c(2, 1))
 grid.draw(finalGrob)
 ```
+
+{% include figure.html image="/assets/GenVisR/transition_transversion_v5.png" width="750" %}
+
+### re-aligning plots
+
+Up til this point we have glossed over what [arrangeGrob()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob) is actually doing however this is no longer a luxury we can afford. In the previous figure we can see that adding the clinical data to our plot has caused our proportion and frequency plots to go out of alignment. This has occurred because the y-axis text in the clinical plot takes up more space than in the frequency plot. Because we added clinical data with [GenVisR]() to the proportion plot those graphics are aligned with each other however [TvTi()]() has no idea the frequency plot exists, it's added to our graphic after the fact with [arrangeGrob()](). In order to fix this issue we will need a basic understanding of "grobs", "TableGrobs", and "viewports". First off a [grob]() is just short for "grid graphical object" from the low-level graphics package [grid](); Think of it as a set of instructions for create a graphical object (i.e. a plot). The graphics library underneath all of [ggplot2's]() graphical elements are really composed of [grob's]() because ggplot2 uses [grid]() underneath. A  TableGrob is a class from the [gtable]() package and provides an easier way to view and manipulate groups of [grobs](), it is actually the intermediary between [ggplot2]() and [grid](). A "viewport" is a graphics region for which a [grob]() is assigned. We have already been telling [GenVisR]() to output [grobs]() instead of drawing a graphic because we have been using the [arrangeGrob()]() function in [gridExtra]() to arrange and display extra viewports in order to create a final plot. Let's briefly look at what this actually means, we can show the layout of viewports with the function [gtable_show_layout](). In the figure below we have overlayed this layout on to our plot and have shown the gtable to the right. In the table grob we can see that at the top level our [grobs]() are compsed of 2 vertical elements and 1 horizontal elements. The column z corresponds to the order of plot layers, and cells corresponds to the viewport coordinates. So we can see that the [grob]() listed in row 1 is plotted first and is located on the viewport spanning vertical elemnents 1-1 and horizontal elements 1-1 and thus on our layout is in the viewport (1, 1).
+
+```R
+# load the gtable library
+library(gtable)
+
+# visualize the viewports of our plot
+gtable_show_layout(finalGrob)
+```
+
+{% include figure.html image="/assets/GenVisR/transition_transversion_v6.png" width="750" %}
+
+```R
+
+
+proportionPlotWidth <- finalGrob[[1]][[2]][[1]][[1]]$widths
+clinicalPlotWidth <- finalGrob[[1]][[2]][[1]][[2]]$widths
+transitionPlotWidth <- finalGrob[[1]][[1]][[1]][[1]]$widths
+
+maxWidth <- unit.pmax(proportionPlotWidth, clinicalPlotWidth, transitionPlotWidth)
+finalGrob[[1]][[2]][[1]][[1]]$widths <- as.list(maxWidth)
+finalGrob[[1]][[2]][[1]][[2]]$widths <- as.list(maxWidth)
+finalGrob[[1]][[1]][[1]][[1]]$widths <- as.list(maxWidth)
+
+library(gtable)
+
+```
+
 
 ### adding additional layers
 
