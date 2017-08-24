@@ -22,23 +22,23 @@ Go through the following exercise to explore the functionality of this resource:
 
 * Choose an example gene to explore (e.g. *EGFR*). Enter it in the search box and select it from the drop down of suggestions.
 
-{% include figure.html image="/assets/proteinpaint/proteinpaint1.png" width="1150" %}
+{% include figure.html image="/assets/proteinpaint/proteinpaint1.png" width="1200" %}
 
 * Select the gene name (top left) to view a summary of the gene.
 * Use the `CONFIG` option (right side) to change between display modes by selecting `switch display mode`. Try the `Splicing RNA` option.
 
-{% include figure.html image="/assets/proteinpaint/proteinpaint2.png" width="1150" %}
+{% include figure.html image="/assets/proteinpaint/proteinpaint2.png" width="1200" %}
 
 * Use the `Tracks` button to view the list of available tracks and turn on the `RefGene` track.
 
-{% include figure.html image="/assets/proteinpaint/proteinpaint3.png" width="1150" %}
+{% include figure.html image="/assets/proteinpaint/proteinpaint3.png" width="1200" %}
 
 * Use the `CONFIG` menu to change `switch display mode` back to `Protein`.
 
 * Select pre-loaded data to display (Pediatric, COSMIC, and ClinVar). Select COSMIC for this example. Use the `ABOUT` popup to learn more about each data source.
 * Zoom `In` on a mutation hotspot and navigate around that region. Once done, Zoom Out `x50` to return to a view of the entire gene.
 
-{% include figure.html image="/assets/proteinpaint/proteinpaint4.png" width="1150" %}
+{% include figure.html image="/assets/proteinpaint/proteinpaint4.png" width="1200" %}
 
 * Under the `More` menu, try `Select a region to highlight`. Select a region containing a hotspot mutation.
 
