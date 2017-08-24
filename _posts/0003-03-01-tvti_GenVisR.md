@@ -91,7 +91,31 @@ grid.draw(finalGrob)
 
 ### adding clinical data
 
-As with many other [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) functions we can add a heatmap of clinical data via the parameter `clinData` which expects a data frame with column names "sample", "variable", and "value".
+As with many other [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) functions we can add a heatmap of clinical data via the parameter `clinData` which expects a data frame with column names "sample", "variable", and "value". A subset of the clinical data is available to download [here](http://genomedata.org/gen-viz-workshop/GenVisR/FL_ClinicalData.tsv), go ahead and load it into R. The clinical data contains information for all samples in the experiment however we are only interested in the discovery cohort, the next step then is to subset our clinical data to only those samples in our main plot.
+
+ The clinical data for this cohort is available in supplemental table S1 from the ["follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only?sso-checked=true) manuscript. You can download a tsv file of this data [here](http://genomedata.org/gen-viz-workshop/GenVisR/FL_ClinicalData.tsv).
+
+```R
+# read in the clinical data
+clinicalData <- read.delim("FLClinicalData.tsv")
+
+# subset just the discovery cohort
+clinicalData <- clinicalData[clinicalData$Simple_name %in% mutationData$sample,]
+all(sort(unique(as.character(clinicalData$Simple_name))) == sort(unique(as.character(mutationData$sample))))
+
+# convert to long format
+library(reshape2)
+clinicalData <- melt(data=clinicalData, id.vars="Simple_name")
+
+# define a few clinical parameter inputs
+clin_colors <- c('0'="lightblue",'1'='dodgerblue2','2'='blue1','3'='darkblue','4'='black','FL'='green3','t-NHL'='darkgreen','Treated'='darkred','TreatmentNaive'='red','NA'='lightgrey')
+
+# add the clinical data to the plots
+tvtiFreqGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="frequency")
+tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", clinData=clinicalData)
+finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1)
+grid.draw(finalGrob)
+```
 
 ### adding additional layers
 
