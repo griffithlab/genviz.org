@@ -61,7 +61,7 @@ Go through the following exercise to explore the functionality of this resource:
 
 ### Importing custom data
 
-* Suppose we want to load a custom data set of our own variants into ProteinPaint? As a test, we will use [CIViCs](www.civicdb.org) list of VHL variants as an example. To get that list go to www.civicdb.org, select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting it into ProteinPaint.
+* Suppose we want to load a custom data set of our own variants into ProteinPaint? As a test, we will use [CIViCs](http://www.civicdb.org) list of VHL variants as an example. To get that list go to www.civicdb.org, select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting it into ProteinPaint.
 
 * Open this file in R and perform the clean-up as follows:
 
