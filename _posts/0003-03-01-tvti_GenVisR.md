@@ -111,7 +111,7 @@ clin_colors <- c('0'="lightblue",'1'='dodgerblue2','2'='blue1','3'='darkblue','4
 # add the clinical data to the plots
 tvtiFreqGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="frequency")
 tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", clinData=clinicalData, clinLegCol = 2, clinVarCol = clin_colors)
-finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1, heights=c(2, 1))
+finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1, heights=c(2, 5))
 grid.draw(finalGrob)
 ```
 
@@ -145,12 +145,39 @@ transitionPlotWidth <- finalGrob$grobs[[1]]$grobs[[1]]$widths
 maxWidth <- unit.pmax(proportionPlotWidth, clinicalPlotWidth, transitionPlotWidth)
 
 # re-assign the max widths
-finalGrob[[1]][[2]][[1]][[1]]$widths <- as.list(maxWidth)
-finalGrob[[1]][[2]][[1]][[2]]$widths <- as.list(maxWidth)
-finalGrob[[1]][[1]][[1]][[1]]$widths <- as.list(maxWidth)
+finalGrob$grobs[[2]]$grobs[[1]]$widths <- as.list(maxWidth)
+finalGrob$grobs[[2]]$grobs[[2]]$widths <- as.list(maxWidth)
+finalGrob$grobs[[1]]$grobs[[1]]$widths <- as.list(maxWidth)
 
 # plot the plot
 grid.draw(finalGrob)
 ```
 
 ### adding additional layers
+
+Our plot is getting getting close to looking like the one in the manuscript, there are a few final touches we should add however. Specifically let's add in some vertical lines separating samples by "treatment-naive", "treated", and "t-NHL". Let's also remove the redundant x-axis text, we can do all this by adding additional [ggplot2]() layers to the various plots with the parameter `layers` and `clinLayer`.
+
+```R
+# load ggplot2
+library(ggplot2)
+
+# create a layer for vertical lines
+layer1 <- geom_vline(xintercept=c(14.5, 22.5))
+
+# create a layer to remove redundant x-axis labels
+layer2 <- theme(axis.text.x=element_blank(), axis.title.x=element_blank())
+
+# create the plot
+tvtiFreqGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="frequency", layers=list(layer1, layer2))
+tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", clinData=clinicalData, clinLegCol = 2, clinVarCol = clin_colors, layers=layer1, clinLayer=layer1)
+finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1, heights=c(2, 5))
+grid.draw(finalGrob)
+```
+
+{% include figure.html image="/assets/GenVisR/transition_transversion_v8.png" width="750" %}
+
+#### Exercises
+
+The plot above has been finnished, however we re-created all the plots without taking the time to re-align them. Try and fix that now, if you get stuck go over the aligning grobs section again.
+
+{% include question.html question="Re-align the plot above." answer='Go through the aligning grobs section if you get stuck'%}

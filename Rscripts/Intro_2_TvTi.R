@@ -67,19 +67,32 @@ finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1, heights=c(2,5))
 grid.draw(finalGrob)
 
 # grab the widths
-proportionPlotWidth <- finalGrob[[1]][[2]][[1]][[1]]$widths
-clinicalPlotWidth <- finalGrob[[1]][[2]][[1]][[2]]$widths
-transitionPlotWidth <- finalGrob[[1]][[1]][[1]][[1]]$widths
+proportionPlotWidth <- finalGrob$grobs[[2]]$grobs[[1]]$widths
+clinicalPlotWidth <- finalGrob$grobs[[2]]$grobs[[2]]$widths
+transitionPlotWidth <- finalGrob$grobs[[1]]$grobs[[1]]$widths
 
+# find the max width of each of these
 maxWidth <- unit.pmax(proportionPlotWidth, clinicalPlotWidth, transitionPlotWidth)
-finalGrob[[1]][[2]][[1]][[1]]$widths <- as.list(maxWidth)
-finalGrob[[1]][[2]][[1]][[2]]$widths <- as.list(maxWidth)
-finalGrob[[1]][[1]][[1]][[1]]$widths <- as.list(maxWidth)
 
-pdf(file="~/Desktop/tmp2.pdf", height=10, width=15)
+# re-assign the max widths
+finalGrob$grobs[[2]]$grobs[[1]]$widths <- as.list(maxWidth)
+finalGrob$grobs[[2]]$grobs[[2]]$widths <- as.list(maxWidth)
+finalGrob$grobs[[1]]$grobs[[1]]$widths <- as.list(maxWidth)
+
+# plot the plot
 grid.draw(finalGrob)
-dev.off()
 
-pdf(file="~/Desktop/tmp.pdf", height=10, width=15)
-gtable_show_layout(finalGrob)
-dev.off()
+# load ggplot2
+library(ggplot2)
+
+# create a layer for vertical lines
+layer1 <- geom_vline(xintercept=c(14.5, 22.5))
+
+# create a layer to remove redundant x-axis labels
+layer2 <- theme(axis.text.x=element_blank(), axis.title.x=element_blank())
+
+# create the plot 
+tvtiFreqGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="frequency", layers=list(layer1, layer2))
+tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", clinData=clinicalData, clinLegCol = 2, clinVarCol = clin_colors, layers=layer1, clinLayer=layer1)
+finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1, heights=c(2, 5))
+grid.draw(finalGrob)
