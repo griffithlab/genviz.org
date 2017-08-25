@@ -8,9 +8,78 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0003-04-01
 ---
 
-Often is is usefull to view coverage of a specific region of the genome in the context of specific samples. During initial stages of analysis this can be done with a genome browser such as [IGV](http://software.broadinstitute.org/software/igv/) however when preparing a publication more fine grain control is usefull. For example you may wish to change the coverage scale, reduce the size of introns, or visualize many samples at once. GenVisR provides a function for this aptly named [genCov](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov).
+Often is is usefull to view coverage of a specific region of the genome in the context of specific samples. During initial stages of analysis this can be done with a genome browser such as [IGV](http://software.broadinstitute.org/software/igv/) however when preparing a publication more fine grain control is usefull. For example you may wish to change the coverage scale, reduce the size of introns, or visualize many samples at once. GenVisR provides a function for this aptly named [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov).
 
-### introduction to datasets
+### Introduction to datasets
 
 In this section we will be using coverage data derived from two mouse samples from the study ["Truncating Prolactin Receptor Mutations Promote Tumor Growth in Murine Estrogen Receptor-Alpha Mammary Carcinomas"](https://www.ncbi.nlm.nih.gov/pubmed/27681435). We will be showing that the knockout of the *STAT1*
  gene described in the manuscript was successful. In order to obtain the preliminary data we used the command `bedtools multicov -bams M_CA-TAC245-TAC245_MEC.prod-refalign.bam M_CA-TAC265-TAC265_MEC.prod-refalign -bed stat1.bed` to obtain coverage values for the wildtype TAC245 sample and the tumor free knockout TAC265 sample.
+ Go ahead and download the output of [bedtools multicov](http://bedtools.readthedocs.io/en/latest/content/tools/multicov.html) from [here](http://genomedata.org/gen-viz-workshop/GenVisR/STAT1_mm9_coverage.tsv) and load it into R.
+
+```R
+# read the coverage data into R
+covData <- read.delim("~/Desktop/STAT1_mm9_coverage.tsv")
+```
+### Formating coverage data
+Before we get started we need to do some preliminary data preparation to use [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov). First off [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) expects coverage data to be in the form of a named list of data frames with list names corresonding to sample id's and column names "chromosome", "end", and "cov". Further the chromosome column should be of the format "chr1" instead of "1", we'll explain why a bit later. Below we rename our data frame columns with [colnames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames) and create an anonymous function, `a`, to go through and split the data frame up into a list of data frames by sample. We then use the function [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) to assign samples names to our list.
+
+```R
+# rename the columns
+colnames(covData) <- c("chromosome", "start", "end", "TAC245", "TAC265")
+
+# create a function to split the data frame into lists of data frames
+samples <- c("TAC245", "TAC265")
+a <- function(x, y){
+    col_names <- c("chromosome", "end", x)
+    y <- y[,col_names]
+    colnames(y) <- c("chromosome", "end", "cov")
+    return(y)
+}
+covData <- lapply(samples, a, covData)
+
+names(covData) <- samples
+```
+
+# loading a BSgenome and TxDb object
+The next set of data we need is an object of class [BSgenome](https://www.rdocumentation.org/packages/BSgenome/versions/1.40.1/topics/BSgenome-class), short for biostrings genome. These object are held in bioconductor annotation packages and store reference sequences in a way that is effecient for searching a reference. To view the available genomes maintained by bioconductor you can either install the [BSgenome package](https://www.bioconductor.org/packages/release/bioc/html/BSgenome.html) and use the function [available.genomes()](https://www.rdocumentation.org/packages/BSgenome/versions/1.40.1/topics/available.genomes) or you can use [biocViews](https://bioconductor.org/packages/release/BiocViews.html#___BSgenome) on bioconductors website. We also need to load in some transcription meta data corresponding to our data. This type of data is also stored on bioconductor and is made available through annotation packages as TxDb objects. You can view the available TxDb annotation packages using [biocViews](https://bioconductor.org/packages/release/BiocViews.html#___TxDb). In our situation the coverage data for our experiment corresponds to the mm9 reference assembly, so we will load the [BSgenome.Mmusculus.UCSC.mm9](http://bioconductor.org/packages/release/data/annotation/html/BSgenome.Mmusculus.UCSC.mm9.html) and [TxDb.Mmusculus.UCSC.mm9.knownGene](http://bioconductor.org/packages/release/data/annotation/html/TxDb.Mmusculus.UCSC.mm9.knownGene.html) libraries. It is important to note that the chromosomes between our data sets must match, UCSC appends "chr" to chromosome names and because we are using these libraries derived from UCSC data we must do the same to our coverage input data.
+
+```R
+# install and load the BSgenome package and list available genomes
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("BSgenome")
+library("BSgenome")
+available.genomes()
+
+# install and load the mm9 BSgenome from UCSC
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("BSgenome.Mmusculus.UCSC.mm9")
+library("BSgenome.Mmusculus.UCSC.mm9")
+genomeObject <- BSgenome.Mmusculus.UCSC.mm9
+
+# Install and load a TxDb object for the mm9 genome
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("TxDb.Mmusculus.UCSC.mm9.knownGene")
+library("TxDb.Mmusculus.UCSC.mm9.knownGene")
+TxDbObject <- TxDb.Mmusculus.UCSC.mm9.knownGene
+```
+
+# Creating a Granges object
+The final bit of required data we need is an object of class [GRanges](https://www.rdocumentation.org/packages/GenomicRanges/versions/1.24.1/topics/GRanges-class), short for "genomic ranges". This class is a core class maintained by bioconductor and is the preferred way for storing information regarding genomic positions. In order to use this class we need to install the [GenomicRanges](https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html) package from bioconductor and use the [GRanges()](https://www.rdocumentation.org/packages/GenomicRanges/versions/1.24.1/topics/GRanges-class) constructor function. Let's go ahead and define a genomic location within this class corresponding to our coverage data.
+
+```R
+# get the chromosome, and the start and end of our coverage data
+chromosome <- as.character(unique(covData[[1]]$chromosome))
+start <- as.numeric(min(covData[[1]]$end))
+end <- as.numeric(max(covData[[1]]$end))
+
+# define the genomic range
+gr <- GRanges(seqnames=c("chr1"), ranges=IRanges(start=start, end=end))
+```
+
+# Creating an initial coverage plot
+```R
+# create an initial plot
+genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line")
+```
+
+{% include figure.html image="/assets/GenVisR/STAT1cov_v1.png" width="750" %}
