@@ -75,7 +75,8 @@ x = read.csv(file = "CIViC-VHL-Variants.csv", as.is=1:4)
 vhl_variants1 = x[,2] 
 
 # Tidy up the names to remove the c. notations
-vhl_variants2 = gsub("\\s+\\(.*\\)", "", vhl_variants, perl=TRUE)
+vhl_variants2 = gsub("\\s+\\(.*\\)", "", vhl_variants1vhl_variants3 = vhl_variants2[grep("^\\w+\\d+\\w+", vhl_variants2, ignore.case = TRUE, perl=TRUE)]
+, perl=TRUE)
 
 # Limit to only those variants with a format like: L184P
 vhl_variants3 = vhl_variants2[grep("^\\w+\\d+\\w+", vhl_variants2, ignore.case = TRUE, perl=TRUE)]
@@ -97,7 +98,7 @@ types[grep("del", vhl_variant_names, ignore.case = TRUE, perl=TRUE)] = "D"
 
 # Store the values we care about in a new data frame
 vhl_variants_final = data.frame(vhl_variant_names, vhl_variant_positions, types)
-head(output)
+head(vhl_variants_final)
 
 # Create the final format strings requested for ProteinPaint of the form: R200W;200;M
 format_string = function(x){
@@ -110,8 +111,14 @@ output = apply(vhl_variants_final, 1, format_string)
 write(output, file="CIViC-VHL-Variants.formatted.csv")
 ```
 
-* Open the resulting file (CIViC-VHL-Variants.formatted.csv) in a text editor. Then, in ProteinPaint use the + button to add data (top center), and choose the SNV/Indel option.
-* Then paste the variant formatted in R into that box. Compare the VHL variants in CIViC compared to those in ClinVar.
+* Open the resulting file (CIViC-VHL-Variants.formatted.csv) in a text editor. 
+* Then, in ProteinPaint load the VHL gene. 
+* Use the + button to add data (top center), and choose the `SNV/Indel` option.
+* Then paste the formatted variant lines from the R cleanup exercise into that box and hit `submit`. 
+
+{% include figure.html image="/assets/proteinpaint/proteinpaint9.png" width="1200" %}
+
+* Compare the VHL variants from CIViC to those in ClinVar.
 
 ### ProteinPaint practice examples
 
