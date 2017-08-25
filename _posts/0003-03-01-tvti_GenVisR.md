@@ -131,35 +131,26 @@ gtable_show_layout(finalGrob)
 
 {% include figure.html image="/assets/GenVisR/transition_transversion_v6.png" width="750" %}
 
+Pretty simple right? But not so fast the TableGrob in `finalGrob` is a little over simplified on the surface. It is true that our plot is composed of two final [grobs]() however each [grob]() is made up of lists of [grobs]() in the GrobTable all the way down to the individual base elements which make up the plot. In the figure below we illustrate the second layer of these lists. To re-align the plots we'll need to peel back the layers until we can acess the original [grobs]() from [ggplot2]. We will then need to obtain the widths of each of these elements, find the max width with [unit.pmax](), and re-assign the width of each as these [grobs]() using the max width.
+
+{% include figure.html image="/assets/GenVisR/transition_transversion_v7.png" width="750" %}
+
 ```R
+# find the layer of grobs widths we care about
+proportionPlotWidth <- finalGrob$grobs[[2]]$grobs[[1]]$widths
+clinicalPlotWidth <- finalGrob$grobs[[2]]$grobs[[2]]$widths
+transitionPlotWidth <- finalGrob$grobs[[1]]$grobs[[1]]$widths
 
-
-proportionPlotWidth <- finalGrob[[1]][[2]][[1]][[1]]$widths
-clinicalPlotWidth <- finalGrob[[1]][[2]][[1]][[2]]$widths
-transitionPlotWidth <- finalGrob[[1]][[1]][[1]][[1]]$widths
-
+# find the max width of each of these
 maxWidth <- unit.pmax(proportionPlotWidth, clinicalPlotWidth, transitionPlotWidth)
+
+# re-assign the max widths
 finalGrob[[1]][[2]][[1]][[1]]$widths <- as.list(maxWidth)
 finalGrob[[1]][[2]][[1]][[2]]$widths <- as.list(maxWidth)
 finalGrob[[1]][[1]][[1]][[1]]$widths <- as.list(maxWidth)
 
-library(gtable)
-
-```
-
-
-### adding additional layers
-
-###
-
-```R
-library(ggplot2)
-
-layer1 <- geom_vline(xintercept=5)
-
-# recreate the plot
-tvtiFreqGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="frequency", layers=layer1)
-tvtiPropGrob <- TvTi(mutationData, fileType="MGI", out="grob", type="proportion", layers=layer1)
-finalGrob <- arrangeGrob(tvtiFreqGrob, tvtiPropGrob, ncol=1)
+# plot the plot
 grid.draw(finalGrob)
 ```
+
+### adding additional layers
