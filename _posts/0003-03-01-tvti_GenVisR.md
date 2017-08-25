@@ -182,18 +182,18 @@ The plot above has been finished, however we recreated all the plots without tak
 
 How many grob layers are in `finalGrob`?
 
-{% include question.html question="Get a hint!" answer="try and use finalgrobs$grobs to dig into layers until you reach an endpoint, remember finalgrobs$grobs returns lists."%}
+{% include question.html question="Get a hint!" answer="try and use finalgrobs$grobs to dig into layers until you reach an endpoint, remember finalgrobs$grobs returns lists." %}
 
-{% include question.html question="Answer" answer="There are six separate layers of grobs, here they are: finalGrob$grobs[[1]]$grobs[[1]]$grobs[[15]]$grobs[[1]]$grobs"%}
+{% include question.html question="Answer" answer='There are six separate layers of grobs, here they are: finalGrob$grobs[[1]]$grobs[[1]]$grobs[[15]]$grobs[[1]]$grobs' %}
 
-Let's practice extracting individual grob element from `finalGrob`, use [grid.draw()]() to try and draw one of the legend titles.
+Let's practice extracting individual grob element from `finalGrob`, use [grid.draw()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/grid.draw) to try and draw one of the legend titles.
 
-{% include question.html question="Get a hint!" answer="The grob names should give a hint regarding which element they correspond to, also remember that $grobs returns a list not the actual table grob."%}
+{% include question.html question="Get a hint!" answer="The grob names should give a hint regarding which element they correspond to, also remember that $grobs returns a list not the actual table grob." %}
 
-{% include question.html question="Answer" answer="Here is one solution, there are two others! grid.draw(finalGrob$grobs[[1]]$grobs[[1]]$grobs[[15]]$grobs[[1]]$grobs[[2]])"}
+{% include question.html question="Answer" answer="Here is one solution, there are two others! grid.draw(finalGrob$grobs[[1]]$grobs[[1]]$grobs[[15]]$grobs[[1]]$grobs[[2]])" %}
 
 Finally let's go ahead and fix the final version of our plot by realigning the grobs in `finalGrob`.
 
-{% include question.html question="Get a hint!" answer="You will have to go three layers deep to access the proper viewports!"}
+{% include question.html question="Get a hint!" answer="You will have to go three layers deep to access the proper viewports!" %}
 
-{% include question.html question="Answer" answer="The answer is actually the same code used in the realign plots section of the tutorial."}
+{% include question.html question="Answer" answer="The answer is actually the same code used in the realign plots section of the tutorial." %}
