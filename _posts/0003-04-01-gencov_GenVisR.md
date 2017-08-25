@@ -73,13 +73,25 @@ start <- as.numeric(min(covData[[1]]$end))
 end <- as.numeric(max(covData[[1]]$end))
 
 # define the genomic range
-gr <- GRanges(seqnames=c("chr1"), ranges=IRanges(start=start, end=end))
+grObject <- GRanges(seqnames=c("chr1"), ranges=IRanges(start=start, end=end))
 ```
 
 # Creating an initial coverage plot
+Now that we have all the basic inforamation we need let's go ahead and pass all of this information to [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) and get an initial coverage plot. We will also use the parameter `cov_plotType` so that the coverage is shown as a line graph, this is a matter of personal preference and may not be suitable is the coverage values vary widly from base to base. Other values `cov_plotType` accepts are "bar" and "point".
+
 ```R
 # create an initial plot
 genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line")
 ```
 
 {% include figure.html image="/assets/GenVisR/STAT1cov_v1.png" width="750" %}
+
+We now have an initial plot, let's start talking about what is actually being displayed. The first thing you might have noticed is the gene track. Here we have representations for every genomic feature from the [TxDb object]() encompassed by the genomic ranges we specified in `grObject`. We can see that there are 6 STAT1 isoforms, we can further view the gc content proportion for each feature in this region. You might have noticed a warning message as well, something along the lines of `Removed 3 rows containing missing values (geom_text).`, and we can see that not all of our isoforms are labled. If your wondering what's going on we specified a genomic range right up to the gene boundaries for a few of these isoforms. Because [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) is running out of plotting space to place these labels it, or rather [ggplot2]() removes them. Let's go ahead and fix that by adding a flank to our genomic range, don't worry about changing `covData` [genCov()]() will compensate and make sure everything still aligns. Let's also only plot the canonical STAT1 isoform using the `gene_isoformSel` parameter, looking at the genome browser from UCSC we can see that this is "uc007aya.1".
+
+```R
+# add a flank and create another plot
+grObject <- GRanges(seqnames=c("chr1"), ranges=IRanges(start=start-500, end=end+500))
+genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line", gene_isoformSel="uc007aya.1")
+```
+
+{% include figure.html image="/assets/GenVisR/STAT1cov_v2.png" width="750" %}

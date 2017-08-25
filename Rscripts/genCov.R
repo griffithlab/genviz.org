@@ -45,4 +45,6 @@ grObject <- GRanges(seqnames=c("chr1"), ranges=IRanges(start=start, end=end))
 # construct an initial plot
 genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line")
 
-
+# add a flank and create another plot
+grObject <- GRanges(seqnames=c("chr1"), ranges=IRanges(start=start-500, end=end+500))
+genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line", gene_isoformSel="uc007aya.1")
