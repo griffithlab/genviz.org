@@ -44,7 +44,10 @@ Go through the following exercise to explore the functionality of this resource:
 
 {% include figure.html image="/assets/proteinpaint/proteinpaint5.png" width="1200" %}
 
-* Use the `+ add protein domain` button (bottom left) to add a custom domain of interest.
+* Clear the highlighted region.  Now use the `+ add protein domain` button (bottom left) to add a custom domain of interest. e.g. `MUTATION HOTSPOT ; 700 900; red`
+
+{% include figure.html image="/assets/proteinpaint/proteinpaint6.png" width="1200" %}
+
 * Mouse over the gene diagram to view details on individual domains and amino acid positions.
 * Select specific variants to learn more about what diseases they occur in. For example, load *ERBB2* and the COSMIC data track. Two of the most common mutations are **S310F** and **L755S**. Select both of these. Which is more common in breast cancer? Use the `List` option to learn more about individual variant observations.
 * Use the Microarray and RNA-seq expression tracks (if missing, these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high *ERBB2* expression.
