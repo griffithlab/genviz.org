@@ -33,14 +33,16 @@ Go through the following exercise to explore the functionality of this resource:
 
 {% include figure.html image="/assets/proteinpaint/proteinpaint3.png" width="1200" %}
 
-* Use the `CONFIG` menu to change `switch display mode` back to `Protein`.
+* Use the `CONFIG` menu to change `switch display mode` back to `Protein`. Also turn off the `RefGene` track.
 
 * Select pre-loaded data to display (Pediatric, COSMIC, and ClinVar). Select COSMIC for this example. Use the `ABOUT` popup to learn more about each data source.
 * Zoom `In` on a mutation hotspot and navigate around that region. Once done, Zoom Out `x50` to return to a view of the entire gene.
 
 {% include figure.html image="/assets/proteinpaint/proteinpaint4.png" width="1200" %}
 
-* Under the `More` menu, try `Select a region to highlight`. Select a region containing a hotspot mutation.
+* Under the `More` menu, try `Select a region to highlight`. Select a region containing a hotspot mutation. Change the highlight color using the same menu.
+
+{% include figure.html image="/assets/proteinpaint/proteinpaint5.png" width="1200" %}
 
 * Use the `+ add protein domain` button (bottom left) to add a custom domain of interest.
 * Mouse over the gene diagram to view details on individual domains and amino acid positions.
