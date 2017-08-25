@@ -33,23 +33,35 @@ Go through the following exercise to explore the functionality of this resource:
 
 {% include figure.html image="/assets/proteinpaint/proteinpaint3.png" width="1200" %}
 
-* Use the `CONFIG` menu to change `switch display mode` back to `Protein`.
+* Use the `CONFIG` menu to change `switch display mode` back to `Protein`. Also turn off the `RefGene` track.
 
 * Select pre-loaded data to display (Pediatric, COSMIC, and ClinVar). Select COSMIC for this example. Use the `ABOUT` popup to learn more about each data source.
 * Zoom `In` on a mutation hotspot and navigate around that region. Once done, Zoom Out `x50` to return to a view of the entire gene.
 
 {% include figure.html image="/assets/proteinpaint/proteinpaint4.png" width="1200" %}
 
-* Under the `More` menu, try `Select a region to highlight`. Select a region containing a hotspot mutation.
+* Under the `More` menu, try `Select a region to highlight`. Select a region containing a hotspot mutation. Change the highlight color using the same menu.
 
-* Use the `+ add protein domain` button (bottom left) to add a custom domain of interest.
+{% include figure.html image="/assets/proteinpaint/proteinpaint5.png" width="1200" %}
+
+* Clear the highlighted region.  Now use the `+ add protein domain` button (bottom left) to add a custom domain of interest. e.g. `MUTATION HOTSPOT ; 700 900; red`
+
+{% include figure.html image="/assets/proteinpaint/proteinpaint6.png" width="1200" %}
+
 * Mouse over the gene diagram to view details on individual domains and amino acid positions.
 * Select specific variants to learn more about what diseases they occur in. For example, load *ERBB2* and the COSMIC data track. Two of the most common mutations are **S310F** and **L755S**. Select both of these. Which is more common in breast cancer? Use the `List` option to learn more about individual variant observations.
-* Use the Microarray and RNA-seq expression tracks (if missing, these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high *ERBB2* expression.
+
+{% include figure.html image="/assets/proteinpaint/proteinpaint7.png" width="1200" %}
+
+* Use the Microarray and RNA-seq expression tracks (if missing, these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high *ERBB2* expression. 
+
+{% include figure.html image="/assets/proteinpaint/proteinpaint8.png" width="1200" %}
+
+* Note the use of two overlaid plots to display the RNA-seq expression values.  Individual points are plotted as an [empirical distribution function](https://en.wikipedia.org/wiki/Empirical_distribution_function) (EDF). The distribution is also summarized using a [box plot](https://en.wikipedia.org/wiki/Box_plot). How does one interpret an EDF? What are the features of a Box Plot?
 
 ### Importing custom data
 
-* Suppose we want to load a custom data set of our own variants into ProteinPaint? As a test, we will use [CIViCs](www.civicdb.org) list of VHL variants as an example. To get that list go to www.civicdb.org, select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting it into ProteinPaint.
+* Suppose we want to load a custom data set of our own variants into ProteinPaint? As a test, we will use [CIViCs](http://www.civicdb.org) list of VHL variants as an example. To get that list go to [www.civicdb.org](http://www.civicdb.org), select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting it into ProteinPaint.
 
 * Open this file in R and perform the clean-up as follows:
 
