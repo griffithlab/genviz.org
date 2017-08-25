@@ -11,10 +11,7 @@ date: 0003-04-01
 Often is is usefull to view coverage of a specific region of the genome in the context of specific samples. During initial stages of analysis this can be done with a genome browser such as [IGV](http://software.broadinstitute.org/software/igv/) however when preparing a publication more fine grain control is usefull. For example you may wish to change the coverage scale, reduce the size of introns, or visualize many samples at once. GenVisR provides a function for this aptly named [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov).
 
 ### Introduction to datasets
-
-In this section we will be using coverage data derived from two mouse samples from the study ["Truncating Prolactin Receptor Mutations Promote Tumor Growth in Murine Estrogen Receptor-Alpha Mammary Carcinomas"](https://www.ncbi.nlm.nih.gov/pubmed/27681435). We will be showing that the knockout of the *STAT1*
- gene described in the manuscript was successful. In order to obtain the preliminary data we used the command `bedtools multicov -bams M_CA-TAC245-TAC245_MEC.prod-refalign.bam M_CA-TAC265-TAC265_MEC.prod-refalign -bed stat1.bed` to obtain coverage values for the wildtype TAC245 sample and the tumor free knockout TAC265 sample.
- Go ahead and download the output of [bedtools multicov](http://bedtools.readthedocs.io/en/latest/content/tools/multicov.html) from [here](http://genomedata.org/gen-viz-workshop/GenVisR/STAT1_mm9_coverage.tsv) and load it into R.
+In this section we will be using coverage data derived from two mouse samples from the study ["Truncating Prolactin Receptor Mutations Promote Tumor Growth in Murine Estrogen Receptor-Alpha Mammary Carcinomas"](https://www.ncbi.nlm.nih.gov/pubmed/27681435). We will be showing that the knockout of the *STAT1* gene described in the manuscript was successful. In order to obtain the preliminary data we used the command `bedtools multicov -bams M_CA-TAC245-TAC245_MEC.prod-refalign.bam M_CA-TAC265-TAC265_MEC.prod-refalign -bed stat1.bed` to obtain coverage values for the wildtype TAC245 sample and the tumor free knockout TAC265 sample. Go ahead and download the output of [bedtools multicov](http://bedtools.readthedocs.io/en/latest/content/tools/multicov.html) from [here](http://genomedata.org/gen-viz-workshop/GenVisR/STAT1_mm9_coverage.tsv) and load it into R.
 
 ```R
 # read the coverage data into R
@@ -86,7 +83,7 @@ genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotTyp
 
 {% include figure.html image="/assets/GenVisR/STAT1cov_v1.png" width="750" %}
 
-We now have an initial plot, let's start talking about what is actually being displayed. The first thing you might have noticed is the gene track. Here we have representations for every genomic feature from the [TxDb object]() encompassed by the genomic ranges we specified in `grObject`. We can see that there are 6 STAT1 isoforms, we can further view the gc content proportion for each feature in this region. You might have noticed a warning message as well, something along the lines of `Removed 3 rows containing missing values (geom_text).`, and we can see that not all of our isoforms are labled. If your wondering what's going on we specified a genomic range right up to the gene boundaries for a few of these isoforms. Because [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) is running out of plotting space to place these labels it, or rather [ggplot2]() removes them. Let's go ahead and fix that by adding a flank to our genomic range, don't worry about changing `covData` [genCov()]() will compensate and make sure everything still aligns. Let's also only plot the canonical STAT1 isoform using the `gene_isoformSel` parameter, looking at the genome browser from UCSC we can see that this is "uc007aya.1".
+We now have an initial plot, let's start talking about what is actually being displayed. The first thing you might have noticed is the gene track. Here we have representations for every genomic feature from the [TxDb object](https://bioconductor.org/packages/release/BiocViews.html#___TxDb) encompassed by the genomic ranges we specified in `grObject`. We can see that there are 6 STAT1 isoforms, we can further view the gc content proportion for each feature in this region. You might have noticed a warning message as well, something along the lines of `Removed 3 rows containing missing values (geom_text).`, and we can see that not all of our isoforms are labled. If your wondering what's going on we specified a genomic range right up to the gene boundaries for a few of these isoforms. Because [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) is running out of plotting space to place these labels it, or rather [ggplot2](http://ggplot2.tidyverse.org/reference/) removes them. Let's go ahead and fix that by adding a flank to our genomic range, don't worry about changing `covData` [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) will compensate and make sure everything still aligns. Let's also only plot the canonical STAT1 isoform using the `gene_isoformSel` parameter, looking at the genome browser from UCSC we can see that this is "uc007aya.1".
 
 ```R
 # add a flank and create another plot
@@ -95,3 +92,12 @@ genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotTyp
 ```
 
 {% include figure.html image="/assets/GenVisR/STAT1cov_v2.png" width="750" %}
+
+The second thing you may have noticed regarding these plots is that the space between types of genomic features ("cds", "utr", "introns") seems off. In order to plot what is likely the most relevant data [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) is scaling the space of each of these feature types. By default "Intron", "CDS", and "UTR" are scaled by a log factor of 10, 2, and 2 respectively. This can be changed by altering the `base` and `transform` parameters which correspond to each other. Alternatively setting these parameters to NA will remove the scaling entirely. Let's go ahead and do that now just to get a sense of how things look in the genome.
+
+```R
+# adjust compression of genomic features
+genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line", gene_isoformSel="uc007aya.1", base=NA, transform=NA)
+```
+
+{% include figure.html image="/assets/GenVisR/STAT1cov_v3.png" width="750" %}
