@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-02-01
 ---
 
-Before we dive in it is beneficial to have a solid understanding of some central concepts and themes in the realm of genomics and computational biology. Here we provide a very brief overview of core tennents of these disciplines as it pertains to this course. We also introduce the demonstrations datasets used throughout the subsequent modules.
+Before we proceed, it may be beneficial to review some central concepts and themes in the realm of genomics and computational biology. Here we provide a very brief overview of core tennents of these disciplines as it pertains to this course. We also introduce the demonstration datasets used throughout the subsequent modules.
 
 ***
 ## Central Dogma
