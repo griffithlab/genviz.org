@@ -1,5 +1,9 @@
+################################################################################
+###################### Tutorial ################################################
+################################################################################
+
 # read the coverage data into R
-covData <- read.delim("~/Desktop/STAT1_mm9_coverage.tsv")
+covData <- read.delim("STAT1_mm9_coverage.tsv")
 
 # rename the columns
 colnames(covData) <- c("chromosome", "start", "end", "TAC245", "TAC265")
@@ -52,3 +56,8 @@ genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotTyp
 # adjust compression of genomic features
 genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="line", gene_isoformSel="uc007aya.1", base=NA, transform=NA)
 
+################################################################################
+############### Exercises ######################################################
+################################################################################
+
+genCov(x=covData, txdb=TxDbObject, gr=grObject, genome=genomeObject, cov_plotType="point", gene_isoformSel="uc007aya.1", label_bgFill="darkorchid4", label_txtFill="grey80", cov_colour="tomato2", gene_colour="tomato3")
