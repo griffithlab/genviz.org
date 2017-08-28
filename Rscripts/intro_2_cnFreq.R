@@ -30,3 +30,8 @@ cnData <- lapply(files, a)
 # turn the list of data frames into a single data frame
 cnData <- do.call("rbind", cnData)
 
+# plot a typical plot
+cnFreq(cnData, genome="hg19")
+
+# change the CN cutoffs
+cnFreq(cnData, genome="hg19", CN_low_cutoff = 0, CN_high_cutoff = .1)
