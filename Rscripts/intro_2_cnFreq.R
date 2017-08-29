@@ -35,3 +35,15 @@ cnFreq(cnData, genome="hg19")
 
 # change the CN cutoffs
 cnFreq(cnData, genome="hg19", CN_low_cutoff = 0, CN_high_cutoff = .1)
+
+# highlight erbb2
+library(ggplot2)
+layer1 <- geom_vline(xintercept=c(39709170))
+cnFreq(cnData, genome="hg19", plotChr="chr17", plotLayer=layer1)
+
+################################################################################
+################################# exercises ####################################
+
+# highlight erbb2
+layer1 <-facet_grid(.~chromosome, scales="free")
+cnFreq(cnData, genome="hg19", plotLayer = layer1 )

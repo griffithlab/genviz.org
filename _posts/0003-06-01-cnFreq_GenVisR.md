@@ -56,7 +56,7 @@ cnFreq(cnData, genome="hg19")
 
 {% include figure.html image="/assets/GenVisR/cnFreq_v1.png" width="950" %}
 
-As we can see from the plot above our cohort exhibits a strong amplification signal across much of the genome, particularly chromosomes 8, 17, and 20 where over half of samples have some sort of copy number gain. You might be asking what [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq) constitutes a copy number gain or loss. This is controlled with the parameters `CN_low_cutoff` and `CN_high_cutoff` whith calls ≤ 1.5 and ≥ 2.5 being evaluated as losses and gains respectively. This setting is reasonable for most situations in which the genome is diploid however if the data is noisy or has a different ploidy these parameters may need to be altered. We can observe the effect this has by setting these cutoffs such that all copy number calls would be considered amplifications. Go ahead and add `CN_low_cutoff = 0`, and `CN_high_cutoff = .1`, as expected we can see that almost the entire plot shows amplifications with a few exceptions where a few samples are simply misssing data.
+As we can see from the plot above our cohort exhibits a strong amplification signal across much of the genome, particularly chromosomes 8, 17, and 20 where over half of samples have some sort of copy number gain. You might be asking what in [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq) constitutes as a copy number gain or loss. This is controlled with the parameters `CN_low_cutoff` and `CN_high_cutoff` with calls ≤ 1.5 and ≥ 2.5 being evaluated as losses and gains respectively. This setting is reasonable for most situations in which the genome is diploid however if the data is noisy or has a different ploidy these parameters may need to be altered. We can observe the effect this has by setting these cutoffs such that all copy number calls would be considered amplifications. Go ahead and add `CN_low_cutoff = 0`, and `CN_high_cutoff = .1`, as expected we can see that almost the entire plot shows amplifications with a few exceptions where samples are simply misssing data for that region.
 
 ```R
 # change the CN cutoffs
@@ -65,5 +65,27 @@ cnFreq(cnData, genome="hg19", CN_low_cutoff = 0, CN_high_cutoff = .1)
 
 {% include figure.html image="/assets/GenVisR/cnFreq_v2.png" width="950" %}
 
+The [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq) function is much faster when all copy number segments have the same coordinates across all samples however this condition is not a requirement to run [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq). It is important to talk about why and what goes on behind the scenes when this condition is not met as it may affect how we interpret the results. When segment coordinates are not identical [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq) will perform a disjoin operation and attempt to split segment coorinates so that they are identical across samples populating each coordinate with the appropriate copy number call. This is best illustrated in the two sample figure below. This operation may come with a loss of accuracy however as copy number calls are ussually made using the mean of many calls within that segment and splitting these segment up can therefore alter what the mean value of the copy number call would have been.
 
 {% include figure.html image="/assets/GenVisR/cnFreq_example_1.png" width="950" %}
+
+### highlighting plot regions
+Let's go back to our initial plot, what if we wanted to view a specific region of the genome such as ERBB2 (chr17:39,687,914-39,730,426) as these are HER2+ breast cancers. the function [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq) has the ability to zoom into specific chromosomes with the parameter `plotChr` and we have the ability to add additional layers onto our plot with the parameter `plotLayer`. Let's go ahead and view just chromosome 17 and add in a vertical line where *ERBB2* resides. As expected our vertical line intersects at a region where over 75% of samples are amplified. We can verify this by outputing the actual data calculations instead of the plot with the parameter `out="data"`.
+
+```R
+# highlight ERBB2
+library(ggplot2)
+layer1 <- geom_vline(xintercept=c(39709170))
+cnFreq(cnData, genome="hg19", plotChr="chr17", plotLayer=layer1)
+```
+
+{% include figure.html image="/assets/GenVisR/cnFreq_v3.png" width="950" %}
+
+### Exercises
+In almost all [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) functions the data frames which are used to produce plots can be extracted using the parameter `out=data`. This feature is not only usefull for looking at specific data values but also for infering what [ggplot2]() function calls or happening within [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) behind the scenes. With a bit of knowledge regarding [ggplot2](http://ggplot2.tidyverse.org/index.html) we can overwrite core plot layers to do something specific. In the plots above we can tell that the function [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) is being called just from looking at the plot. We can also see that [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) is setting scales for each facet based on the size of each chromosome. Try overwriting this layer to remove this behavior with the parameter `plotLayer`. Your plot should look something like the one below.
+
+{% include figure.html image="/assets/GenVisR/cnFreq_v4.png" width="950" %}
+
+{% include question.html question="Get a hint!" answer='The parameter you will need to alter in facet_grid() is "scales="' %}
+
+{% include question.html question="Answer" answer='facet_grid(. ~ chromosome, scales="free")' %}
