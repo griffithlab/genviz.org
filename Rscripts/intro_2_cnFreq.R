@@ -44,6 +44,6 @@ cnFreq(cnData, genome="hg19", plotChr="chr17", plotLayer=layer1)
 ################################################################################
 ################################# exercises ####################################
 
-# highlight erbb2
+# reset scales 
 layer1 <-facet_grid(.~chromosome, scales="free")
 cnFreq(cnData, genome="hg19", plotLayer = layer1 )
