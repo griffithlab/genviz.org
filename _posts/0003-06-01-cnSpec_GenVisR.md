@@ -5,7 +5,7 @@ title: Introduction to Copy Number Spectrum Plots
 categories:
     - Module 3
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0003-05-01
+date: 0003-06-01
 ---
 
 Large-scale chromosomal rearrangements can occur in the form of copy number variants (CNV) with loss of function (DEL) or gain of function (AMP) consequence. The cnSpec function plots regions of CNV loss and amplification across the genome of all samples in a cohort. This allows for the quick identification of regions that are recurrently amplified or deleted. A dataframe consisting of the column names and values for chromosome, start, end, segmean, and sample serves as the necessary input for this function. The segmean variable contains values that indicate regions of CNV (can be obtained through CBS algorithm and DNAcopy). To specify the boundaries for each chromosome, the UCSC genome 'hg19' is used by default. When working with non-human genomes, or with UCSC genome hg38, other genomes can be specified. These include hg38, mm10, mm9, and rn5. If the UCSC genome assembly is still not one of these, cnSpec will query the UCSC sql database to obtain the necessary chromosomal boundary information. Alternatively, the chromosomal boundaries can be specified by the parameter, y. Input for this argument is a dataframe containing the columns: chromosome, start, and end.

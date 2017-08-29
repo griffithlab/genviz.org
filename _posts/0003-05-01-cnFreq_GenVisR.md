@@ -5,7 +5,7 @@ title: Introduction to Copy Number Frequency Plots
 categories:
     - Module 3
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0003-06-01
+date: 0003-05-01
 ---
 
 A common task in any bioinformatic analysis of next generation sequencing data is the the determination of copy number gains and losses. The [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq) function from the [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) package is designed to provide a summary level view of copy number calls for a cohort of cases. It uses a barchart like plot to display the proportion or frequency of CN gains or losses observed across the genome. In this section we will use [cnFreq()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/cnFreq) to explore the copy number frequencies and proportions for 10 her2 positive breast cancer samples from the manuscript "Genomic characterization of HER2-positive breast cancer and response to neoadjuvant trastuzumab and chemotherapy-results from the ACOSOG Z1041 (Alliance) trial."
