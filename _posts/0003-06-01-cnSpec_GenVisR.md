@@ -56,4 +56,4 @@ colnames(genomeBoundaries) <- c("chromosome", "end", "start")
 cnSpec(cnData, y=genomeBoundaries)
 ```
 
-{% include figure.html image="/assets/GenVisR/cnFreq_v1.png" width="950" %}
+{% include figure.html image="/assets/GenVisR/cnSpec_v1.png" width="950" %}
