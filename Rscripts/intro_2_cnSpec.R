@@ -40,3 +40,24 @@ colnames(genomeBoundaries) <- c("chromosome", "end", "start")
 
 # create the plot
 cnSpec(cnData, y=genomeBoundaries)
+
+# add a flank to the genomic coordinates
+genomeBoundaries_2 <- genomeBoundaries
+genomeBoundaries_2$start <- genomeBoundaries_2$start - 1e8
+genomeBoundaries_2$end <- genomeBoundaries_2$end + 1e8
+
+# create a plot
+cnSpec(cnData, y=genomeBoundaries_2)
+
+################################################################################
+################ Exercises #####################################################
+
+# highlight ERBB2
+library(ggplot2)
+layer1 <- geom_vline(xintercept = 39709170, colour="seagreen4", size=1, linetype=2)
+
+# create the plot
+cnSpec(cnData[cnData$chromosome=="17",], y=genomeBoundaries[genomeBoundaries$chromosome=="chr17",], plotLayer=layer1)
+
+# create the plot
+cnSpec(cnData, y=genomeBoundaries, CN_Loss_colour="darkorchid4", CN_Gain_colour = "darkseagreen4")
