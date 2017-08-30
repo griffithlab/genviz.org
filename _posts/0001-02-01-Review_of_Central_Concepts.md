@@ -11,7 +11,7 @@ date: 0001-02-01
 Before we proceed, it may be beneficial to review some central concepts and themes in the realm of genomics and computational biology. Here we provide a very brief overview of core tennents of these disciplines as it pertains to this course. We also introduce the demonstration datasets used throughout the subsequent modules.
 
 ***
-## Central Dogma
+### Central Dogma
 
 {% include figure.html image="/assets/central_dogma.png" position="right" %}
 
@@ -27,7 +27,7 @@ Delving in a bit deeper, DNA takes the form of a double stranded helix comprised
 
 ***
 
-## Omic technologies and Data
+### Omic technologies and Data
 
 The advent of rapid and cheap massively parallel sequencing has dramatically increased the availability of genome, transcriptome, and epigenome data. Further this has given rise to standardized workflows and file formats. Extracting biologically meaningful data and interpreting the results remains challenging.
 
@@ -41,7 +41,7 @@ The advent of rapid and cheap massively parallel sequencing has dramatically inc
 
  ***
 
-## Reference Files
+### Reference Files
 
 Over this course we will be working with a number of refernce files to aid in analysis and interpretation of our data. All of these files are in standardized formats and are freely available. A brief description of each reference file is given below.
 
@@ -58,7 +58,7 @@ Over this course we will be working with a number of refernce files to aid in an
 
 ***
 
-## Genomic annotation resources, browsers, etc.
+### Genomic annotation resources, browsers, etc.
 
 Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
 
@@ -66,7 +66,37 @@ Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus sol
 
 ***
 
-## Introduction to demonstration data settings
+### Common problems
+
+#### Genomic coordinate systems
+
+Within computational biology there are two competing coordinate systems for specifying regions within the genome. These two systems number either the nucleotides in the genome directly (1-based), or the gaps between nucleotides (0-based). Let's look at the diagram below displaying an imaginary sequence on chromosome 1 to help illustrate this concept.
+
+{% include figure.html image="/assets/basic_diagram.jpg" width="950" link="http://s11.postimg.org/jmk325fvn/basic_diagram.jpg" title="basic_diagram" author="Unkown" license="Unkown" license_link="http://s11.postimg.org/jmk325fvn/basic_diagram.jpg"%}
+
+To indicate a single nucleotide variant:
+
+* 1-based coordinate system
+    * Single nucleotides, variant positions, or ranges are specified directly by their corresponding nucleotide numbers
+* 0-based coordinate system
+    * Single nucleotides, variant positions, or ranges are specified by the coordinates that flank them
+
+{% include figure.html image="/assets/single_nucleotide_or_variant.jpg" width="950" link="http://s2.postimg.org/40doixek9/single_nucleotide_or_variant.jpg" title="single_nucleotide_or_variant" author="Unkown" license="Unkown" license_link="http://s2.postimg.org/40doixek9/single_nucleotide_or_variant.jpg"%}
+
+To indicate insertions or deletions:
+
+* 1-based coordinate system
+    * Deletions are specified directly by the positions of the deleted bases
+    * Insertions are indicated by the coordinates of the bases that flank the insertion
+* 0-based coordinate system
+    * Deletions are specified by the coordinates that flank the deleted bases
+    * Insertions are indicated directly by the coordinate position where the insertion occurs
+
+{% include figure.html image="/assets/insertion_or_deletion.jpg" width="950" link="http://s16.postimg.org/9ne4syrp1/insertion_or_deletion.jpg" title="insertion_or_deletion" author="Unkown" license="Unkown" license_link="http://s16.postimg.org/9ne4syrp1/insertion_or_deletion.jpg"%}
+
+***
+
+### Introduction to demonstration data settings
 
 Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
 
