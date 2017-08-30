@@ -66,3 +66,13 @@ lohSpec(x=lohData)
 {% include figure.html image="/assets/GenVisR/lohSpec_v1.png" width="950" %}
 
 Now that we have a plot let's go over what it is showing. First off what is a high [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) value. Remember the formula used to calculate [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) for a single variant is `|normal vaf - tumor vaf|` and that these values are averaged for a given window. Consider this example of [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) then `|.5 - 1 | = .5` and `|.5 - 0| = .5`. Conversely consider this example of non [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity), `| .5 - .5 | = 0`. So we can see that the closer we get to the value `.5` the more evidence there is that an [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) event exists. We have to take noise into account but we can see that the majority of this genome has some sort of [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity), probably not surprising as this data is derived from an imortalized cell line.
+
+### Altering the step and window size
+
+talk about trade-off between speed and accuracy
+
+### Exercises
+
+* have them zoom into a chromosome like in cnSpec exercise
+* have them change the look of the plot
+* have them think about why plotting allosomes could be undesireable
