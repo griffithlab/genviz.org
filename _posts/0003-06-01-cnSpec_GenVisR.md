@@ -59,7 +59,6 @@ cnSpec(cnData, y=genomeBoundaries)
 {% include figure.html image="/assets/GenVisR/cnSpec_v1.png" width="950" %}
 
 # The genome parameter
-
 These plots are fairly straightforward, but it is helpful to know what the `genome` and `y` parameters actually do. As eluded to in the previous section only one of these is required, as they both do the same thing, define genome boundaries. This is done to ensure that if you only had data for one section of a chromosome the entire chromosome space is still plotted. To get a sense of what is actually happening let's add a flank to `genomeBoundaries` and see what happens. You'll see in the plot below that all the chromosomes plotted below now have a padding where no data is plotted.
 
 ```R
