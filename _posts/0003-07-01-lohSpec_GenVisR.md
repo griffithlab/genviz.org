@@ -36,20 +36,28 @@ loh_data$sample <- "HCC1395"
 loh_data$n_vaf <- as.numeric(gsub("%", "", loh_data$n_vaf))/100
 loh_data$t_vaf <- as.numeric(gsub("%", "", loh_data$t_vaf))/100
 
+## Fix the chromosome values
+temp$chromosome <- gsub(" ", "", as.character(temp$chromosome))
+
 ## Try to run lohSpec
 lohSpec(x=loh_data)
 
 The output should report an error message along the lines of: "Detected values with a variant allele fraction either above .6 or below .4 in the normal. Please ensure variants supplied are heterozygous in the normal!" 
 ```
-Given what you know about loh, does this make sense? Variants with a VAF value below 0.4 and above 0.6 in the normal repreesnt germline LOH events. In other words, the nromal HCC1395 sample contains LOH at these genomic positions, that is also observed in the tumor sample. What we are trying to do is plot the somatic LOH landscape observed in the HCC1395 sample, so it is important to remove these variants from the dataset.
+Given what you know about loh, does this make sense? Variants with a VAF value below 0.4 and above 0.6 in the normal repreesnt germline LOH events. In other words, the normal HCC1395 sample contains LOH at these genomic positions What we are trying to do is plot the somatic LOH landscape observed in the HCC1395 sample, so it is important to remove these variants from the dataset.
 
 ```R
 ## Obtain variants with a VAF greater than 0.4 and below 0.6. 
 loh_data <_ subset(loh_data, loh_data$n_vaf > 0.4 & loh_data$n_vaf < 0.6)
 
+## Get autosomes and sex chromosomes (remove GL contigs and mitochondrial chromosomes)
+chr <- c(seq(1:22, "X", "Y"))
+loh_data <- loh_data[which(loh_data$chromosome %in% chr),]
+
 ## Now run lohSpec 
 lohSpec(x=loh_data)
 ``` 
+{% include figurehtml image="/assets/GenVisR/lohSpec.vq.png" width="750" %}
 
 <!--Talk about caveats with LOH-->
 When interpreting this visualization and other LOH data, it is important to understand that not all LOH corresponds to an actual deletion event. For instance, an amplification of a specific allele/genomic region can appear as LOH since one region will have significantly more copies than the corresponding region on the other chromosome. Additionally, copy neutral loss of heterozygosity can occur where an individual receives a chromosomal pair from one parent and nothing from the other parent. While this situation may appear as LOH since there is only a single chromosomal type present, the individual still has 2 chromosomes (hence neutral copy number). Therefore, it is important to look at coverage to see LOH truly results in a deleted region.
