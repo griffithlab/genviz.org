@@ -72,7 +72,7 @@ Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus sol
 
 Within computational biology there are two competing coordinate systems for specifying regions within the genome. These two systems number either the nucleotides in the genome directly (1-based), or the gaps between nucleotides (0-based). Let's look at the diagram below displaying an imaginary sequence on chromosome 1 to help illustrate this concept.
 
-{% include figure.html image="/assets/basic_diagram.jpg" width="950" link="http://s11.postimg.org/jmk325fvn/basic_diagram.jpg" title="basic_diagram" author="Unkown" license="Unkown" license_link="http://s11.postimg.org/jmk325fvn/basic_diagram.jpg"%}
+{% include figure.html image="/assets/basic_diagram.jpg" width="950" link="http://s11.postimg.org/jmk325fvn/basic_diagram.jpg" title="genome_coordinate_systems" author="Obi Griffith" license="CC BY-SA 2.0" license_link="https://creativecommons.org/licenses/by-sa/2.0/"%}
 
 To indicate a single nucleotide variant:
 
@@ -81,7 +81,7 @@ To indicate a single nucleotide variant:
 * 0-based coordinate system
     * Single nucleotides, variant positions, or ranges are specified by the coordinates that flank them
 
-{% include figure.html image="/assets/single_nucleotide_or_variant.jpg" width="950" link="http://s2.postimg.org/40doixek9/single_nucleotide_or_variant.jpg" title="single_nucleotide_or_variant" author="Unkown" license="Unkown" license_link="http://s2.postimg.org/40doixek9/single_nucleotide_or_variant.jpg"%}
+{% include figure.html image="/assets/single_nucleotide_or_variant.jpg" width="950" link="http://s2.postimg.org/40doixek9/single_nucleotide_or_variant.jpg" title="genome_coordinate_systems_SNV" author="Obi Griffith" license="CC BY-SA 2.0" license_link="https://creativecommons.org/licenses/by-sa/2.0/"%}
 
 To indicate insertions or deletions:
 
@@ -92,7 +92,7 @@ To indicate insertions or deletions:
     * Deletions are specified by the coordinates that flank the deleted bases
     * Insertions are indicated directly by the coordinate position where the insertion occurs
 
-{% include figure.html image="/assets/insertion_or_deletion.jpg" width="950" link="http://s16.postimg.org/9ne4syrp1/insertion_or_deletion.jpg" title="insertion_or_deletion" author="Unkown" license="Unkown" license_link="http://s16.postimg.org/9ne4syrp1/insertion_or_deletion.jpg"%}
+{% include figure.html image="/assets/insertion_or_deletion.jpg" width="950" link="http://s16.postimg.org/9ne4syrp1/insertion_or_deletion.jpg" title="genome_coordinate_systems_indel" author="Obi Griffith" license="CC BY-SA 2.0" license_link="https://creativecommons.org/licenses/by-sa/2.0/"%}
 
 ***
 
