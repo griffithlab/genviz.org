@@ -38,7 +38,9 @@ As is exhibited below we can now see the full list of ensembl transcipts of PIK3
 
 {% include figure.html image="/assets/UCSC/ensemblTranscripts.png" width="1150" %}
 
-{% include question.html question="Turn on the GTEx track, which tissue has the highest expression of PIK3CA? hint: try clicking on the track in the genome browser once it's enabled" answer='Cells - EBV-transformed lymphocytes have the highest expression at 11.3 RPKM.'%}
+Turn on the GTEx track, which tissue has the highest expression of PIK3CA?
+{% include question.html question="Get a hint!" answer='Try clicking on the track in the genome browser once it\'s enabled'%}
+{% include question.html question="Answer" answer='Cells - EBV-transformed lymphocytes have the highest expression at 11.3 RPKM.'%}
 
 ### BLAST-like alignment tool
 
@@ -50,20 +52,27 @@ BLAT will search the genome and output a table of possible matches between the g
 
 {% include figure.html image="/assets/UCSC/blatResults.png" width="750" %}
 
-{% include question.html question="Which gene do these primers attempt to amplify?" answer='ABCA4'%}
+Which gene do these primers attempt to amplify?
+
+{% include question.html question="Answer" answer='ABCA4'%}
 
 ### UCSC Table Browser
-[BLAT](https://genome.ucsc.edu/cgi-bin/hgBlat?command=start) allowed us to get a region based on a sequence, but what if we want to do the reverse of that, to get a sequence based on a region. Fortunately the [UCSC genome browser](https://genome.ucsc.edu/cgi-bin/hgGateway) has a tool for that as well called the [UCSC Table Browser](https://genome.ucsc.edu/cgi-bin/hgTables). Let's get the DNA sequence for the gene APC using this tool. First navigate to the [UCSC Table Browser](https://genome.ucsc.edu/cgi-bin/hgTables) and input the gene APC. There are alot of options here but we only need to concern ourselves with a few. First make sure that the proper assembly is specified, in our case this should be hg19 (red boxes). Next because we want to return the sequence of the APC gene "Genes and Gene Precitions" should be selected under group, and let's go ahead and look for this gene in the "UCSC Genes" track (green boxes). Further the table should be set to "knownGene" (blue box).
+[BLAT](https://genome.ucsc.edu/cgi-bin/hgBlat?command=start) allowed us to get a region based on a sequence, but what if we want to do the reverse of that, to get a sequence based on a region. Fortunately the [UCSC genome browser](https://genome.ucsc.edu/cgi-bin/hgGateway) has a tool for that as well called the [UCSC Table Browser](https://genome.ucsc.edu/cgi-bin/hgTables). Let's get the DNA sequence for the gene *PRLR* using this tool. First navigate to the [UCSC Table Browser](https://genome.ucsc.edu/cgi-bin/hgTables), there are alot of options here but we only need to concern ourselves with a few. First make sure that the proper assembly is specified, in our case this should be hg19 (red boxes). Next because we want to return the sequence of the *PRLR* gene "Genes and Gene Precitions" should be selected under group, and let's go ahead and look for this gene in the "UCSC Genes" track (green boxes). Further the table should be set to "knownGene" (blue box).
 
 {% include figure.html image="/assets/UCSC/tableBrowserInput.png" width="750" %}
 
-Next go ahead and click on "paste list" under "identifiers (names/accessions)" and specify that **APC** is the gene we want the sequence for.
+Next go ahead and click on "paste list" under "identifiers (names/accessions)" (see arrow in the figure above) and specify that *PRLR* is the gene we want the sequence for.
 
-{% include figure.html image="/assets/UCSC/specifyAPC.png" width="450" %}
+{% include figure.html image="/assets/UCSC/specifyPRLR.png" width="550" %}
 
-From there change the "output format" to "sequence" and click on "get output". The table browser will ask what type of sequence we want for APC, let's go ahead and get the protein sequence.
+From there change the "output format" to "sequence" and click on "get output". The table browser will ask what type of sequence we want for *PRLR*, let's go ahead and get the protein sequence.
 
 {% include figure.html image="/assets/UCSC/specifyProteinSequence.png" width="450" %}
 
-{% include question.html question="How many transcript are there for APC in the UCSC known genes track, use the results from the table browser?" answer='5'%}
-{% include question.html question='Try using BLAT on the protein sequence for entry "uc010jbz.3", which ensembl transcript does this entry correspond to?' answer='note to authors, find a better example'%}
+How many transcript are there for *PRLR* in the UCSC known genes track? Use the results from the table browser.
+
+{% include question.html question="How many transcript are there for APC in the UCSC known genes track, use the results from the table browser?" answer='9'%}
+
+Try using BLAT on the protein sequence for entry "uc021xxl.1", which ensembl transcript does this entry correspond to?
+
+{% include question.html question='Answer' answer='ENST00000310101'%}
