@@ -158,4 +158,7 @@ shinyServer(function(input, output) {
 We have given a very quick overview of [shiny](https://shiny.rstudio.com/), and have really only scraped the surface of what [shiny](https://shiny.rstudio.com/) can be used for. Using the knowledge we have already learned however let's try modifying our existing shiny app with a few exercises.
 
 Right now the plot looks fairly bland, try adding the ability for the user to enter a column as text to colour points by. You'll want to use [textInput()](https://www.rdocumentation.org/packages/shinybootstrap2/versions/0.2.1/topics/textInput) within the ui.R file for this and then link the input to the ggplot call. After you are done try coloring by the column names "Class" and "Clonal.Assignment", though you of course could color by any column name present in the data.
-{% include question.html question="Change the ui.R and server.R files to color points on based text input." answer='These files contain the correct answer: <a href="http://genomedata.org/gen-viz-workshop/intro_to_shiny/example1/ui.R">ui.R</a>, <a href="http://genomedata.org/gen-viz-workshop/intro_to_shiny/example1/ui.R">server.R</a>'%}
+
+Change the ui.R and server.R files to color points on based text input.
+
+{% include question.html question="Answer" answer='These files contain the correct answer: <a href="http://genomedata.org/gen-viz-workshop/intro_to_shiny/example1/ui.R">ui.R</a>, <a href="http://genomedata.org/gen-viz-workshop/intro_to_shiny/example1/ui.R">server.R</a>'%}
