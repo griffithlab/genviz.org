@@ -98,8 +98,25 @@ To indicate insertions or deletions:
 
 ### Introduction to demonstration data settings
 
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
+Throughout this course we will be working with and visualizing many different datasets. Below we provide a brief overview of each core data set and what type of visualizations we will create with them.s
 
-Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
+* Somatic variant calls from the manuscript ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only?sso-checked=true)
+    * General ggplot2 graphs
+    * visualizing transitions and transversions
+    * Interactive visualizations with shiny
+    * Visualization of sequencing coverage
+* Somatic variant calls from the manusctipt ["A Phase I Trial of BKM120 (Buparlisib) in Combination with Fulvestrant in Postmenopausal Women with Estrogen Receptor-Positive Metastatic Breast Cancer."](https://www.ncbi.nlm.nih.gov/pubmed/26563128)
+    * waterfall plots
+* Copy Number data from [Copycat2](https://github.com/abelhj/cc2) related to the manuscript ["Genomic characterization of HER2-positive breast cancer and response to neoadjuvant trastuzumab and chemotherapy-results from the ACOSOG Z1041 (Alliance) trial."](https://www.ncbi.nlm.nih.gov/pubmed/28453704)
+    * various copy number visualizations
+* Aligned bam files and [varscan](http://varscan.sourceforge.net/) output files for the [HCC1395 breast cancer cell line](http://www.atcc.org/products/all/CRL-2321.aspx)
+    * Visualizing data with IGV
+    * Loss of Heterozygosity graphics
+*  Expression data from the manuscript ["A nineteen gene-based risk score classifier predicts prognosis of colorectal cancer patients."](https://www.ncbi.nlm.nih.gov/pubmed/25049118)
+    * Differential expression
+    * Pathway analysis
+    * Pathway Visualization
+* Coverage data from [bedtools](http://bedtools.readthedocs.io/en/latest/) related to the manuscript ["Truncating Prolactin Receptor Mutations Promote Tumor Growth in Murine Estrogen Receptor-Alpha Mammary Carcinomas"](https://www.ncbi.nlm.nih.gov/pubmed/27681435)
+    * Displaying gene coverage
 
 ***
