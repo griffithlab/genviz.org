@@ -29,15 +29,7 @@ Delving in a bit deeper, DNA takes the form of a double stranded helix comprised
 
 ### Omic technologies and Data
 
-The advent of rapid and cheap massively parallel sequencing has dramatically increased the availability of genome, transcriptome, and epigenome data. Further this has given rise to standardized workflows and file formats. Extracting biologically meaningful data and interpreting the results remains challenging.
-
-### genomics
-
-
-
-### transcriptomics
-
-### epigenomics
+The advent of rapid and cheap massively parallel sequencing has dramatically increased the availability of genome, transcriptome, and epigenome data. Further this has given rise to standardized workflows and file formats. Extracting biologically meaningful data and interpreting the results remains challenging however. Over this course we will learn to visualize these types of data in a meaningful way.
 
  ***
 
@@ -60,9 +52,18 @@ Over this course we will be working with a number of refernce files to aid in an
 
 ### Genomic annotation resources, browsers, etc.
 
-Lorem ipsum dolor sit amet, munere intellegat cu mel. Ea sint summo exerci mei. Autem tritani scaevola mei ea, sonet oporteat vel cu. Duo cu erat libris vulputate. Cum possim copiosae facilisi ea, partiendo tincidunt voluptatibus ne est, vix ea justo animal.
+A common task in genomic analysis and interpretation is collating information to visualize. For example you may have a genomic position and want to know if it is on a gene, the conservation at that position, etc. There are quite a few annotation resources available for this task. In this course we will focus on the ensembl [variant effect predictor](http://www.ensembl.org/info/docs/tools/vep/index.html) however a few other resources are listed below.
 
-Cum quem justo urbanitas no, mei inermis alienum indoctum ei. Cu assum ludus soluta per. Sea at idque perpetua, ex fabulas hendrerit adversarium per, sit impedit recteque necessitatibus an. Quo fabulas feugait scriptorem et.
+* [Variant Effect Predictor](http://www.ensembl.org/info/docs/tools/vep/index.html) (VEP)
+* [ANNOVAR](http://annovar.openbioinformatics.org/en/latest/)
+* [biomart](http://www.biomart.org/)
+* UCSC [Variant Annotation Integrator](https://genome.ucsc.edu/cgi-bin/hgVai)
+
+In the same vein it is often beneficial to view acutal sequence data, again there are many resources available for this, we'll go over these within the course.
+
+* [UCSC Genome Browser](https://genome.ucsc.edu/index.html)
+* [Ensembl Web Browser](http://www.ensembl.org/index.html)
+* [Integrative Genomics Viewer](http://software.broadinstitute.org/software/igv/)(IGV)
 
 ***
 
