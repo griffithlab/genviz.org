@@ -71,7 +71,7 @@ From there change the "output format" to "sequence" and click on "get output". T
 
 How many transcript are there for *PRLR* in the UCSC known genes track? Use the results from the table browser.
 
-{% include question.html question="How many transcript are there for APC in the UCSC known genes track, use the results from the table browser?" answer='9'%}
+{% include question.html question="Answer" answer='9'%}
 
 Try using BLAT on the protein sequence for entry "uc021xxl.1", which ensembl transcript does this entry correspond to?
 
