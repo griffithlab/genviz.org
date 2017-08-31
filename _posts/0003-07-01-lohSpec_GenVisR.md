@@ -63,16 +63,42 @@ lohData <- lohData[lohData$n_vaf > 0.4 & lohData$n_vaf < 0.6,]
 lohSpec(x=lohData)
 ```
 
-{% include figure.html image="/assets/GenVisR/lohSpec_v1.png" width="950" %}
+{% include figure.html image="/assets/GenVisR/lohSpec_v2.png" width="950" %}
 
 Now that we have a plot let's go over what it is showing. First off what is a high [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) value. Remember the formula used to calculate [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) for a single variant is `|normal vaf - tumor vaf|` and that these values are averaged for a given window. Consider this example of [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) then `|.5 - 1 | = .5` and `|.5 - 0| = .5`. Conversely consider this example of non [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity), `| .5 - .5 | = 0`. So we can see that the closer we get to the value `.5` the more evidence there is that an [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) event exists. We have to take noise into account but we can see that the majority of this genome has some sort of [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity), probably not surprising as this data is derived from an imortalized cell line.
 
 ### Altering the step and window size
+At this point it is appropriate to talk about the trade off between speed and accuracy from setting the parameters `step` and `window_size`. We have already briefly discussed these parameters and what they do. What has so far gone unsaid is that these parameters really control the amount of smoothing the data undergoes and as such altering one will alter the trade off between the algorithms speed and an accurate representation of the data, this is especially true for the `step` parameter. We can view the effect of this using the [microbenchmark]() package, increasing the `step` by a factor of 2/3 will decrease the computation time by almost half. Reasonable defaults have been chosen for the human genome however one should keep these parameters in mind when using a custom genome or when attempting to plot many samples.
 
-talk about trade-off between speed and accuracy
+```R
+# install and load a benchmarking package
+# install.packages("microbenchmark")
+library(microbenchmark)
+
+# run benchmark tests
+microbenchmark(lohSpec(x=lohData, window_size = 2500000, step = 1000000), lohSpec(x=lohData, window_size = 2500000, step = 1500000), times = 5L)
+```
 
 ### Exercises
 
-* have them zoom into a chromosome like in cnSpec exercise
-* have them change the look of the plot
-* have them think about why plotting allosomes could be undesireable
+There may be situations in which you would want to view only specific regions within the genome instead of the whole genome itself. This can be achieved by supplying a custom genome to the parameter `y` and making sure your input data is limited to only that region. The gene *PTEN* is commonly lost in breast cancer, take a look to see if it's lost in this cell line. Limit your data to only chromosome 10 and use `plotLayer` to highlight the q23.31 cytogenetic band on which *PTEN* resides (chr10:89500000-92900000). Your plot should look something like the one below.
+
+{% include figure.html image="/assets/GenVisR/lohSpec_v3.png" width="950" %}
+
+{% include question.html question="Get a hint!" answer='You\'ll need to create a custom genome that is only chromosome 10, and you\'ll need to subset your input data as well.' %}
+{% include question.html question="Get a hint!" answer='Look at the messages lohSpec() outputs, it automatically prepends chr to the input to x so your custom genome will need chr prepended as well' %}
+{% include question.html question="Get a hint!" answer='Try using geom_vline() to highlight q23.1' %}
+{% include question.html question="Answer" answer='The solution is supplied in this <a href="http://genomedata.org/gen-viz-workshop/GenVisR/exercise1_lohSpec.R">file.</a>' %}
+
+At times it may be desireable to alter how the plot looks, [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec) has a few helpfull parameters to aid in this but it may also be necessary to add additional plot layers as well via the parameter `plotLayer`. try to recreate the plot below using a combination of parameters in the [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec) documentation and adding additional layers via `plotLayer`. You will need to alter the plot colours, add a title, and change the facets to take up an equal share of the plot.
+
+{% include figure.html image="/assets/GenVisR/lohSpec_v4.png" width="950" %}
+
+{% include question.html question="Get a hint!" answer='look at the parameter "colourScheme"' %}
+{% include question.html question="Get a hint!" answer='you will need to add layers for facet_grid() and ggtitle()' %}
+{% include question.html question="Get a hint!" answer='Remember from earlier that when multiple layers are supplied they must be as a list!' %}
+{% include question.html question="Answer" answer='lohSpec(lohData, colourScheme = "viridis", plotLayer=list(facet_grid(.~chromosome, scales="free"), ggtitle("Loss of Heterozygosity")))' %}
+
+When plotting these types of plots, particular care must be taken when dealing with [allosomes](https://en.wikipedia.org/wiki/Allosome). The parameter `gender` is usefull in this regard however try and think why it is necessary to consider for these plots and why [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec) does not plot [allosomes](https://en.wikipedia.org/wiki/Allosome) by default.
+
+{% include question.html question="Answer" answer='Depending on the gender, the allosomes of a sample could be diploid or haploid, if the later is true LOH could be deceptively displayed when there is not any.' %}

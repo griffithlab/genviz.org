@@ -21,12 +21,27 @@ lohData <- lohData[grepl("^\\d|X|Y", lohData$chromosome),]
 # create an inital plot
 lohSpec(lohData)
 
-# Obtain variants with a VAF greater than 0.4 and below 0.6.
-lohData <- lohData[lohData$n_vaf > 0.4 & lohData$n_vaf < 0.6,]
+# install and load a benchmarking package
+# install.packages("microbenchmark")
+library(microbenchmark)
 
-# run lohSpec
-lohSpec(x=lohData)
+# run benchmark tests
+microbenchmark(lohSpec(x=lohData, window_size = 2500000, step = 1000000), lohSpec(x=lohData, window_size = 2500000, step = 1500000), times = 5L)
 
 ################################################################################
 ############################ Exercises #########################################
 ################################################################################
+
+# exercise 1
+# create a custom genome
+chr10 <- data.frame("chromosome"="chr10", "start"=0, "end"=135534747)
+
+# create custom layer to highlight q23.1
+library(ggplot2)
+layer1 <- geom_vline(xintercept=c(89500000, 92900000), colour="chartreuse", linetype=2, size=1)
+
+# create the plot
+lohSpec(lohData[lohData$chromosome==10,], y=chr10, plotLayer = layer1)
+
+# exercise2
+lohSpec(lohData, colourScheme = "viridis", plotLayer=list(facet_grid(.~chromosome, scales="free"), ggtitle("Loss of Heterozygosity")))
