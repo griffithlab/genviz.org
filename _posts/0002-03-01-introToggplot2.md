@@ -245,9 +245,3 @@ variantDataMerge <- merge(variantDataMax, variantDataCount)
 {% include figure.html image="/assets/ggplot2/ggplot2Example3.png" width="950" %}
 {% include question.html question="Get a hint!" answer='You will need to pass variantDataMerge to geom_text()'%}
 {% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF, fill=Simple_name)) + geom_jitter(data=variantData, aes(x=Simple_name, y=tumor_VAF), width=.1, alpha=.5) + geom_text(data=variantDataMerge, aes(x=Simple_name, y=tumor_VAF + 5, label=freq)) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
-
-### Additional resources
-
-* [long vs. wide format](http://seananderson.ca/2013/10/19/reshape.html)
-* [ggplot2 wiki](https://github.com/tidyverse/ggplot2/wiki)
-* [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
