@@ -69,7 +69,7 @@ In the same vein it is often beneficial to view acutal sequence data, again ther
 
 ### Common problems
 
-#### Genomic coordinate systems
+##### Genomic coordinate systems
 
 Within computational biology there are two competing coordinate systems for specifying regions within the genome. These two systems number either the nucleotides in the genome directly (1-based), or the gaps between nucleotides (0-based). Let's look at the diagram below displaying an imaginary sequence on chromosome 1 to help illustrate this concept.
 
@@ -95,8 +95,8 @@ To indicate insertions or deletions:
 
 {% include figure.html image="/assets/Central_Concepts/insertion_or_deletion.jpg" width="950" %}
 
-#### Differences in carriage returns
-In all unix based systems (MAC included) new line characters, commonly referred to as carriage returns are designated by the character "\n". However this is not a universal standard, windows programs such as exel designate a carriage return as "\r\n" mostly to maintain compatability with MS-DOS. This can create problems when attempting to use a file made via a windows application on a unix system. Specifically attemting to view one of these types of files on a unix system will not interperet "\r\n" as a new line but rather as "^M". This is something to be aware of but is fortunately easily remedies through any text processing language. Below you will find an example for fixing this file through [perl](https://www.perl.org/) via a command line.
+##### Differences in carriage returns
+In all unix based systems (OSX included) new line characters, commonly referred to as carriage returns are designated by the character "\n". However this is not a universal standard, windows programs such as exel designate a carriage return as "\r\n" mostly to maintain compatability with MS-DOS. This can create problems when attempting to use a file made via a windows application on a unix system. Specifically attemting to view one of these types of files on a unix system will not interperet "\r\n" as a new line but rather as "^M". This is something to be aware of but is fortunately easily remedies through any text processing language. Below you will find an example for fixing this file through [perl](https://www.perl.org/) via a command line.
 
 ```bash
 perl -pi -e 's/\r\n|\n|\r/\n/g' FileToChange.txt
