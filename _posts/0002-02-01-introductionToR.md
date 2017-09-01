@@ -12,7 +12,7 @@ Over this tutorial series, we will be using R extensively, the language underlyi
 
 ## R and Rstudio
 
-{% include figure.html image="/assets/Rlogo.svg" position="right" width="250" link="https://www.r-project.org/logo/Rlogo.svg" title="R logo" author="R Foundation" license="CC-BY-SA 4.0" license_link="https://creativecommons.org/licenses/by-sa/4.0/"%}
+{% include figure.html image="/assets/R/Rlogo.svg" position="right" width="250" link="https://www.r-project.org/logo/Rlogo.svg" title="R logo" author="R Foundation" license="CC-BY-SA 4.0" license_link="https://creativecommons.org/licenses/by-sa/4.0/"%}
 
 R is an open source functional programming language developed for statistical computing and graphics. The language includes a number of features that make it ideal for data analysis and visualization and is the primary computing language used in this course.
 

@@ -13,7 +13,7 @@ Before we proceed, it may be beneficial to review some central concepts and them
 ***
 ### Central Dogma
 
-{% include figure.html image="/assets/central_dogma.png" position="right" %}
+{% include figure.html image="/assets/Central_Concepts/central_dogma.png" position="right" %}
 
 > *"The Central Dogma. This states that once 'information' has passed into protein it cannot get out again. In more detail, the transfer of information from nucleic acid to nucleic acid, or from nucleic acid to protein may be possible, but transfer from protein to protein, or from protein to nucleic acid is impossible. Information means here the precise determination of sequence, either of bases in the nucleic acid or of amino acid residues in the protein."*
 > --Francis Crick 1956
@@ -73,7 +73,7 @@ In the same vein it is often beneficial to view acutal sequence data, again ther
 
 Within computational biology there are two competing coordinate systems for specifying regions within the genome. These two systems number either the nucleotides in the genome directly (1-based), or the gaps between nucleotides (0-based). Let's look at the diagram below displaying an imaginary sequence on chromosome 1 to help illustrate this concept.
 
-{% include figure.html image="/assets/basic_diagram.jpg" width="950" %}
+{% include figure.html image="/assets/Central_Concepts/basic_diagram.jpg" width="950" %}
 
 To indicate a single nucleotide variant:
 
@@ -82,7 +82,7 @@ To indicate a single nucleotide variant:
 * 0-based coordinate system
     * Single nucleotides, variant positions, or ranges are specified by the coordinates that flank them
 
-{% include figure.html image="/assets/single_nucleotide_or_variant.jpg" width="950" %}
+{% include figure.html image="/assets/Central_Concepts/single_nucleotide_or_variant.jpg" width="950" %}
 
 To indicate insertions or deletions:
 
@@ -93,7 +93,7 @@ To indicate insertions or deletions:
     * Deletions are specified by the coordinates that flank the deleted bases
     * Insertions are indicated directly by the coordinate position where the insertion occurs
 
-{% include figure.html image="/assets/insertion_or_deletion.jpg" width="950" %}
+{% include figure.html image="/assets/Central_Concepts/insertion_or_deletion.jpg" width="950" %}
 
 ***
 
