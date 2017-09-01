@@ -15,12 +15,13 @@ To browse [Ensembl BioMart](http://www.ensembl.org/biomart/martview) you can sim
 
 {% include figure.html image="/assets/BioMart/BioMart_start.png" width="800" %}
 
-You will first need to CHOOSE DATABASE which can be any of Ensembl Genes, Mouse Strains, Ensembl Variation, or Ensembl Regulation. Note, the database version is included in the name (e.g., Ensembl Genes 90). The Ensembl Genes dataset is probably the most commonly desired choice, depending on your purpose. Next, you will CHOOSE DATASET, which for Genes means selecting a species (e.g., Human genes (GRCh38.p10)). For illustration, we will walk through some examples using the **Ensembl Genes 90** database and **Human genes** dataset. At this point you have the option to apply filters and desired attributes from left panel. Note that two attributes (Gene stable ID, and Transcript stable ID) have been pre-selected for us.
+You will first need to select a database from the *CHOOSE DATABASE* menu. Currently, this can be any of: Ensembl Genes, Mouse Strains, Ensembl Variation, or Ensembl Regulation. Note, the database version is included in the name (e.g., Ensembl Genes 90). The Ensembl Genes dataset is probably the most commonly desired choice, depending on your purpose. Next, you will select a dataset from the *CHOOSE DATASET* menu, which for Genes means selecting a species (e.g., Human genes (GRCh38.p10)). For illustration, we will walk through some examples using the **Ensembl Genes 90** database and **Human genes** dataset. Once a database and dataset have been selection, you have the option to apply *Filters* and desired *Attributes* from left panel. Note that two attributes (Gene stable ID, and Transcript stable ID) have been pre-selected for us.
 
 {% include figure.html image="/assets/BioMart/BioMart_prefilter.png" width="800" %}
 
+If we were to select the *Results* we would get the complete Gene and Transcript stable IDs for all genes in the Human Ensembl Genes (v90) database (see below). [Describe simple results view below]. Selecting *Count* would give us a numerical summary of all records and select *New* would reset our BioMart query.
 
-
+{% include figure.html image="/assets/BioMart/BioMart_simple_results.png" width="800" %}
 
 ### Using older versions of Ensembl BioMart
 By default, [Ensembl BioMart](http://www.ensembl.org/biomart/martview) only presents data for the latest, most current version of Ensembl. Older versions can be accessed by navigating to an [Ensembl Archive Site](http://www.ensembl.org/Help/ArchiveList) (linked from the bottom right of every Ensembl page) and then following the BioMart link (top left of every Ensembl Archive page). For example, the last version of Ensembl for the human GRCh37 (hg19) build was v75 (February 2014). The Archive EnsEMBL release 75 was available at [http://feb2014.archive.ensembl.org](http://feb2014.archive.ensembl.org) and the corresponding BioMart at [http://feb2014.archive.ensembl.org/biomart/martview](http://feb2014.archive.ensembl.org/biomart/martview).
