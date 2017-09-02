@@ -105,6 +105,7 @@ perl -pi -e 's/\r\n|\n|\r/\n/g' FileToChange.txt
 In essence the command above calls the perl regular expression engine and substitutes "\r\n" or "\n" or "\r" with "\n", editing the file in place.
 
 ##### Genome builds
+When doing any sort of bioinformatic analysis it is good to be cognizant of the reference assembly upon which your data is based
 
 ##### Strandedness
 

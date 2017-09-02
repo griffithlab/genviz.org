@@ -153,6 +153,8 @@ finalGrob$grobs[[1]]$grobs[[1]]$widths <- as.list(maxWidth)
 grid.draw(finalGrob)
 ```
 
+{% include figure.html image="/assets/GenVisR/transition_transversion_v7.1.png" width="750" %}
+
 ### adding additional layers
 
 Our plot is getting getting close to looking like the one in the manuscript, there are a few final touches we should add however. Specifically let's add in some vertical lines separating samples by "treatment-naive", "treated", and "t-NHL". Let's also remove the redundant x-axis text, we can do all this by adding additional [ggplot2](http://ggplot2.tidyverse.org/reference/) layers to the various plots with the parameter `layers` and `clinLayer`.
