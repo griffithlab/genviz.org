@@ -6,3 +6,4 @@ _site
 .Rproj.user
 *.swp
 gen-viz-workshop.Rproj
+.Rhistory
