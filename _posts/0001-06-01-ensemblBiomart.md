@@ -66,7 +66,7 @@ How many transcripts are there (in Human Ensembl v90) for the gene TP53 that are
 By default, [Ensembl BioMart](http://www.ensembl.org/biomart/martview) only presents data for the latest, most current version of Ensembl. Older versions can be accessed by navigating to an [Ensembl Archive Site](http://www.ensembl.org/Help/ArchiveList) (linked from the bottom right of every Ensembl page) and then following the BioMart link (top left of every Ensembl Archive page). For example, the last version of Ensembl for the human GRCh37 (hg19) build was v75 (February 2014). The Archive EnsEMBL release 75 was available at [http://feb2014.archive.ensembl.org](http://feb2014.archive.ensembl.org) and the corresponding BioMart at [http://feb2014.archive.ensembl.org/biomart/martview](http://feb2014.archive.ensembl.org/biomart/martview).
 
 ### Using the Ensembl BioMart API in R
-In some cases it may be desirable to obtain data from Ensembl programmatically. This can be done in several ways. First, entire databases can be downloaded from the [Ensembl FTP site](https://www.ensembl.org/info/data/ftp/index.html) in a variety of formats, from flat files to MySQL dumps. Second, Ensembl provides direct [access to their databases via APIs](https://www.ensembl.org/info/docs/index.html). There are two main options: (1) the [Ensembl Perl API](https://www.ensembl.org/info/docs/api/index.html); and (2) the [Ensembl REST API](http://rest.ensembl.org/). The Perl API has a longer history of use, supports many legacy scripts, and *might* be more comprehensive in terms of the number and complexity of queries it enables. It also supports any database version currently hosted on the web or locally installed. The REST API is more modern and allows you access to Ensembl data using any programming language. However, it appears to support only the most current database version (and version 75 for the human GRCh37 assembly). Finally, Ensembl BioMart also provides APIs for programmatic access. Again, there are several options including: (1) The [BioMart Perl API](http://www.ensembl.org/info/data/biomart/biomart_perl_api.html); (2) [BioMart RESTful access (via Perl and wget)](http://www.ensembl.org/info/data/biomart/biomart_restful.html); and (3) The [BiomaRt Bioconductor R package](http://www.ensembl.org/info/data/biomart/biomart_r_package.html). The first two options are convenient because for any query you have configured in the BioMart website, you may simply select the *Perl* or *XML* buttons and you will have all of the code needed to execute a Perl API or RESTful API request via the command line. However, for those working in R or with less linux/Perl experience, the R Bioconductor may be simplest. We will demonstrate this final option here.    
+In some cases it may be desirable to obtain data from Ensembl programmatically. This can be done in several ways. First, entire databases can be downloaded from the [Ensembl FTP site](https://www.ensembl.org/info/data/ftp/index.html) in a variety of formats, from flat files to MySQL dumps. Second, Ensembl provides direct [access to their databases via APIs](https://www.ensembl.org/info/docs/index.html). There are two main options: (1) the [Ensembl Perl API](https://www.ensembl.org/info/docs/api/index.html); and (2) the [Ensembl REST API](http://rest.ensembl.org/). The Perl API has a longer history of use, supports many legacy scripts, and *might* be more comprehensive in terms of the number and complexity of queries it enables. It also supports any database version currently hosted on the web or locally installed. The REST API is more modern and allows you access to Ensembl data using any programming language. However, it appears to support only the most current database version (and version 75 for the human GRCh37 assembly). Finally, Ensembl BioMart also provides APIs for programmatic access. Again, there are several options including: (1) The [BioMart Perl API](http://www.ensembl.org/info/data/biomart/biomart_perl_api.html); (2) [BioMart RESTful access (via Perl and wget)](http://www.ensembl.org/info/data/biomart/biomart_restful.html); and (3) The [BiomaRt Bioconductor R package](http://www.ensembl.org/info/data/biomart/biomart_r_package.html). The first two options are convenient because for any query you have configured in the BioMart website, you may simply select the *Perl* or *XML* buttons and you will have all of the code needed to execute a Perl API or RESTful API request via the command line. However, for those working in R or with less linux/Perl experience, the R Bioconductor may be preferred. We will demonstrate this final option here.    
 
 For illustration, we will recreate the **Gene ID Mapping** example from above in R. In RStudio or at an R prompt, execute the following commands. 
 
@@ -74,20 +74,30 @@ For illustration, we will recreate the **Gene ID Mapping** example from above in
 # Load the BioMart library
 library("biomaRt")
 
-# Create a mart object from ensembl Biomart
-mart <- useMart("ensembl", "hsapiens_gene_ensembl")
+# Output all available databases for use from BioMart
+databases <- listEnsembl()
+databases
+
+# Output all available datasets for the "Ensembl Genes" database
+ensembl <- useEnsembl(biomart="ensembl")
+datasets <- listDatasets(ensembl)
+datasets
+
+# Connect to the live Ensembl Gene Human dataset 
+ensembl <- useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
 
 # Output all attributes to see which are available and how they are named
-attributes <- listAttributes(mart)
+attributes <- listAttributes(ensembl)
 attributes
 
 # Output all filters to see which are available and how they are named
-filters <- listFilters(mart)
+filters <- listFilters(ensembl)
 filters
 
 # Get Ensembl gene records and relevant attributes for a list of HGNC symbols
 hgnc_symbols <- c("NEUROD2", "PPP1R1B", "STARD3", "TCAP", "PNMT", "PGAP3", "ERBB2", "MIR4728", "MIEN1", "GRB7", "IKZF3")
-annotations_ENSG=getBM(attributes=c("ensembl_gene_id","chromosome_name","start_position","end_position","external_gene_name","hgnc_symbol"), filter="hgnc_symbol", values=hgnc_symbols, mart=mart)   
+annotations_ENSG <- getBM(attributes=c("ensembl_gene_id","chromosome_name","start_position","end_position","external_gene_name","hgnc_symbol"), filter="hgnc_symbol", values=hgnc_symbols, mart=ensembl)
+annotations_ENSG
 
 ``` 	
 
