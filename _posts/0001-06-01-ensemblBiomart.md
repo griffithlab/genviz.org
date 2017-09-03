@@ -68,7 +68,7 @@ By default, [Ensembl BioMart](http://www.ensembl.org/biomart/martview) only pres
 ### Using the Ensembl BioMart API in R
 In some cases it may be desirable to obtain data from Ensembl programmatically. This can be done in several ways. First, entire databases can be downloaded from the [Ensembl FTP site](https://www.ensembl.org/info/data/ftp/index.html) in a variety of formats, from flat files to MySQL dumps. Second, Ensembl provides direct [access to their databases via APIs](https://www.ensembl.org/info/docs/index.html). There are two main options: (1) the [Ensembl Perl API](https://www.ensembl.org/info/docs/api/index.html); and (2) the [Ensembl REST API](http://rest.ensembl.org/). The Perl API has a longer history of use, supports many legacy scripts, and *might* be more comprehensive in terms of the number and complexity of queries it enables. It also supports any database version currently hosted on the web or locally installed. The REST API is more modern and allows you access to Ensembl data using any programming language. However, it appears to support only the most current database version (and version 75 for the human GRCh37 assembly). Finally, Ensembl BioMart also provides APIs for programmatic access. Again, there are several options including: (1) The [BioMart Perl API](http://www.ensembl.org/info/data/biomart/biomart_perl_api.html); (2) [BioMart RESTful access (via Perl and wget)](http://www.ensembl.org/info/data/biomart/biomart_restful.html); and (3) The [BiomaRt Bioconductor R package](http://www.ensembl.org/info/data/biomart/biomart_r_package.html). The first two options are convenient because for any query you have configured in the BioMart website, you may simply select the *Perl* or *XML* buttons and you will have all of the code needed to execute a Perl API or RESTful API request via the command line. However, for those working in R or with less linux/Perl experience, the R Bioconductor may be preferred. We will demonstrate this final option here.    
 
-For illustration, we will recreate the **Gene ID Mapping** example from above in R. In RStudio or at an R prompt, execute the following commands. 
+For illustration, we will recreate the **Gene ID Mapping** example from above. In RStudio or at an R prompt, execute the following commands:
 
 ```R
 # Load the BioMart library
@@ -101,7 +101,7 @@ annotations_ENSG
 
 ``` 	
 
-Note that the output is identical to what we retrieved earlier from the BioMart web interface. This is just a simple illustration of how (arbitrarily complex) Ensembl BioMart queries can be incorporated into an R analysis for analysis, visualization and interpretation.  
+Note that the output is identical to what we retrieved earlier from the BioMart web interface. This is just a simple illustration of how (arbitrarily complex) Ensembl BioMart queries can be incorporated into an R script for analysis, visualization and interpretation.  
 
 {% include figure.html image="/assets/BioMart/BioMart_R_example_results.png" width="1000" %}
 
