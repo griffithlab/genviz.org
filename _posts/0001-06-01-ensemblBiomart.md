@@ -48,7 +48,7 @@ Another powerful application of BioMart is for the retrieval of *Sequence* attri
 
 {% include figure.html image="/assets/BioMart/BioMart_sequences.png" width="1000" %}
 
-Here (above) we see peptide sequences in fasta format for all protein-coding Ensembl transcripts. Where available, the UniProt ID is listed along with Ensembl gene name, and gene, transcript, and protein ids. Download the fasta file by selecting *Export all results*, *File*, *FASTA*, *Unique results only*, and *Go*. Open the file in a text editor/viewer. Note that for some transcripts the peptides do not start with a methionine (e.g., [ENST00000576024](www.ensembl.org/Homo_sapiens/transview?transcript=ENST00000576024)) or end with a stop codon (e.g., [ENST00000503591](www.ensembl.org/Homo_sapiens/transview?transcript=[ENST00000503591)). In some cases these transcripts are automated predictions with limited biological evidence or support. 
+Here (above) we see peptide sequences in fasta format for all protein-coding Ensembl transcripts. Where available, the UniProt ID is listed along with Ensembl gene name, and gene, transcript, and protein ids. Download the fasta file by selecting *Export all results*, *File*, *FASTA*, *Unique results only*, and *Go*. Open the file in a text editor/viewer. Note that for some transcripts the peptides do not start with a methionine (e.g., [ENST00000576024](www.ensembl.org/Homo_sapiens/transview?transcript=ENST00000576024)) or end with a stop codon (e.g., [ENST00000503591](www.ensembl.org/Homo_sapiens/transview?transcript=ENST00000503591)). In some cases these transcripts are automated predictions with limited biological evidence or support. 
 
 ### Ensembl BioMart practice exercises
 
