@@ -171,7 +171,9 @@ Once again, to view/test your app simply type the `runApp(port=7777)` command in
 ### Exercises
 We have given a very quick overview of [shiny](https://shiny.rstudio.com/), and have really only scraped the surface of what [shiny](https://shiny.rstudio.com/) can be used for. Using the knowledge we have already learned however let's try modifying our existing shiny app.
 
-Right now the plot looks fairly bland. Try adding the ability for the user to enter a column name as text to color points by. For example, try coloring by the column names "Class" or "Clonal.Assignment". Use your existing ui.R and server.R files as a starting point.
+Right now the plot looks fairly bland. Try adding the ability for the user to enter a column name as text to color points by. For example, try coloring by the column names "Class" or "Clonal.Assignment". Use your existing ui.R and server.R files as a starting point. If successful, you should be able to restart/refresh your shiny app and see something like the following:
+
+{% include figure.html image="/assets/shiny/shiny_exercise_output.png" width="1000" %}
 
 {% include question.html question="Get a hint!" answer='You will want to use <a href="https://www.rdocumentation.org/packages/shinybootstrap2/versions/0.2.1/topics/textInput">textInput()</a> within the ui.R file for this and then link the input to the ggplot call.'%}
 
