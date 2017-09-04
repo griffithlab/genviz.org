@@ -106,7 +106,7 @@ Now that we know how to link output from the back-end to the front end let's do 
 * ui.R
 
 ```R
-# load shiny library
+#load shiny library
 library(shiny)
 
 # define the vaf column names
@@ -117,23 +117,24 @@ axis_options <- c("Skin_d42_I_vaf", "MC_d0_clot_A_vaf", "MC_d0_slide_A_vaf", "BM
 
 # set up front end
 shinyUI(fluidPage(
-
-    # set up the UI layout with a side and main panel
-    sidebarLayout(
-
-        # set the side panel to allow for user input
-        sidebarPanel(
-            selectInput(inputId="x_axis", label="x axis", choices=axis_options, selected="Skin_d42_I_vaf"),
-            selectInput(inputId="y_axis", label="y axis", choices=axis_options, selected="MC_d0_clot_A_vaf")
-        ),
-
-        # set the plot panel
-        mainPanel(
-            plotOutput("scatterPlot")
-        )
+  
+  # set up the UI layout with a side and main panel
+  sidebarLayout(
+    
+    # set the side panel to allow for user input
+    sidebarPanel(
+      selectInput(inputId="x_axis", label="x axis", choices=axis_options, selected="Skin_d42_I_vaf"),
+      selectInput(inputId="y_axis", label="y axis", choices=axis_options, selected="MC_d0_clot_A_vaf")
+    ),
+    
+    # set the plot panel
+    mainPanel(
+      plotOutput("scatterPlot")
     )
+  )
 ))
 ```
+
 * server.R
 
 ```R
@@ -142,15 +143,16 @@ library(shiny)
 
 # set up back end
 shinyServer(function(input, output) {
-    # load the data
-    amlData <- read.delim("data/shinyExampleData.tsv")
-
-    # construct a plot to show the data
-    library(ggplot2)
-    output$scatterPlot <- renderPlot({
-        p1 <- ggplot(amlData, aes_string(x=input$x_axis, y=input$y_axis)) + geom_point()
-        p1 <- p1 + xlab("Variant Allele Fraction") + ylab("Variant Allele Fraction")
-    })
+  # load the data
+  amlData <- read.delim("data/shinyExampleData.tsv")
+  
+  # construct a plot to show the data
+  library(ggplot2)
+  output$scatterPlot <- renderPlot({
+    p1 <- ggplot(amlData, aes_string(x=input$x_axis, y=input$y_axis)) + geom_point()
+    p1 <- p1 + xlab("Variant Allele Fraction") + ylab("Variant Allele Fraction")
+    p1
+  })
 })
 ```
 
