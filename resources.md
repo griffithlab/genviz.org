@@ -6,7 +6,7 @@ excerpt: ""
 layout: "home"
 ---
 
-Below are some additional resources users may find usefull to suppplement the information presented here.
+Below are some additional resources that users may find useful to supplement the information presented here.
 
 ### Genome Browsing and Visualization - IGV
 

@@ -8,12 +8,12 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0003-01-01
 ---
 
-The advent of next generation sequencing (NGS) has allowed for the production of massive amounts of genomic data that is available for analysis. There are many tools available for the analysis and visualization of this type of data. In this module we will focus on the R package [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html), The reasons for doing so can be summarized as follows:
-1. The package is built upon [ggplot2](http://ggplot2.tidyverse.org/reference/) and will allow us to leverage information we've learned in previous modules.
-2. The package is intended to be flexible supporting multiple file types, species, etc.
-3. The package is relatively popular; in the top 20% of biooconductor downloads.
-4. The package is regularly updated with improvements, bug fixes, etc.
-5. The package is maintained by the griffithlab
+The advent of next generation sequencing (NGS) has allowed for the production of massive amounts of genomic data. There are many methods and tools available for the analysis and visualization of these data. In this module we will focus on the R package [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). GenVisR offer several advantages for visualization and interpretation of genomic data:
+1. GenVisR is built upon [ggplot2](http://ggplot2.tidyverse.org/reference/) and thus allows the user to leverage the many existing graphical functions of that package (as well as the information we've learned in previous modules).
+2. GenVisR is intended to be flexible supporting multiple common genomic file formats, species, etc.
+3. GenVisR attempts to make popular, but very complex, genomic visualizations much simpler to produce. It essentially offers convenience functions that allow sophisticated plots to be made from common genomic data types with just a handful of lines of code. 
+4. GenVisR is relatively popular (in the top 20% of bioconductor downloads) and therefore benefits from a large community of users, many published examples, and a number of online tutorials.
+5. GenVisR is maintained by the griffithlab and is regularly updated with improvements, bug fixes, etc.
 
 We reccomend installing [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) from bioconductor in order to ensure the most stable version.
 
