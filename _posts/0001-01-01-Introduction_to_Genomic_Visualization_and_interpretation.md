@@ -15,3 +15,5 @@ Welcome to the Genomic Visualization and Interpretations tutorial series. The go
 * Be able to use R graphical programs for data visualization (e.g., ggplot2, GenVisR) and interactive visualization (e.g., shiny)
 * Be able to perform, visualize, and interpret expression, differential expression and pathway analysis
 * Be able to assess a variant's biological and clinical significance (e.g., VEP, ClinVar, and CIViC)
+
+[Module 1 Lecuture](http://genviz.org/lectures/GenViz_Module1_Lecture.pptx)

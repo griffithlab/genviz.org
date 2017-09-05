@@ -9,3 +9,5 @@ date: 0004-01-01
 ---
 
 A common task in analysis of transcriptomic data is gene expression profiling, differential expression analysis, and pathway analysis. In this module we will be leveraging the R libraries [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html), [gage](https://bioconductor.org/packages/release/bioc/html/gage.html), and [pathview](https://bioconductor.org/packages/release/bioc/html/pathview.html) to achieve these tasks.
+
+[Module 4 Lecuture](http://genviz.org/lectures/GenViz_Module4_Lecture.pptx)

@@ -8,7 +8,6 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-06-02
 ---
 
-Some recent posts reminded me that it might be useful for us to review the options for converting between genome coordinate systems.
 
 This comes up in several contexts. Probably the most common is that you have some coordinates for a particular version of a reference genome and you want to determine the corresponding coordinates on a different version of the reference genome for that species. For example, you have a bed file with exon coordinates for human build GRC37 (hg19) and wish to update to GRCh38. By the way, for a nice summary of genome versions and their release names refer to the Assembly Releases and Versions FAQ
 

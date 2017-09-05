@@ -15,3 +15,5 @@ R is an open source programming language for statistical computing and graphics.
 * Be able to create publication quality graphs to display data
 * Be able to create interactive graphics
 * Be familiar with GenVisR, a graphical library for cohort-level visualization of genomic data
+
+[Module 2 Lecuture](http://genviz.org/lectures/GenViz_Module2_Lecture.pptx)
