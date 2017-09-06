@@ -52,11 +52,36 @@ Try and compare the old and new coordinates in the [UCSC genome browser]() for t
 {% include question.html question="Answer" answer='Yes, both coordinates match the coding sequence for the <i>w</i> gene from transcript CG2759-RA'%}
 
 ### Using rtracklayer
+In another situation you may have coordinates of a gene and wish to determine the corresponding coordinates in another species. This is a common situation in evolutionary biology where you will need to find coordinates for a conserved gene across species to perform a phylogenetic analysis. Let's use the rtracklayer package on bioconductor to find the coordinates of the **H3F3A** gene located at chr1:226061851-226071523 on the hg38 human assembly in the canFam3 assembly of the canine genome. To start install the [rtracklayer](http://bioconductor.org/packages/release/bioc/html/rtracklayer.html) package from bioconductor, as mentioned this is an R implementation of the UCSC liftover.
 
+```R
+# install and load rtracklayer
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("rtracklayer")
+library("rtracklayer")
+```
 
+The function we will be using from this package is [liftover()](https://www.rdocumentation.org/packages/rtracklayer/versions/1.32.1/topics/liftOver) and takes two arguments as input. The first of these is a [GRanges](https://www.rdocumentation.org/packages/GenomicRanges/versions/1.24.1/topics/GRanges-class) object specifying coordinates to perform the query on. This class is from the [GenomicRanges](https://www.rdocumentation.org/packages/GenomicRanges/versions/1.24.1) package maintained by bioconductor and was loaded automatically when we loaded the [rtracklayer](http://bioconductor.org/packages/release/bioc/html/rtracklayer.html) library. The second item we need is a [chain file](https://genome.ucsc.edu/goldenpath/help/chain.html), which is a format which describes pairwise alignments between sequences allowing for gaps. The UCSC website maintains a selection of these on it's [genome data page](http://hgdownload.soe.ucsc.edu/downloads.html). Navigate to this page and select "liftOver files" under the hg38 human genome, then download and extract the "hg38ToCanFam3.over.chain.gz" chain file.
 
+{% include figure.html image="/assets/liftOver/liftOver_5.png" width=650 %}
 
+Next all we need to do is to create our [GRanges](https://www.rdocumentation.org/packages/GenomicRanges/versions/1.24.1/topics/GRanges-class) object to contain the coordinates chr1:226061851-226071523 and import our chain file with the function [import.chain()]. We can then supply these two parameters to [liftover()](https://www.rdocumentation.org/packages/rtracklayer/versions/1.32.1/topics/liftOver).
 
-Or perhaps you have coordinates of a gene and wish to determine the corresponding coordinates in another species. For example, you have coordinates of a gene in human GRCh38 and wish to determine corresponding coordinates in mouse mm10.
+```R
+# specify coordinates to liftover
+grObject <- GRanges(seqnames=c("chr1"), ranges=IRanges(start=226061851, end=226071523))
 
-Finally you may wish to convert coordinates between coordinate systems within a single assembly. For example, you have the coordinates of a series of exons and you want to determine the position of these exons with respect to the transcript, gene, contig, or entire chromosome.
+# import the chain file
+chainObject <- import.chain("hg38ToCanFam3.over.chain")
+
+# run liftOver
+results <- as.data.frame(liftOver(grObject, chainObject))
+```
+
+How many different regions in the canine genome match the human region we specified?
+
+{% include question.html question="Answer" answer='210, these return the ranges mapped for the corresponding input element' %}
+
+### Exercises
+Try to perform the same task we just complete with the web version of [liftOver](https://genome.ucsc.edu/cgi-bin/hgLiftOver), how are the results different?
+{% include question.html question="Answer" answer='both methods provide the same overall range, however using rtracklayer is not simplified and contains multiple ranges corresponding the chain file.' %}
