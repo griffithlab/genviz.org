@@ -88,7 +88,7 @@ There may be situations in which you would want to view only specific regions wi
 {% include question.html question="Get a hint!" answer='You\'ll need to create a custom genome that is only chromosome 10, and you\'ll need to subset your input data as well.' %}
 {% include question.html question="Get a hint!" answer='Look at the messages lohSpec() outputs, it automatically prepends chr to the input to x so your custom genome will need chr prepended as well' %}
 {% include question.html question="Get a hint!" answer='Try using geom_vline() to highlight q23.1' %}
-{% include question.html question="Answer" answer='The solution is supplied in this <a href="http://genomedata.org/gen-viz-workshop/GenVisR/exercise1_lohSpec.R">file.</a>' %}
+{% include question.html question="Answer" answer='The solution is supplied in this <a href="http://genviz.org/assets/GenVisR/exercise1_lohSpec.R">file.</a>' %}
 
 At times it may be desireable to alter how the plot looks, [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec) has a few helpfull parameters to aid in this but it may also be necessary to add additional plot layers as well via the parameter `plotLayer`. try to recreate the plot below using a combination of parameters in the [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec) documentation and adding additional layers via `plotLayer`. You will need to alter the plot colours, add a title, and change the facets to take up an equal share of the plot.
 
