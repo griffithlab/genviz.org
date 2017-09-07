@@ -5,7 +5,7 @@ title: Genome Browsing and Visualization - IGV
 categories:
     - Module 1
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0001-03-01
+date: 0001-05-01
 ---
 
 It is often necessary to examine sequencing data aligned to specific regions of the genome in order to obtain a clearer picture of genomic events. One of the most popular tools for this is the [Integrative Genomics Viewer](http://software.broadinstitute.org/software/igv/). After this lab you should be able to perform the following tasks:
@@ -16,7 +16,7 @@ It is often necessary to examine sequencing data aligned to specific regions of 
 
 ### Installing IGV
 
-Java is necessary to run IGV, you can download the jave runtime environment (JRE) for your operating system [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html). To determine if this step is necessary type `java -version` at your command prompt, if the program is not >= 1.7 you'll need to upgrade it. IGV can be downloaded [here](https://software.broadinstitute.org/software/igv/download). This tutorial will make use of IGV version 2.3, we strongly recommend that you upgrade IGV if you have an older version installed.
+Java is necessary to run IGV, you can download the java runtime environment (JRE) for your operating system [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html). To determine if this step is necessary type `java -version` at a command prompt, if the program is not >= 1.7 you'll need to upgrade it. IGV can be downloaded [here](https://software.broadinstitute.org/software/igv/download). This tutorial will make use of IGV version 2.3, we strongly recommend that you upgrade IGV if you have an older version installed.
 
 ### Data Set for IGV
 We will be using publicly available Illumina sequence data from the HCC1143 cell line. The HCC1143 cell line was generated from a 52 year old caucasian woman with breast cancer. Additional information on this cell line can be found [here](http://www.atcc.org/products/all/CRL-2321.aspx): (tumor, TNM stage IIA, grade 3, primary ductal carcinoma) and [HCC1143/BL](http://www.atcc.org/products/all/CRL-2362.aspx) (matched normal EBV transformed lymphoblast cell line). Reads within these cell lines have been filtered to Chromosome 21: 19,000,000-20,000,000 in order to reduce file sizes.
@@ -34,7 +34,7 @@ First, lets familiarize ourselves with it.
 
 By default, IGV loads Human (hg19). If you work with another version of the human genome, or another organism altogether, you can change the genome by clicking the drop down menu in the upper-left. For this lab, we will be using Human (hg19).
 
-We will also load additional tracks from **Server** using (`File` -> `Load from Server...`):
+We will also load additional tracks from the IGV **Server** using (`File` -> `Load from Server...`):
 
 * Ensembl genes (or your favourite source of gene annotations)
 * GC Percentage
@@ -45,7 +45,7 @@ We will also load additional tracks from **Server** using (`File` -> `Load from 
 
 #### Navigation
 
-You should see listing of chromosomes in this reference genome. Choose ***1***, for chromosome 1.
+You should see a listing of chromosomes for this reference genome. Choose ***1***, for chromosome 1.
 
 **Chromosome chooser**
 {% include figure.html image="/assets/IGV/chromosomes.png" width="750" %}
@@ -59,7 +59,7 @@ Navigate to **chr1:10,000-11,000** by entering this into the location field (in 
 
 IGV displays the sequence of letters in a genome as a sequence of colours (e.g. A = green, C = blue, etc.). This makes repetitive sequences, like the ones found at the start of this region, easy to identify. Zoom in a bit more using the `+` button (top right) to see the individual bases of the reference genome sequence.
 
-You can navigate to a gene of interest by typing it in the same box the genomic coordinates are in and pressing Enter/Return. Try it for your favourite gene, or *BRCA1* if you can not decide.
+You can navigate to a gene of interest by typing it into the same box that the genomic coordinates are in and pressing Enter/Return. Try it for your favourite gene, or *BRCA1* if you can not decide.
 
 **Gene model**
 {% include figure.html image="/assets/IGV/gene_model.png" width="450" %}
@@ -70,7 +70,7 @@ When loaded, tracks are stacked on top of each other. You can identify which tra
 
 #### Region Lists
 
-Sometimes, it is really useful to save where you are, or to load regions of interest. For this purpose, there is a **Region Navigator** in IGV. To access it, click `Regions` > `Region Navigator`. While you browse around the genome, you can save some bookmarks by pressing the `Add` button at any time.
+Sometimes, it is useful to save where you are, or to load regions of interest. For this purpose, there is a **Region Navigator** in IGV. To access it, click `Regions` > `Region Navigator`. While you browse around the genome, you can save some bookmarks by pressing the `Add` button at any time.
 
 **Bookmarks in IGV**
 {% include figure.html image="/assets/IGV/bookmarks.png" width="450" %}
@@ -82,7 +82,7 @@ We will be using the breast cancer cell line HCC1143 to visualize alignments. Fo
 * [HCC1143.normal.21.19M-20M.bam](http://genomedata.org/gen-viz-workshop/IGV/HCC1143.normal.21.19M-20M.bam)
 * [HCC1143.normal.21.19M-20M.bam.bai](http://genomedata.org/gen-viz-workshop/IGV/hcc1143/HCC1143.normal.21.19M-20M.bam.bai)
 
-Copy the files to your local drive, and in IGV choose `File` > `Load from File...`, select the bam file, and click `OK`. Note that the bam and index files must be in the same directory for IGV to load these properly.
+Copy the files to your local drive, and in IGV choose `File` > `Load from File...`, select the bam file, and click `OK`. Note that the bam and index files must be in the same directory for IGV to load these properly. Alternatively, you can copy the link location and load `File` > `Load from URL...`.
 
 **Load BAM track from File**
 {% include figure.html image="/assets/IGV/load_bam.png" width="750" %}
@@ -118,7 +118,7 @@ In this section we will be looking in detail at 8 positions in the genome, and d
 
 * Navigate to region `chr21:19,479,237-19,479,814`
 * Note two heterozygous variants, one corresponds to a known dbSNP (`G/T` on the right) the other does not (`C/T` on the left)
-* Zoom in and center on the `C/T` SNV on the left, sort by base (window `chr21:19,479,321` is the SNV position)
+* Zoom in and center on the `C/T` SNV on the left (`chr21:19,479,321` is the SNV position)
 * Sort alignments by `base`
 * Color alignments by `read strand`
 
