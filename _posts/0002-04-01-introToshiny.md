@@ -104,7 +104,7 @@ shinyServer(function(input, output) {
 })
 ```
 
-Once again, to view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal and go to [http://127.0.0.1:7777](http://127.0.0.1:7777). This should happen automatically from Rstudio. If your previous app is still running you may need to stop and restart it and/or refresh your browser. You should now see a ggplot graphic in your browser (see below). But, so far, nothing is interactive about this plot. We will allow some basic user input and interactivity in the next section.  
+Once again, to view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal and go to [http://127.0.0.1:7777](http://127.0.0.1:7777). This should happen automatically from Rstudio. If your previous app is still running you may need to stop and restart it and/or refresh your browser. You should now see a ggplot graphic in your browser (see below). But, so far, nothing is interactive about this plot. We will allow some basic user input and interactivity in the next section.
 
 {% include figure.html image="/assets/shiny/shiny_simple_output.png" width="1000" %}
 
@@ -125,16 +125,16 @@ axis_options <- c("Skin_d42_I_vaf", "MC_d0_clot_A_vaf", "MC_d0_slide_A_vaf", "BM
 
 # set up front end
 shinyUI(fluidPage(
-  
+
   # set up the UI layout with a side and main panel
   sidebarLayout(
-    
+
     # set the side panel to allow for user input
     sidebarPanel(
       selectInput(inputId="x_axis", label="x axis", choices=axis_options, selected="Skin_d42_I_vaf"),
       selectInput(inputId="y_axis", label="y axis", choices=axis_options, selected="MC_d0_clot_A_vaf")
     ),
-    
+
     # set the plot panel
     mainPanel(
       plotOutput("scatterPlot")
@@ -153,7 +153,7 @@ library(shiny)
 shinyServer(function(input, output) {
   # load the data
   amlData <- read.delim("data/shinyExampleData.tsv")
-  
+
   # construct a plot to show the data
   library(ggplot2)
   output$scatterPlot <- renderPlot({
@@ -177,4 +177,4 @@ Right now the plot looks fairly bland. Try adding the ability for the user to en
 
 {% include question.html question="Get a hint!" answer='You will want to use <a href="https://www.rdocumentation.org/packages/shinybootstrap2/versions/0.2.1/topics/textInput">textInput()</a> within the ui.R file for this and then link the input to the ggplot call.'%}
 
-{% include question.html question="Solution" answer='These files contain the correct answer: <a href="http://genomedata.org/gen-viz-workshop/intro_to_shiny/example1/ui.R">ui.R</a>, <a href="http://genomedata.org/gen-viz-workshop/intro_to_shiny/example1/server.R">server.R</a>'%}
+{% include question.html question="Solution" answer='These files contain the correct answer: <a href="http://genviz.org/assets/shiny/exercise1/ui.R">ui.R</a>, <a href="http://genviz.org/assets/shiny/exercise1/server.R">server.R</a>'%}

@@ -107,6 +107,6 @@ As with the majority of ggplot2 functions [covBars()](https://www.rdocumentation
 4. Change the x-axis title
 5. alter the legend to add 1200+ and change the legend title. You'll need to overwrite [scale_fill_gradientn()](http://ggplot2.tidyverse.org/reference/scale_gradient.html)
 
-{% include question.html question="Make the changes listed above to the GenVisR plot, the final output should look like the plot below." answer='This Rscript <a href="http://genomedata.org/gen-viz-workshop/GenVisR/GenVisR_covBars_Exercise1.R">file</a> contains the correct answer.'%}
+{% include question.html question="Make the changes listed above to the GenVisR plot, the final output should look like the plot below." answer='This Rscript <a href="http://genviz.org/assets/GenVisR/GenVisR_covBars_Exercise1.R">file</a> contains the correct answer.'%}
 
 {% include figure.html image="/assets/GenVisR/Coverage_Summary_v5.png" width="650" %}
