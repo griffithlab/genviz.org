@@ -13,9 +13,23 @@ There are at least three primary graphics programs available within the R enviro
 In this module, we will explore basic use of ggplot2 to plot genomic data. For illustration, we will use a set of mutation data from Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only). You can download a cleaned up version of Supplemental Table S5 at [http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv)
 
 ### Wide vs long format
-Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data may be expected in long instead of wide format. This simply means that instead of each non-id variable having it's own column there should be a column/columns designating key/value pairs. We can change between wide and long formats with the [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) and [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) functions from the reshape2 package.
+Before we begin it is important to know that ggplot expects the data passed to it to be of class data.frame. Further the data may be expected in long instead of wide format. This simply means that instead of each non-id variable having it's own column there should be a column/columns designating key/value pairs. The long format is generally required when grouping variables, for example stacked bar charts. We can change between wide and long formats with the [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) and [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) functions from the reshape2 package.
 
 {% include figure.html image="/assets/ggplot2/long_v_wide.png" width="750" %}
+
+Consider the following example, the `Orange` dataset that is preloaded in your R install is in wide format and we can create a scatterplot of the data with the code below.
+
+```R
+ggplot(Orange, aes(x=age, y=circumference)) + geom_point()
+```
+
+However when we must group variables, sush as when variables must share a mapping aesthetic (i.e. using color to group variables age and circumference) we must convert the data to long format.
+
+```R
+library(reshape2)
+Orange2 <- melt(data=Orange, id.vars=c("Tree"))
+ggplot(Orange2, aes(x=value, fill=variable)) + geom_density()
+```
 
 ### Introducing ggplot2 syntax
 ggplot is based on a system of layering graphical objects to create a final plot, and as mentioned utilizes data frames as its input. We will start by installing and loading the [ggplot2](http://ggplot2.tidyverse.org/) library. After importing our data ('ggplot2ExampleData.tsv'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) function and compare the coverage variable to the variant allele frequency (tumor_VAF).
