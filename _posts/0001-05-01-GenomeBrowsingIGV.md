@@ -5,7 +5,7 @@ title: Genome Browsing and Visualization - IGV
 categories:
     - Module 1
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0001-03-01
+date: 0001-05-01
 ---
 
 It is often necessary to examine sequencing data aligned to specific regions of the genome in order to obtain a clearer picture of genomic events. One of the most popular tools for this is the [Integrative Genomics Viewer](http://software.broadinstitute.org/software/igv/). After this lab you should be able to perform the following tasks:
