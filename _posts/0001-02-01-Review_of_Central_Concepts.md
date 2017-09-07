@@ -105,9 +105,7 @@ perl -pi -e 's/\r\n|\n|\r/\n/g' FileToChange.txt
 In essence the command above calls the perl regular expression engine and substitutes "\r\n" or "\n" or "\r" with "\n", editing the file in place.
 
 ##### Genome builds
-When doing any sort of bioinformatic analysis it is good to be cognizant of the reference assembly upon which your data is based
-
-##### Strandedness
+When doing any sort of bioinformatic analysis it is good to be cognizant of the reference assembly upon which your data is based. Each species has it's own reference assembly representing the genome of that species, and each species specific assembly can have multiple versions as our understanding of the genome for each species improves. When comparing across data sets, especially in terms of genomic coordinates, reference assemblies should always match. We will cover all of this in more detail in the [liftOver section](http://genviz.org/module%201/0001/06/02/liftoverTools/).
 
 ***
 
