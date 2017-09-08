@@ -14,7 +14,11 @@ The [Ensembl Genome Browser](http://www.ensembl.org/index.html) provides a porta
 
 {% include video.html id="42qZyXSH0Cc" %}
 
+<p><br></p>
+
 {% include question.html question="When do transcripts belong to the same gene?" answer="Transcripts that share exons are considered to belong to the same gene locus in Ensembl"%}
+
+<p><br></p>
 
 ### The Ensembl Genome Browser: an overview
 
