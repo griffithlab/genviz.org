@@ -16,4 +16,4 @@ Welcome to the Genomic Visualization and Interpretations tutorial series. The go
 * Be able to perform, visualize, and interpret expression, differential expression and pathway analysis
 * Be able to assess a variant's biological and clinical significance (e.g., VEP, ClinVar, and CIViC)
 
-[Module 1 Lecuture](http://genviz.org/lectures/GenViz_Module1_Lecture.pptx)
+[Module 1 Lecture](http://genviz.org/lectures/GenViz_Module1_Lecture.pptx)
