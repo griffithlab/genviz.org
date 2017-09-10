@@ -38,3 +38,10 @@ Now that we've gone over the basics of [rmarkdown](https://cran.r-project.org/we
 As we have mentioned you can insert a code chunk using the `insert` button on the top right. For example as shown below when selecting insert -> R, we get a code chunk formatted for R. However you can also add parameters to this code chunk to alter it's default behavior. A full list of these parameters is available [here](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf).
 
 {% include figure.html image="/assets/Rmarkdown/intro_2_rmarkdown_4.png" width="650" %}
+
+#### Exercises
+
+We have created a preliminary [rmarkdown](https://cran.r-project.org/web/packages/rmarkdown/index.html) file you can download [here](http://genviz.org/assets/Rmarkdown/rmarkdown_exercise1_question.Rmd). Fill in this document to make it more complete, and then knit it together. The steps you should follow are outlined in the [rmarkdown](https://cran.r-project.org/web/packages/rmarkdown/index.html) document. You can open this file in RStudio by going to File -> Open File. An Rmarkdown reference is available [here](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf).
+
+{% include question.html question="Get a hint!" answer='Look at the Rmarkdown reference guide mentioned above or the cheatsheets in Rstudio.'%}
+{% include question.html question="Answer" answer='Here is a more complete <a href="http://genviz.org/assets/Rmarkdown/rmarkdown_exercise1_answer.Rmd">.Rmd file</a>.'%}

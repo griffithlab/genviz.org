@@ -1,0 +1,43 @@
+---
+title: "Introduction To Markdown"
+author: "Your Name"
+date: "September 9, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Complete the steps below
+This is the rmakrdown file for the genviz.org tutorial series, complete the steps below and delete this section when complete.
+
+* add your name in the yaml header
+* load in the data
+* create a code chunk in the section "Data visualization"
+* create a plot matching the description in the section "Data visualization"
+* create a code chunk in the section "Data mean"
+* Set the code chunk to not display the code in the final document.
+
+## Data description
+The data used in this section is from the manuscript entitled "Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma".
+```{r}
+fl_data <- read.delim("~/Desktop/ggplot2ExampleData.tsv")
+```
+
+## Data visualization
+using geom_density() from the ggplot2 package we can see that the discovery cohort has an average tumor variant allele fraction (tumor_VAF) somewhere around 20%. The extension cohort has a wider distribution with an average variant allele fraction somewhere around 30-45%.
+```{r}
+library(ggplot2)
+ggplot(fl_data, aes(x=tumor_VAF, fill=dataset)) + geom_density(alpha=.4)
+```
+
+## Data mean
+More precisely we can see that the mean variant allele fraction for these cohorts are as follows
+```{r echo=FALSE}
+message("average tumor variant allele fraction in the discovery cohort")
+mean(fl_data[fl_data$dataset=="discovery","tumor_VAF"])
+message("average tumor variant allele fraction in the extension cohort")
+mean(fl_data[fl_data$dataset=="extension","tumor_VAF"])
+```
+
