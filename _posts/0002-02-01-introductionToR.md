@@ -256,7 +256,7 @@ sapply(x, sd)
 
 [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) loops over a data frame or matrix, applying the specified function to every row (specified by '1') or column (specified by '2'). For example, given a matrix x, apply(x, 1, min) will apply the [min()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extremes) function to every row of the matrix x, returning the minimum value of each row. Similarly, apply(x, 2, min) will apply the [min()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extremes) function to every column of matrix x, returning the minimum value in each column.
 
-{% include figure.html image="/assets/applyTable.png" width="750" %}
+{% include figure.html image="/assets/R/applyTable.png" width="750" %}
 
 ```R
 # set a seed for consistency
@@ -274,11 +274,11 @@ apply(x, 2, min)
 
 ## Functions in R
 
-A function is a way to store a piece of code so we don't have to type the same code repeatedly. Many existing functions are available in base R or the large number of packages available from CRAN and BioConductor. Occasionally however it may be helpful to define your own custom functions. Combining your own functions with the apply commands above is a powerful way to complete complex or custom analysis on your biological data. For example, suppose we want to determine the number of values in a vector above some cutoff. 
+A function is a way to store a piece of code so we don't have to type the same code repeatedly. Many existing functions are available in base R or the large number of packages available from CRAN and BioConductor. Occasionally however it may be helpful to define your own custom functions. Combining your own functions with the apply commands above is a powerful way to complete complex or custom analysis on your biological data. For example, suppose we want to determine the number of values in a vector above some cutoff.
 
 ```R
 
-# Create a vector of 10 randomly generated values between 1 and 100 
+# Create a vector of 10 randomly generated values between 1 and 100
 vec <- runif(n=10, min=1, max=100)
 
 # Create a function to determine the number of values in a vector greater than some cutoff
