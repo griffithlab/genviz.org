@@ -136,3 +136,6 @@ Repeat the exercise above where we extract variants from CIViC for *KRAS*, creat
 
 {% include question.html question="Get a hint!" answer='You should be able to do almost exactly what we did with VHL, but for <i>KRAS</i> instead'%}
 
+Advanced exercise. Identify a set of variants from your own gene for a single gene. Repeat the exercise above using these variants. If they are not human variants, it may be possible to first identify the closest human ortholog, and second to do "lift over"" of the coordinates.
+
+{% include question.html question="Get a hint!" answer='Depending on the form of the variants, some different kind of parsing and reformatting may be needed. If you need to convert the variants from one species to another you will learn more about tools for identifying orthologs and performing liftovers in later sections of this workshop. You may want to come back to this exercise...'%}
