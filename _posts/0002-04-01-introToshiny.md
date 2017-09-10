@@ -12,7 +12,7 @@ Interactive graphics is an emerging area particularly within R, there are many l
 
 ### Install shiny
 
-The [shiny](https://shiny.rstudio.com/) package is available on cran and is fairly easy to install using [install.packages()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/install.packages). Go ahead and install and load the package. The package has 11 example apps built in which can be viewed using the [runExample()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/runExample) function, we will be building our own app from scratch, but feel free to try out a few of these examples to get a feel for what shiny can do.
+The [shiny](https://shiny.rstudio.com/) package is available on cran and is fairly easy to install using [install.packages()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/install.packages). Go ahead and install and load the package. The package has 11 example apps built in which can be viewed using the [runExample()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/runExample) function, we will be building our own app from scratch, but feel free to try out a few of these examples to get a feel for what shiny can do. Shiny also provides a nice [gallery of example applications](https://shiny.rstudio.com/gallery/) and even a genomics example plotting [cancer genomics in a circos-style application](https://shiny.rstudio.com/gallery/genome-browser.html).
 ```R
 # install and load shiny
 install.packages("shiny")
