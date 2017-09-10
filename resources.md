@@ -8,6 +8,14 @@ layout: "home"
 
 Below are some additional resources that users may find useful to supplement the information presented here.
 
+### Lecture slides
+* [Module 0 Lecuture](http://genviz.org/lectures/GenViz_Module0_Lecture.pdf)
+* [Module 1 Lecuture](http://genviz.org/lectures/GenViz_Module1_Lecture.pdf)
+* [Module 3 Lecuture](http://genviz.org/lectures/GenViz_Module3_Lecture.pdf)
+* [Module 4 Lecuture](http://genviz.org/lectures/GenViz_Module4_Lecture.pdf)
+* [Module 5 Lecuture](http://genviz.org/lectures/GenViz_Module5_Lecture.pdf)
+* [Module 6 Lecuture](http://genviz.org/lectures/GenViz_Module6_Lecture.pdf)
+
 ### Genome Browsing and Visualization - IGV
 
 * [IGV home page](http://software.broadinstitute.org/software/igv/)
