@@ -35,15 +35,15 @@ The advent of rapid and cheap massively parallel sequencing has dramatically inc
 
 ### Reference Files
 
-Over this course we will be working with a number of refernce files to aid in analysis and interpretation of our data. All of these files are in standardized formats and are freely available. A brief description of each reference file is given below.
+Over this course we will be working with a number of reference files to aid in analysis and interpretation of our data. All of these files are in standardized formats and are freely available. A brief description of each reference file is given below.
 
 - [FASTA](http://genetics.bwh.harvard.edu/pph/FASTA.html){:target="_blank"}: Text files which contain nucleotide or peptide sequences.
 - [GTF](http://www.ensembl.org/info/website/upload/gff.html){:target="_blank"}: (Gene Transfer Format) Tab delimited files which hold information regarding gene structure.
 - [BED](http://www.ensembl.org/info/website/upload/bed.html){:target="_blank"}: (Browser Extensible Data) Tab delimited files hold feature information commonly used to diplay data on an annotation track. Cordinates within these files are 0-based.
 - [VCF](https://samtools.github.io/hts-specs/VCFv4.3.pdf){:target="_blank"} (Variant Call Format) Text file used to store observed sequence variations.
 - [VEP](http://www.ensembl.org/info/docs/tools/vep/vep_formats.html#output){:target="_blank"} (Variant Effect Predictor) Annotation file used to provide additional information for sequence variations. Originates from the ensembl VEP algortihm.
-- [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification){:target="_blank"} (Mutation Annotation Format) Annotation file used to provide additional information for sequence variations. Widely used in the cancer genome atlas.
-- [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map format and it's compressed equivalents binary and compressed alignment map are files for storing aligned sequencing data. BAM files are just binary files of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with [samtools](https://github.com/samtools/samtools).
+- [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification){:target="_blank"} (Mutation Annotation Format) Annotation file used to provide additional information for sequence variations. Widely used in the cancer genome atlas project.
+- [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map (SAM) format and it's compressed equivalents binary (BAM) and compressed alignment map (CRAM) are files for storing aligned sequencing data. BAM files are just binary files of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with [samtools](https://github.com/samtools/samtools).
 
 {% include question.html question="What character designates a header in a fasta file?" answer="\">\""%}
 {% include question.html question="What is the difference between 0-based and 1-based coordinates?" answer="0-based coordiantes number between nucleotides, 1-based coordinates number nucleotides directly."%}
@@ -59,7 +59,7 @@ A common task in genomic analysis and interpretation is collating information to
 * [biomart](http://www.biomart.org/)
 * UCSC [Variant Annotation Integrator](https://genome.ucsc.edu/cgi-bin/hgVai)
 
-In the same vein it is often beneficial to view acutal sequence data, again there are many resources available for this, we'll go over these within the course.
+In the same vein, it is often beneficial to view actual sequence data, again there are many resources available for this, we'll go over these within the course.
 
 * [UCSC Genome Browser](https://genome.ucsc.edu/index.html)
 * [Ensembl Web Browser](http://www.ensembl.org/index.html)
@@ -96,7 +96,7 @@ To indicate insertions or deletions:
 {% include figure.html image="/assets/Central_Concepts/insertion_or_deletion.jpg" width="950" %}
 
 ##### Differences in carriage returns
-In all unix based systems (OSX included) new line characters, commonly referred to as carriage returns are designated by the character "\n". However this is not a universal standard, windows programs such as exel designate a carriage return as "\r\n" mostly to maintain compatability with MS-DOS. This can create problems when attempting to use a file made via a windows application on a unix system. Specifically attemting to view one of these types of files on a unix system will not interperet "\r\n" as a new line but rather as "^M". This is something to be aware of but is fortunately easily remedies through any text processing language. Below you will find an example for fixing this file through [perl](https://www.perl.org/) via a command line.
+In all unix based systems (OSX included) new line characters, commonly referred to as carriage returns are designated by the character "\n". However this is not a universal standard, windows programs such as exel designate a carriage return as "\r\n" mostly to maintain compatability with MS-DOS. This can create problems when attempting to use a file made via a windows application on a unix system. Specifically, attempting to view one of these types of files on a unix system will not interpret "\r\n" as a new line but rather as "^M". This is something to be aware of but is fortunately easily remedied through any text processing language. Below you will find an example for fixing this file through [perl](https://www.perl.org/) via a command line.
 
 ```bash
 perl -pi -e 's/\r\n|\n|\r/\n/g' FileToChange.txt
@@ -105,23 +105,23 @@ perl -pi -e 's/\r\n|\n|\r/\n/g' FileToChange.txt
 In essence the command above calls the perl regular expression engine and substitutes "\r\n" or "\n" or "\r" with "\n", editing the file in place.
 
 ##### Genome builds
-When doing any sort of bioinformatic analysis it is good to be cognizant of the reference assembly upon which your data is based. Each species has it's own reference assembly representing the genome of that species, and each species specific assembly can have multiple versions as our understanding of the genome for each species improves. When comparing across data sets, especially in terms of genomic coordinates, reference assemblies should always match. We will cover all of this in more detail in the [liftOver section](http://genviz.org/module%201/0001/06/02/liftoverTools/).
+When doing any sort of bioinformatic analysis it is good to be aware of the reference assembly upon which your data is based. Each species has it's own reference assembly representing the genome of that species, and each species specific assembly can have multiple versions as our understanding of the genome for each species improves. When comparing across data sets, especially in terms of genomic coordinates, reference assemblies should always match. We will cover all of this in more detail in the [liftOver section](http://genviz.org/module%201/0001/06/02/liftoverTools/).
 
 ***
 
 ### Introduction to demonstration data settings
 
-Throughout this course we will be working with and visualizing many different datasets. Below we provide a brief overview of each core data set and what type of visualizations we will create with them.s
+Throughout this course we will be working with and visualizing many different datasets. Below we provide a brief overview of each core data set and what type of visualizations we will create with them.
 
 * Somatic variant calls from the manuscript ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only?sso-checked=true)
     * General ggplot2 graphs
-    * visualizing transitions and transversions
+    * Visualizing transitions and transversions
     * Interactive visualizations with shiny
     * Visualization of sequencing coverage
 * Somatic variant calls from the manusctipt ["A Phase I Trial of BKM120 (Buparlisib) in Combination with Fulvestrant in Postmenopausal Women with Estrogen Receptor-Positive Metastatic Breast Cancer."](https://www.ncbi.nlm.nih.gov/pubmed/26563128)
-    * waterfall plots
+    * Waterfall plots
 * Copy Number data from [Copycat2](https://github.com/abelhj/cc2) related to the manuscript ["Genomic characterization of HER2-positive breast cancer and response to neoadjuvant trastuzumab and chemotherapy-results from the ACOSOG Z1041 (Alliance) trial."](https://www.ncbi.nlm.nih.gov/pubmed/28453704)
-    * various copy number visualizations
+    * Various copy number visualizations
 * Aligned bam files and [varscan](http://varscan.sourceforge.net/) output files for the [HCC1395 breast cancer cell line](http://www.atcc.org/products/all/CRL-2321.aspx)
     * Visualizing data with IGV
     * Loss of Heterozygosity graphics

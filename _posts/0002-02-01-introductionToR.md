@@ -63,46 +63,66 @@ R also has a variety of datasets pre-loaded. In order to view these, type [data(
 
 ## Assignment and data types
 
-When working in any programming language, values are stored as variables. Defining a variable tells the language to allocate space in memory to store that variable. In R, a variable is assigned with the assignment operator "<-" or "=", which assigns a value to the variable in the user workspace or the current scope respectively. For the purposes of this course assignment should always occur with the "<-" operator. All variables are stored in objects. The least complex object is the atomic vector, which are of a specific type. The six main data types are: "numeric", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the is.*() family of functions which will return a logical vector. Alternatively, the data type can be determined with the [class()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/class) function. An example of each data type is shown below.
+When working in any programming language, values are stored as variables. Defining a variable tells the language to allocate space in memory to store that variable. In R, a variable is assigned with the assignment operator "<-" or "=", which assigns a value to the variable in the user workspace or the current scope respectively. For the purposes of this course, assignment should always occur with the "<-" operator. All variables are stored in objects. The least complex object is the atomic vector. Atomic vectors contain values of only one specific data type. Atomic vectors come in several different flavors (object types) defined by their data type. The six main data types (and corresponding object types) for atomic vectors are: "double (numeric)", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the [typeof()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/typeof) function. The object type can be checked with the [class()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/class) function. Alternatively, data type and object type can also be checked with the is.*() family of functions which will return a logical vector (True/False). Object and data types can also be coerced from one type to another using the as.*() family of functions. An example of each data type is shown below. In each case we will check the object and data type. We will also try coercing some objects/data from one type to another. Understanding and moving between data/object types is important because many R functions expect inputs to be of a certain type and will produce errors or unexpected results if provided with the wrong type.
 
 ```R
 # numeric
 foo <- 1.0
 is.numeric(foo)
+is.double(foo)
+typeof(foo)
 class(foo)
 
 # integer values are defined by the "L"
 bar <- 1L
 is.integer(bar)
+typeof(bar)
+class(bar)
 
 # character, used to represent strings
 baz <- "a"
 is.character(baz)
+typeof(baz)
+class(baz)
 
 # logical values are either TRUE or FALSE
 qux <- TRUE
 is.logical(qux)
+typeof(qux)
+class(qux)
 
 # the charToRaw() function is used to store the string in a bit format
 corge <- charToRaw("Hello World")
 is.raw(corge)
+typeof(corge)
+class(corge)
 
 # complex
 grault <- 4 + 4i
 is.complex(grault)
+typeof(grault)
+class(grault)
+
+#Try coercing foo from a numeric vector with data type double to an integer vector
+fooi <- as.integer(foo)
+typeof(fooi)
+class(fooi)
+
 ```
 
-## Data structures
-Data structures in R are objects comprising the data types mentioned above. The type of data structure is dependent upon the homogeneity of the stored data types and the number of dimensions. The most common data structure in R is the vector, which contains data in 1 dimension. There are two types: atomic vectors, which contain one data type (i.e. all numeric, all character, etc.) and lists, which contain multiple data types. Atomic vectors are created with the [c()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/c) function, and the data type contained within the atomic vector can be determined using the [typeof()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/typeof) funtion. Vectors in R can be sliced with brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame), using either a boolean vector or a numeric index.
+## Data structures (objects)
+Data structures in R are objects made up of the data types mentioned above. The type of data structure is dependent upon the homogeneity of the stored data types and the number of dimensions. Commonly used data structures include vectors, lists, matrices, arrays, factors, and dataframes. The most common data structure in R is the vector, which contains data in 1 dimension. There are two types: atomic vectors (discussed above), which contain one data type (i.e. all numeric, all character, etc.) and lists, which contain multiple data types. Atomic vectors are created with the [c()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/c) function. Recall from above that the data type contained within an atomic vector can be determined using the [typeof()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/typeof) function and the type of data object/structure determined with [class()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/class) function. These functions can also be used on more complex data structures. Vectors in R can be sliced (extracting a subset) with brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame), using either a boolean vector or a numeric index.
 
 ```R
 # Create an atomic vector
 vec <- c(1:10)
 
-# test that it is atomic, and of type numeric, and report the type
+# test that it is atomic, of object type numeric, of data type integer, and report the data and object type
 is.atomic(vec)
 is.numeric(vec)
+is.integer(vec)
 typeof(vec)
+class(vec)
 
 # coerce the numeric vector to character
 vec <- as.character(vec)
@@ -118,14 +138,18 @@ vec[vec == "5"]
 which(vec == "5")
 ```
 
-Lists are created using the [list()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/list) function and are used to make more complicated data structures. As mentioned lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract). However, single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return an element of the list as a list. Double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return the the designated element from the list. In general, you should always use double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) when you wish to extract a single item from a list in its expected type. You would use the single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) if you want to extract a subset of the list.
+Lists are created using the [list()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/list) function and are used to make more complicated data structures. As mentioned, lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract). However, single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return an element of the list as a list. Double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return the the designated element from the list. In general, you should always use double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) when you wish to extract a single item from a list in its expected type. You would use the single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) if you want to extract a subset of the list.
 
 ```R
-# create list
+# create list and verify its data and object type
 myList <- list(c(1:10), matrix(1:10, nrow=2), c("foo", "bar"))
+typeof(myList)
+class(myList)
 
 # extract the first element of the list (the vector of integers)
 myList[[1]]
+typeof(myList[[1]])
+class(myList[[1]])
 
 # extract a subset (e.g., the first and third items) of the list into a new list
 myList[c(1,3)]
@@ -239,7 +263,7 @@ sapply(x, sd)
 set.seed(426)
 
 # create a matrix
-x <- matrix(runif(40, 1, 100), ncol=5)
+x <- matrix(runif(n=40, min=1, max=100), ncol=5)
 
 # find the minimum value in each row
 apply(x, 1, min)
@@ -250,7 +274,30 @@ apply(x, 2, min)
 
 ## Functions in R
 
-TO DO - give a brief introduction and example of writing your own function. A function is a way to store a piece of code so we don't have to type the same code repeatedly. Combining your own functions with the apply commands above is a powerful way to complete complex or custom analysis on your biological data.
+A function is a way to store a piece of code so we don't have to type the same code repeatedly. Many existing functions are available in base R or the large number of packages available from CRAN and BioConductor. Occasionally however it may be helpful to define your own custom functions. Combining your own functions with the apply commands above is a powerful way to complete complex or custom analysis on your biological data. For example, suppose we want to determine the number of values in a vector above some cutoff. 
+
+```R
+
+# Create a vector of 10 randomly generated values between 1 and 100 
+vec <- runif(n=10, min=1, max=100)
+
+# Create a function to determine the number of values in a vector greater than some cutoff
+myfun <- function(x,cutoff){
+ len <- length(which(x>cutoff))
+ return(len)
+}
+
+# Run your the custom function on the vector with a cutoff of 50
+myfun(vec,50)
+
+# Create a matrix of 50 randomly generated values, arranged as 5 columns of 10 values
+mat <- matrix(runif(n=50, min=1, max=100), ncol=5)
+
+# Now, use the apply function, together with your custom function
+# Determine the number of values above 50 in each row of the matrix
+apply(mat, 1, myfun, 50)
+
+```
 
 ## Basic control structures
 
