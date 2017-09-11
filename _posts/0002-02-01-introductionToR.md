@@ -176,7 +176,7 @@ As we have seen, data can be created on the fly in R with the various data struc
 ```R
 
 # import data from a tab-delimited file hosted on the course data server
-data <- read.table(file="http://genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv", header=TRUE, sep="\t", na.strings = c("NA","N/A","na"), as.is=c(1:27,29:30))
+data <- read.table(file="http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv", header=TRUE, sep="\t", na.strings = c("NA","N/A","na"), as.is=c(1:27,29:30))
 
 # view the first few rows of the imported data
 head(data)
