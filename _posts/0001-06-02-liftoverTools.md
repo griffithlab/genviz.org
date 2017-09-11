@@ -84,4 +84,4 @@ How many different regions in the canine genome match the human region we specif
 
 ### Exercises
 Try to perform the same task we just complete with the web version of [liftOver](https://genome.ucsc.edu/cgi-bin/hgLiftOver), how are the results different?
-{% include question.html question="Answer" answer='both methods provide the same overall range, however using rtracklayer is not simplified and contains multiple ranges corresponding the chain file.' %}
+{% include question.html question="Answer" answer='both methods provide the same overall range, however using rtracklayer is not simplified and contains multiple ranges corresponding to the chain file.' %}
