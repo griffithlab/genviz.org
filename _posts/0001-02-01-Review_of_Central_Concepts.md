@@ -22,8 +22,10 @@ As quoted above the central dogma describes the flow of biological sequence info
 
 Delving in a bit deeper, DNA takes the form of a double stranded helix comprised of pairs of complementary bases. Adenine (A) and Guanine (G) are classified as purines and complement the pyrimidines Thymine (T) and Cytosine (C) respectively. During transcription DNA is transcribed into a single stranded mRNA molecule in which T bases are converted to uracil (U) and RNA editing such as the removal of introns is performed. This results in a mature mRNA structure composed of a 5' UTR, Coding sequence (CDS), 3' UTR, and a polyadenylated tail. The mature mRNA is then translated into a peptide sequence beginning at the AUG start codon within the CDS and folded into a protein.
 
-{% include question.html question="What is the mRNA sequence of: ATGTTTACTGCTGATGGCCGCTGA?" answer="AUGUUUACUGCUUGAUGGCCGCUGA"%}
-{% include question.html question="What is the translated peptide sequence in the previous question?" answer="Met-Phe-Thr-Ala-Asp-Gly-Arg-Opal"%}
+{% include question.html question="What is the reverse complement of: TCGCATTCAGCGGCCATCAGCAGTAAACATCTTAAC?" answer="GTT AAG ATG TTT ACT GCT GAT GGC CGC TGA ATG CGA"%}
+{% include question.html question="Does the resulting sequence contain an open reading frame (ORF)?" answer="Yes. Look for an ATG in frame with a TGA, TAA or TAG, or see the next question for the ORF"%}
+{% include question.html question="What is the mRNA sequence of: ATG TTT ACT GCT GAT GGC CGC TGA?" answer="AUG UUU ACU GCU GAU GGC CGC UGA"%}
+{% include question.html question="What is the translated peptide for the sequence in the previous question?" answer="Met-Phe-Thr-Ala-Asp-Gly-Arg-Stop (Methionine-Phenylalanine-Threonine-Alanine-Aspartic acid-Glycine-Arginine-Stop)"%}
 
 ***
 
@@ -47,7 +49,6 @@ Over this course we will be working with a number of reference files to aid in a
 - [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map (SAM) format and it's compressed equivalents binary (BAM) and compressed alignment map (CRAM) are files for storing aligned sequencing data. BAM files are just binary files of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with [samtools](https://github.com/samtools/samtools).
 
 {% include question.html question="What character designates a header in a fasta file?" answer="\">\""%}
-{% include question.html question="What is the difference between 0-based and 1-based coordinates?" answer="0-based coordiantes number between nucleotides, 1-based coordinates number nucleotides directly."%}
 
 ***
 
@@ -96,6 +97,8 @@ To indicate insertions or deletions:
 
 {% include figure.html image="/assets/Central_Concepts/insertion_or_deletion.jpg" width="950" %}
 
+{% include question.html question="What is the difference between 0-based and 1-based coordinates?" answer="0-based coordiantes number between nucleotides, 1-based coordinates number nucleotides directly."%}
+
 ##### Differences in carriage returns
 In all unix based systems (OSX included) new line characters, commonly referred to as carriage returns are designated by the character "\n". However this is not a universal standard, windows programs such as exel designate a carriage return as "\r\n" mostly to maintain compatability with MS-DOS. This can create problems when attempting to use a file made via a windows application on a unix system. Specifically, attempting to view one of these types of files on a unix system will not interpret "\r\n" as a new line but rather as "^M". This is something to be aware of but is fortunately easily remedied through any text processing language. Below you will find an example for fixing this file through [perl](https://www.perl.org/) via a command line.
 
@@ -110,7 +113,7 @@ When doing any sort of bioinformatic analysis it is good to be aware of the refe
 
 ***
 
-### Introduction to demonstration data settings
+### Introduction to demonstration data sets
 
 Throughout this course we will be working with and visualizing many different datasets. Below we provide a brief overview of each core data set and what type of visualizations we will create with them.
 
