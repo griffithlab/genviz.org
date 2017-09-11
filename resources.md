@@ -9,12 +9,13 @@ layout: "home"
 Below are some additional resources that users may find useful to supplement the information presented here.
 
 ### Lecture slides
-* [Module 0 Lecuture](http://genviz.org/lectures/GenViz_Module0_Lecture.pdf)
-* [Module 1 Lecuture](http://genviz.org/lectures/GenViz_Module1_Lecture.pdf)
-* [Module 3 Lecuture](http://genviz.org/lectures/GenViz_Module3_Lecture.pdf)
-* [Module 4 Lecuture](http://genviz.org/lectures/GenViz_Module4_Lecture.pdf)
-* [Module 5 Lecuture](http://genviz.org/lectures/GenViz_Module5_Lecture.pdf)
-* [Module 6 Lecuture](http://genviz.org/lectures/GenViz_Module6_Lecture.pdf)
+* [Module 0 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module0_Introductions.pdf)
+* [Module 1 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module1_Lecture.pdf)
+* [Module 2 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module2_Lecture.pdf)
+* [Module 3 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module3_Lecture.pdf)
+* [Module 4 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module4_Lecture.pdf)
+* [Module 5 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module5_Lecture.pdf)
+* [Module 6 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module6_Lecture.pdf)
 
 ### Genome Browsing and Visualization - IGV
 

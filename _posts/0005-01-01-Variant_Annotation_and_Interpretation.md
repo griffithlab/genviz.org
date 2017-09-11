@@ -25,4 +25,4 @@ Some here are some examples of variant annotation and interpretation contexts:
 
 * What other approaches can you think of?
 
-[Module 5 Lecuture](http://genviz.org/lectures/GenViz_Module5_Lecture.pptx)
+[Module 5 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module5_Lecture.pdf)

@@ -29,4 +29,4 @@ library(GenVisR)
 ### More GenVisR Functions
 For a full list of GenVisR functions with descriptions and examples, see the GenVisR reference manual and vignette on the Bioconductor page at [https://bioconductor.org/packages/release/bioc/html/GenVisR.html](https://bioconductor.org/packages/release/bioc/html/GenVisR.html).
 
-[Module 3 Lecuture](http://genviz.org/lectures/GenViz_Module3_Lecture.pptx)
+[Module 3 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module3_Lecture.pdf)
