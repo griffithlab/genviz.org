@@ -75,14 +75,17 @@ vhl_variants1 = x[,2]
 # Tidy up the names to remove the c. notations
 vhl_variants2 = gsub("\\s+\\(.*\\)", "", vhl_variants1, perl=TRUE)
 
+# Remove complex expressions beyond the "fs" in some variants
+vhl_variants3 = gsub("fs.*", "fs", vhl_variants2, perl=TRUE)
+
 # Limit to only those variants with a format like: L184P
-vhl_variants3 = vhl_variants2[grep("^\\w+\\d+\\w+", vhl_variants2, ignore.case = TRUE, perl=TRUE)]
+vhl_variants4 = vhl_variants3[grep("^\\w+\\d+\\w+", vhl_variants3, ignore.case = TRUE, perl=TRUE)]
 
 # Store the variant names for later
-vhl_variant_names = vhl_variants3
+vhl_variant_names = vhl_variants4
 
 # Extract the amino acid position numbers
-vhl_variant_positions = gsub("\\D+(\\d+)\\D+", "\\1", vhl_variants3, perl=TRUE)
+vhl_variant_positions = gsub("\\D+(\\d+)\\D+", "\\1", vhl_variants4, perl=TRUE)
 
 # Create a variant types list
 # M=MISSENSE, N=NONSENSE, F=FRAMESHIFT, I=PROTEININS, D=PROTEINDEL, S=SILENT
