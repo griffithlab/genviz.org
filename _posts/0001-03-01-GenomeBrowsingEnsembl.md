@@ -70,3 +70,7 @@ Using your knowledge of tissue-specific expression for a specific species/gene, 
 {% include question.html question="What is the tissue expession pattern for PSA?" answer="PSA is expressly almost exclusively in the prostrate gland and only lowly in a few other tissues."%}
 <p><br></p>
 
+### Ensembl Genomes - Extending Ensembl across the taxonomic space
+The [EnsemblGenomes](http://ensemblgenomes.org/) site hosts genome-scale data from ~57,000 species, most of which are not available through the core Ensembl. Data are organized into five taxonomic categories: bacteria (n=50364), protists (n=200), fungi (n=882), plants (n=47), and metazoa (n=68). Each generally provides at least a preliminary genome assembly, gene annotations, and to varying degrees includes: variation data, pan compara data, genome alignments, peptide alignments, and other alignments. If your species is not in Ensembl it is worth checking whether it is available in EnsemblGenomes.
+
+
