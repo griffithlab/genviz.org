@@ -154,6 +154,9 @@ vec[which(vec >= 5)]
   
 ```
 
+{% include question.html question="Why was it necessary to coerce vec to a numeric vector before asking for values >=5?" answer='In order for R to correctly perform the numeric conditional test you need the vector to be numeric.'%}
+{% include question.html question="What happens if you leave it as character?" answer='Unexpected/nonsensical results happen if you apply a numeric conditional test to a character vector. In this case 2 and 3 are correctly called FALSE and 5-9 are correctly called TRUE but 10,15,20,25 and 30 are incorrectly and mysteriously called FALSE (i.e., not >= 5).'%}
+
 Lists are created using the [list()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/list) function and are used to make more complicated data structures. As mentioned, lists can be heterogeneous, containing multiple data types, objects, or structures (even other lists). Like vectors, items from a list can also be extracted using brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract). However, single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return an element of the list as a list. Double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) are used to return the the designated element from the list. In general, you should always use double brackets [[[]]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) when you wish to extract a single item from a list in its expected type. You would use the single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract) if you want to extract a subset of the list.
 
 ```R
@@ -380,19 +383,19 @@ In mySum(), we use a for loop to sum all the elements of the vector. The syntax 
 First, download an existing pre-processed and normalized [gene expression dataset](https://github.com/obigriffith/biostar-tutorials/raw/master/MachineLearning/testset_gcrma.txt) (right-click and save as). This dataset represents the GCRMA normalized data for 12030 probesets (Affymetrix U133A) from 189 Estrogen Receptor (ER) positive breast cancers. It includes Affymetrix probeset id, Entrez Gene ID, and Gene Symbol in addition to 189 expression values per probeset (row). 
 
 Using the skills you've learned above:
-1) Read the file into R.
-2) Extract just a matrix of expression data values (probeset x sample).
-3) Write custom functions to determine, for a vector, (A) the % of values with raw intensity >= 100 (Note: the data are currently on a log2 scale) AND (B) the coefficient of variation.
-4) Apply your custom functions to all the rows (probesets) of the expression matrix (COV).
-5) Extract the subset of the matrix for which (A) the % of values with raw intensity of at least 100 is >= 20 AND (B) the COV >= 0.7. 
+1. Read the file into R;
+2. Extract just a matrix of expression data values (probeset vs. sample);
+3. Write custom functions to determine, for a vector, (A) the % of values with raw intensity >= 100 (Note: the data are currently on a log2 scale and should first be unlogged) AND (B) the coefficient of variation;
+4. Apply your custom functions to all the rows (probesets) of the expression matrix and save as separate vectors;
+5. Extract the subset of the matrix for which (A) the % of values with raw intensity of at least 100 is >= 20 AND (B) the COV >= 0.7; 
 
-{% include question.html question="Get a hint!" answer='When importing the expression data, you might consider using as.is to prevent R from interpreting probe and gene IDs as factors'%}
-{% include question.html question="Get a hint!" answer='To reverse a log2 calculation in R you can use the format 2^X where X can be a vector or matrix of log2 values'%}
-{% include question.html question="Get a hint!" answer='For the percent expression function, considering using the which and length functions'%}
-{% include question.html question="Get a hint!" answer='The coefficient of variation is defined as sd/mean'%}
-{% include question.html question="Get a hint!" answer='Save the results of applying each of your functions (percent expressed and COV into vectors. Then, you can use the which and & functions to determine which probes meet both your conditions'%}
-{% include question.html question="Answer" answer='There are 1454 probesets that have >= 20% of samples with raw intensity above 100 and COV >= 0.7 '%}
-{% include question.html question="Solution" answer='This file contains the correct answer: <a href="http://genviz.org/assets/R/exercise1/introR_solution.R">introR_solution.R</a>'%}
+{% include question.html question="Get a hint!" answer='When importing the expression data, you might consider using as.is to prevent R from interpreting probe and gene IDs as factors.'%}
+{% include question.html question="Get a hint!" answer='To reverse a log2 calculation in R you can use the format 2^X where X can be a vector or matrix of log2 values.'%}
+{% include question.html question="Get a hint!" answer='For the percent expression function, considering using the which and length functions.'%}
+{% include question.html question="Get a hint!" answer='The coefficient of variation is defined as sd/mean.'%}
+{% include question.html question="Get a hint!" answer='Save the results of applying each of your functions (percent expressed and COV into vectors. Then, you can use the which and & functions to determine which probes meet both your conditions.'%}
+{% include question.html question="Answer" answer='There are 1454 probesets that have >= 20% of samples with raw intensity above 100 and COV >= 0.7. '%}
+{% include question.html question="Solution" answer='This file contains the correct answer: <a href="http://genviz.org/assets/R/exercise1/introR_solution.R">introR_solution.R</a>.'%}
 
 ## Additional resources
 
