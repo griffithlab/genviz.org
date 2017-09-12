@@ -90,6 +90,7 @@ When working in any programming language, values are stored as variables. Defini
 ```R
 # numeric
 foo <- 1.0
+foo
 is.numeric(foo)
 is.double(foo)
 typeof(foo)
@@ -97,36 +98,42 @@ class(foo)
 
 # integer values are defined by the "L"
 bar <- 1L
+bar
 is.integer(bar)
 typeof(bar)
 class(bar)
 
 # character, used to represent strings
 baz <- "a"
+baz
 is.character(baz)
 typeof(baz)
 class(baz)
 
 # logical values are either TRUE or FALSE
 qux <- TRUE
+qux
 is.logical(qux)
 typeof(qux)
 class(qux)
 
 # the charToRaw() function is used to store the string in a bit format
 corge <- charToRaw("Hello World")
+corge
 is.raw(corge)
 typeof(corge)
 class(corge)
 
 # complex
 grault <- 4 + 4i
+grault
 is.complex(grault)
 typeof(grault)
 class(grault)
 
 #Try coercing foo from a numeric vector with data type double to an integer vector
 fooi <- as.integer(foo)
+fooi
 typeof(fooi)
 class(fooi)
 
