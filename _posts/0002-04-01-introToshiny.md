@@ -31,10 +31,13 @@ After checkiny it out, use the escape key to stop the shiny app.
 
 ### Structure of a shiny app
 
-The basic code to run any shiny app is split into two parts the server (e.g., server.R) and user interface (e.g., ui.R). The server script is the [back end](https://en.wikipedia.org/wiki/Front_and_back_ends) of our shiny web app and contains the instructions to build the app. The user interface script is the [front end](https://en.wikipedia.org/wiki/Front_and_back_ends) and is essentially what a user views and interacts with. Both of these files should be in the same directory for the app to work properly. Go ahead and make a folder for our shiny app called "testApp" and create the following two scripts there. This is the bare minimum for a shiny app and will generate an empty web application.
+The basic code to run any shiny app is split into two parts the server (e.g., server.R) and user interface (e.g., ui.R). The server script is the [back end](https://en.wikipedia.org/wiki/Front_and_back_ends) of our shiny web app and contains the instructions to build the app. The user interface script is the [front end](https://en.wikipedia.org/wiki/Front_and_back_ends) and is essentially what a user views and interacts with. Both of these files should be in the same directory for the app to work properly. 
 
-* ui.R
+Go ahead and make a folder for our shiny app called "testApp".
 
+Next create the following two scripts there: `ui.R` and `server.R`. This is the bare minimum for a shiny app and will generate an empty web application.
+
+* Put the following in a file: `ui.R`
 ```R
 # load shiny library
 library(shiny)
@@ -43,8 +46,8 @@ library(shiny)
 shinyUI(fluidPage(
 ))
 ```
-* server.R
 
+* Put the following in a file: `server.R`
 ```R
 # load shiny library
 library(shiny)
@@ -54,7 +57,21 @@ shinyServer(function(input, output) {
 })
 ```
 
-To view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal. For convenience in this tutorial, we have selected a specific port instead of letting shiny choose one randomly. Make sure that your current working directory in R is set to the top level of "testApp" where you put server.R and ui.R. You can use [getwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) and [setwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) to print and set this respectively. So far, all you should see is an empty web page at [http://127.0.0.1:7777](http://127.0.0.1:7777).
+To view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal. For convenience in this tutorial, we have selected a specific port instead of letting shiny choose one randomly. 
+
+Make sure that your current working directory in R is set to the top level of "testApp" where you put server.R and ui.R. 
+
+You can use [getwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) and [setwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) to print and set this respectively. 
+test
+So far, all you should see is an empty web page at [http://127.0.0.1:7777](http://127.0.0.1:7777).
+
+Example:
+```R
+getwd()
+setwd("/Users/mgriffit/Desktop/testApp)
+getwd()
+runApp(port=7777)
+```
 
 ### Loading data into the shiny back end (server)
 Now that we've got a basic frame work up let's go ahead and load some data and answer a few questions. The data we will use is supplemental table 6 from the paper ["Comprehensive genomic analysis reveals FLT3 activation and a therapeutic strategy for a patient with relapsed adult B-lymphoblastic leukemia."](https://www.ncbi.nlm.nih.gov/pubmed/27181063). The data contains variant allele frequency (VAF) values from a targeted capture sequencing study of an adult AML patient with 11 samples of various cell populations and timepoints. You can download the table [here](http://genomedata.org/gen-viz-workshop/intro_to_shiny/shinyExampleData.tsv). For simplicity, make a "data" directory in your app and place the data file there. We can load this data into shiny as you would any other data in R. Just be sure to do this in the server.R script and place the code within the unamed function. Add the following to your server.R script to make the data available within the shiny server.
