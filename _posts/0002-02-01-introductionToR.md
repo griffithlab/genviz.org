@@ -48,7 +48,7 @@ sessionInfo()
 
 What do you see by executing `sessionInfo()` twice?
 {% include question.html question="Get a hint!" answer='sessionInfo displays the characteristics of your current R session, including R version info, and packages currently loaded.'%}
-{% include question.html question="Answer" answer='Before running library(plyr), the library is not in memory according to sessionInfo(), after loading it, we can see that is it is loaded.'%}
+{% include question.html question="Answer" answer='Before running library(plyr), the library is not in memory according to sessionInfo(), after loading it, we can see that it is loaded.'%}
 
 To see what packages are currently available in your R installation you can do the following:
 
