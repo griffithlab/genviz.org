@@ -77,7 +77,9 @@ runApp(port=7777)
 Now that we've got a basic frame work up let's go ahead and load some data and answer a few questions. The data we will use is supplemental table 6 from the paper ["Comprehensive genomic analysis reveals FLT3 activation and a therapeutic strategy for a patient with relapsed adult B-lymphoblastic leukemia."](https://www.ncbi.nlm.nih.gov/pubmed/27181063). The data contains variant allele frequency (VAF) values from a targeted capture sequencing study of an adult AML patient with 11 samples of various cell populations and timepoints.
 
 You can download the table [here](http://genomedata.org/gen-viz-workshop/intro_to_shiny/shinyExampleData.tsv). 
-For simplicity, make a "data" directory in your app and place the data file there. We can load this data into shiny as you would any other data in R. Just be sure to do this in the server.R script and place the code within the unamed function. Add the following to your server.R script to make the data available within the shiny server.
+For simplicity, make a "data" directory in your app and place the data file there. 
+
+We can load this data into shiny as you would any other data in R. Just be sure to do this in the server.R script and place the code within the unamed function. Add the following to your server.R script to make the data available within the shiny server.
 * server.R
 
 ```R
