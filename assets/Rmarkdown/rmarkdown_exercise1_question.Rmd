@@ -10,17 +10,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Complete the steps below
-This is the rmakrdown file for the genviz.org tutorial series, complete the steps below and delete this section when complete.
+This is the rmarkdown file for the genviz.org tutorial series, complete the steps below and delete this section when complete.
 
 * add your name in the yaml header
 * load in the data
 * create a code chunk in the section "Data visualization"
 * create a plot matching the description in the section "Data visualization"
 * create a code chunk in the section "Data mean"
-* Set the code chunk to not display the code in the final document.
+* Set the code chunk to not display this last block of code in the final document.
 
 ## Data description
-The data used in this section is from the manuscript entitled "Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma".
+The data used in this section is from the manuscript entitled "Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma" (PMID: [28064239](https://www.ncbi.nlm.nih.gov/pubmed/28064239)).
 ```{r}
 fl_data <- read.delim("ggplot2ExampleData.tsv")
 ```
