@@ -8,11 +8,11 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-04-01
 ---
 
-Interactive graphics is an emerging area particularly within R, there are many libraries available to make these sorts of visualizations however most of these libraries are still nascent. In this sub-module we will give a brief overview of [shiny](https://shiny.rstudio.com/), a web application framework within R for building interactive web pages. Using shiny we will build a simple application to display our data using reactive data sets and ggplot.
+Interactive graphics is an emerging area within R. There are many libraries available to make interactive visualizations, however most of these libraries are still quite new. In this sub-module we will give a brief overview of [shiny](https://shiny.rstudio.com/), a web application framework within R for building interactive web pages. Using shiny we will build a simple application to display our data using reactive data sets and ggplot.
 
 ### Install shiny
 
-The [shiny](https://shiny.rstudio.com/) package is available on cran and is fairly easy to install using [install.packages()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/install.packages). Go ahead and install and load the package. The package has 11 example apps built in which can be viewed using the [runExample()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/runExample) function, we will be building our own app from scratch, but feel free to try out a few of these examples to get a feel for what shiny can do. Shiny also provides a nice [gallery of example applications](https://shiny.rstudio.com/gallery/) and even a genomics example plotting [cancer genomics in a circos-style application](https://shiny.rstudio.com/gallery/genome-browser.html).
+The [shiny](https://shiny.rstudio.com/) package is available on cran and is fairly easy to install using [install.packages()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/install.packages). Go ahead and install and load the package. The package comes with 11 example apps that can be viewed using the [runExample()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/runExample) function, we will be building our own app from scratch, but feel free to try out a few of these examples to get a feel for what shiny can do. Shiny also provides a nice [gallery of example applications](https://shiny.rstudio.com/gallery/) and even a genomics example plotting [cancer genomics data in a circos-style application](https://shiny.rstudio.com/gallery/genome-browser.html).
 ```R
 # install and load shiny
 install.packages("shiny")
