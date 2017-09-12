@@ -415,7 +415,7 @@ Using the skills you've learned above:
 {% include question.html question="Get a hint!" answer='To reverse a log2 calculation in R you can use the format 2^X where X can be a vector or matrix of log2 values.'%}
 {% include question.html question="Get a hint!" answer='For the percent expression function, considering using the which and length functions.'%}
 {% include question.html question="Get a hint!" answer='The coefficient of variation is defined as sd/mean.'%}
-{% include question.html question="Get a hint!" answer='Save the results of applying each of your functions (percent expressed and COV into vectors. Then, you can use the which and & functions to determine which probes meet both your conditions.'%}
+{% include question.html question="Get a hint!" answer='Save the results of applying each of your functions (percent expressed and COV) into vectors. Then, you can use the which and & functions to determine which probes meet both your conditions.'%}
 {% include question.html question="Answer" answer='There are 1454 probesets that have >= 20% of samples with raw intensity above 100 and COV >= 0.7. '%}
 {% include question.html question="Solution" answer='This file contains the correct answer: <a href="http://genviz.org/assets/R/exercise1/introR_solution.R">introR_solution.R</a>.'%}
 
