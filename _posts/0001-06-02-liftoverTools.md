@@ -35,7 +35,7 @@ There are many resources available to convert coordinates from one assemlby to a
 
 {% include figure.html image="/assets/liftOver/liftOver_1.png" width=650 %}
 
-Wee want to transfer our coordinates from the dm3 assembly to the dm6 assembly so let's make sure the original and new assemblies are set appropriately as well.
+We want to transfer our coordinates from the dm3 assembly to the dm6 assembly so let's make sure the original and new assemblies are set appropriately as well.
 
 {% include figure.html image="/assets/liftOver/liftOver_2.png" width=650 %}
 
