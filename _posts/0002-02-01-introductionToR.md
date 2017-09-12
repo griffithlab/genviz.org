@@ -180,6 +180,14 @@ vec >= 5
 # Determine the indices of the vector with values >= 5 and then extract those elements
 which(vec >= 5)
 vec[which(vec >= 5)]
+
+# Do something similar, using which() but for a matrix. 
+# Create a 5x10 matrix where values are randomly 1:10
+x <- sample(1:10, size = 50, replace=TRUE)
+a <- matrix(x, nrow=5)
+
+# Find all the elements of that matrix that are '3'
+which(a==3, arr.ind=TRUE)
   
 ```
 
