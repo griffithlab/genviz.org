@@ -32,10 +32,32 @@ Rstudio can be downloaded at [https://www.rstudio.com/](https://www.rstudio.com/
 
 #### CRAN
 
-Part of what makes R an attractive option for data analysis and visualization is the support it receives from a large community of developers. Part of this support comes from users adding additional functionality to core R via functions and data through packages. The Comprehensive R Archive network (CRAN) is a network of servers that stores R, documentation, and many of the packages available for R. To date there are 9,975 [packages on CRAN](https://cran.r-project.org/web/packages/), these packages can be installed by running the install.packages() command in an R terminal. For example, to install the ['plyr'](https://cran.r-project.org/web/packages/plyr/index.html) package, run the following command in an R terminal:
+Part of what makes R an attractive option for data analysis and visualization is the support it receives from a large community of developers. Part of this support comes from users adding new functionality to core R via functions and data through packages. The Comprehensive R Archive network (CRAN) is a network of servers that stores R, documentation, and many of the packages available for R. To date there are 9,975 [packages on CRAN](https://cran.r-project.org/web/packages/), these packages can be installed by running the install.packages() command in an R terminal. For example, to install the ['plyr'](https://cran.r-project.org/web/packages/plyr/index.html) package, run the following command in an R terminal:
 ```R
-# install the plyr package by Hadley Wickham
+# Install the plyr package by Hadley Wickham
 install.packages("plyr")
+```
+
+An R package is a collection of functions, data and compiled code. Once a package is installed, it still needs to be loaded into memory before use. The `library()` function is used to load a package into memory. Once loaded, the functions and datasets of the package can be used.
+
+```R
+sessionInfo()
+library(plyr)
+sessionInfo()
+```
+
+What do you see by executing `sessionInfo()` twice?
+{% include question.html question="Get a hint!" answer='sessionInfo displays the characteristics of your current R session, including R version info, and packages currently loaded.'%}
+{% include question.html question="Answer" answer='Before running `library(plyr), the library is not in memory according to sessionInfo(), after loading it, we can see that is it is loaded.`'%}
+
+To see what packages are currently available in your R installation you can do the following:
+
+```R
+# Where package files are installed on your computer
+.libPaths()
+
+# All packages currently installed
+lapply(.libPaths(), dir)
 ```
 
 #### Bioconductor
