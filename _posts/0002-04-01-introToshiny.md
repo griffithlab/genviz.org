@@ -68,7 +68,7 @@ So far, all you should see is an empty web page at [http://127.0.0.1:7777](http:
 Example:
 ```R
 getwd()
-setwd("/Users/mgriffit/Desktop/testApp)
+setwd("/Users/mgriffit/Desktop/testApp")
 getwd()
 runApp(port=7777)
 ```
@@ -138,7 +138,9 @@ shinyServer(function(input, output) {
 })
 ```
 
-Once again, to view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal and go to [http://127.0.0.1:7777](http://127.0.0.1:7777). This should happen automatically from Rstudio. If your previous app is still running you may need to stop and restart it and/or refresh your browser. You should now see a ggplot graphic in your browser (see below). But, so far, nothing is interactive about this plot. We will allow some basic user input and interactivity in the next section.
+Once again, to view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal and go to [http://127.0.0.1:7777](http://127.0.0.1:7777). 
+
+This should happen automatically from Rstudio. If your previous app is still running you may need to stop and restart it and/or refresh your browser. You should now see a ggplot graphic in your browser (see below). But, so far, nothing is interactive about this plot. We will allow some basic user input and interactivity in the next section.
 
 {% include figure.html image="/assets/shiny/shiny_simple_output.png" width="1000" %}
 
