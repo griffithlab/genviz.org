@@ -181,14 +181,14 @@ vec >= 5
 which(vec >= 5)
 vec[which(vec >= 5)]
 
-# Do something similar, using which() but for a matrix. 
+# Do something similar, using which() but for a matrix.
 # Create a 5x10 matrix where values are randomly 1:10
 x <- sample(1:10, size = 50, replace=TRUE)
 a <- matrix(x, nrow=5)
 
 # Find all the elements of that matrix that are '3'
 which(a==3, arr.ind=TRUE)
-  
+
 ```
 
 {% include question.html question="Why was it necessary to coerce vec to a numeric vector before asking for values >=5?" answer='In order for R to correctly perform the numeric conditional test you need the vector to be numeric.'%}
@@ -417,14 +417,14 @@ In mySum(), we use a for loop to sum all the elements of the vector. The syntax 
 
 ### Practical Exercise
 
-First, download an existing pre-processed and normalized [gene expression dataset](https://github.com/obigriffith/biostar-tutorials/raw/master/MachineLearning/testset_gcrma.txt) (right-click and save as). This dataset represents the GCRMA normalized data for 12030 probesets (Affymetrix U133A) from 189 Estrogen Receptor (ER) positive breast cancers. It includes Affymetrix probeset id, Entrez Gene ID, and Gene Symbol in addition to 189 expression values per probeset (row). 
+First, download an existing pre-processed and normalized [gene expression dataset](https://github.com/obigriffith/biostar-tutorials/raw/master/MachineLearning/testset_gcrma.txt) (right-click and save as). This dataset represents the GCRMA normalized data for 12030 probesets (Affymetrix U133A) from 189 Estrogen Receptor (ER) positive breast cancers. It includes Affymetrix probeset id, Entrez Gene ID, and Gene Symbol in addition to 189 expression values per probeset (row).
 
 Using the skills you've learned above:
 1. Read the file into R;
 2. Extract just a matrix of expression data values (probeset vs. sample);
 3. Write custom functions to determine, for a vector, (A) the % of values with raw intensity >= 100 (Note: the data are currently on a log2 scale and should first be unlogged) AND (B) the coefficient of variation;
 4. Apply your custom functions to all the rows (probesets) of the expression matrix and save as separate vectors;
-5. Extract the subset of the matrix for which (A) the % of values with raw intensity of at least 100 is >= 20 AND (B) the COV >= 0.7; 
+5. Extract the subset of the matrix for which (A) the % of values with raw intensity of at least 100 is >= 20 AND (B) the COV >= 0.7;
 
 {% include question.html question="Get a hint!" answer='When importing the expression data, you might consider using as.is to prevent R from interpreting probe and gene IDs as factors.'%}
 {% include question.html question="Get a hint!" answer='To reverse a log2 calculation in R you can use the format 2^X where X can be a vector or matrix of log2 values.'%}
@@ -436,4 +436,4 @@ Using the skills you've learned above:
 
 ## Additional resources
 
-* [http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html](http://www.noamross.net/blog/2014/4/16/vectorization-in-r–why.html)
+* [http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html](http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html)
