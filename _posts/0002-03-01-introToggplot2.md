@@ -10,7 +10,7 @@ date: 0002-03-01
 
 There are at least three primary graphics programs available within the R environment. A package for [base R graphics](https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/00Index.html) is installed by default and provides a simple mechanism to quickly create graphs. [lattice](https://cran.r-project.org/web/packages/lattice/index.html) is another graphics package that attempts to improve on base R graphics by providing better defaults and the ability to easily display multivariate relationships. In particular, the package supports the creation of trellis graphs - graphs that display a variable or the relationship between variables, conditioned on one or more other variables. Finally, [ggplot2](http://ggplot2.org/) is a graphics program based on the grammar of graphics idealogy, and will be the primary focus of this course.
 
-In this module, we will explore basic use of ggplot2 to plot genomic data. For illustration, we will use a set of mutation data from Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only). You can download a cleaned up version of Supplemental Table S5 at [http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv)
+In this module, we will explore basic use of ggplot2 to plot genomic data. For illustration, we will use a set of mutation data from Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only). You can download a cleaned up version of Supplemental Table S5 at [http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv)
 
 ### Introducing ggplot2 syntax
 ggplot is based on a system of layering graphical objects to create a final plot. We will start by installing and loading the [ggplot2](http://ggplot2.tidyverse.org/) library. Next, it is important to know that ggplot expects the data passed to it to be of class data.frame. After importing our data ('ggplot2ExampleData.tsv'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) function and compare the coverage variable to the variant allele frequency (tumor_VAF).
@@ -21,7 +21,7 @@ install.packages("ggplot2")
 library(ggplot2)
 
 # load Supplemental Table S5
-variantData <- read.delim("http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
+variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
 
 #Familiarize yourself with the data in this file by looking at the 'head' (top) of the file
 head(variantData)
@@ -233,7 +233,7 @@ In some cases, ggplot may expect data to be in 'long' instead of 'wide' format. 
 
 {% include figure.html image="/assets/ggplot2/long_v_wide.png" width="750" %}
 
-Consider the following example. The `Orange` dataset that is preloaded in your R install is in wide format and we can create a 
+Consider the following example. The `Orange` dataset that is preloaded in your R install is in wide format and we can create a
 scatterplot of the data with the code below.
 
 ```R
@@ -255,10 +255,10 @@ ggplot(Orange2, aes(x=value, fill=variable)) + geom_density()
 ### ggplot2 Practice examples
 Now that we've had an introduction to ggplot2 let's try a few practice examples. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
 
-Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/ggplot2ExampleData.tsv) dataset we've been using to explore this.  Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
+Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) dataset we've been using to explore this.  Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
 ```R
 # load the dataset
-variantData <- read.delim("http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
+variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
 variantData <- variantData[variantData$dataset == "discovery",]
 ```
 {% include figure.html image="/assets/ggplot2/ggplot2Example1.png" width="950" %}
