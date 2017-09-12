@@ -27,6 +27,8 @@ runExample("06_tabsets")
 
 What shiny is actually doing here is converting the [R](https://www.r-project.org/) code to [html pages](https://en.wikipedia.org/wiki/HTML) and serving those on a random port using the ip address 127.0.0.1 which is [localhost](https://en.wikipedia.org/wiki/Localhost) on most computers. In simplified terms these [html pages](https://en.wikipedia.org/wiki/HTML) are simply being hosted by your own computer. If you are in Rstudio your web application should have been opened automatically, however you can also view these with any modern web browser by going to the web address listed after calling [runExample()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/runExample). It should look something like this: http://127.0.0.1:4379.
 
+After checkiny it out, use the escape key to stop the shiny app.
+
 ### Structure of a shiny app
 
 The basic code to run any shiny app is split into two parts the server (e.g., server.R) and user interface (e.g., ui.R). The server script is the [back end](https://en.wikipedia.org/wiki/Front_and_back_ends) of our shiny web app and contains the instructions to build the app. The user interface script is the [front end](https://en.wikipedia.org/wiki/Front_and_back_ends) and is essentially what a user views and interacts with. Both of these files should be in the same directory for the app to work properly. Go ahead and make a folder for our shiny app called "testApp" and create the following two scripts there. This is the bare minimum for a shiny app and will generate an empty web application.
