@@ -421,7 +421,7 @@ First, download an existing pre-processed and normalized [gene expression datase
 
 Using the skills you've learned above:
 1. Read the file into R;
-2. Extract just a matrix of expression data values (probeset vs. sample);
+2. Extract a matrix of just the expression data values (probeset vs. sample) without the probe and gene ID columns;
 3. Write custom functions to determine, for a vector, (A) the % of values with raw intensity >= 100 (Note: the data are currently on a log2 scale and should first be unlogged) AND (B) the coefficient of variation;
 4. Apply your custom functions to all the rows (probesets) of the expression matrix and save as separate vectors;
 5. Extract the subset of the matrix for which (A) the % of values with raw intensity of at least 100 is >= 20 AND (B) the COV >= 0.7;
