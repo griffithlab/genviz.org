@@ -104,6 +104,7 @@ all(sort(unique(as.character(clinicalData$Simple_name))) == sort(unique(as.chara
 # convert to long format
 library(reshape2)
 clinicalData <- melt(data=clinicalData, id.vars="Simple_name")
+colnames(clinicalData) <- c("sample", "variable", "value")
 
 # define a few clinical parameter inputs
 clin_colors <- c('0'="lightblue",'1'='dodgerblue2','2'='blue1','3'='darkblue','4'='black','FL'='green3','t-NHL'='darkgreen','Treated'='darkred','TreatmentNaive'='red','NA'='lightgrey')
