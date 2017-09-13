@@ -9,13 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Complete the steps below
-This is an example rmarkdown file for the genviz.org tutorial series, complete the steps below and delete this section when complete.
+# Analysis of lymphoma sequence variant data
 
-* create a code chunk in the section "Data visualization"
-* create a plot matching the description in the section "Data visualization"
-* create a code chunk in the section "Data mean"
-* Set the code chunk to not display this last block of code in the final document.
+## Introduction
+The following analysis explores the tumor variant allele frequencies (VAFs) for a cohort of follicular lymphoma patients. After looking at the overall distribution of VAFs for the "discovery" and "extension" subsets of this cohort, we determine the average VAF for these two patient groups. 
 
 ## Lymphoma data description and input
 The data used in this section is from the manuscript entitled "Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma" (PMID: [28064239](https://www.ncbi.nlm.nih.gov/pubmed/28064239).

@@ -34,6 +34,8 @@ Rstudio also has a convenient way to insert code using the `insert` button to th
 
 {% include figure.html image="/assets/Rmarkdown/intro_2_rmarkdown_3.png" width="650" %}
 
+Note: you use "include=FALSE to have the chunk evaluated, but neither the code nor its output displayed.
+
 #### Creating a report
 Now that we've gone over the basics of [R Markdown](https://cran.r-project.org/web/packages/rmarkdown/index.html) let's create a simple report. First, you'll need to download the Folicular Lymphoma data set we used in the previous ggplot2 section. Go ahead and download that dataset from [http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) if you don't have it.
 
