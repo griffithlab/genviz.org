@@ -1,7 +1,7 @@
 ---
-title: Genomic Visualization and Interpretations
+title: Genomic Visualization and Data Interpretation
 feature_text: |
-  ## Genomic Visualization and Interpretations
+  ## Genomic Visualization and Data Interpretation
   Tutorial series for visualizing and interpreting omic data
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 image: "assets/genvis-dna-bg_optimized_v1a.png"
