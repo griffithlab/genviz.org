@@ -224,3 +224,8 @@ Right now the plot looks fairly bland. Try adding the ability for the user to en
 {% include question.html question="Get a hint!" answer='You will want to use <a href="https://www.rdocumentation.org/packages/shinybootstrap2/versions/0.2.1/topics/textInput">textInput()</a> within the ui.R file for this and then link the input to the ggplot call.'%}
 
 {% include question.html question="Solution" answer='These files contain the correct answer: <a href="http://genviz.org/assets/shiny/exercise1/ui.R">ui.R</a>, <a href="http://genviz.org/assets/shiny/exercise1/server.R">server.R</a>'%}
+
+### Hosting your shiny app on the web
+To make your new shiny app accessible on the web you will need a web server with the separate [Shiny Server Open Source](https://www.rstudio.com/products/shiny/download-server/) software running on it, along with with your Shiny App. There are many ways you could set this up. One option would be to do something like the following: (1) Start an Ubuntu linux Amazon AWS instance; (2) Login to your AWS linux box; (3) Install R, the shiny R library, and any other R libraries that your shiny app needs (e.g., ggplot2, rmarkdown, etc); (4) Install and start the shiny-server; (5) Copy your shiny application files (R and Rda) files to the shiny-server folder on your linux server. (6) In a browser, navigate to the public IP address of the linux server. Detailed instructions are available on this [blog post](http://www.kimberlycoffey.com/blog/2016/2/13/mlz90wjw0k76446xkg262prvjp0l8u)
+
+
