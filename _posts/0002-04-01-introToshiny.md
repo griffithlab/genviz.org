@@ -31,13 +31,14 @@ After checkiny it out, use the escape key to stop the shiny app.
 
 ### Structure of a shiny app
 
-The basic code to run any shiny app is split into two parts the server (e.g., server.R) and user interface (e.g., ui.R). The server script is the [back end](https://en.wikipedia.org/wiki/Front_and_back_ends) of our shiny web app and contains the instructions to build the app. The user interface script is the [front end](https://en.wikipedia.org/wiki/Front_and_back_ends) and is essentially what a user views and interacts with. Both of these files should be in the same directory for the app to work properly. 
+The basic code to run any shiny app is split into two parts the server (e.g., server.R) and user interface (e.g., ui.R). The server script is the [back end](https://en.wikipedia.org/wiki/Front_and_back_ends) of our shiny web app and contains the instructions to build the app. The user interface script is the [front end](https://en.wikipedia.org/wiki/Front_and_back_ends) and is essentially what a user views and interacts with. Both of these files should be in the same directory for the app to work properly.
 
 Go ahead and make a folder for our shiny app called "testApp".
 
 Next create the following two scripts there: `ui.R` and `server.R`. This is the bare minimum for a shiny app and will generate an empty web application.
 
 * Put the following in a file: `ui.R`
+
 ```R
 # load shiny library
 library(shiny)
@@ -48,6 +49,7 @@ shinyUI(fluidPage(
 ```
 
 * Put the following in a file: `server.R`
+
 ```R
 # load shiny library
 library(shiny)
@@ -57,11 +59,11 @@ shinyServer(function(input, output) {
 })
 ```
 
-To view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal. For convenience in this tutorial, we have selected a specific port instead of letting shiny choose one randomly. 
+To view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal. For convenience in this tutorial, we have selected a specific port instead of letting shiny choose one randomly.
 
-Make sure that your current working directory in R is set to the top level of "testApp" where you put server.R and ui.R. 
+Make sure that your current working directory in R is set to the top level of "testApp" where you put server.R and ui.R.
 
-You can use [getwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) and [setwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) to print and set this respectively. 
+You can use [getwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) and [setwd()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/getwd) to print and set this respectively.
 test
 So far, all you should see is an empty web page at [http://127.0.0.1:7777](http://127.0.0.1:7777).
 
@@ -76,8 +78,8 @@ runApp(port=7777)
 ### Loading data into the shiny back end (server)
 Now that we've got a basic frame work up let's go ahead and load some data and answer a few questions. The data we will use is supplemental table 6 from the paper ["Comprehensive genomic analysis reveals FLT3 activation and a therapeutic strategy for a patient with relapsed adult B-lymphoblastic leukemia."](https://www.ncbi.nlm.nih.gov/pubmed/27181063). The data contains variant allele frequency (VAF) values from a targeted capture sequencing study of an adult AML patient with 11 samples of various cell populations and timepoints.
 
-You can download the table [here](http://genomedata.org/gen-viz-workshop/intro_to_shiny/shinyExampleData.tsv). 
-For simplicity, make a "data" directory in your app and place the data file there. 
+You can download the table [here](http://genomedata.org/gen-viz-workshop/intro_to_shiny/shinyExampleData.tsv).
+For simplicity, make a "data" directory in your app and place the data file there.
 
 We can load this data into shiny as you would any other data in R. Just be sure to do this in the server.R script and place the code within the unamed function. Add the following to your server.R script to make the data available within the shiny server.
 * server.R
@@ -94,15 +96,15 @@ shinyServer(function(input, output) {
 ```
 
 ### Sending output to the shiny front end (UI)
-Now that we have data let's make a quick plot showing the distribution of VAF for the normal skin sample (Skin_d42_I_vaf) in comparison to the initial tumor marrow core sample (MC_d0_clot_A_vaf) and send it to the app's user interface. 
+Now that we have data let's make a quick plot showing the distribution of VAF for the normal skin sample (Skin_d42_I_vaf) in comparison to the initial tumor marrow core sample (MC_d0_clot_A_vaf) and send it to the app's user interface.
 
-We'll need to first create the plot on the back end (i.e. server.R). We can use any graphics library for this, but here we use [ggplot2](http://ggplot2.tidyverse.org/reference/). 
+We'll need to first create the plot on the back end (i.e. server.R). We can use any graphics library for this, but here we use [ggplot2](http://ggplot2.tidyverse.org/reference/).
 
-In order to be compatible with the shiny UI we call a *Render* function, in this case [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) which takes an expression (i.e. set of instructions) and produces a plot. The curly braces in [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) just contain the expression used to create the plot and are useful if the expression takes up more than one line. The [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) will do some minimal pre-processing of the object returned in the expression and store it to the list-like "output" object. 
+In order to be compatible with the shiny UI we call a *Render* function, in this case [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) which takes an expression (i.e. set of instructions) and produces a plot. The curly braces in [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) just contain the expression used to create the plot and are useful if the expression takes up more than one line. The [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) will do some minimal pre-processing of the object returned in the expression and store it to the list-like "output" object.
 
-Notice that in the UI.R file we have added a [mainPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/mainPanel) which, as it sounds, is instructing the app to create a main panel on the user interface. Now that we have somewhere to display our plot we can link what was created on the back end to the front end. This is done with the *Output* family of functions, in this case our output is a plot generated by [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) and is stored in the list like output object as "scatterplot" created in the server.R file. 
+Notice that in the UI.R file we have added a [mainPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/mainPanel) which, as it sounds, is instructing the app to create a main panel on the user interface. Now that we have somewhere to display our plot we can link what was created on the back end to the front end. This is done with the *Output* family of functions, in this case our output is a plot generated by [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) and is stored in the list like output object as "scatterplot" created in the server.R file.
 
-We use [plotOutput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/plotOutput) to provide this link to the front end and give the output ID, which is just the name of the object stored in the output-like list. 
+We use [plotOutput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/plotOutput) to provide this link to the front end and give the output ID, which is just the name of the object stored in the output-like list.
 
 Note that when providing this link the type of object created with a *Render* function must correspond to the *Output* function, in this example we use [renderPlot()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderPlot) and [plotOutput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/plotOutput) but other functions exist for other data types such as [renderText()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/renderText) and [textOuput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/textOutput).
 
@@ -138,20 +140,20 @@ shinyServer(function(input, output) {
 })
 ```
 
-Once again, to view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal and go to [http://127.0.0.1:7777](http://127.0.0.1:7777). 
+Once again, to view/test your app simply type the `runApp(port=7777)` command in your R/Rstudio terminal and go to [http://127.0.0.1:7777](http://127.0.0.1:7777).
 
 This should happen automatically from Rstudio. If your previous app is still running you may need to stop and restart it and/or refresh your browser. You should now see a ggplot graphic in your browser (see below). But, so far, nothing is interactive about this plot. We will allow some basic user input and interactivity in the next section.
 
 {% include figure.html image="/assets/shiny/shiny_simple_output.png" width="1000" %}
 
 ### Sending input from the front end
-Now that we know how to link output from the back end to the front end, let's do the opposite and link user input from the front end to the back end. Essentially this is giving the user control to manipulate user interface objects. Specifically let's allow the user to choose which sample Variant Allele Fraction (VAF) columns in the data set to plot on the x and y axis of our scatter plot. 
+Now that we know how to link output from the back end to the front end, let's do the opposite and link user input from the front end to the back end. Essentially this is giving the user control to manipulate user interface objects. Specifically let's allow the user to choose which sample Variant Allele Fraction (VAF) columns in the data set to plot on the x and y axis of our scatter plot.
 
-Let's start with the ui.R file. Below, we have added the [sidebarLayout()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/sidebarLayout) schema which will create a layout with a side bar and a main panel. Within this layout we define a [sidebarPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/sidebarPanel) and a [mainPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/mainPanel). Within the [sidebarPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/sidebarPanel) we define two drop down selectors with [selectInput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/selectInput). 
+Let's start with the ui.R file. Below, we have added the [sidebarLayout()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/sidebarLayout) schema which will create a layout with a side bar and a main panel. Within this layout we define a [sidebarPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/sidebarPanel) and a [mainPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/mainPanel). Within the [sidebarPanel()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/sidebarPanel) we define two drop down selectors with [selectInput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/selectInput).
 
-Importantly, within these functions we assign an *inputId* which is what will be passed to the back end. On the back end side (server.R) we've already talked about output within the unnamed function, a second argument exists called "input". This is the argument used to communicate from the front end to the back end and in our case it holds the information passed from each [selectInput()]([selectInput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/selectInput)) call with the id's "x_axis" and "y_axis". 
+Importantly, within these functions we assign an *inputId* which is what will be passed to the back end. On the back end side (server.R) we've already talked about output within the unnamed function, a second argument exists called "input". This is the argument used to communicate from the front end to the back end and in our case it holds the information passed from each [selectInput()]([selectInput()](https://www.rdocumentation.org/packages/shiny/versions/1.0.3/topics/selectInput)) call with the id's "x_axis" and "y_axis".
 
-To make our plot reactively change based on this input we simply call up this information within the ggplot call. 
+To make our plot reactively change based on this input we simply call up this information within the ggplot call.
 
 You might have noticed that we are using [aes_string()](http://ggplot2.tidyverse.org/reference/aes_.html) instead of [aes()](http://ggplot2.tidyverse.org/reference/aes_.html). This is only necessary because "input$x_axis" and "input$y_axis" are passed as strings and as such we need to let ggplot know this so the non-standard evalutation typically used with [aes()](http://ggplot2.tidyverse.org/reference/aes_.html) is not performed.
 
