@@ -220,7 +220,7 @@ To save a plot or any graphical object in R, you first have to initalize a graph
 
 ```R
 # save the last plot we made.
-pdf(file="p20.pdf", height="8", width="11")
+pdf(file="p20.pdf", height=8, width=11)
 p20
 dev.off()
 
