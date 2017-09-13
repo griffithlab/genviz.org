@@ -253,7 +253,6 @@ Now that we've completed that let's add a plot between the dendrogram and the he
 
 ```R
 # re-order the sample data to match the clustering we did
-sampleData_v2 <- sampleData
 sampleData_v2$Run <- factor(sampleData_v2$Run, levels=clusterSample$labels[clusterSample$order])
 
 # construct a plot to show the clinical data
