@@ -95,7 +95,7 @@ As with many other [GenVisR](https://bioconductor.org/packages/release/bioc/html
 
 ```R
 # read in the clinical data
-clinicalData <- read.delim("FLClinicalData.tsv")
+clinicalData <- read.delim("FL_ClinicalData.tsv")
 
 # subset just the discovery cohort
 clinicalData <- clinicalData[clinicalData$Simple_name %in% mutationData$sample,]
