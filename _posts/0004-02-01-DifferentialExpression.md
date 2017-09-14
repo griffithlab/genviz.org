@@ -13,9 +13,11 @@ Differential expression analysis is used to identify differences in the transcri
 ### Dataset
 For this analysis we will use the RNAseq data obtained from the (EBI Expression Atlas (GXA))[https://www.ebi.ac.uk/gxa]. Specifically data set [E-GEOD-50760](https://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Downloads) which corresponds to [PMID: 25049118](https://www.ncbi.nlm.nih.gov/pubmed/25049118). This data consists of 54 samples from 18 individuals. Each individual has a primary colorectal cancer sample, a metastatic liver sample, and a normal sample of the surrounding colonic epithilium. The quantification data required to run differential expression analysis using DEseq2 are raw readcounts for either genes or transcripts. We will use the output from HTseq as a starting point. 
 
-It can be downloaded from the GXA [here](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts), and sample information can be downloaded [here](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design). A full description of the experimental design can be found at [array express](http://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-50760/) and the [expression atlas](http://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Results).
+It can be downloaded from the GXA.Download these files for use in this exercise:
+* Raw counts data from here:[E-GEOD-50760 raw counts](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts)
+* Sample information from here [E-GEOD-50760 sample info](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design).
 
-* Download these files for use in this exercise.
+A full description of the experimental design can be found at [array express](http://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-50760/) and the [expression atlas](http://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Results).
 
 ### How DEseq2 works
 [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) is a popular differential expression analysis package available through Bioconductor. Its differential expression tests are based on a negative binomial generalized linear model. To get started we will first need to install the package and load the library.
@@ -26,9 +28,9 @@ biocLite("DESeq2")
 library(DESeq2)
 ```
 ### Input data
-Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of non-normalized sequence read counts at either the gene or transcript level. No preliminary normalization of this data is needed. [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) will internally corrects for differences in library size, using the raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our [example data](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts). 
+Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of non-normalized sequence read counts at either the gene or transcript level. No preliminary normalization of this data is needed. [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) will internally corrects for differences in library size, using the raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our example data. 
 
-Let's go ahead and load this data and the [sample information](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design) into R.
+Let's go ahead and load the data and sample information into R.
 
 ```R
 # Read in the raw read counts
