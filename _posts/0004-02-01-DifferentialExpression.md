@@ -215,6 +215,15 @@ deseq2VST <- deseq2VST[deseq2VST$Gene %in% sigGenes,]
 
 # covert the VST counts to long format for ggplot2
 library(reshape2)
+
+# first compare wide vs long version
+deseq2VST_wide <- deseq2VST
+deseq2VST_long <- melt(deseq2VST, id.vars=c("Gene"))
+
+head(deseq2VST_wide)
+head(deseq2VST_long)
+
+# now overwrite our original data frame with the long format
 deseq2VST <- melt(deseq2VST, id.vars=c("Gene"))
 
 # make a heatmap
