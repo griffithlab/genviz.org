@@ -15,7 +15,7 @@ For this analysis we will use the RNAseq data obtained from the (EBI Expression 
 
 It can be downloaded from the GXA.Download these files for use in this exercise:
 * Raw counts data from here:[E-GEOD-50760 raw counts](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts)
-* Sample information from here [E-GEOD-50760 sample info](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design).
+* Sample information from here: [E-GEOD-50760 sample info](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design).
 
 A full description of the experimental design can be found at [array express](http://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-50760/) and the [expression atlas](http://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Results).
 
@@ -30,7 +30,7 @@ library(DESeq2)
 ### Input data
 Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of non-normalized sequence read counts at either the gene or transcript level. No preliminary normalization of this data is needed. [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) will internally corrects for differences in library size, using the raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our example data. 
 
-Let's go ahead and load the data and sample information into R.
+Let's go ahead and load the data and sample information into R. Don't forget to set your working directory to the location of the data files:
 
 ```R
 # Read in the raw read counts
@@ -43,7 +43,9 @@ sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
 sampleData_v2 <- read.delim("E-GEOD-50760-experiment-design.tsv")
 ```
 
-The next step is to create an object of class DESeqDataSet, which will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula used to estimate dispersion and log2 fold changes used within the model. When specifying the formula it should take the form of a "~" followed by "+" separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. There are 4 methods to create this object depending on the format the input data is in. Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
+The next step is to create an object of class DESeqDataSet, which will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula used to estimate dispersion and log2 fold changes used within the model. "Dispersion" is a parameter of the [Generalized Linear Model](https://en.wikipedia.org/wiki/Generalized_linear_model) that relates to to the variance of the distribution. For more details refer to [PMID: 24349066](https://www.ncbi.nlm.nih.gov/pubmed/24349066) and [PMID: 22287627](https://www.ncbi.nlm.nih.gov/pubmed/22287627). 
+
+When specifying the formula it should take the form of a "~" followed by "+" separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. There are 4 methods to create this object depending on the format the input data is in. Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
 
 ```R
 # convert count data to a matrix of appropriate form that DEseq2 can read
