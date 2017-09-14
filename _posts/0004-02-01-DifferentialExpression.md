@@ -45,7 +45,11 @@ sampleData_v2 <- read.delim("E-GEOD-50760-experiment-design.tsv")
 
 The next step is to create an object of class DESeqDataSet, which will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula used to estimate dispersion and log2 fold changes used within the model. "Dispersion" is a parameter of the [Generalized Linear Model](https://en.wikipedia.org/wiki/Generalized_linear_model) that relates to to the variance of the distribution. For more details refer to [PMID: 24349066](https://www.ncbi.nlm.nih.gov/pubmed/24349066) and [PMID: 22287627](https://www.ncbi.nlm.nih.gov/pubmed/22287627). 
 
-When specifying the formula it should take the form of a "~" followed by "+" separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. There are 4 methods to create this object depending on the format the input data is in. Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
+When specifying the formula it should take the form of a "~" followed by "+" separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. 
+
+There are 4 methods to create this object depending on the format the input data is in. 
+
+Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
 
 ```R
 # convert count data to a matrix of appropriate form that DEseq2 can read
