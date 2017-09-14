@@ -102,6 +102,7 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("BiocParallel")
 
 # register the number of cores to use
+library(BiocParallel)
 register(MulticoreParam(4))
 ```
 
