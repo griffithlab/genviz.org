@@ -127,9 +127,12 @@ load("deseq2Data_v1.RData")
 ```
 
 ### Extracting results
-Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) what comparison to make. This is only necessary if the design formula is multi-factorial or, as in our case, the variable in the design formula has more than 2 levels. This is done with the `contrast` parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator (i.e. comparator), and the denominator (i.e. control). Let's get output for normal tissue vs primary tumor  expression results and view a summary of results.
+Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) what comparison to make. This is only necessary if the design formula is multi-factorial or, as in our case, the variable in the design formula has more than 2 levels. This is done with the `contrast` parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator (i.e. comparator), and the denominator (i.e. control). 
+
+Let's get output for normal tissue vs primary tumor expression results and view a summary of results.
 ```R
 # Extract differential expression results
+# For "tissueType" perform primary vs normal comparison
 deseq2Results <- results(deseq2Data, contrast=c("tissueType", "primary colorectal cancer", "normal-looking surrounding colonic epithelium"))
 
 # view summary of results
