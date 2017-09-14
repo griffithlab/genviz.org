@@ -57,6 +57,7 @@ geneID <- rawCounts$Gene.ID
 sampleIndex <- grepl("SRR\\d+", colnames(rawCounts))
 rawCounts <- as.matrix(rawCounts[,sampleIndex])
 rownames(rawCounts) <- geneID
+head(rawCounts)
 
 # convert sample variable mappings to an appropriate form that DESeq2 can read
 rownames(sampleData) <- sampleData$Run
