@@ -30,7 +30,7 @@ clinicalData <- read.delim("BKM120_Clinical.tsv")
 mutationBurden <- read.delim("BKM120_MutationBurden.tsv")
 ```
 
-# Creating the inital plot
+# Creating the initial plot
 The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function is designed to work with specific file types read in as data frames, the default being [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification) files, however the option exists to use custom file types as long as the column names "sample", "gene", and "variant_class" are present. This is done by setting `fileType="Custom"`. Let's go ahead and re-format our mutation data and create an initial plot using this parameter. Note that when using a custom file type the priority of mutation types must be specified with the `variant_class_order` parameter which accepts a character vector. We'll explain what this does in the next section, for now just give it a character vector containing all mutation types present in `mutationData`.
 
 ```R
