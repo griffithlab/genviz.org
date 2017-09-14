@@ -81,6 +81,14 @@ This was quite a bit of code, let's go over whats going on here. The first thing
 
 ### Pre-filtering of data
 While it is not strictly necessary, it is good to do some preliminary filtering of the data before running the differential expression analysis. This will reduce the size of the [DEseq2DataSet](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class) object and speed up the runtime of the algorithm. Here we are performing relatively minor filtering requiring genes to have more than 5 read of support in any sample.
+
+First see what affect this filter will have
+```R
+dim(deseq2Data)
+dim(deseq2Data[rowSums(counts(deseq2Data)) > 5, ])
+```
+
+Now actually apply the filter
 ```R
 # perform pre-filtering of the data
 deseq2Data <- deseq2Data[rowSums(counts(deseq2Data)) > 5, ]
