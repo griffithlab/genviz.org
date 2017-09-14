@@ -189,7 +189,9 @@ colourPallette <- c("#7145cd","#bbcfc4","#90de4a","#cd46c1","#77dd8e","#592b79",
 ggplot(otop2Counts, aes(x=tissueType, y=count, colour=individualID, group=individualID)) + geom_point() + geom_line() + theme_bw() + theme(axis.text.x=element_text(angle=15, hjust=1)) + scale_colour_manual(values=colourPallette) + guides(colour=guide_legend(ncol=3)) + ggtitle("OTOP2")
 ```
 
-From the resulting plot we can see that almost all individuals show down-regulation of this gene in both the primary tumor and metastasis samples compared to the normal. We've also introduced a few new ggplot2 concepts, so let's briefly go over them. 
+{% include figure.html image="/assets/Deseq2/deseq2_otop2_expression.png" width="950" %}
+
+From the resulting plot (see above) we can see that almost all individuals show down-regulation of this gene in both the primary tumor and metastasis samples compared to the normal. We've also introduced a few new ggplot2 concepts, so let's briefly go over them. 
 * You will notice that we have specified a [group](http://ggplot2.tidyverse.org/reference/aes_group_order.html) when we initialized our plot. By default ggplot would have assumed the groups were for the discrete variables plotted on the x-axis, and when connecting points with [geom_line()](http://ggplot2.tidyverse.org/reference/geom_path.html) this would have connected all points for each discrete variable instead of connecting by the individual id. Try removing the grouping to get a sense of what happens. 
 * We have also altered the legend using [guides()](http://ggplot2.tidyverse.org/reference/guides.html) to specify the legend to act on, and [guide_legend()](http://ggplot2.tidyverse.org/reference/guide_legend.html) to specify that the colour legend should have 3 columns for values instead of just 1. 
 * Lastly we have added a main title with [ggtitle()](http://ggplot2.tidyverse.org/reference/labs.html). You might have noticed that individual 2 looks a little off, specifically based on the plot we created there appears to be two normal samples for this individual. Looking at our sample data we can observe that this is indeed the case, contrary to the stated experimental design. Looking at the sampleData dataframe we created, we can see that our suspicions are correct. Often when visualizing data you will catch potential errors that would have otherwise been missed.
@@ -238,6 +240,8 @@ deseq2VST <- melt(deseq2VST, id.vars=c("Gene"))
 heatmap <- ggplot(deseq2VST, aes(x=variable, y=Gene, fill=value)) + geom_raster() + scale_fill_viridis(trans="sqrt") + theme(axis.text.x=element_text(angle=65, hjust=1), axis.text.y=element_blank(), axis.ticks.y=element_blank())
 heatmap
 ```
+
+{% include figure.html image="/assets/Deseq2/deseq2_ggplot_heatmap.png" width="950" %}
 
 Let's briefly talk about the steps we took to obtain the heatmap we plotted above. 
 * First we took our [DESeq2DataSet](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeqDataSet-class) object we obtained from the command [DESeq()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeq) and transformed the values using the variance stabilizing tranform algorithm from the [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst) function. 
