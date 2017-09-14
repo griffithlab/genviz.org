@@ -207,8 +207,9 @@ deseq2VST <- vst(deseq2Data)
 deseq2VST <- assay(deseq2VST)
 deseq2VST <- as.data.frame(deseq2VST)
 deseq2VST$Gene <- rownames(deseq2VST)
+head(deseq2VST)
 
-# Keep only the significantly differentiated genes
+# Keep only the significantly differentiated genes where the fold-change was at least 3
 sigGenes <- rownames(deseq2ResDF[deseq2ResDF$padj <= .05 & abs(deseq2ResDF$log2FoldChange) > 3,])
 deseq2VST <- deseq2VST[deseq2VST$Gene %in% sigGenes,]
 
