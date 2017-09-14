@@ -155,6 +155,9 @@ library(viridis)
 # coerce to a data frame
 deseq2ResDF <- as.data.frame(deseq2Results)
 
+# examine this data frame
+head(deseq2ResDF)
+
 # set a boolean column for significance
 deseq2ResDF$significant <- ifelse(deseq2ResDF$padj < .1, "Significant", NA)
 
@@ -167,7 +170,7 @@ ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=padj)) + geom_point(siz
 We can see from the above plots that it is in the shape of a trumpet characteristic MA plots. Further we have overlayed density contours in the last plot and as expected, these density contours are centered around a y-intercept of 0. We can further see that as the average counts increase there is more power to call a gene as differentially expressed based on the fold change. You'll also notice that we have quite a few points without an adjusted p-value on the left side of the x-axis. This is occurring because the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function automatically performs independent filtering using the mean of normalized counts. This is done to increase the power to detect an event by not testing those genes which are unlikely to be significant based on their high dispersion.
 
 # Viewing normalized counts for a single geneID
-Often it will be useful to plot the normalized counts for a single gene in order to get an idea of what is occurring at a per sample basis. Fortunately the [plotCounts()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/plotCounts) function from DEseq2 will extract the data we need for plotting this.
+Often it will be useful to plot the normalized counts for a single gene in order to get an idea of what is occurring for that gene across the sample cohort. Fortunately the [plotCounts()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/plotCounts) function from DEseq2 will extract the data we need for plotting this.
 
 ```R
 # extract counts for the gene otop2
