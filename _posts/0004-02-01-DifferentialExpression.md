@@ -70,7 +70,7 @@ sampleData$individualID <- factor(sampleData$individualID)
 rawCounts <- rawCounts[,unique(rownames(sampleData))]
 all(colnames(rawCounts) == rownames(sampleData))
 
-# order the tissue types so that it is: normal sample -> primary tumor -> metastatic tumor
+# order the tissue types so that it is sensible and make sure the control sample is first: normal sample -> primary tumor -> metastatic tumor
 sampleData$tissueType <- factor(sampleData$tissueType, levels=c("normal-looking surrounding colonic epithelium", "primary colorectal cancer", "metastatic colorectal cancer to the liver"))
 
 # create the DEseq2DataSet object
