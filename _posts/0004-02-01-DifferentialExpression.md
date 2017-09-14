@@ -139,7 +139,7 @@ deseq2Results <- results(deseq2Data, contrast=c("tissueType", "primary colorecta
 summary(deseq2Results)
 ```
 ### MA-plot
-An MA plot plots a log ratio (M) over an average (A) in order to visualize the differences between two groups. In general we would expect the expression of genes to remain consistent between conditions and so the MA plot should be similar to the shape of a trumpet with most points residing on a y intercept of 0. [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) has a built in method for constructing an MA plot of our results however as this is a a visualization course let's go ahead and use what we know of [ggplot2](http://ggplot2.tidyverse.org/reference/) to construct our own plots.
+An MA plot plots a log ratio (M) over an average (A) in order to visualize the differences between two groups. In general we would expect the expression of genes to remain consistent between conditions and so the MA plot should be similar to the shape of a trumpet with most points residing on a y intercept of 0. [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) has a built in method for constructing an MA plot of our results however since this is a visualization course, let's go ahead and use what we know of [ggplot2](http://ggplot2.tidyverse.org/reference/) to construct our own MA plot as well.
 ```R
 # using DEseq2 built in method
 plotMA(deseq2Results)
