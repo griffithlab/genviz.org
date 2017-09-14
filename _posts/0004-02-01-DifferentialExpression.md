@@ -22,7 +22,7 @@ A full description of the experimental design can be found at [array express](ht
 ### How DEseq2 works
 [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) is a popular differential expression analysis package available through Bioconductor. Its differential expression tests are based on a negative binomial generalized linear model. To get started we will first need to install the package and load the library.
 ```R
-# install the latest version of DEseq2
+# Install the latest version of DEseq2
 source("https://bioconductor.org/biocLite.R")
 biocLite("DESeq2")
 library(DESeq2)
@@ -39,7 +39,7 @@ rawCounts <- read.delim("E-GEOD-50760-raw-counts.tsv")
 # Read in the sample mappings
 sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
 
-# also save a copy for later
+# Also save a copy for later
 sampleData_v2 <- read.delim("E-GEOD-50760-experiment-design.tsv")
 ```
 
@@ -52,28 +52,28 @@ There are 4 methods to create this object depending on the format the input data
 Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
 
 ```R
-# convert count data to a matrix of appropriate form that DEseq2 can read
+# Convert count data to a matrix of appropriate form that DEseq2 can read
 geneID <- rawCounts$Gene.ID
 sampleIndex <- grepl("SRR\\d+", colnames(rawCounts))
 rawCounts <- as.matrix(rawCounts[,sampleIndex])
 rownames(rawCounts) <- geneID
 head(rawCounts)
 
-# convert sample variable mappings to an appropriate form that DESeq2 can read
+# Convert sample variable mappings to an appropriate form that DESeq2 can read
 rownames(sampleData) <- sampleData$Run
 keep <- c("Sample.Characteristic.clinical.information.", "Sample.Characteristic.individual.")
 sampleData <- sampleData[,keep]
 colnames(sampleData) <- c("tissueType", "individualID")
 sampleData$individualID <- factor(sampleData$individualID)
 
-# put the columns of the count data in the same order as rows names of the sample mapping, then make sure it worked
+# Put the columns of the count data in the same order as rows names of the sample mapping, then make sure it worked
 rawCounts <- rawCounts[,unique(rownames(sampleData))]
 all(colnames(rawCounts) == rownames(sampleData))
 
-# order the tissue types so that it is sensible and make sure the control sample is first: normal sample -> primary tumor -> metastatic tumor
+# Order the tissue types so that it is sensible and make sure the control sample is first: normal sample -> primary tumor -> metastatic tumor
 sampleData$tissueType <- factor(sampleData$tissueType, levels=c("normal-looking surrounding colonic epithelium", "primary colorectal cancer", "metastatic colorectal cancer to the liver"))
 
-# create the DEseq2DataSet object
+# Create the DEseq2DataSet object
 deseq2Data <- DESeqDataSetFromMatrix(countData=rawCounts, colData=sampleData, design= ~ individualID + tissueType)
 ```
 
@@ -82,26 +82,29 @@ This was quite a bit of code, let's go over whats going on here. The first thing
 ### Pre-filtering of data
 While it is not strictly necessary, it is good to do some preliminary filtering of the data before running the differential expression analysis. This will reduce the size of the [DEseq2DataSet](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class) object and speed up the runtime of the algorithm. Here we are performing relatively minor filtering, requiring genes to have more than a sum total of 5 reads of support in all samples.
 
-First see what affect this filter will have
+First see what affect this filter will have.
+
 ```R
 dim(deseq2Data)
 dim(deseq2Data[rowSums(counts(deseq2Data)) > 5, ])
 ```
 
-Now actually apply the filter
+Now actually apply the filter.
+
 ```R
-# perform pre-filtering of the data
+# Perform pre-filtering of the data
 deseq2Data <- deseq2Data[rowSums(counts(deseq2Data)) > 5, ]
 ```
 
-# set up multi-cores (optional)
+### Set up multi-cores (optional)
 The next two steps can take some time to perform, we can offset this somewhat by enabling multiple cores using [BiocParallel](http://bioconductor.org/packages/release/bioc/html/BiocParallel.html). To take advantage of this you will need to install the [BiocParallel](http://bioconductor.org/packages/release/bioc/html/BiocParallel.html) library and register the number of cores to use depending on your machine. Then when calling [DESeq()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeq) and [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) add parallel=TRUE as a parameter to these function calls.
+
 ```R
-# install and load the library
+# Install and load the library
 source("https://bioconductor.org/biocLite.R")
 biocLite("BiocParallel")
 
-# register the number of cores to use
+# Register the number of cores to use
 library(BiocParallel)
 register(MulticoreParam(4))
 ```
@@ -114,15 +117,15 @@ The next step is to run the function [DEseq()](https://www.rdocumentation.org/pa
 
 This can take a few minutes to perform, for convenience a .RData object containing the resulting object is available to download [here](http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/deseq2Data_v1.RData). You can load this into your R environment with [load()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/load) either locally after downloading the file or directly through the web.
 
-You only need to do **one*** of the following three options
+You only need to do **one** of the following three options
 ```R
-# 1. run pipeline for differential expression steps (if you set up parallel processing, set parallel = TRUE here)
+# 1. Run pipeline for differential expression steps (if you set up parallel processing, set parallel = TRUE here)
 deseq2Data <- DESeq(deseq2Data)
 
-# 2. load the R environment with this object from the web (optional)
+# 2. Load the R environment with this object from the web (optional)
 load(url("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/deseq2Data_v1.RData"))
 
-# 3. download the .Rdata file and load directly(optional)
+# 3. Download the .Rdata file and load directly(optional)
 load("deseq2Data_v1.RData")
 ```
 
@@ -135,48 +138,53 @@ Let's get output for normal tissue vs primary tumor expression results and view 
 # For "tissueType" perform primary vs normal comparison
 deseq2Results <- results(deseq2Data, contrast=c("tissueType", "primary colorectal cancer", "normal-looking surrounding colonic epithelium"))
 
-# view summary of results
+# View summary of results
 summary(deseq2Results)
 ```
 ### MA-plot
 An MA plot plots a log ratio (M) over an average (A) in order to visualize the differences between two groups. In general we would expect the expression of genes to remain consistent between conditions and so the MA plot should be similar to the shape of a trumpet with most points residing on a y intercept of 0. [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) has a built in method for constructing an MA plot of our results however since this is a visualization course, let's go ahead and use what we know of [ggplot2](http://ggplot2.tidyverse.org/reference/) to construct our own MA plot as well.
 ```R
-# using DEseq2 built in method
+# Using DEseq2 built in method
 plotMA(deseq2Results)
 ```
 
+{% include figure.html image="/assets/Deseq2/deseq2_maplot.png" width="950" %}
+
+
 ```R
-# load libraries
+# Load libraries
 # install.packages(c("ggplot2", "scales", "viridis"))
 library(ggplot2)
 library(scales) # needed for oob parameter
 library(viridis)
 
-# coerce to a data frame
+# Coerce to a data frame
 deseq2ResDF <- as.data.frame(deseq2Results)
 
-# examine this data frame
+# Examine this data frame
 head(deseq2ResDF)
 
-# set a boolean column for significance
+# Set a boolean column for significance
 deseq2ResDF$significant <- ifelse(deseq2ResDF$padj < .1, "Significant", NA)
 
-# plot the results similar to DEseq2
+# Plot the results similar to DEseq2
 ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=significant)) + geom_point(size=1) + scale_y_continuous(limits=c(-3, 3), oob=squish) + scale_x_log10() + geom_hline(yintercept = 0, colour="tomato1", size=2) + labs(x="mean of normalized counts", y="log fold change") + scale_colour_manual(name="q-value", values=("Significant"="red"), na.value="grey50") + theme_bw()
 
-# let's add some more detail
+# Let's add some more detail
 ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=padj)) + geom_point(size=1) + scale_y_continuous(limits=c(-3, 3), oob=squish) + scale_x_log10() + geom_hline(yintercept = 0, colour="darkorchid4", size=1, linetype="longdash") + labs(x="mean of normalized counts", y="log fold change") + scale_colour_viridis(direction=-1, trans='sqrt') + theme_bw() + geom_density_2d(colour="black", size=2)
 ```
-We can see from the above plots that it is in the shape of a trumpet characteristic MA plots. Further we have overlayed density contours in the last plot and as expected, these density contours are centered around a y-intercept of 0. We can further see that as the average counts increase there is more power to call a gene as differentially expressed based on the fold change. You'll also notice that we have quite a few points without an adjusted p-value on the left side of the x-axis. This is occurring because the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function automatically performs independent filtering using the mean of normalized counts. This is done to increase the power to detect an event by not testing those genes which are unlikely to be significant based on their high dispersion.
+We can see from the above plots that it is in the characteristic trumpet shape of MA plots. Further we have overlayed density contours in the last plot and as expected, these density contours are centered around a y-intercept of 0. We can further see that as the average counts increase there is more power to call a gene as differentially expressed based on the fold change. You'll also notice that we have quite a few points without an adjusted p-value on the left side of the x-axis. This is occurring because the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function automatically performs independent filtering using the mean of normalized counts. This is done to increase the power to detect an event by not testing those genes which are unlikely to be significant based on their high dispersion.
 
-# Viewing normalized counts for a single geneID
+{% include figure.html image="/assets/Deseq2/deseq2_ggplot_maplot.png" width="950" %}
+
+### Viewing normalized counts for a single geneID
 Often it will be useful to plot the normalized counts for a single gene in order to get an idea of what is occurring for that gene across the sample cohort. Fortunately the [plotCounts()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/plotCounts) function from DEseq2 will extract the data we need for plotting this.
 
 ```R
-# extract counts for the gene otop2
+# Extract counts for the gene otop2
 otop2Counts <- plotCounts(deseq2Data, gene="ENSG00000183034", intgroup=c("tissueType", "individualID"), returnData=TRUE)
 
-# plot the data using ggplot2
+# Plot the data using ggplot2
 colourPallette <- c("#7145cd","#bbcfc4","#90de4a","#cd46c1","#77dd8e","#592b79","#d7c847","#6378c9","#619a3c","#d44473","#63cfb6","#dd5d36","#5db2ce","#8d3b28","#b1a4cb","#af8439","#c679c0","#4e703f","#753148","#cac88e","#352b48","#cd8d88","#463d25","#556f73")
 ggplot(otop2Counts, aes(x=tissueType, y=count, colour=individualID, group=individualID)) + geom_point() + geom_line() + theme_bw() + theme(axis.text.x=element_text(angle=15, hjust=1)) + scale_colour_manual(values=colourPallette) + guides(colour=guide_legend(ncol=3)) + ggtitle("OTOP2")
 ```
@@ -200,7 +208,7 @@ rawCounts["ENSG00000183034",primaries]
 It is often informative to plot a heatmap of differentially expressed genes and to perform unsupervised clustering based on the underlying data to determine sub categories within the experiment. In this case we can attempt to remedy the error we observed in individual 2. We can use [ggplot](http://ggplot2.tidyverse.org/index.html) and [ggdendro](https://cran.r-project.org/web/packages/ggdendro/index.html) for this task, but first we must obtain transformed values from the RNAseq counts. The differential expression analysis started from raw counts and normalized using discrete distributions however when performing clustering we must remove the dependence of the variance on the mean. In other words we must remove the experiment wide trend in the data before clustering. There are two functions within DEseq2 to transform the data in such a manner, the first is to use a regularized logarithm [rlog()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/rlog) and the second is the variance stablizing transform [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst). There are pros and cons to each method, we will use [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst) here simply because it is much faster. By default both [rlog()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/rlog) and [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst) are blind to the sample design formula given to [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) in [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class). However this is not appropriate if one expects large differences in counts, which can be explained by the differences in the experimental design. In such cases the `blind` parameter should be set to `FALSE`.
 
 ```R
-# transform count data using the variance stablilizing transform
+# Transform count data using the variance stablilizing transform
 deseq2VST <- vst(deseq2Data)
 
 # Convert the DESeq transformed object to a data frame
@@ -213,20 +221,20 @@ head(deseq2VST)
 sigGenes <- rownames(deseq2ResDF[deseq2ResDF$padj <= .05 & abs(deseq2ResDF$log2FoldChange) > 3,])
 deseq2VST <- deseq2VST[deseq2VST$Gene %in% sigGenes,]
 
-# covert the VST counts to long format for ggplot2
+# Convert the VST counts to long format for ggplot2
 library(reshape2)
 
-# first compare wide vs long version
+# First compare wide vs long version
 deseq2VST_wide <- deseq2VST
 deseq2VST_long <- melt(deseq2VST, id.vars=c("Gene"))
 
 head(deseq2VST_wide)
 head(deseq2VST_long)
 
-# now overwrite our original data frame with the long format
+# Now overwrite our original data frame with the long format
 deseq2VST <- melt(deseq2VST, id.vars=c("Gene"))
 
-# make a heatmap
+# Make a heatmap
 heatmap <- ggplot(deseq2VST, aes(x=variable, y=Gene, fill=value)) + geom_raster() + scale_fill_viridis(trans="sqrt") + theme(axis.text.x=element_text(angle=65, hjust=1), axis.text.y=element_blank(), axis.ticks.y=element_blank())
 heatmap
 ```
@@ -248,34 +256,34 @@ Now that we have a heatmap let's start clustering using the functions available 
 * Because ggplot plots use grid graphics underneath we can use the [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) package to combine both plots into one with the function [grid.arrange()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob).
 
 ```R
-# convert the significant genes back to a matrix for clustering
+# Convert the significant genes back to a matrix for clustering
 deseq2VSTMatrix <- dcast(deseq2VST, Gene ~ variable)
 rownames(deseq2VSTMatrix) <- deseq2VSTMatrix$Gene
 deseq2VSTMatrix$Gene <- NULL
 
-# compute a distance calculation on both dimensions of the matrix
+# Compute a distance calculation on both dimensions of the matrix
 distanceGene <- dist(deseq2VSTMatrix)
 distanceSample <- dist(t(deseq2VSTMatrix))
 
-# cluster based on the distance calculations
+# Cluster based on the distance calculations
 clusterGene <- hclust(distanceGene, method="average")
 clusterSample <- hclust(distanceSample, method="average")
 
-# construct a dendogram for samples
+# Construct a dendogram for samples
 install.packages("ggdendro")
 library(ggdendro)
 sampleModel <- as.dendrogram(clusterSample)
 sampleDendrogramData <- segment(dendro_data(sampleModel, type = "rectangle"))
 sampleDendrogram <- ggplot(sampleDendrogramData) + geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + theme_dendro()
 
-# re-factor samples for ggplot2
+# Re-factor samples for ggplot2
 deseq2VST$variable <- factor(deseq2VST$variable, levels=clusterSample$labels[clusterSample$order])
 
-# construct the heatmap. note that at this point we have only clustered the samples NOT the genes
+# Construct the heatmap. note that at this point we have only clustered the samples NOT the genes
 heatmap <- ggplot(deseq2VST, aes(x=variable, y=Gene, fill=value)) + geom_raster() + scale_fill_viridis(trans="sqrt") + theme(axis.text.x=element_text(angle=65, hjust=1), axis.text.y=element_blank(), axis.ticks.y=element_blank())
 heatmap
 
-# combine the dendrogram and the heatmap
+# Combine the dendrogram and the heatmap
 install.packages("gridExtra")
 library(gridExtra)
 grid.arrange(sampleDendrogram, heatmap, ncol=1, heights=c(1,5))
@@ -284,36 +292,36 @@ grid.arrange(sampleDendrogram, heatmap, ncol=1, heights=c(1,5))
 Our graph is looking pretty good, but you'll notice that the two plots don't seem to line up. This is because the plot widths from our two plots don't quite match up. This can occur for a variety of reasons however in this case it is because we have a legend in one plot but not in the other. Fortuanately this sort of problem is generally easy to fix.
 
 ```R
-# load in libraries necessary for modifying plots
+# Load in libraries necessary for modifying plots
 #install.packages("gtable")
 library(gtable)
 library(grid)
 
-# modify the ggplot objects
+# Modify the ggplot objects
 sampleDendrogram_1 <- sampleDendrogram + scale_x_continuous(expand=c(.0085, .0085)) + scale_y_continuous(expand=c(0, 0))
 heatmap_1 <- heatmap + scale_x_discrete(expand=c(0, 0)) + scale_y_discrete(expand=c(0, 0))
 
-# convert both grid based objects to grobs
+# Convert both grid based objects to grobs
 sampleDendrogramGrob <- ggplotGrob(sampleDendrogram_1)
 heatmapGrob <- ggplotGrob(heatmap_1)
 
-# check the widths of each grob
+# Check the widths of each grob
 sampleDendrogramGrob$widths
 heatmapGrob$widths
 
-# add in the missing columns
+# Add in the missing columns
 sampleDendrogramGrob <- gtable_add_cols(sampleDendrogramGrob, heatmapGrob$widths[7], 6)
 sampleDendrogramGrob <- gtable_add_cols(sampleDendrogramGrob, heatmapGrob$widths[8], 7)
 
-# make sure every width between the two grobs is the same
+# Make sure every width between the two grobs is the same
 maxWidth <- unit.pmax(sampleDendrogramGrob$widths, heatmapGrob$widths)
 sampleDendrogramGrob$widths <- as.list(maxWidth)
 heatmapGrob$widths <- as.list(maxWidth)
 
-# arrange the grobs into a plot
+# Arrange the grobs into a plot
 finalGrob <- arrangeGrob(sampleDendrogramGrob, heatmapGrob, ncol=1, heights=c(2,5))
 
-# draw the plot
+# Draw the plot
 grid.draw(finalGrob)
 ```
 
@@ -327,23 +335,23 @@ You will notice that we are loading in a few additional packages to help solve t
 Now that we've completed that let's add a plot between the dendrogram and the heatmap showing the tissue type to try and discern which normal sample in individual 2 should be the metastasis sample as per the experimental design described.
 
 ```R
-# re-order the sample data to match the clustering we did
+# Re-order the sample data to match the clustering we did
 sampleData_v2$Run <- factor(sampleData_v2$Run, levels=clusterSample$labels[clusterSample$order])
 
-# construct a plot to show the clinical data
+# Construct a plot to show the clinical data
 colours <- c("#743B8B", "#8B743B", "#8B3B52")
 sampleClinical <- ggplot(sampleData_v2, aes(x=Run, y=1, fill=Factor.Value.clinical.information.)) + geom_tile() + scale_x_discrete(expand=c(0, 0)) + scale_y_discrete(expand=c(0, 0)) + scale_fill_manual(name="Tissue", values=colours) + theme_void()
 
-# convert the clinical plot to a grob
+# Convert the clinical plot to a grob
 sampleClinicalGrob <- ggplotGrob(sampleClinical)
 
-# make sure every width between all grobs is the same
+# Make sure every width between all grobs is the same
 maxWidth <- unit.pmax(sampleDendrogramGrob$widths, heatmapGrob$widths, sampleClinicalGrob$widths)
 sampleDendrogramGrob$widths <- as.list(maxWidth)
 heatmapGrob$widths <- as.list(maxWidth)
 sampleClinicalGrob$widths <- as.list(maxWidth)
 
-# arrange and output the final plot
+# Arrange and output the final plot
 finalGrob <- arrangeGrob(sampleDendrogramGrob, sampleClinicalGrob, heatmapGrob, ncol=1, heights=c(2,1,5))
 grid.draw(finalGrob)
 ```
