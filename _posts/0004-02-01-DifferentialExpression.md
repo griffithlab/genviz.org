@@ -66,11 +66,11 @@ sampleData <- sampleData[,keep]
 colnames(sampleData) <- c("tissueType", "individualID")
 sampleData$individualID <- factor(sampleData$individualID)
 
-# put the columns of the count data in the same order as rows names of the sample mapping
+# put the columns of the count data in the same order as rows names of the sample mapping, then make sure it worked
 rawCounts <- rawCounts[,unique(rownames(sampleData))]
 all(colnames(rawCounts) == rownames(sampleData))
 
-# Check the levels of tissue type to make sure the control variable is first
+# order the tissue types so that it is: normal sample -> primary tumor -> metastatic tumor
 sampleData$tissueType <- factor(sampleData$tissueType, levels=c("normal-looking surrounding colonic epithelium", "primary colorectal cancer", "metastatic colorectal cancer to the liver"))
 
 # create the DEseq2DataSet object
