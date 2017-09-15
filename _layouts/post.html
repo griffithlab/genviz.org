@@ -22,4 +22,8 @@ layout: default
 
 </main>
 
+{% if jekyll.environment == 'production' %}
+{% include analytics.html %}
+{% endif %}
+
 {% include site-footer.html %}
