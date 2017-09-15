@@ -142,7 +142,8 @@ deseq2Results <- results(deseq2Data, contrast=c("tissueType", "primary colorecta
 summary(deseq2Results)
 ```
 ### MA-plot
-An MA plot plots a log ratio (M) over an average (A) in order to visualize the differences between two groups. In general we would expect the expression of genes to remain consistent between conditions and so the MA plot should be similar to the shape of a trumpet with most points residing on a y intercept of 0. [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) has a built in method for constructing an MA plot of our results however since this is a visualization course, let's go ahead and use what we know of [ggplot2](http://ggplot2.tidyverse.org/reference/) to construct our own MA plot as well.
+MA plots display a log ratio (M) vs an average (A) in order to visualize the differences between two groups. In general we would expect the expression of genes to remain consistent between conditions and so the MA plot should be similar to the shape of a trumpet with most points residing on a y intercept of 0. [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) has a built in method for constructing an MA plot of our results however since this is a visualization course, let's go ahead and use what we know of [ggplot2](http://ggplot2.tidyverse.org/reference/) to construct our own MA plot as well.
+
 ```R
 # Using DEseq2 built in method
 plotMA(deseq2Results)
@@ -173,9 +174,10 @@ ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=significant)) + geom_po
 # Let's add some more detail
 ggplot(deseq2ResDF, aes(baseMean, log2FoldChange, colour=padj)) + geom_point(size=1) + scale_y_continuous(limits=c(-3, 3), oob=squish) + scale_x_log10() + geom_hline(yintercept = 0, colour="darkorchid4", size=1, linetype="longdash") + labs(x="mean of normalized counts", y="log fold change") + scale_colour_viridis(direction=-1, trans='sqrt') + theme_bw() + geom_density_2d(colour="black", size=2)
 ```
-We can see from the above plots that it is in the characteristic trumpet shape of MA plots. Further we have overlayed density contours in the last plot and as expected, these density contours are centered around a y-intercept of 0. We can further see that as the average counts increase there is more power to call a gene as differentially expressed based on the fold change. You'll also notice that we have quite a few points without an adjusted p-value on the left side of the x-axis. This is occurring because the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function automatically performs independent filtering using the mean of normalized counts. This is done to increase the power to detect an event by not testing those genes which are unlikely to be significant based on their high dispersion.
 
 {% include figure.html image="/assets/Deseq2/deseq2_ggplot_maplot.png" width="950" %}
+
+We can see from the above plots that they are in the characteristic trumpet shape of MA plots. Further we have overlayed density contours in the second plot and, as expected, these density contours are centered around a y-intercept of 0. We can further see that as the average counts increase there is more power to call a gene as differentially expressed based on the fold change. You'll also notice that we have quite a few points without an adjusted p-value on the left side of the x-axis. This is occurring because the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function automatically performs independent filtering using the mean of normalized counts. This is done to increase the power to detect an event by not testing those genes which are unlikely to be significant based on their high dispersion.
 
 ### Viewing normalized counts for a single geneID
 Often it will be useful to plot the normalized counts for a single gene in order to get an idea of what is occurring for that gene across the sample cohort. Fortunately the [plotCounts()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/plotCounts) function from DEseq2 will extract the data we need for plotting this.
@@ -293,7 +295,9 @@ library(gridExtra)
 grid.arrange(sampleDendrogram, heatmap, ncol=1, heights=c(1,5))
 ```
 
-Our graph is looking pretty good, but you'll notice that the two plots don't seem to line up. This is because the plot widths from our two plots don't quite match up. This can occur for a variety of reasons however in this case it is because we have a legend in one plot but not in the other. Fortuanately this sort of problem is generally easy to fix.
+{% include figure.html image="/assets/Deseq2/deseq2_ggplot_heatmap_dendro.png" width="950" %}
+
+Our graph is looking pretty good, but you'll notice that the dendrogram plot doesn't line up well with the heatmap plot. This is because the plot widths from our two plots don't quite match up. This can occur for a variety of reasons. In this case it is because we have a legend in one plot but not in the other. Fortunately this sort of problem is generally easy to fix.
 
 ```R
 # Load in libraries necessary for modifying plots
@@ -329,6 +333,8 @@ finalGrob <- arrangeGrob(sampleDendrogramGrob, heatmapGrob, ncol=1, heights=c(2,
 grid.draw(finalGrob)
 ```
 
+{% include figure.html image="/assets/Deseq2/deseq2_ggplot_heatmap_dendro_fixed.png" width="950" %}
+
 You will notice that we are loading in a few additional packages to help solve this problem. All plots within [ggplot](http://ggplot2.tidyverse.org/reference) are at the lowest level graphical objects (grobs) from the [grid]() package. The [gtable](https://cran.r-project.org/web/packages/gtable/index.html) allows us to view and manipulate these grobs as tables making them easier to work with. 
 * The first step after loading these packages is to alter the x-axis scales in our plots. By default [ggplot](http://ggplot2.tidyverse.org/reference) adds a padding within all plots so data is not plotted on the edge of the plot. We can control this padding with the `expand` parameter within ggplot's [scale](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layers. To get things just right you will need to alter these parameters so data within the plots line up, approximate alterations are provided above so let's move on the the next step. 
 * We need to make sure the main panels in both plots line up exactly, in order to do this we must first convert these plots to table grobs to make them easier to manipulate, this is achieved with the [ggplotGrob()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplotGrob) function. 
@@ -359,6 +365,8 @@ sampleClinicalGrob$widths <- as.list(maxWidth)
 finalGrob <- arrangeGrob(sampleDendrogramGrob, sampleClinicalGrob, heatmapGrob, ncol=1, heights=c(2,1,5))
 grid.draw(finalGrob)
 ```
+
+{% include figure.html image="/assets/Deseq2/deseq2_ggplot_heatmap_dendro_fixed_sidebar.png" width="950" %}
 
 {% include question.html question="Based on the plot you produced above, which normal sample for individual 2 is likely the metastasis sample" answer='Based on the clustering, sample SRR975587'%}
 
