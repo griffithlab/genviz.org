@@ -37,19 +37,23 @@ Below are some additional resources that users may find useful to supplement the
 * [R practice](https://codefights.com/)
 
 ### Introduction to ggplot2
-
 * [long vs. wide format](http://seananderson.ca/2013/10/19/reshape.html)
 * [ggplot2 wiki](https://github.com/tidyverse/ggplot2/wiki)
 * [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 
 ### Introduction to shiny
-
 * [Shiny tutorial for RStudio](https://shiny.rstudio.com/tutorial/)
 
 ### Introduction to GenVisR
-
 * [GenVisR Vignette](https://bioconductor.org/packages/release/bioc/vignettes/GenVisR/inst/doc/GenVisR_intro.html)
 * [GenVisR Manuscript](https://academic.oup.com/bioinformatics/article/32/19/3012/2196360/GenVisR-Genomic-Visualizations-in-R)
+
+### Visualization examples and general resources
+* [Data Viz Catalogue](http://www.datavizcatalogue.com/index.html)
+* [R Shiny Gallery](https://shiny.rstudio.com/gallery/)
+* [R Graph Gallery](http://www.r-graph-gallery.com/)
+* [R Graph Gallery - ggplot](http://www.r-graph-gallery.com/portfolio/ggplot2-package/)
+* [mkweb - visualization resources by Martin Krzywinski](http://mkweb.bcgsc.ca/)
 
 ### Differential Expresion with DEseq2
 
