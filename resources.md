@@ -12,7 +12,7 @@ Below are some additional resources that users may find useful to supplement the
 
 ### Lecture slides
 
-#### Physalia-courses, Freie Universität Berlin, Germany, 11-15 Sept 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
+#### [Physalia-courses](https://www.physalia-courses.org/), Freie Universität Berlin, Germany, 11-15 Sept 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
 
 * [Module 0 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module0_Introductions.pdf)
 * [Module 1 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module1_Lecture.pdf)

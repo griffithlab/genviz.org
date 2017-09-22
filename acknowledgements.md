@@ -24,6 +24,10 @@ We would also like to thank the following researchers who contributed to lecture
 
 Finally, we would like to thank the students who participated and contributed in many ways to development of these materials.
 
+#### [Physalia-courses](https://www.physalia-courses.org/), Freie Universität Berlin, Germany, 11-15 Sept 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
+
+<p><br></p>
+
 {% include figure.html image="/assets/physalia_class_2017.jpg" width="950" link="https://www.physalia-courses.org/courses/course14/" title="GDVI 2017 class photo" author="Carlo Pecoraro" license="copyright by Physalia-courses" license_link="https://www.physalia-courses.org/" %}
 
 
