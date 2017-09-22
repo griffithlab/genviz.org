@@ -8,8 +8,15 @@ excerpt: ""
 layout: "home"
 ---
 
-This work would not be possible without building upon what others have contributed to the bioifnormatics community. We would like to thank the authors of the bioinformatic tools and resources upon which this tutorial is based. We would like to specifically the thank the following researchers.
+These materials have been developed with the support of [Physalia-courses](https://www.physalia-courses.org/).
 
+{% include figure.html image="/assets/physaliacourses.jpg" position="left" %}
+
+> Physalia-courses provides scientific training courses and Workshops in Bioinformatics, Genomics and related fields, promoting the transfer of new methods and emerging techniques to a broad range of researchers. Their goal is to build a knowledge-sharing platform between highly qualified instructors and participants at various stage of their scientific and academic career (e.g. PhD students, post-doctoral researchers, PIs). Through the courses and workshops, participants learn how to plan their projects and how to analyze their data
+
+This work would not be possible without building upon what others have contributed to the bioinformatics community. We would like to thank the authors of the bioinformatic tools and resources upon which this tutorial is based. 
+
+We would also like to specifically thank the following researchers who contributed to lecture or exercise materials.
 * Sorana Morrissy - IGV
 * Jim Robinson - IGV
 * Ben Ainscough - IGV
