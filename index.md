@@ -14,3 +14,9 @@ We aim to provide an in-depth tutorial in the interpretation and visualization o
 
 This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a strict requirement unless otherwise stated. Please navigate to [Course](http://genviz.org/course/) to begin.
 
+These materials have been developed with the support of [Physalia-courses](https://www.physalia-courses.org/).
+
+{% include figure.html image="/assets/physaliacourses.jpg" position="left" width="450" %}
+
+Physalia-courses provides scientific training courses and Workshops in Bioinformatics, Genomics and related fields, promoting the transfer of new methods and emerging techniques to a broad range of researchers. Their goal is to build a knowledge-sharing platform between highly qualified instructors and participants at various stage of their scientific and academic career (e.g. PhD students, post-doctoral researchers, PIs). Through the courses and workshops, participants learn how to plan their projects and how to analyze their data.
+

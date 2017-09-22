@@ -10,9 +10,9 @@ layout: "home"
 
 These materials have been developed with the support of [Physalia-courses](https://www.physalia-courses.org/).
 
-{% include figure.html image="/assets/physaliacourses.jpg" position="left" %}
+{% include figure.html image="/assets/physaliacourses.jpg" position="left" width="450" %}
 
-> Physalia-courses provides scientific training courses and Workshops in Bioinformatics, Genomics and related fields, promoting the transfer of new methods and emerging techniques to a broad range of researchers. Their goal is to build a knowledge-sharing platform between highly qualified instructors and participants at various stage of their scientific and academic career (e.g. PhD students, post-doctoral researchers, PIs). Through the courses and workshops, participants learn how to plan their projects and how to analyze their data
+Physalia-courses provides scientific training courses and Workshops in Bioinformatics, Genomics and related fields, promoting the transfer of new methods and emerging techniques to a broad range of researchers. Their goal is to build a knowledge-sharing platform between highly qualified instructors and participants at various stage of their scientific and academic career (e.g. PhD students, post-doctoral researchers, PIs). Through the courses and workshops, participants learn how to plan their projects and how to analyze their data.
 
 This work would not be possible without building upon what others have contributed to the bioinformatics community. We would like to thank the authors of the bioinformatic tools and resources upon which this tutorial is based. 
 

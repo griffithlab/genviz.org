@@ -8,6 +8,8 @@ excerpt: ""
 layout: "home"
 ---
 
+#### Physalia-courses, Freie Universität Berlin, Germany, 11-15 Sept 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
+
 | Day |     Time    | Duration | Module | Topic |
 |-----|-------------|----------|--------|-------|
 |  1  | 09:30-10:30 | 1:00     | 1      | Lecture: Introduction to Genomic Data Visualization and Interpretation |
