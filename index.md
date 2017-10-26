@@ -1,7 +1,7 @@
 ---
-title: Genomic Visualization and Data Interpretation
+title: Genomic Data Visualization and Interpretation
 feature_text: |
-  ## Genomic Visualization and Data Interpretation
+  ## Genomic Data Visualization and Interpretation
   Tutorial series for visualizing and interpreting omic data
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 image: "assets/genvis-dna-bg_optimized_v1a.png"
@@ -13,4 +13,10 @@ The age of cheap massively parallel sequencing has exponentially increased the a
 We aim to provide an in-depth tutorial in the interpretation and visualization of omic data. Among the topics we will cover are: "Genome Browsing and Interpretation", "Differential Expression and Pathway Analysis", "Best in Class tools for visualization", and others. Students should have a background in biology and a basic knowledge of the R programming language and linux.
 
 This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a strict requirement unless otherwise stated. Please navigate to [Course](http://genviz.org/course/) to begin.
+
+These materials have been developed with the support of [Physalia-courses](https://www.physalia-courses.org/). The first in-person workshop was held at Freie Universität Berlin, Germany, 11-15 Sept 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/)). For future offerings by Physalia (including this workshop) please visit the [upcoming workshops page](https://www.physalia-courses.org/courses-workshops/).
+
+{% include figure.html image="/assets/physaliacourses.jpg" position="left" width="450" %}
+
+Physalia-courses provides scientific training courses and Workshops in Bioinformatics, Genomics and related fields, promoting the transfer of new methods and emerging techniques to a broad range of researchers. Their goal is to build a knowledge-sharing platform between highly qualified instructors and participants at various stage of their scientific and academic career (e.g. PhD students, post-doctoral researchers, PIs). Through the courses and workshops, participants learn how to plan their projects and how to analyze their data.
 

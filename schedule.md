@@ -1,12 +1,14 @@
 ---
 title: Schedule
 feature_text: |
-  ## Genomic Visualization and Data Interpretation
+  ## Genomic Data Visualization and Interpretation
   Tutorial series for visualizing and interpreting omic data
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 excerpt: ""
 layout: "home"
 ---
+
+#### [Physalia-courses](https://www.physalia-courses.org/), Freie Universität Berlin, Germany, 11-15 Sept 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
 
 | Day |     Time    | Duration | Module | Topic |
 |-----|-------------|----------|--------|-------|

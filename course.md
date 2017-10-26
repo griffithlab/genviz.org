@@ -1,6 +1,6 @@
 ---
 feature_text: |
-  ## Genomic Visualization and Interpretation
+  ## Genomic Data Visualization and Interpretation
   Tutorial series for visualizing and interpreting omic data
 
 layout: categories
