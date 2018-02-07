@@ -18,7 +18,7 @@ exclude:
 - alembic-jekyll-theme.gemspec
 
 # 2. Installed Gems
-gems:
+plugins:
 - jekyll-sitemap
 - jekyll-mentions
 - jekyll-paginate
@@ -77,7 +77,7 @@ defaults:
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
 title: "Griffith Lab" # Site name or title, also used in jekyll-seo-tag
-logo: "/assets/Site_Logo3.png" # Site logo, also used in jekyll-seo-tag
+logo: "/assets/Site_Logo3_v2.png" # Site logo, also used in jekyll-seo-tag
 logo_link: "http://www.griffithlab.org"
 description: "This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a requirement unless stated otherwise." # Site description and default description, also used in jekyll-seo-tag
 url: "http://www.genviz.org/" # Site url, also used in jekyll-seo-tag
