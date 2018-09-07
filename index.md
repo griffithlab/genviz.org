@@ -14,7 +14,7 @@ We aim to provide an in-depth tutorial in the interpretation and visualization o
 
 This resource is structured in a modular format. Users would benefit from familiarity with topics covered in previous modules however it is not a strict requirement unless otherwise stated. Please navigate to [Course](http://genviz.org/course/) to begin.
 
-These materials have been developed with the support of [Physalia-courses](https://www.physalia-courses.org/). The first in-person workshop was held at Freie Universität Berlin, Germany, 11-15 Sept 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/)). For future offerings by Physalia (including this workshop) please visit the [upcoming workshops page](https://www.physalia-courses.org/courses-workshops/).
+These materials have been developed with the support of [Physalia-courses](https://www.physalia-courses.org/). The first in-person workshop was held at Freie Universität Berlin, Germany, 11-15 Sept 2017. The second iteration of this course, with improved and updated content will be held at the same location in Berlin, Germany, 8-12 April 2019 (see [course page](https://www.physalia-courses.org/courses-workshops/course14/) to register!). For future offerings by Physalia (including this workshop) please visit the [upcoming workshops page](https://www.physalia-courses.org/courses-workshops/).
 
 {% include figure.html image="/assets/physaliacourses.jpg" position="left" width="450" %}
 
