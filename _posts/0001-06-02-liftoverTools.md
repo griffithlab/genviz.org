@@ -3,7 +3,7 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Introduction to liftover tools
 categories:
-    - Module 1
+    - Module-01-Intro
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-06-02
 ---

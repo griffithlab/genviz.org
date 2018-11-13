@@ -3,7 +3,7 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Differential expression with DEseq2
 categories:
-    - Module 4
+    - Module-04-Expression
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-02-01
 ---

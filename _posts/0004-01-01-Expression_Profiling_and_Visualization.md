@@ -3,7 +3,7 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Expression Profiling, Visualization, and Interpretation
 categories:
-    - Module 4
+    - Module-04-Expression
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-01-01
 ---

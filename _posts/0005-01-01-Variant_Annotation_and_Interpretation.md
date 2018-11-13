@@ -3,7 +3,7 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Variant annotation and interpretation
 categories:
-    - Module 5
+    - Module-05-Annotation
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0005-01-01
 ---

@@ -3,7 +3,7 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Introduction to R
 categories:
-    - Module 2
+    - Module-02-R
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-02-01
 ---
