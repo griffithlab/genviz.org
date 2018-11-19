@@ -360,8 +360,8 @@ table tr th, table tr td
     background-size: 100% 0.15rem;
     border: 0;
     margin: 0;
-    padding-bottom: 3rem;
-    padding-top: 3rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
   }
 
   // Code block.
@@ -409,4 +409,9 @@ table tr th, table tr td
   .oldstyle-numerals {
     font-feature-settings: 'onum', 'kern';
   }
+}
+
+.article{
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
