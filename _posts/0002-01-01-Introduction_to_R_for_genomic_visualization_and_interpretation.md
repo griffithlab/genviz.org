@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Using R for Genomic Data Visualization and Interpretation
+title: Using R for Genomic Data Visualization and Interpretation+
 categories:
     - Module-02-R
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"

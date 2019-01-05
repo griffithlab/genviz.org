@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Introduction to GenVisR
+title: Introduction to GenVisR+
 categories:
     - Module-03-GenVisR
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"

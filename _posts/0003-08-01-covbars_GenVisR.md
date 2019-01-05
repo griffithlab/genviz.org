@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Introduction to sequencing coverage plots
+title: Introduction to sequencing coverage plots+
 categories:
     - Module-03-GenVisR
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"

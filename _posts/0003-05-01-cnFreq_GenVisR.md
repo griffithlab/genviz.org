@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Introduction to copy number frequency plots
+title: Introduction to copy number frequency plots+
 categories:
     - Module-03-GenVisR
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
