@@ -11,7 +11,7 @@ date: 0004-02-01
 Differential expression analysis is used to identify differences in the transcriptome (gene expression) across a cohort of samples. Oftentimes, it will be used to define the differences between multiple biological conditions (e.g. drug treated vs. untreated samples). There are many, many tools available to perform this type of analysis. In this course we will rely on a popular Bioconductor package [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). We will then make various visualizations to help interpret our results.
 
 ### Dataset
-For this analysis we will use the RNAseq data obtained from the (EBI Expression Atlas (GXA))[https://www.ebi.ac.uk/gxa]. Specifically data set [E-GEOD-50760](https://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Downloads) which corresponds to [PMID: 25049118](https://www.ncbi.nlm.nih.gov/pubmed/25049118). This data consists of 54 samples from 18 individuals. Each individual has a primary colorectal cancer sample, a metastatic liver sample, and a normal sample of the surrounding colonic epithilium. The quantification data required to run differential expression analysis using DEseq2 are raw readcounts for either genes or transcripts. We will use the output from HTseq as a starting point. 
+For this analysis we will use the RNAseq data obtained from the [EBI Expression Atlas (GXA)](https://www.ebi.ac.uk/gxa). Specifically data set [E-GEOD-50760](https://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Downloads) which corresponds to [PMID: 25049118](https://www.ncbi.nlm.nih.gov/pubmed/25049118). This data consists of 54 samples from 18 individuals. Each individual has a primary colorectal cancer sample, a metastatic liver sample, and a normal sample of the surrounding colonic epithilium. The quantification data required to run differential expression analysis using DEseq2 are raw readcounts for either genes or transcripts. We will use the output from HTseq as a starting point.
 
 It can be downloaded from the GXA.Download these files for use in this exercise:
 * Raw counts data from here:[E-GEOD-50760 raw counts](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts)
@@ -28,7 +28,7 @@ biocLite("DESeq2")
 library(DESeq2)
 ```
 ### Input data
-Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of non-normalized sequence read counts at either the gene or transcript level. No preliminary normalization of this data is needed. [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) will internally corrects for differences in library size, using the raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our example data. 
+Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of non-normalized sequence read counts at either the gene or transcript level. No preliminary normalization of this data is needed. [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) will internally corrects for differences in library size, using the raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our example data.
 
 Let's go ahead and load the data and sample information into R. Don't forget to set your working directory to the location of the data files:
 
@@ -43,11 +43,11 @@ sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
 sampleData_v2 <- read.delim("E-GEOD-50760-experiment-design.tsv")
 ```
 
-The next step is to create an object of class DESeqDataSet, which will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula used to estimate dispersion and log2 fold changes used within the model. "Dispersion" is a parameter of the [Generalized Linear Model](https://en.wikipedia.org/wiki/Generalized_linear_model) that relates to to the variance of the distribution. For more details refer to [PMID: 24349066](https://www.ncbi.nlm.nih.gov/pubmed/24349066) and [PMID: 22287627](https://www.ncbi.nlm.nih.gov/pubmed/22287627). 
+The next step is to create an object of class DESeqDataSet, which will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula used to estimate dispersion and log2 fold changes used within the model. "Dispersion" is a parameter of the [Generalized Linear Model](https://en.wikipedia.org/wiki/Generalized_linear_model) that relates to to the variance of the distribution. For more details refer to [PMID: 24349066](https://www.ncbi.nlm.nih.gov/pubmed/24349066) and [PMID: 22287627](https://www.ncbi.nlm.nih.gov/pubmed/22287627).
 
-When specifying the formula it should take the form of a "~" followed by "+" separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable. 
+When specifying the formula it should take the form of a "~" followed by "+" separating factors. When using the default DEseq2 parameters the factor of interest (tissue type in this case) should be specified last and the control within that factor should be first when viewing the [levels()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/levels) for that variable.
 
-There are 4 methods to create this object depending on the format the input data is in. 
+There are 4 methods to create this object depending on the format the input data is in.
 
 Because we already have our data loaded into R we will use [DESeqDataSetFromMatrix()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/DESeqDataSet-class).
 
@@ -61,7 +61,7 @@ head(rawCounts)
 
 # Convert sample variable mappings to an appropriate form that DESeq2 can read
 rownames(sampleData) <- sampleData$Run
-keep <- c("Sample.Characteristic.clinical.information.", "Sample.Characteristic.individual.")
+keep <- c("Sample.Characteristic.biopsy.site.", "Sample.Characteristic.individual.")
 sampleData <- sampleData[,keep]
 colnames(sampleData) <- c("tissueType", "individualID")
 sampleData$individualID <- factor(sampleData$individualID)
@@ -69,6 +69,13 @@ sampleData$individualID <- factor(sampleData$individualID)
 # Put the columns of the count data in the same order as rows names of the sample mapping, then make sure it worked
 rawCounts <- rawCounts[,unique(rownames(sampleData))]
 all(colnames(rawCounts) == rownames(sampleData))
+
+# rename the tissue types
+a <- function(x){
+  x <- switch(as.character(x), "normal"="normal-looking surrounding colonic epithelium", "primary tumor"="primary colorectal cancer",  "colorectal cancer metastatic in the liver"="metastatic colorectal cancer to the liver")
+  return(x)
+}
+sampleData$tissueType <- unlist(lapply(sampleData$tissueType, a))
 
 # Order the tissue types so that it is sensible and make sure the control sample is first: normal sample -> primary tumor -> metastatic tumor
 sampleData$tissueType <- factor(sampleData$tissueType, levels=c("normal-looking surrounding colonic epithelium", "primary colorectal cancer", "metastatic colorectal cancer to the liver"))
@@ -130,7 +137,7 @@ load("deseq2Data_v1.RData")
 ```
 
 ### Extracting results
-Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) what comparison to make. This is only necessary if the design formula is multi-factorial or, as in our case, the variable in the design formula has more than 2 levels. This is done with the `contrast` parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator (i.e. comparator), and the denominator (i.e. control). 
+Finally we can extract the differential expression results with the [results()](https://www.rdocumentation.org/packages/DESeq2/versions/1.12.3/topics/results) function. When using this function we need to tell [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) what comparison to make. This is only necessary if the design formula is multi-factorial or, as in our case, the variable in the design formula has more than 2 levels. This is done with the `contrast` parameter which takes a character vector of three elements giving the name of the factor of interest, the numerator (i.e. comparator), and the denominator (i.e. control).
 
 Let's get output for normal tissue vs primary tumor expression results and view a summary of results.
 ```R
@@ -193,9 +200,9 @@ ggplot(otop2Counts, aes(x=tissueType, y=count, colour=individualID, group=indivi
 
 {% include figure.html image="/assets/Deseq2/deseq2_otop2_expression.png" width="950" %}
 
-From the resulting plot (see above) we can see that almost all individuals show down-regulation of this gene in both the primary tumor and metastasis samples compared to the normal. We've also introduced a few new ggplot2 concepts, so let's briefly go over them. 
-* You will notice that we have specified a [group](http://ggplot2.tidyverse.org/reference/aes_group_order.html) when we initialized our plot. By default ggplot would have assumed the groups were for the discrete variables plotted on the x-axis, and when connecting points with [geom_line()](http://ggplot2.tidyverse.org/reference/geom_path.html) this would have connected all points for each discrete variable instead of connecting by the individual id. Try removing the grouping to get a sense of what happens. 
-* We have also altered the legend using [guides()](http://ggplot2.tidyverse.org/reference/guides.html) to specify the legend to act on, and [guide_legend()](http://ggplot2.tidyverse.org/reference/guide_legend.html) to specify that the colour legend should have 3 columns for values instead of just 1. 
+From the resulting plot (see above) we can see that almost all individuals show down-regulation of this gene in both the primary tumor and metastasis samples compared to the normal. We've also introduced a few new ggplot2 concepts, so let's briefly go over them.
+* You will notice that we have specified a [group](http://ggplot2.tidyverse.org/reference/aes_group_order.html) when we initialized our plot. By default ggplot would have assumed the groups were for the discrete variables plotted on the x-axis, and when connecting points with [geom_line()](http://ggplot2.tidyverse.org/reference/geom_path.html) this would have connected all points for each discrete variable instead of connecting by the individual id. Try removing the grouping to get a sense of what happens.
+* We have also altered the legend using [guides()](http://ggplot2.tidyverse.org/reference/guides.html) to specify the legend to act on, and [guide_legend()](http://ggplot2.tidyverse.org/reference/guide_legend.html) to specify that the colour legend should have 3 columns for values instead of just 1.
 * Lastly we have added a main title with [ggtitle()](http://ggplot2.tidyverse.org/reference/labs.html). You might have noticed that individual 2 looks a little off, specifically based on the plot we created there appears to be two normal samples for this individual. Looking at our sample data we can observe that this is indeed the case, contrary to the stated experimental design. Looking at the sampleData dataframe we created, we can see that our suspicions are correct. Often when visualizing data you will catch potential errors that would have otherwise been missed.
 
 Examine the raw data for this gene. Is the p-value significant for this gene? Does this makes sense when we look back at the raw counts for primary tumors and normal samples?
@@ -245,20 +252,20 @@ heatmap
 
 {% include figure.html image="/assets/Deseq2/deseq2_ggplot_heatmap.png" width="950" %}
 
-Let's briefly talk about the steps we took to obtain the heatmap we plotted above. 
-* First we took our [DESeq2DataSet](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeqDataSet-class) object we obtained from the command [DESeq()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeq) and transformed the values using the variance stabilizing tranform algorithm from the [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst) function. 
-* We then extracted these transformed values with the [assay()](https://www.rdocumentation.org/packages/SummarizedExperiment/versions/1.2.3/topics/SummarizedExperiment-class) function and converted the resulting object to a data frame with a column for gene id's. 
-* We next used the differential expression results we had previously obtained to filter our transformed matrix to only those genes which were significantly differentially expressed (q-value <= .05) and with a log2 fold change greater than 3. 
-* Up to this point our transformed values have been in "wide" format, however [ggplot2](http://ggplot2.tidyverse.org/reference/) required long format. We achieve this with [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) function from the [reshape2](https://cran.r-project.org/web/packages/reshape2/index.html) package. 
+Let's briefly talk about the steps we took to obtain the heatmap we plotted above.
+* First we took our [DESeq2DataSet](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeqDataSet-class) object we obtained from the command [DESeq()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/DESeq) and transformed the values using the variance stabilizing tranform algorithm from the [vst()](https://www.rdocumentation.org/packages/DESeq/versions/1.24.0/topics/vst) function.
+* We then extracted these transformed values with the [assay()](https://www.rdocumentation.org/packages/SummarizedExperiment/versions/1.2.3/topics/SummarizedExperiment-class) function and converted the resulting object to a data frame with a column for gene id's.
+* We next used the differential expression results we had previously obtained to filter our transformed matrix to only those genes which were significantly differentially expressed (q-value <= .05) and with a log2 fold change greater than 3.
+* Up to this point our transformed values have been in "wide" format, however [ggplot2](http://ggplot2.tidyverse.org/reference/) required long format. We achieve this with [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) function from the [reshape2](https://cran.r-project.org/web/packages/reshape2/index.html) package.
 * Finally we use [ggplot2](http://ggplot2.tidyverse.org/reference/) and the [geom_raster()](http://ggplot2.tidyverse.org/reference/geom_tile.html) function to create a heatmap using the color scheme available from the [viridis](https://cran.r-project.org/web/packages/viridis/index.html) package.
 
 ### Clustering
-Now that we have a heatmap let's start clustering using the functions available with base R. 
-* The first step is to convert our transformed values back to wide format using [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) with row names and columns names as genes and samples respectively. 
-* Next we can compute a distance matrix using [dist()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/dist) which will compute the distance based on the rows of our data frame. This will give us the distance matrix based on our genes, but we also want a distance matrix based on the samples, for this we simply have to transpose our matrix before calling [dist()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/dist) with the function [t()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/t). 
-* From there we can perform hierarchical clustering with the [hclust()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/hclust) function. 
-* We then install the [ggdendro](https://cran.r-project.org/web/packages/ggdendro/index.html) package to construct a dendrogram as described in their [vignette](https://cran.r-project.org/web/packages/ggdendro/vignettes/ggdendro.html). 
-* Finally we re-create the heatmap to match the dendrogram using the [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor) function to re-order how samples are plotted. 
+Now that we have a heatmap let's start clustering using the functions available with base R.
+* The first step is to convert our transformed values back to wide format using [dcast()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/cast) with row names and columns names as genes and samples respectively.
+* Next we can compute a distance matrix using [dist()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/dist) which will compute the distance based on the rows of our data frame. This will give us the distance matrix based on our genes, but we also want a distance matrix based on the samples, for this we simply have to transpose our matrix before calling [dist()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/dist) with the function [t()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/t).
+* From there we can perform hierarchical clustering with the [hclust()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/hclust) function.
+* We then install the [ggdendro](https://cran.r-project.org/web/packages/ggdendro/index.html) package to construct a dendrogram as described in their [vignette](https://cran.r-project.org/web/packages/ggdendro/vignettes/ggdendro.html).
+* Finally we re-create the heatmap to match the dendrogram using the [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor) function to re-order how samples are plotted.
 * Because ggplot plots use grid graphics underneath we can use the [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) package to combine both plots into one with the function [grid.arrange()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob).
 
 ```R
@@ -335,11 +342,11 @@ grid.draw(finalGrob)
 
 {% include figure.html image="/assets/Deseq2/deseq2_ggplot_heatmap_dendro_fixed.png" width="950" %}
 
-You will notice that we are loading in a few additional packages to help solve this problem. All plots within [ggplot](http://ggplot2.tidyverse.org/reference) are at the lowest level graphical objects (grobs) from the [grid]() package. The [gtable](https://cran.r-project.org/web/packages/gtable/index.html) allows us to view and manipulate these grobs as tables making them easier to work with. 
-* The first step after loading these packages is to alter the x-axis scales in our plots. By default [ggplot](http://ggplot2.tidyverse.org/reference) adds a padding within all plots so data is not plotted on the edge of the plot. We can control this padding with the `expand` parameter within ggplot's [scale](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layers. To get things just right you will need to alter these parameters so data within the plots line up, approximate alterations are provided above so let's move on the the next step. 
-* We need to make sure the main panels in both plots line up exactly, in order to do this we must first convert these plots to table grobs to make them easier to manipulate, this is achieved with the [ggplotGrob()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplotGrob) function. 
-* Now that these are grobs we compare the widths of each grob, you might notice that two widths seem to be missing from the the dendrogram plot. These two widths correspond to the legend in the heatmap, we use the [gtable_add_cols()](https://www.rdocumentation.org/packages/gtable/versions/0.2.0/topics/gtable_add_cols) function to insert in the widths for these two elements from the heatmap grob into the dendrogram grob. 
-* The next step is to then find the maximum widths for each grob object using [unit.pmax()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/unit.pmin) and to overwrite each grobs width with these maximum widths. 
+You will notice that we are loading in a few additional packages to help solve this problem. All plots within [ggplot](http://ggplot2.tidyverse.org/reference) are at the lowest level graphical objects (grobs) from the [grid]() package. The [gtable](https://cran.r-project.org/web/packages/gtable/index.html) allows us to view and manipulate these grobs as tables making them easier to work with.
+* The first step after loading these packages is to alter the x-axis scales in our plots. By default [ggplot](http://ggplot2.tidyverse.org/reference) adds a padding within all plots so data is not plotted on the edge of the plot. We can control this padding with the `expand` parameter within ggplot's [scale](http://ggplot2.tidyverse.org/reference/scale_continuous.html) layers. To get things just right you will need to alter these parameters so data within the plots line up, approximate alterations are provided above so let's move on the the next step.
+* We need to make sure the main panels in both plots line up exactly, in order to do this we must first convert these plots to table grobs to make them easier to manipulate, this is achieved with the [ggplotGrob()](https://www.rdocumentation.org/packages/ggplot2/versions/2.2.1/topics/ggplotGrob) function.
+* Now that these are grobs we compare the widths of each grob, you might notice that two widths seem to be missing from the the dendrogram plot. These two widths correspond to the legend in the heatmap, we use the [gtable_add_cols()](https://www.rdocumentation.org/packages/gtable/versions/0.2.0/topics/gtable_add_cols) function to insert in the widths for these two elements from the heatmap grob into the dendrogram grob.
+* The next step is to then find the maximum widths for each grob object using [unit.pmax()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/unit.pmin) and to overwrite each grobs width with these maximum widths.
 * Finally we arrange the grobs on the page we are plotting to using [arrangeGrob()](https://www.rdocumentation.org/packages/gridExtra/versions/2.2.1/topics/arrangeGrob) and draw the final plot with [grid.draw()](https://www.rdocumentation.org/packages/grid/versions/3.4.1/topics/grid.draw).
 
 Now that we've completed that let's add a plot between the dendrogram and the heatmap showing the tissue type to try and discern which normal sample in individual 2 should be the metastasis sample as per the experimental design described.
@@ -350,7 +357,7 @@ sampleData_v2$Run <- factor(sampleData_v2$Run, levels=clusterSample$labels[clust
 
 # Construct a plot to show the clinical data
 colours <- c("#743B8B", "#8B743B", "#8B3B52")
-sampleClinical <- ggplot(sampleData_v2, aes(x=Run, y=1, fill=Factor.Value.clinical.information.)) + geom_tile() + scale_x_discrete(expand=c(0, 0)) + scale_y_discrete(expand=c(0, 0)) + scale_fill_manual(name="Tissue", values=colours) + theme_void()
+sampleClinical <- ggplot(sampleData_v2, aes(x=Run, y=1, fill=Sample.Characteristic.biopsy.site.)) + geom_tile() + scale_x_discrete(expand=c(0, 0)) + scale_y_discrete(expand=c(0, 0)) + scale_fill_manual(name="Tissue", values=colours) + theme_void()
 
 # Convert the clinical plot to a grob
 sampleClinicalGrob <- ggplotGrob(sampleClinical)
