@@ -30,6 +30,7 @@ Finally, we would like to thank the students who participated and contributed in
 
 {% include figure.html image="/assets/physalia_class_2017.jpg" width="950" link="https://www.physalia-courses.org/courses/course14/" title="GDVI 2017 class photo" author="Carlo Pecoraro" license="copyright by Physalia-courses" license_link="https://www.physalia-courses.org/" %}
 
-#### [Evomics - Workshop on Genomics 2019](http://evomics.org/), Český Krumlov, Czech Republic, 6-19 January, 2019 ([course page](http://evomics.org/workshops/workshop-on-genomics/2019-workshop-on-genomics-cesky-krumlov/)).
+#### [Evomics - Workshop on Genomics 2019](http://evomics.org/), Český Krumlov, Czech Republic, 6-19 January, 2019 ([course page](http://evomics.org/workshops/workshop-on-genomics/2019-workshop-on-genomics-cesky-krumlov/))
 
+<p><br></p>
 
