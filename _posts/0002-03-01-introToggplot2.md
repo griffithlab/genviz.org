@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-03-01
 ---
 
-There are at least three primary graphics programs available within the R environment. A package for [base R graphics](https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/00Index.html) is installed by default and provides a simple mechanism to quickly create graphs. [lattice](https://cran.r-project.org/web/packages/lattice/index.html) is another graphics package that attempts to improve on base R graphics by providing better defaults and the ability to easily display multivariate relationships. In particular, the package supports the creation of trellis graphs - graphs that display a variable or the relationship between variables, conditioned on one or more other variables. Finally, [ggplot2](http://ggplot2.org/) is a graphics program based on the grammar of graphics idealogy, and will be the primary focus of this course.
+There are at least three primary graphics programs available within the R environment. A package for [base R graphics](https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/00Index.html) is installed by default and provides a simple mechanism to quickly create graphs. [lattice](https://cran.r-project.org/web/packages/lattice/index.html) is another graphics package that attempts to improve on base R graphics by providing better defaults and the ability to easily display multivariate relationships. In particular, the package supports the creation of trellis graphs - graphs that display a variable or the relationship between variables, conditioned on one or more other variables. Finally, [ggplot2](http://ggplot2.org/) is a graphics program based on the [grammar of graphics](https://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf) ideology, and will be the primary focus of this course.
 
 In this module, we will explore basic use of ggplot2 to plot genomic data. For illustration, we will use a set of mutation data from Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only). You can download a cleaned up version of Supplemental Table S5 at [http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv)
 
@@ -21,6 +21,7 @@ install.packages("ggplot2")
 library(ggplot2)
 
 # load Supplemental Table S5
+# note that in the following example we are loading directly from a URL (instead of dowloading it to the instance first)
 variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
 
 #Familiarize yourself with the data in this file by looking at the 'head' (top) of the file
