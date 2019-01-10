@@ -186,11 +186,11 @@ p17
 p18 <- p17 + theme(axis.text.x=element_text(angle=45, hjust=1))
 p18
 
-# altering a few more visual apects
+# altering a few more visual apects (put the legend at top and make the base change labels white on a black background)
 p19 <- p18 + theme(legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"))
 p19
 
-# Let's remove the y-axis ticks as well
+# Let's remove the main x-axis label as well
 p20 <- p19 + theme(axis.title.x=element_blank())
 p20
 ```
