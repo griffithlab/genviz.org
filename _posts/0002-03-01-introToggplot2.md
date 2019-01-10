@@ -170,6 +170,19 @@ p15
 
 Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, A->C, A->G, and A->T variants.   
 
+Also note how we are selecting a subset of the "variantData" data above. Try the following commands to breakdown how this works:
+```
+variantData[1,]
+variantData[,1]
+variantData[,7]
+variantData$type
+variantData$type == "SNP"
+x = variantData[variantData$type == "SNP",]
+dim(x)
+dim(variantData)
+head(x)
+``` 
+
 ### ggplot themes
 Almost every aspect of a ggplot object can be altered. We've already gone over how to alter the display of data but what if we want to alter the display of the non data elements? Fortunately there is a function for that called [theme()](http://ggplot2.tidyverse.org/reference/theme.html). You'll notice in the previous plot some of the x-axis names are colliding with one another, let's fix that and alter some of the theme parameters to make the plot more visually appealing.
 
