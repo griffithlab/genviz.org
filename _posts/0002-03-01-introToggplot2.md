@@ -306,6 +306,7 @@ library(plyr)
 variantDataCount <- count(variantData, "Simple_name")
 variantDataMax <- aggregate(data=variantData, tumor_VAF ~ Simple_name, max)
 variantDataMerge <- merge(variantDataMax, variantDataCount)
+head(variantDataMerge)
 ```
 
 {% include figure.html image="/assets/ggplot2/ggplot2Example3.png" width="950" %}
