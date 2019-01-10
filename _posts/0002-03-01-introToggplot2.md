@@ -27,6 +27,9 @@ variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplo
 #Familiarize yourself with the data in this file by looking at the 'head' (top) of the file
 head(variantData)
 
+#Look at a selection of columns
+variantData[1:5 ,c(1:9,16,18)]
+
 # make a coverage column since this doesn't exist yet
 variantData$tumor_COV <- variantData$tumor_ref_count + variantData$tumor_var_count
 
