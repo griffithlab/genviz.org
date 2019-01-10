@@ -251,6 +251,9 @@ dev.off()
 
 # alternatively ggsave will save the last plot made
 ggsave("p20.pdf", device="pdf")
+
+#note the current working directory where this file will have been saved
+getwd()
 ```
 
 ### Wide vs long format
