@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Genome Browsing and Visualization - IGV+
+title: Genome Browsing and Visualization - IGV
 categories:
     - Module-01-Intro
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
