@@ -146,6 +146,18 @@ This should happen automatically from Rstudio. If your previous app is still run
 
 {% include figure.html image="/assets/shiny/shiny_simple_output.png" width="1000" %}
 
+Now using what we've learned so far try to add some text to are web app by passing it from the back end to the front end.
+
+{% include question.html question="Get a hint!" answer='Look at the help for textInput <a href="https://www.rdocumentation.org/packages/shiny/versions/1.2.0/topics/textOutput">textOutput()</a> and renderText <a href="https://www.rdocumentation.org/packages/shiny/versions/1.2.0/topics/renderText">renderText()</a>'%}
+
+{% include question.html question="Solution" answer='These files contain a correct answer: <a href="http://genviz.org/assets/shiny/exercise0/ui.R">ui.R</a>, <a href="http://genviz.org/assets/shiny/exercise0/server.R">server.R</a>'%}
+
+When you've completed the above exercise try and answer a few of the questions below.
+
+{% include question.html question="Why would you want to pass text from the backend to the frontend as opposed to just rendering it in the front end" answer='By passing the text from the backend we have the ability to make the text reactive, i.e. it could change based on what the web app is displaying.'%}
+
+{% include question.html question="If you did not care if the text was reactive what could you do?, try adding some text by only modifying the ui.R file." answer='You could simply use any of the html builder functions present in the shiny package, one that would work is <a href="https://www.rdocumentation.org/packages/shiny/versions/1.2.0/topics/builder">p()</a>'%}
+
 ### Sending input from the front end
 Now that we know how to link output from the back end to the front end, let's do the opposite and link user input from the front end to the back end. Essentially this is giving the user control to manipulate user interface objects. Specifically let's allow the user to choose which sample Variant Allele Fraction (VAF) columns in the data set to plot on the x and y axis of our scatter plot.
 
@@ -226,7 +238,7 @@ Right now the plot looks fairly bland. Try adding the ability for the user to en
 {% include question.html question="Solution" answer='These files contain the correct answer: <a href="http://genviz.org/assets/shiny/exercise1/ui.R">ui.R</a>, <a href="http://genviz.org/assets/shiny/exercise1/server.R">server.R</a>'%}
 
 ### Hosting your shiny app on the web
-To make your new shiny app accessible on the web you have several options. The simplest is to just sign up for an account at [www.shinyapps.io](http://www.shinyapps.io/). Once you sign up shinyapps.io will walk you through the process of installing (STEP 1) and authorizing (STEP 2) the rsconnect library (see below). 
+To make your new shiny app accessible on the web you have several options. The simplest is to just sign up for an account at [www.shinyapps.io](http://www.shinyapps.io/). Once you sign up shinyapps.io will walk you through the process of installing (STEP 1) and authorizing (STEP 2) the rsconnect library (see below).
 
 {% include figure.html image="/assets/shiny/shinyapps_io_setup.png" width="1000" %}
 
@@ -237,11 +249,10 @@ library(rsconnect)
 rsconnect::deployApp('path/to/your/app')
 ```
 
-Alternatively, simply select the 'Publish' button in the top-right of a running Shiny App from Rstudio (see below). 
+Alternatively, simply select the 'Publish' button in the top-right of a running Shiny App from Rstudio (see below).
 
 {% include figure.html image="/assets/shiny/shiny_exercise_output_rstudio.png" width="1000" %}
 
-Either process should create an app at https://[your_account].shinyapps.io/[yourApp]/ using the name for the account you created at shinyapps.io and the name you set for your App during the publication process. However, the free shinyapps.io account is limited to 5 applications and 25 active hours of runtime (any time your application is not idle). Upgrading to a pay account will increase the allowed numbers of applications, active hours, and add options for authentication.     
+Either process should create an app at https://[your_account].shinyapps.io/[yourApp]/ using the name for the account you created at shinyapps.io and the name you set for your App during the publication process. However, the free shinyapps.io account is limited to 5 applications and 25 active hours of runtime (any time your application is not idle). Upgrading to a pay account will increase the allowed numbers of applications, active hours, and add options for authentication.
 
 For a longer-term, do-it-yourself, possibly cheaper solution, you will need a web server with the separate [Shiny Server Open Source](https://www.rstudio.com/products/shiny/download-server/) software running on it, along with with your Shiny App. There are many ways you could set this up. One option would be to do something like the following: (1) Start an Ubuntu linux Amazon AWS instance; (2) Login to your AWS linux box; (3) Install R, the shiny R library, and any other R libraries that your shiny app needs (e.g., ggplot2, rmarkdown, etc); (4) Install and start the shiny-server; (5) Copy your shiny application files (R and Rda) files to the shiny-server folder on your linux server. (6) In a browser, navigate to the public IP address of the linux server. Detailed instructions are available on this [blog post](http://www.kimberlycoffey.com/blog/2016/2/13/mlz90wjw0k76446xkg262prvjp0l8u). Unfortunately, for authentication (password protection support) you will need to upgrade to the pay version - Shiny Server Pro.
-
