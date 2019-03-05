@@ -1,3 +1,5 @@
+<a href="https://zenodo.org/badge/latestdoi/79366564"><img src="https://zenodo.org/badge/79366564.svg" alt="DOI"></a>
+
 ## Overview
 
 This is the github repo for the Genomic Visualization and Interpretations [website](http://genviz.org). The website uses the static site generator [jekyll](https://jekyllrb.com/) and is based on the [Alembic theme](https://github.com/daviddarnes/alembic). Development occurs on the master branch, the live site is located on the gh-pages branch.
