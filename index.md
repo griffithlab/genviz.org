@@ -8,7 +8,7 @@ image: "assets/genvis-dna-bg_optimized_v1a.png"
 layout: "home"
 ---
 
-The age of cheap massively parallel sequencing has exponentially increased the availability of genome, transcriptome, epigenome, and other kinds of 'omic profiling. Extracting biologically meaningful results and communicating this information remains challenging. This site aims to expose users to a number of "best-in-class" tools and methods for overcoming this.
+The age of cheap massively parallel sequencing has exponentially increased the availability of genome, transcriptome, epigenome, and other kinds of omic profiling. Extracting biologically meaningful results and communicating this information remains challenging. This site aims to expose users to a number of "best-in-class" tools and methods for overcoming this.
 
 {% include figure.html image="/assets/genvisr_fig_v4.png" position="right" width="600" author = "Zachary Skidmore" %}
 
@@ -21,4 +21,3 @@ These materials have been developed with the support of [Physalia-courses](https
 {% include figure.html image="/assets/physaliacourses.jpg" position="left" width="450" %}
 
 Physalia-courses provides scientific training courses and Workshops in Bioinformatics, Genomics and related fields, promoting the transfer of new methods and emerging techniques to a broad range of researchers. Their goal is to build a knowledge-sharing platform between highly qualified instructors and participants at various stage of their scientific and academic career (e.g. PhD students, post-doctoral researchers, PIs). Through the courses and workshops, participants learn how to plan their projects and how to analyze their data.
-
