@@ -8,10 +8,11 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-02-01
 ---
 
-Before we proceed, it may be beneficial to review some central concepts and themes in the realm of genomics and computational biology. Here we provide a very brief overview of core tennents of these disciplines as it pertains to this course. We also introduce the demonstration datasets used throughout the subsequent modules.
+Before we proceed, it may be beneficial to review some central concepts and themes in the realm of genomics and computational biology. Here we provide a very brief overview of core tennents of these disciplines as it pertains to this course. We will also introduce the demonstration datasets used throughout the subsequent modules.
 
 ***
 ### Central Dogma
+Lets start with the core tennant of genomics, the central dogma:
 
 {% include figure.html image="/assets/Central_Concepts/central_dogma.png" position="right" %}
 
@@ -45,8 +46,8 @@ Over this course we will be working with a number of reference files to aid in a
 - [VCF](https://samtools.github.io/hts-specs/VCFv4.3.pdf){:target="_blank"} (Variant Call Format) Text file used to store observed sequence variations.
 - [VEP](http://www.ensembl.org/info/docs/tools/vep/vep_formats.html#output){:target="_blank"} (Variant Effect Predictor) Annotation file used to provide additional information for sequence variations. Originates from the ensembl VEP algortihm.
 - [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification){:target="_blank"} (Mutation Annotation Format) Annotation file used to provide additional information for sequence variations. Widely used in the cancer genome atlas project.
-- [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) Raw uncompressed sequence file that evolved from FASTA file but that also include base quality information in a 4 line format. 
-- [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map (SAM) format and it's compressed equivalents binary (BAM) and compressed alignment map (CRAM) are files for storing aligned sequencing data. BAM files are just binary files of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with [samtools](https://github.com/samtools/samtools).
+- [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) Raw uncompressed sequence file that evolved from FASTA file but that also include base quality information in a 4 line format.
+- [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map (SAM) format and it's compressed equivalents binary (BAM) and compressed alignment map (CRAM) are files for storing aligned sequencing data. BAM files are just binary files of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with tools such as [samtools](https://github.com/samtools/samtools), [picard](https://broadinstitute.github.io/picard/), and [sambamba](http://lomereiter.github.io/sambamba/) to name a few.
 
 {% include question.html question="What character designates a header in a fasta file?" answer="\">\""%}
 
@@ -70,6 +71,7 @@ In the same vein, it is often beneficial to view actual sequence data, again the
 ***
 
 ### Common problems
+Within computational biology there are a number of pitfalls that beginners can fall into. Here we attempt to go over a few of these to make life easier down the road.
 
 ##### Genomic coordinate systems
 
