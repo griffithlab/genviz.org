@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Introduction to shiny+
+title: Introduction to shiny
 categories:
     - Module-02-R
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
