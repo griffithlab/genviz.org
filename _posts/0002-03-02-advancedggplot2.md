@@ -69,7 +69,15 @@ p3 <- ggplot() + geom_boxplot(data=geneCompare2, aes(x=gene_name, y=ucsc_cons, f
 
 {% include figure.html image="/assets/advanced_ggplot/p3.png" width="750" %}
 
-With our initial plots created wouldn't it be nice if we could plot these all at once. The good new is that we can, there are a number of packages for available to achieve this. Currently the most widley used are probably [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html), [cowplot](https://cran.r-project.org/web/packages/cowplot/index.html), and [egg](https://cran.r-project.org/web/packages/egg/index.html). In this course we will use gridExtra, before working on our own data, let's illustrate some basic concepts in gridExtra. Below we will load the grid library in order to create some visual objects to visualize, and the gridExtra library to arrange these plots. We then create our objects to visualize, grob1-grob4. Theres no need to understand how these objects are created, this is just done to have something intuitive to use when arranging. Our next step is to create the layout for arrangment, we do this by creating a matrix where each element in the matrix corresponds to one of our objects to visualize. For example in the layout we use below we have 3 rows and 4 columns in which to place our visualizations. In our layout we say the first row should all be one plot, the second row should be split between plots 2 and 3, and the third row should be split between plots 2 and 4. We then pass grid.arrange our objects to plot and the layout, so in this case grob1 corresponds to the element 1 in the matrix since grob1 is supplied first to grid.arrange.
+We have our boxplots for missense mutations, it would be nice to know how many data points make up those boxplots as well. To do this we will just create two quick barcharts counting the mutations in the plots defined above.
+
+```R
+p4 <- ggplot() + geom_bar(data=geneCompare1, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + theme(plot.background = element_rect(color="darkorange2", size=2)) + xlab("Frequency") + ylab("Gene")
+p5 <- ggplot() + geom_bar(data=geneCompare2, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + theme(plot.background = element_rect(color="black", size=2)) + xlab("Frequency") + ylab("Gene")
+```
+{% include figure.html image="/assets/advanced_ggplot/p4_5.png" width="750"%}
+
+With our initial plots created wouldn't it be nice if we could plot these all at once. The good new is that we can, there are a number of packages for available to achieve this. Currently the most widley used are probably [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html), [cowplot](https://cran.r-project.org/web/packages/cowplot/index.html), and [egg](https://cran.r-project.org/web/packages/egg/index.html). In this course we will use gridExtra; before working on our own data, let's illustrate some basic concepts in gridExtra. Below we will load the grid library in order to create some visual objects to visualize, and the gridExtra library to arrange these plots. We then create our objects to visualize, grob1-grob4. Theres no need to understand how these objects are created, this is just done to have something intuitive to use when arranging. Our next step is to create the layout for arrangment, we do this by creating a matrix where each unique element in the matrix (1, 2, 3, 4) corresponds to one of our objects to visualize. For example in the layout we use below we have 3 rows and 4 columns in which to place our visualizations. We specify the first row should all be one plot, the second row should be split between plots 2 and 3, and the third row should be split between plots 2 and 4. We then pass grid.arrange our objects to plot and the layout, so in this case grob1 corresponds to the element 1 in the matrix since grob1 is supplied first to grid.arrange.
 
 ```R
 # make objects to illustrate gridExtra functionality
@@ -116,35 +124,63 @@ grid.arrange(grob1, grob2, grob3, grob4, layout_matrix=layout, widths=c(.2, .2, 
 
 {% include figure.html image="/assets/advanced_ggplot/layout.3.png" width="750" %}
 
-```R
-# load gridExtra
-library(gridExtra)
+There is much more information on how gridExtra works in the various gridExtra vignettes, obviously it is a powerful package for arranging plots. Let's try an exercise to reinforce the concepts we've just learned. Try recreating the plot below:
 
-# make a layout
-layout <- rbind(c(1, 1),
-                c(2, 3))
-grid.arrange(p1, p2, p3, layout_matrix=layout)
+{% include figure.html image="/assets/advanced_ggplot/layout.4.png" width="750" %}
 
-```
+{% include question.html question="solution" answer='The solution is in <a href="http://genviz.org/assets/advanced_ggplot/exercise1/solution.R">solution.R</a>'%}
+
+Now that we understand the basics of how gridExtra works let's go ahead and make an attempt at a multi-panel figure. We'll put the main barchart on top, and match the boxplots with their specific barcharts on rows 2 and 3 of a layout. At the end you should see something like the figure below.
 
 ```R
-p4 <- ggplot() + geom_bar(data=geneCompare1, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + theme(plot.background = element_rect(color="darkorange2", size=2)) + xlab("Frequency") + ylab("Gene")
-p5 <- ggplot() + geom_bar(data=geneCompare2, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + theme(plot.background = element_rect(color="black", size=2)) + xlab("Frequency") + ylab("Gene")
-```
-
-```R
-p4_grob <- ggplotGrob(p4)
-p5_grob <- ggplotGrob(p5)
-
 layout <- rbind(c(1, 1),
                 c(2, 3),
                 c(4, 5))
-grid.arrange(p1_grob, p4_grob, p5_grob, p2_grob, p3_grob, layout_matrix=layout)
+grid.arrange(p1, p4, p5, p2, p3, layout_matrix=layout)
 ```
 
+{% include figure.html image="/assets/advanced_ggplot/arrangedPlot.1.png" width="750" %}
+
+Nice! this is looking pretty good, you might notice an unfortunate issue however in that the boxplots don't align with their respective barcharts. Don't worry it's fairly easy to fix in this case, however before we start we need to go down a rabbit hole and obtain a basic understanding of grobs, tableGrobs and viewports.
+
+First off a grob is just short for “grid graphical object” from the low-level graphics package grid; Think of it as a set of instructions for create a graphical object (i.e. a plot). The graphics library underneath all of ggplot2’s graphical elements are really composed of grob’s because ggplot2 uses grid underneath. A TableGrob is a class from the gtable package and provides an easier way to view and manipulate groups of grobs, it is actually the intermediary between ggplot2 and grid. A “viewport” is a graphics region for which a grob is assigned. When we have been calling grid.arrange in our previous examples what we are really doing is arranging viewports which contain groups of grobs.
+
+To Illustrate grobs and viewports a bit further let's convert our arranged plot to a grob and take a look at it.
+
 ```R
+grob <- arrangeGrob(p1, p4, p5, p2, p3, layout_matrix=layout)
+grob
+```
+
+you'll notice a couple things right away, the table grob is composed of 5 individual grobs and are arranged in a 3 row, 2 column layout. The z column denotes the order in which grobs are plotted. the cells column is telling us where the grob is located within the viewport. For example the first element has a value of (1-1,1-2). This is telling us that that grob spans from from rows 1 to 1 (1-1) on the viewport and columns 1 to 2 (1-2) on the viewport. This is a bit easier to illustrate by viewing the actual layout with gtable_show_layout().
+
+```R
+gtable_show_layout(grob)
+```
+
+After running the command above you should see something like the figure below, (note that i've taken the liberty of overalying the output ontop of the original plot). Notice how the first grob is spanning rows 1-1 and columns 1-2.
+
+{% include figure.html image="/assets/advanced_ggplot/arrangedPlot.2.png" width="750" %}
+
+We can verify that this is correct by drawing just the first grob.
+
+```R
+grid.draw(grob$grobs[[1]])
+dev.off()
+```
+
+Okay our trip down the rabbit hole is coming to an end, I'll just mention one last thing. As eluded to already the tableGrob we looked at is just a collection of viewports and those viewports contain grobs. In the grob we looked at we were at the top level and so by default the viewport takes up the entire page. Inside this top level we saw 5 grobs each of which have their own viewports. In the above command we go a layer deeper and draw one grob which itself has viewports it's own associated viewports for the elements of the plot (legend, axis, etc.).
+
+We glossed over quite a bit of detail in our discussion of grobs, tableGrobs and viewports however I think we know enough to get our plots to align. To start we need to convert all of the plots we made in ggplot to grobs, we can do this with the ggplotGrob() function. Next each viewport in the grob at this level has an associated width, for example the axis title has a width, the axis text etc. We can access these widths within the table grob using `tableGrob$widths` which will output a vector of these widths. We can then use the `unit.pmax()` function to find the maximum width for each viewport among all of our plots. From there it's a simple matter of manually modifying and reassinging the widths for each grob and plotting the results as before.
+
+```R
+# convert to grobs
+p2_grob <- ggplotGrob(p2)
+p3_grob <- ggplotGrob(p3)
+p4_grob <- ggplotGrob(p4)
+p5_grob <- ggplotGrob(p5)
+
 # align plots
-library(grid)
 p4_grob_widths <- p4_grob$widths
 p5_grob_widths <- p5_grob$widths
 p2_grob_widths <- p2_grob$widths
@@ -162,6 +198,10 @@ layout <- rbind(c(1, 1),
                 c(4, 5))
 grid.arrange(p1_grob, p4_grob, p5_grob, p2_grob, p3_grob, layout_matrix=layout)
 ```
+
+At the end you should see something like the figure below.
+
+{% include figure.html image="/assets/advanced_ggplot/arrangedPlot.3.png" width="750" %}
 
 ```R
 p2 <- p2 + theme(legend.position="none")
