@@ -3,9 +3,9 @@ feature_text: |
   ## Genomic Visualization and Interpretations
 title: Introduction to R Markdown
 categories:
-    - Module-02-R
+    - Module-07-Appendix
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0002-05-01
+date: 0007-03-01
 ---
 
 A useful feature within the R ecosystem is R Markdown. R Markdown (or .Rmd) files allow a user to intersperse notes with code providing a useful framework for sharing scientific reports in a transparent and easily reproduceable way. They combine both markdown syntax for styling notes and Rscripts for running code and producing figures. Reports can be output in a variety of file formats including HTML documents, PDF documents, and even presentation slides.
