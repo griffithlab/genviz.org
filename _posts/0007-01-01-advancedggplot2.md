@@ -43,7 +43,7 @@ geneCount$gene_name <- factor(geneCount$gene_name, levels=geneOrder)
 p1 <- ggplot() + geom_bar(data=geneCount, aes(x=gene_name, y=freq, fill=type), stat="identity") + xlab("Gene") + ylab("Frequency") + scale_fill_manual("Mutation", values=c("#F97F51", "#55E6C1")) + theme_bw() + theme(plot.background = element_rect(color="red", size=2))
 ```
 
-{% include figure.html image="/assets/advanced_ggplot/p1.png" width="750" %}
+{% include figure.html image="/assets/advanced_ggplot/p1.png" width="550" %}
 
 We can see from the p1 plot that KMT2D seems interesting, it's got the most mutations and a fair number of deletions as well. To explore this a bit further lets go ahead and compare KMT2D to a few of the other highly mutated genes from our first plot. To do this we'll make a boxplot for the genes KMT2D and TNFRSF14 comparing the conservation score. This metric comes from UCSC in our data and is essentially a score from 0-1 of how conserved a region is across vertebrates. A high score would mean the region is highly conserved and probably an important region of the genome.
 
@@ -55,7 +55,7 @@ geneCompare1$ucsc_cons <- as.numeric(as.character(geneCompare1$ucsc_cons))
 p2 <- ggplot() + geom_boxplot(data=geneCompare1, aes(x=gene_name, y=ucsc_cons, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + xlab("Gene") + ylab("Conservation\nscore") + theme(plot.background = element_rect(color="dodgerblue", size=2))
 ```
 
-{% include figure.html image="/assets/advanced_ggplot/p2.png" width="750" %}
+{% include figure.html image="/assets/advanced_ggplot/p2.png" width="550" %}
 
 And we'll go ahead and do the same thing for KMT2D and BCL2.
 
@@ -67,7 +67,7 @@ geneCompare2$ucsc_cons <- as.numeric(as.character(geneCompare2$ucsc_cons))
 p3 <- ggplot() + geom_boxplot(data=geneCompare2, aes(x=gene_name, y=ucsc_cons, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + xlab("Gene") + ylab("Conservation\nscore") + theme(plot.background = element_rect(color="green", size=2))
 ```
 
-{% include figure.html image="/assets/advanced_ggplot/p3.png" width="750" %}
+{% include figure.html image="/assets/advanced_ggplot/p3.png" width="550" %}
 
 We have our boxplots for missense mutations, it would be nice to know how many data points make up those boxplots as well. To do this we will just create two quick barcharts counting the mutations in the plots defined above.
 
@@ -100,7 +100,7 @@ layout <- rbind(c(1, 1, 1, 1),
 grid.arrange(grob1, grob2, grob3, grob4, layout_matrix=layout)
 ```
 
-{% include figure.html image="/assets/advanced_ggplot/layout.1.png" width="750" %}
+{% include figure.html image="/assets/advanced_ggplot/layout.1.png" width="550" %}
 
 It is also possible to add empty cells in our layout by inserting NA into our layout matrix. Below we split out grob2 from grob3 and grob4.
 
@@ -112,7 +112,7 @@ layout <- rbind(c(1, 1, 1, 1, 1),
 grid.arrange(grob1, grob2, grob3, grob4, layout_matrix=layout)
 ```
 
-{% include figure.html image="/assets/advanced_ggplot/layout.2.png" width="750" %}
+{% include figure.html image="/assets/advanced_ggplot/layout.2.png" width="550" %}
 
 We can also adjust the size of element relative to our layout matrix. for example below we say that each row, there are 3, should take up 20%, 40% and 40% of the arranged plot respectively.
 
@@ -124,11 +124,11 @@ layout <- rbind(c(1, 1, NA, 1, 1),
 grid.arrange(grob1, grob2, grob3, grob4, layout_matrix=layout, widths=c(.2, .2, .1, .3, .2), heights=c(.2, .4, .4))
 ```
 
-{% include figure.html image="/assets/advanced_ggplot/layout.3.png" width="750" %}
+{% include figure.html image="/assets/advanced_ggplot/layout.3.png" width="550" %}
 
 There is much more information on how gridExtra works in the various gridExtra vignettes, obviously it is a powerful package for arranging plots. Let's try an exercise to reinforce the concepts we've just learned. Try recreating the plot below:
 
-{% include figure.html image="/assets/advanced_ggplot/layout.4.png" width="750" %}
+{% include figure.html image="/assets/advanced_ggplot/layout.4.png" width="550" %}
 
 {% include question.html question="solution" answer='The solution is in <a href="http://genviz.org/assets/advanced_ggplot/exercise1/solution.R">solution.R</a>'%}
 
@@ -147,7 +147,7 @@ grid.arrange(p1, p4, p5, p2, p3, layout_matrix=layout)
 
 Nice! this is looking pretty good, you might notice an unfortunate issue however in that the boxplots don't align with their respective barcharts. Don't worry it's fairly easy to fix in this case, however before we start we need to go down a rabbit hole and obtain a basic understanding of grobs, tableGrobs and viewports.
 
-First off a grob is just short for “grid graphical object” from the low-level graphics package grid; Think of it as a set of instructions for create a graphical object (i.e. a plot). The graphics library underneath all of ggplot2’s graphical elements are really composed of grob’s because ggplot2 uses grid underneath. A TableGrob is a class from the gtable package and provides an easier way to view and manipulate groups of grobs, it is actually the intermediary between ggplot2 and grid. A “viewport” is a graphics region for which a grob is assigned. When we have been calling grid.arrange in our previous examples what we are really doing is arranging viewports which contain groups of grobs.
+First off a grob is just short for “grid graphical object” from the low-level graphics package grid; Think of it as a set of instructions for create a graphical object (i.e. a plot). The graphics library underneath all of ggplot2’s graphical elements are really composed of grob’s because ggplot2 uses grid underneath. A TableGrob is a class from the gtable package and provides an easier way to view and manipulate groups of grobs, it is actually the intermediary between ggplot2 and grid. A “viewport” is a graphics region for which describes where a grob or group of grobs is assigned on a graphics device. When we have been calling grid.arrange in our previous examples what we are really doing is arranging viewports which contain groups of grobs.
 
 To Illustrate grobs and viewports a bit further let's convert our arranged plot to a grob and take a look at it.
 
@@ -284,3 +284,14 @@ grid.draw(finalGrob)
 {% include figure.html image="/assets/advanced_ggplot/arrangedPlot.5.png" width="750" %}
 
 Most of the material in here, specifically the modification of gTable objects is advanced and in most cases will probably be uneccessary. But hopefully if you need to modify these types of objects you'll have a basic understanding of how to go about doing it. We've really only scratched the surface of gTable objects as these are low level functions. The thing to remember is that you can modify these objects with some patience and trail and error.
+
+#### Exercise
+
+Someone has decided they want a purple border around all the legends for our final plot (don't ask me why). We could of course do this within ggplot but let's imagine we've lost the code for creating the plot and only have the grob object to work with. Follow the instructions below and modify the grob to have this purple border.
+
+1. Save our `finalGrob` as `exercise1` so we don't overwrite anything
+2. dig into the newly saved `exercise1` and attempt to find where to change the legend border (hint your looking for something called col)
+3. Replace the value currently in `col` to purple
+4. use `grid.draw()` to plot the result
+
+{% include question.html question="solution" answer='The solution is in <a href="http://genviz.org/assets/advanced_ggplot/exercise1/solution.2.R">solution.2.R</a>'%}
