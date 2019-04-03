@@ -203,32 +203,76 @@ At the end you should see something like the figure below.
 
 {% include figure.html image="/assets/advanced_ggplot/arrangedPlot.3.png" width="750" %}
 
+If you poked around the grob a bit you might have noticed that this only works because each plot has an equal number of viewports/grobs all of which have an associated width. What would you do then in a situation where your plots don't have the same number of viewports. For example what if our boxplots didn't have a legend. Fortunately there is a simple way around this, let's start by first removing the legend from our boxplots and converting the resulting plots to grobs. If you take a look at the barchart (p4) and boxplot (p2) table grob you'll notice that they are now different sizes as expected. The barchart is 12 x 11 and the boxplot is 12 x 9 further we see the boxplot is missing the grob named "guide-box" which corresponds to the legend. We don't care that the grob is missing neccessarily, in fact it's what we want, but we do need to add columns to the tableGrob for the boxplot to match the barchart. Examining the grobs we can see that the "guide-box" of the barchart spans columns 9-9 so we should add a place holder column before that at position 8. Further we can see we will actually need to add 2 placeholders, as the barchart has 11 columns and our boxplot has 9. This is because we need a placeholder not only for the legend but the whitespace between the legend and the main plot as well. Fortunately the gTable package has a function to add columns `gtable_add_cols`, it takes the gTable ojbect to modify, the width of the column to be added, and the position to add the column as arguments. For our purposes we need to specify a width but the actual width doesn't matter, it just needs to be a valid width as we will be reassigning that width in a minute anyway.
+
 ```R
+# remove legend from the boxplots
 p2 <- p2 + theme(legend.position="none")
 p3 <- p3 + theme(legend.position="none")
 
+# and then convert these to grob objects
 p2_grob <- ggplotGrob(p2)
 p3_grob <- ggplotGrob(p3)
 
+# look at on of the boxplot/barchart grob sets
+p2_grob
+p4_grob
+
 p2_grob <- gtable_add_cols(p2_grob, widths=unit(1, "null"), pos=8)
 p2_grob <- gtable_add_cols(p2_grob, widths=unit(1, "null"), pos=8)
 
 p3_grob <- gtable_add_cols(p3_grob, widths=unit(1, "null"), pos=8)
 p3_grob <- gtable_add_cols(p3_grob, widths=unit(1, "null"), pos=8)
+```
 
+From here we can use the same methodology as we employed before to align the plots. You should see something like the figure below
+
+```R
+# get the grob width for the new boxplots
+p2_grob_widths <- p2_grob$widths
+p3_grob_widths <- p3_grob$widths
+
+# find the max width of all elements
 maxWidth <- unit.pmax(p4_grob_widths, p5_grob_widths, p2_grob_widths, p3_grob_widths)
 
+# assign this max width to all elements
 p4_grob$widths <- maxWidth
 p5_grob$widths <- maxWidth
 p2_grob$widths <- maxWidth
 p3_grob$widths <- maxWidth
 
+# create a layout and plot the result
 layout <- rbind(c(1, 1),
                 c(2, 3),
                 c(4, 5))
 finalGrob <- grid.arrange(p1_grob, p4_grob, p5_grob, p2_grob, p3_grob, layout_matrix=layout)
+grid.draw(finalGrob)
 ```
 
+{% include figure.html image="/assets/advanced_ggplot/arrangedPlot.4.png" width="750" %}
+
+Were almost done with our final plot, there's just one more thing we're going to cover. It might have occurred to you that if we can view grobs we can manipulate them and you would be right. Let's suppose that we want to color the labels in our final plot in a specific way, in particular we want to highlight the genes in the top most plot in red for which we have boxplots. The good new is that we can do this, the trick is to know which grobs and viewports to dig into. As a side note, it is hugely beneficial to use Rstudio when doing this sort of thing to take advantage of the autocompletion feature. To start digging in we need to look at the various grobs and their viewports. We first go into `finalGrob$grobs` which will print out all grobs at this level as a list. There are 5 one for each of our plots we used with grid.arrange and the first one in the list corresponds to the top plot which we can access with `[[]]` and draw with `grid.draw()` to verify. Digging in further through lists of grobs we can finally get to the x axis with  `grid.draw(finalGrob$grobs[[1]]$grobs[[7]]$children$axis$grobs[[2]])`. Going just a bit further we can see that the x-axis has a color of "grey30" and we simply give it a new vector of colors to change the color for each label. At the end you should see something like the plot below:
+
 ```R
+# figure out the base grob we want to dig into
+grid.draw(finalGrob$grobs[[1]])
+dev.off()
+
+# access x-axis
+grid.draw(finalGrob$grobs[[1]]$grobs[[7]]$children$axis$grobs[[2]])
+dev.off()
+
+# access x-axis color
+finalGrob$grobs[[1]]$grobs[[7]]$children$axis$grobs[[2]]$children$GRID.text.6880$gp$col
+
+# change the color of the x-axis text
 finalGrob$grobs[[1]]$grobs[[7]]$children$axis$grobs[[2]]$children$GRID.text.6880$gp$col <- c("blue", "blue", "blue", "blue", "blue", "red", "red", "blue", "red")
+
+# plot the result
+finalGrob <- grid.arrange(p1_grob, p4_grob, p5_grob, p2_grob, p3_grob, layout_matrix=layout)
+grid.draw(finalGrob)
 ```
+
+{% include figure.html image="/assets/advanced_ggplot/arrangedPlot.5.png" width="750" %}
+
+Most of the material in here, specifically the modification of gTable objects is advanced and in most cases will probably be uneccessary. But hopefully if you need to modify these types of objects you'll have a basic understanding of how to go about doing it. We've really only scratched the surface of gTable objects as these are low level functions. The thing to remember is that you can modify these objects with some patience and trail and error.
