@@ -10,7 +10,7 @@ date: 0007-03-01
 
 We've gone over the basics of ggplot2 in the previous section, in this section we will go over some more advanced topics related to ggplot2 and its underlying concepts. We will explore how to modify core elements of a plot after it's created, how to plot separate plots on the same page, and how to make sure plots align to one another.
 
-#### Aligning plots on the same page
+#### Creating initial plots
 
 Often when creating figures for publications the figure in the final manuscript is actually composed of multiple figures. You could of course achieve this using third-party programs such as illustrator and inkscape however that means having to manually redo the figure in those programs anytime there is an update or change. Instead of going through that hassel let's learn how to do it all programatically. To achieve this we will of course make our plots using ggplot, the gtable package to manipulate the plots post-creation, and the gridExtra package to do the actual aligning. Let's go ahead and get started.
 
@@ -77,6 +77,8 @@ p5 <- ggplot() + geom_bar(data=geneCompare2, aes(x=gene_name, fill=gene_name)) +
 ```
 {% include figure.html image="/assets/advanced_ggplot/p4_5.png" width="750"%}
 
+#### Arranging plots
+
 With our initial plots created wouldn't it be nice if we could plot these all at once. The good new is that we can, there are a number of packages for available to achieve this. Currently the most widley used are probably [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html), [cowplot](https://cran.r-project.org/web/packages/cowplot/index.html), and [egg](https://cran.r-project.org/web/packages/egg/index.html). In this course we will use gridExtra; before working on our own data, let's illustrate some basic concepts in gridExtra. Below we will load the grid library in order to create some visual objects to visualize, and the gridExtra library to arrange these plots. We then create our objects to visualize, grob1-grob4. Theres no need to understand how these objects are created, this is just done to have something intuitive to use when arranging. Our next step is to create the layout for arrangment, we do this by creating a matrix where each unique element in the matrix (1, 2, 3, 4) corresponds to one of our objects to visualize. For example in the layout we use below we have 3 rows and 4 columns in which to place our visualizations. We specify the first row should all be one plot, the second row should be split between plots 2 and 3, and the third row should be split between plots 2 and 4. We then pass grid.arrange our objects to plot and the layout, so in this case grob1 corresponds to the element 1 in the matrix since grob1 is supplied first to grid.arrange.
 
 ```R
@@ -141,6 +143,8 @@ grid.arrange(p1, p4, p5, p2, p3, layout_matrix=layout)
 
 {% include figure.html image="/assets/advanced_ggplot/arrangedPlot.1.png" width="750" %}
 
+#### Aligning plots part 1
+
 Nice! this is looking pretty good, you might notice an unfortunate issue however in that the boxplots don't align with their respective barcharts. Don't worry it's fairly easy to fix in this case, however before we start we need to go down a rabbit hole and obtain a basic understanding of grobs, tableGrobs and viewports.
 
 First off a grob is just short for “grid graphical object” from the low-level graphics package grid; Think of it as a set of instructions for create a graphical object (i.e. a plot). The graphics library underneath all of ggplot2’s graphical elements are really composed of grob’s because ggplot2 uses grid underneath. A TableGrob is a class from the gtable package and provides an easier way to view and manipulate groups of grobs, it is actually the intermediary between ggplot2 and grid. A “viewport” is a graphics region for which a grob is assigned. When we have been calling grid.arrange in our previous examples what we are really doing is arranging viewports which contain groups of grobs.
@@ -203,6 +207,8 @@ At the end you should see something like the figure below.
 
 {% include figure.html image="/assets/advanced_ggplot/arrangedPlot.3.png" width="750" %}
 
+#### Aligning plots part 2
+
 If you poked around the grob a bit you might have noticed that this only works because each plot has an equal number of viewports/grobs all of which have an associated width. What would you do then in a situation where your plots don't have the same number of viewports. For example what if our boxplots didn't have a legend. Fortunately there is a simple way around this, let's start by first removing the legend from our boxplots and converting the resulting plots to grobs. If you take a look at the barchart (p4) and boxplot (p2) table grob you'll notice that they are now different sizes as expected. The barchart is 12 x 11 and the boxplot is 12 x 9 further we see the boxplot is missing the grob named "guide-box" which corresponds to the legend. We don't care that the grob is missing neccessarily, in fact it's what we want, but we do need to add columns to the tableGrob for the boxplot to match the barchart. Examining the grobs we can see that the "guide-box" of the barchart spans columns 9-9 so we should add a place holder column before that at position 8. Further we can see we will actually need to add 2 placeholders, as the barchart has 11 columns and our boxplot has 9. This is because we need a placeholder not only for the legend but the whitespace between the legend and the main plot as well. Fortunately the gTable package has a function to add columns `gtable_add_cols`, it takes the gTable ojbect to modify, the width of the column to be added, and the position to add the column as arguments. For our purposes we need to specify a width but the actual width doesn't matter, it just needs to be a valid width as we will be reassigning that width in a minute anyway.
 
 ```R
@@ -250,6 +256,8 @@ grid.draw(finalGrob)
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/arrangedPlot.4.png" width="750" %}
+
+#### gTable grob modification
 
 Were almost done with our final plot, there's just one more thing we're going to cover. It might have occurred to you that if we can view grobs we can manipulate them and you would be right. Let's suppose that we want to color the labels in our final plot in a specific way, in particular we want to highlight the genes in the top most plot in red for which we have boxplots. The good new is that we can do this, the trick is to know which grobs and viewports to dig into. As a side note, it is hugely beneficial to use Rstudio when doing this sort of thing to take advantage of the autocompletion feature. To start digging in we need to look at the various grobs and their viewports. We first go into `finalGrob$grobs` which will print out all grobs at this level as a list. There are 5 one for each of our plots we used with grid.arrange and the first one in the list corresponds to the top plot which we can access with `[[]]` and draw with `grid.draw()` to verify. Digging in further through lists of grobs we can finally get to the x axis with  `grid.draw(finalGrob$grobs[[1]]$grobs[[7]]$children$axis$grobs[[2]])`. Going just a bit further we can see that the x-axis has a color of "grey30" and we simply give it a new vector of colors to change the color for each label. At the end you should see something like the plot below:
 
