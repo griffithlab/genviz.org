@@ -13,7 +13,7 @@ Transitions and transversions describe the mutation of a nucleotide from one bas
 {% include figure.html image="/assets/GenVisR/Transitions_and_transversions.svg" width="350" link="https://commons.wikimedia.org/wiki/File:Transitions_and_transversions.svg" title="Transitions and Transversions" author="Krishnavedala" license="CC BY-SA 4.0" license_link="https://creativecommons.org/licenses/by-sa/4.0/deed.en" position="center" %}
 
 ### Loading Data
-Figure 1 of the manuscript ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only?sso-checked=true) plots the rate of each type of transition and transversion observed in a cohort of samples. In this section we will use the [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) function [TvTi](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/TvTi) to create a version of this figure, shown below. The underlying data for this figure can be found in supplemental table S5 and is the same data used in the ["Introduction to ggplot2"](http://localhost:4000/module%202/0002/03/01/introToggplot2/) section. You can download the data  [here](http://www.genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) if you haven't already.
+Figure 1 of the manuscript ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only?sso-checked=true) plots the rate of each type of transition and transversion observed in a cohort of samples. In this section we will use the [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) function [TvTi](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/TvTi) to create a version of this figure, shown below. The underlying data for this figure can be found in supplemental table S5 and is the same data used in the ["Introduction to ggplot2"](http://localhost:4000/module%202/0002/03/01/introToggplot2/) section. We'll just load the data directly from the url on genomedata.org.
 
 {% include figure.html image="/assets/GenVisR/Figure1_Discovery_all_mutrate_tvti_v2.png" width="650" link="https://commons.wikimedia.org/wiki/File:Transitions_and_transversions.svg" title="This research was originally published in Blood. Krysiak et al. Blood 2017 129:473-483" author="Krysiak et al." license="&copy; the American Society of Hematology" license_link="http://www.bloodjournal.org/content/129/4/473/tab-figures-only?sso-checked=true" %}
 
@@ -23,7 +23,7 @@ The [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) 
 
 ```R
 # load the data into R
-mutationData <- read.delim("ggplot2ExampleData.tsv")
+mutationData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
 
 # change the "Simple_name" column to "sample"
 colnames(mutationData)[colnames(mutationData) %in% "sample"] <- "sample_1"
@@ -91,11 +91,11 @@ grid.draw(finalGrob)
 
 ### adding clinical data
 
-As with many other [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) functions we can add a heatmap of clinical data via the parameter `clinData` which expects a data frame with column names "sample", "variable", and "value". A subset of the clinical data is available to download [here](http://genomedata.org/gen-viz-workshop/GenVisR/FL_ClinicalData.tsv), go ahead and load it into R. The clinical data contains information for all samples in the experiment however we are only interested in the discovery cohort, the next step then is to subset our clinical data to only those samples in our main plot. From there we can use [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) to coerce the data frame into the required "long" format and add the clinical data to the proportions plot with the `clinData` parameter. In order to more closely match the manuscript figure we will also define a custom color pallette and set the number of columns in the legend with the parameters `clinVarCol` and `clinLegCol` respectively.
+As with many other [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) functions we can add a heatmap of clinical data via the parameter `clinData` which expects a data frame with column names "sample", "variable", and "value". A subset of the clinical data is available available on genomedata.org which we will load into R directly. The clinical data contains information for all samples in the experiment however we are only interested in the discovery cohort, the next step then is to subset our clinical data to only those samples in our main plot. From there we can use [melt()](https://www.rdocumentation.org/packages/reshape2/versions/1.4.2/topics/melt) to coerce the data frame into the required "long" format and add the clinical data to the proportions plot with the `clinData` parameter. In order to more closely match the manuscript figure we will also define a custom color pallette and set the number of columns in the legend with the parameters `clinVarCol` and `clinLegCol` respectively.
 
 ```R
 # read in the clinical data
-clinicalData <- read.delim("FL_ClinicalData.tsv")
+clinicalData <- read.delim("http://genomedata.org/gen-viz-workshop/GenVisR/FL_ClinicalData.tsv")
 
 # subset just the discovery cohort
 clinicalData <- clinicalData[clinicalData$Simple_name %in% mutationData$sample,]

@@ -11,11 +11,11 @@ date: 0003-04-01
 Often is is usefull to view coverage of a specific region of the genome in the context of specific samples. During initial stages of analysis this can be done with a genome browser such as [IGV](http://software.broadinstitute.org/software/igv/) however when preparing a publication more fine grain control is usefull. For example you may wish to change the coverage scale, reduce the size of introns, or visualize many samples at once. GenVisR provides a function for this aptly named [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov).
 
 ### Introduction to datasets
-In this section we will be using coverage data derived from two mouse samples from the study ["Truncating Prolactin Receptor Mutations Promote Tumor Growth in Murine Estrogen Receptor-Alpha Mammary Carcinomas"](https://www.ncbi.nlm.nih.gov/pubmed/27681435). We will be showing that the knockout of the *STAT1* gene described in the manuscript was successful. In order to obtain the preliminary data we used the command `bedtools multicov -bams M_CA-TAC245-TAC245_MEC.prod-refalign.bam -bed stat1.bed` to obtain coverage values for the wildtype TAC245 sample and the tumor free knockout TAC265 sample. Go ahead and download the output of [bedtools multicov](http://bedtools.readthedocs.io/en/latest/content/tools/multicov.html) from [here](http://genomedata.org/gen-viz-workshop/GenVisR/STAT1_mm9_coverage.tsv) and load it into R.
+In this section we will be using coverage data derived from two mouse samples from the study ["Truncating Prolactin Receptor Mutations Promote Tumor Growth in Murine Estrogen Receptor-Alpha Mammary Carcinomas"](https://www.ncbi.nlm.nih.gov/pubmed/27681435). We will be showing that the knockout of the *STAT1* gene described in the manuscript was successful. In order to obtain the preliminary data we used the command `bedtools multicov -bams M_CA-TAC245-TAC245_MEC.prod-refalign.bam -bed stat1.bed` to obtain coverage values for the wildtype TAC245 sample and the tumor free knockout TAC265 sample. Go ahead and load this data from the genomdata.org server.
 
 ```R
 # read the coverage data into R
-covData <- read.delim("STAT1_mm9_coverage.tsv")
+covData <- read.delim("http://genomedata.org/gen-viz-workshop/GenVisR/STAT1_mm9_coverage.tsv")
 ```
 ### Formating coverage data
 Before we get started we need to do some preliminary data preparation to use [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov). First off [genCov()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/genCov) expects coverage data to be in the form of a named list of data frames with list names corresonding to sample id's and column names "chromosome", "end", and "cov". Further the chromosome column should be of the format "chr1" instead of "1", we'll explain why a bit later. Below we rename our data frame columns with [colnames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames) and create an anonymous function, `a`, to go through and split the data frame up into a list of data frames by sample. We then use the function [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) to assign samples names to our list.
@@ -42,20 +42,23 @@ The next set of data we need is an object of class [BSgenome](https://www.rdocum
 
 ```R
 # install and load the BSgenome package and list available genomes
-# source("https://bioconductor.org/biocLite.R")
-# biocLite("BSgenome")
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#BiocManager::install("BSgenome", version = "3.8")
 library("BSgenome")
 available.genomes()
 
 # install and load the mm9 BSgenome from UCSC
-# source("https://bioconductor.org/biocLite.R")
-# biocLite("BSgenome.Mmusculus.UCSC.mm9")
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#BiocManager::install("BSgenome.Mmusculus.UCSC.mm9", version = "3.8")
 library("BSgenome.Mmusculus.UCSC.mm9")
 genomeObject <- BSgenome.Mmusculus.UCSC.mm9
 
 # Install and load a TxDb object for the mm9 genome
-# source("https://bioconductor.org/biocLite.R")
-# biocLite("TxDb.Mmusculus.UCSC.mm9.knownGene")
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#BiocManager::install("TxDb.Mmusculus.UCSC.mm9.knownGene", version = "3.8")
 library("TxDb.Mmusculus.UCSC.mm9.knownGene")
 TxDbObject <- TxDb.Mmusculus.UCSC.mm9.knownGene
 ```

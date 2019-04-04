@@ -14,11 +14,11 @@ We've gone through visualizations of point mutations and copy number changes usi
 The function [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec) works by using a sliding window approach to calculate the difference in the variant allele fractions (VAF) between heterozygous variants in matched tumor normal samples. Essentially, a window of a specified size (defined by the parameter `window_size`) will obtain the absolute difference between the tumor VAF and the normal VAF, which is assumed to be .5, for each genomic position within the window's position. All of these points are then averaged to obtain a measure of [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) within the window. This window will then move forward by a length specified by the parameter `step`, and again cauclate this absolute mean tumor-normal VAF difference metric. This [LOH](https://en.wikipedia.org/wiki/Loss_of_heterozygosity) value across all overlapping windows is averaged.
 
 ### Introduction to demonstration dataset
-For this section we will be starting from a file of variants generated from the variant calling algorithm [varscan](http://varscan.sourceforge.net/). These variants originate from the breast cancer cell line [HCC1395](https://www.atcc.org/Products/All/CRL-2324.aspx) aligned to "hg19" and were lightly processed to limit to only events called as "Germline" or "LOH" by varscan. You can download the variant file from this [link](http://genomedata.org/gen-viz-workshop/GenVisR/HCC1395.varscan.tsv). Once you have the file we'll need to do some minor reformatting as described below to make it compatiable with [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec).
+For this section we will be starting from a file of variants generated from the variant calling algorithm [varscan](http://varscan.sourceforge.net/). These variants originate from the breast cancer cell line [HCC1395](https://www.atcc.org/Products/All/CRL-2324.aspx) aligned to "hg19" and were lightly processed to limit to only events called as "Germline" or "LOH" by varscan. Once we read this file in from the url we'll need to do some minor reformatting as described below to make it compatiable with [lohSpec()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/lohSpec).
 
 ```R
 # read in the varscan data
-lohData <- read.delim("~/Desktop/HCC1395.varscan.tsv", header=FALSE)
+lohData <- read.delim("http://genomedata.org/gen-viz-workshop/GenVisR/HCC1395.varscan.tsv", header=FALSE)
 
 # grab only those columns which are required and name them
 lohData <- lohData[,c("V1", "V2", "V7", "V11")]

@@ -13,21 +13,18 @@ After sequencing a set of samples a common question to ask is what mutations are
 {% include figure.html image="/assets/GenVisR/BKM120_Waterfall_Final.png" width="950" link="http://clincancerres.aacrjournals.org/content/22/7/1583.long" title="Figure 2C" author="Ma et al. Clinical Cancer Research" license="AACR copyright" license_link="http://aacrjournals.org/content/authors/copyright-permissions-and-access" %}
 
 ### Installing GenVisR and loading Data
-To begin let's install and load the [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) library from bioconductor. We will also need to load the mutation data from [Supplemental Table 3](http://clincancerres.aacrjournals.org/content/suppl/2015/11/12/1078-0432.CCR-15-1745.DC1), a version that has been converted to a tab delimited format is available for download [here](http://genomedata.org/gen-viz-workshop/GenVisR/BKM120_Mutation_Data.tsv). We also need some supplemental information regarding the clinical data which is available [here](http://genomedata.org/gen-viz-workshop/GenVisR/BKM120_Clinical.tsv) and mutation burden data available [here](http://genomedata.org/gen-viz-workshop/GenVisR/BKM120_MutationBurden.tsv).
+To begin let's install and load the [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) library from bioconductor. We will also need to load the mutation data from [Supplemental Table 3](http://clincancerres.aacrjournals.org/content/suppl/2015/11/12/1078-0432.CCR-15-1745.DC1), a version that has been converted to a tab delimited format which we can load directly from genomedata.org. We also need some supplemental information regarding the clinical data and mutation burden data available both of which we'll load from genomedata.org as well.
 
 ```R
 # Install and load GenVisR
-source("https://bioconductor.org/biocLite.R")
-biocLite("GenVisR")
-library(GenVisR)
-
-# Set your working directory - change this to where you downloaded your files
-setwd("~/Downloads")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("GenVisR", version = "3.8")
 
 # Load relevant data from the manuscript
-mutationData <- read.delim("BKM120_Mutation_Data.tsv")
-clinicalData <- read.delim("BKM120_Clinical.tsv")
-mutationBurden <- read.delim("BKM120_MutationBurden.tsv")
+mutationData <- read.delim("http://genomedata.org/gen-viz-workshop/GenVisR/BKM120_Mutation_Data.tsv")
+clinicalData <- read.delim("http://genomedata.org/gen-viz-workshop/GenVisR/BKM120_Clinical.tsv")
+mutationBurden <- read.delim("http://genomedata.org/gen-viz-workshop/GenVisR/BKM120_MutationBurden.tsv")
 ```
 
 # Creating the initial plot

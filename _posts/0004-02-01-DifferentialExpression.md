@@ -23,24 +23,27 @@ A full description of the experimental design can be found at [array express](ht
 [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) is a popular differential expression analysis package available through Bioconductor. Its differential expression tests are based on a negative binomial generalized linear model. To get started we will first need to install the package and load the library.
 ```R
 # Install the latest version of DEseq2
-source("https://bioconductor.org/biocLite.R")
-biocLite("DESeq2")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("DESeq2", version = "3.8")
+
+# load the library
 library(DESeq2)
 ```
 ### Input data
 Input data for [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) consists of non-normalized sequence read counts at either the gene or transcript level. No preliminary normalization of this data is needed. [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) will internally corrects for differences in library size, using the raw counts. The tool [HTseq](http://htseq.readthedocs.io/en/release_0.9.0/) can be used to obtain this information and is what was used for our example data.
 
-Let's go ahead and load the data and sample information into R. Don't forget to set your working directory to the location of the data files:
+Let's go ahead and load the data and sample information into R from genomedata.org.
 
 ```R
 # Read in the raw read counts
-rawCounts <- read.delim("E-GEOD-50760-raw-counts.tsv")
+rawCounts <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/E-GEOD-50760-raw-counts.tsv")
 
 # Read in the sample mappings
-sampleData <- read.delim("E-GEOD-50760-experiment-design.tsv")
+sampleData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/E-GEOD-50760-experiment-design.tsv")
 
 # Also save a copy for later
-sampleData_v2 <- read.delim("E-GEOD-50760-experiment-design.tsv")
+sampleData_v2 <- sampleData
 ```
 
 The next step is to create an object of class DESeqDataSet, which will store the readcounts and intermediate calculations needed for the differential expression analysis. The object will also store the design formula used to estimate dispersion and log2 fold changes used within the model. "Dispersion" is a parameter of the [Generalized Linear Model](https://en.wikipedia.org/wiki/Generalized_linear_model) that relates to to the variance of the distribution. For more details refer to [PMID: 24349066](https://www.ncbi.nlm.nih.gov/pubmed/24349066) and [PMID: 22287627](https://www.ncbi.nlm.nih.gov/pubmed/22287627).
@@ -108,8 +111,9 @@ The next two steps can take some time to perform, we can offset this somewhat by
 
 ```R
 # Install and load the library
-source("https://bioconductor.org/biocLite.R")
-biocLite("BiocParallel")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("BiocParallel", version = "3.8")
 
 # Register the number of cores to use
 library(BiocParallel)
