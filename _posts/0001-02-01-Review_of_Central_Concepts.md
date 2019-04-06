@@ -50,6 +50,9 @@ Over this course we will be working with a number of reference/data files to aid
 - [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map (SAM) format and it's compressed equivalents binary (BAM) and compressed reference-based alignment map (CRAM) are files for storing aligned sequencing data. BAM files are the simple binary/compressed equivalent of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with tools such as [samtools](https://github.com/samtools/samtools), [picard](https://broadinstitute.github.io/picard/), and [sambamba](http://lomereiter.github.io/sambamba/) to name a few.
 
 {% include question.html question="What character designates a header in a fasta file?" answer="\">\""%}
+{% include question.html question="What character designates a Phred Q value of 30 (Sanger format)?" answer="\"?\""%}
+{% include question.html question="For a BAM alignment record, what does a CIGAR string of 60M1D40M signify?" answer="This alignment has 60bp of matching sequence, a one bp deletion, and then an additional 40bp of matching sequence"%}
+
 
 ***
 
