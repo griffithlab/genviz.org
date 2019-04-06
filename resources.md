@@ -41,13 +41,17 @@ Below are some additional resources that users may find useful to supplement the
 * [R Tutorial 2](http://www.r-tutor.com/r-introduction)
 * [R practice](https://codefights.com/)
 
+#### Color selection
+
+* [Data Novia blog post](https://www.datanovia.com/en/blog/r-colors-amazing-resources-you-want-to-know/)
+* [R color palette cheat sheet](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf)
+* [Interactive ColorBrewer](http://colorbrewer2.org)
+* [RColorBrewer docs](https://cran.r-project.org/web/packages/RColorBrewer/index.html)
+
 #### Introduction to ggplot2
 * [long vs. wide format](http://seananderson.ca/2013/10/19/reshape.html)
 * [ggplot2 wiki](https://github.com/tidyverse/ggplot2/wiki)
 * [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
-
-#### Introduction to shiny
-* [Shiny tutorial for RStudio](https://shiny.rstudio.com/tutorial/)
 
 #### Introduction to GenVisR
 * [GenVisR Vignette](https://bioconductor.org/packages/release/bioc/vignettes/GenVisR/inst/doc/GenVisR_intro.html)
@@ -74,3 +78,7 @@ Below are some additional resources that users may find useful to supplement the
 #### Clinical Variant Interpretations
 
 * Coming soon
+
+#### Introduction to shiny
+* [Shiny tutorial for RStudio](https://shiny.rstudio.com/tutorial/)
+
