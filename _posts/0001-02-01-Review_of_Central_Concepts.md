@@ -8,20 +8,20 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-02-01
 ---
 
-Before we proceed, it may be beneficial to review some central concepts and themes in the realm of genomics and computational biology. Here we provide a very brief overview of core tennents of these disciplines as it pertains to this course. We will also introduce the demonstration datasets used throughout the subsequent modules.
+Before we proceed, it may be beneficial to review some central concepts and themes in the realm of genomics and computational biology. Here we provide a very brief overview of core tenets, and common "gotchas" for these disciplines, as they pertain to this course. We will also introduce the demonstration datasets used throughout the subsequent modules.
 
 ***
 ### Central Dogma
-Lets start with the core tennant of genomics, the central dogma:
+Lets start with the core tenet of genomics, the central dogma:
 
 {% include figure.html image="/assets/Central_Concepts/central_dogma.png" position="right" %}
 
 > *"The Central Dogma. This states that once 'information' has passed into protein it cannot get out again. In more detail, the transfer of information from nucleic acid to nucleic acid, or from nucleic acid to protein may be possible, but transfer from protein to protein, or from protein to nucleic acid is impossible. Information means here the precise determination of sequence, either of bases in the nucleic acid or of amino acid residues in the protein."*
 > --Francis Crick 1956
 
-As quoted above the central dogma describes the flow of biological sequence information encoded in deoxyribonucleic acid (DNA), ribonucleic acid (RNA) and protein. In essence it states that information cannot flow backward from a protein, that is to say transfer of information from a protein to RNA, DNA, or replicated by another protein is impossible. The general flow of information is through the copying of DNA through DNA replication, the creation of RNA from transcription of DNA,  and the creation of proteins via translation of RNA. This process occurs in most cells and are considered mechanisms of general transfer. Special transfers do exist in the form of RNA replication and reverse transcription however these processes are mostly limited to viruses.
+As quoted above, the central dogma describes the flow of biological information, encoded in deoxyribonucleic acid (DNA), ribonucleic acid (RNA) and protein. In essence it states that information cannot flow backward from a protein, that is to say transfer of information from a protein to RNA, DNA, or replicated by another protein is impossible. The general flow of information is through the copying of DNA by DNA replication, the creation of RNA from transcription of DNA, and the creation of proteins via translation of RNA. These processes occur in most cells and are considered mechanisms of general transfer. Special exceptions do exist in the form of RNA replication and reverse transcription however these processes are mostly limited to viruses.
 
-Delving in a bit deeper, DNA takes the form of a double stranded helix comprised of pairs of complementary bases. Adenine (A) and Guanine (G) are classified as purines and complement the pyrimidines Thymine (T) and Cytosine (C) respectively. During transcription DNA is transcribed into a single stranded mRNA molecule in which T bases are converted to uracil (U) and RNA editing such as the removal of introns is performed. This results in a mature mRNA structure composed of a 5' UTR, Coding sequence (CDS), 3' UTR, and a polyadenylated tail. The mature mRNA is then translated into a peptide sequence beginning at the AUG start codon within the CDS and folded into a protein.
+Delving in a bit deeper, DNA takes the form of a double stranded helix comprised of pairs of complementary bases. Adenine (A) and Guanine (G) are classified as purines and complement the pyrimidines Thymine (T) and Cytosine (C) respectively. During transcription DNA is transcribed into a single stranded mRNA molecule in which T bases are converted to uracil (U) and RNA processing such as the removal of introns is performed. This results in a mature mRNA structure composed (for a protein-coding gene) of a 5' UTR, Coding sequence (CDS), 3' UTR, and a polyadenylated tail. The mature mRNA is then translated into a peptide sequence beginning at the AUG start codon within the CDS, continuing for each nucleotide triplet codons, until a stop codon occurs. The resulting peptide is often subsequently modified (e.g., phosphorylation of specific residues) and folded into a functional protein. Essentially all "omic" technologies and assays leverage these naturally occuring properties (e.g., DNA/RNA complementarity) and processes (e.g., DNA replication via polymerase). Interpretation of omic data would not be possible without the decades of work to characterize these products, sequence reference genomes (e.g., The Human Genome Project), establish databases of gene annotations, and so on.
 
 {% include question.html question="What is the reverse complement of: TCGCATTCAGCGGCCATCAGCAGTAAACATCTTAAC?" answer="GTT AAG ATG TTT ACT GCT GAT GGC CGC TGA ATG CGA"%}
 {% include question.html question="Does the resulting sequence contain an open reading frame (ORF)?" answer="Yes. Look for an ATG in frame with a TGA, TAA or TAG, or see the next question for the ORF"%}
@@ -32,22 +32,22 @@ Delving in a bit deeper, DNA takes the form of a double stranded helix comprised
 
 ### Omic technologies and Data
 
-The advent of rapid and cheap massively parallel sequencing has dramatically increased the availability of genome, transcriptome, and epigenome data. Further this has given rise to standardized workflows and file formats. Extracting biologically meaningful data and interpreting the results remains challenging however. Over this course we will learn to visualize these types of data in a meaningful way.
+The advent of rapid and cheap massively parallel sequencing has dramatically increased the availability of genome, transcriptome, and epigenome data. This revolution has given rise to a plethora of standardized (and non-standard) omic analysis workflows, file formats, and a deluge of sequence data. Extracting biologically meaningful conclusions from this data remains a principal challenge. In this course we will learn to visualize several types of omic data in a meaningful way.
 
  ***
 
 ### Reference Files
 
-Over this course we will be working with a number of reference files to aid in analysis and interpretation of our data. All of these files are in standardized formats and are freely available. A brief description of each reference file is given below.
+Over this course we will be working with a number of reference/data files to aid in analysis and interpretation of our data. All of these files are in standardized formats and are freely available. A brief description of each reference file is given below.
 
 - [FASTA](http://genetics.bwh.harvard.edu/pph/FASTA.html){:target="_blank"}: Text files which contain nucleotide or peptide sequences.
 - [GTF](http://www.ensembl.org/info/website/upload/gff.html){:target="_blank"}: (Gene Transfer Format) Tab delimited files which hold information regarding gene structure.
-- [BED](http://www.ensembl.org/info/website/upload/bed.html){:target="_blank"}: (Browser Extensible Data) Tab delimited files hold feature information commonly used to diplay data on an annotation track. Cordinates within these files are 0-based.
+- [BED](http://www.ensembl.org/info/website/upload/bed.html){:target="_blank"}: (Browser Extensible Data) Tab delimited files that hold sequence feature information commonly used to diplay data on an annotation track. Coordinates within these files are 0-based.
 - [VCF](https://samtools.github.io/hts-specs/VCFv4.3.pdf){:target="_blank"} (Variant Call Format) Text file used to store observed sequence variations.
 - [VEP](http://www.ensembl.org/info/docs/tools/vep/vep_formats.html#output){:target="_blank"} (Variant Effect Predictor) Annotation file used to provide additional information for sequence variations. Originates from the ensembl VEP algortihm.
-- [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification){:target="_blank"} (Mutation Annotation Format) Annotation file used to provide additional information for sequence variations. Widely used in the cancer genome atlas project.
-- [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) Raw uncompressed sequence file that evolved from FASTA file but that also include base quality information in a 4 line format.
-- [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map (SAM) format and it's compressed equivalents binary (BAM) and compressed alignment map (CRAM) are files for storing aligned sequencing data. BAM files are just binary files of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with tools such as [samtools](https://github.com/samtools/samtools), [picard](https://broadinstitute.github.io/picard/), and [sambamba](http://lomereiter.github.io/sambamba/) to name a few.
+- [MAF](https://wiki.nci.nih.gov/display/TCGA/Mutation+Annotation+Format+(MAF)+Specification){:target="_blank"} (Mutation Annotation Format) Annotation file used to provide additional information for sequence variations. Widely used in The Cancer Genome Atlas project.
+- [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) Raw sequence file that evolved from FASTA file but that also includes base quality information in a 4 line format.
+- [SAM/BAM/CRAM](https://samtools.github.io/hts-specs/SAMv1.pdf) Sequence alignment map (SAM) format and it's compressed equivalents binary (BAM) and compressed reference-based alignment map (CRAM) are files for storing aligned sequencing data. BAM files are the simple binary/compressed equivalent of the SAM file. CRAM uses the reference sequence to more effeciently compress the information in a SAM file. These file types are commonly viewed and manipulated with tools such as [samtools](https://github.com/samtools/samtools), [picard](https://broadinstitute.github.io/picard/), and [sambamba](http://lomereiter.github.io/sambamba/) to name a few.
 
 {% include question.html question="What character designates a header in a fasta file?" answer="\">\""%}
 
