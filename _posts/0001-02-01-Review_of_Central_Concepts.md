@@ -69,7 +69,7 @@ In the same vein, it is often beneficial to view your reference genome or actual
 
 * [UCSC Genome Browser](https://genome.ucsc.edu/index.html)
 * [Ensembl Web Browser](http://www.ensembl.org/index.html)
-* [Integrative Genomics Viewer](http://software.broadinstitute.org/software/igv/)(IGV)
+* [Integrative Genomics Viewer](http://software.broadinstitute.org/software/igv/) (IGV)
 
 ***
 
@@ -115,6 +115,8 @@ In essence the command above calls the perl regular expression engine and substi
 
 ##### Genome builds
 When doing any sort of bioinformatic analysis it is good to be aware of the reference assembly upon which your data is based. Each species has it's own reference assembly representing the genome of that species, and each species specific assembly can have multiple versions as our understanding of the genome for each species improves. When comparing across data sets, especially in terms of genomic coordinates, reference assemblies should always match. We will cover all of this in more detail in the [liftOver section](http://genviz.org/module%201/0001/06/02/liftoverTools/).
+
+A detailed discussion of some commonly used human reference genome builds can be found [here](https://pmbio.org/module-02-inputs/0002/02/01/Reference_Genome/).
 
 ***
 
