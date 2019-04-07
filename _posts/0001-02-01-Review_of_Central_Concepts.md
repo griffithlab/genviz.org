@@ -58,14 +58,14 @@ Over this course we will be working with a number of reference/data files to aid
 
 ### Genomic annotation resources, browsers, etc.
 
-A common task in genomic analysis and interpretation is collating information to visualize. For example you may have a genomic position and want to know if it is on a gene, the conservation at that position, etc. There are quite a few annotation resources available for this task. In this course we will focus on the ensembl [variant effect predictor](http://www.ensembl.org/info/docs/tools/vep/index.html) however a few other resources are listed below.
+A common task in genomic analysis and interpretation is collating sequence features or other information to visualize. For example you may have a genomic position and want to know if it is on a gene, the conservation at that position, etc. There are quite a few annotation resources available for this task. In this course we will focus on the ensembl [variant effect predictor](http://www.ensembl.org/info/docs/tools/vep/index.html) however a few other resources are listed below.
 
 * [Variant Effect Predictor](http://www.ensembl.org/info/docs/tools/vep/index.html) (VEP)
 * [ANNOVAR](http://annovar.openbioinformatics.org/en/latest/)
 * [biomart](http://www.biomart.org/)
 * UCSC [Variant Annotation Integrator](https://genome.ucsc.edu/cgi-bin/hgVai)
 
-In the same vein, it is often beneficial to view actual sequence data, again there are many resources available for this, we'll go over these within the course.
+In the same vein, it is often beneficial to view your reference genome or actual sequence data, again there are many resources available for this, we'll go over these within the course.
 
 * [UCSC Genome Browser](https://genome.ucsc.edu/index.html)
 * [Ensembl Web Browser](http://www.ensembl.org/index.html)
@@ -74,7 +74,7 @@ In the same vein, it is often beneficial to view actual sequence data, again the
 ***
 
 ### Common problems
-Within computational biology there are a number of pitfalls that beginners can fall into. Here we attempt to go over a few of these to make life easier down the road.
+Within computational biology there are a number of pitfalls that beginners can fall into. Here we review a few of the most common, to make life easier down the road.
 
 ##### Genomic coordinate systems
 
