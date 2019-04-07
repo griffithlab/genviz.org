@@ -26,3 +26,5 @@ Physalia-courses provides scientific training courses and workshops in bioinform
 
 Evomics (Evolution and Genomics) is currently organizing three Workshops, the Workshop on Molecular Evolution, the Workshop on Genomics, and the Workshop on Population and Speciation Genomics. All three Workshops are designed to provide advanced training, much of which is hands-on, in their respective fields.  Workshops feature faculty who are demonstrated leaders in their fields and a dedicated team of instructors and technical staff to ensure that each Workshop is an efficient and effective learning experience for all participants.
 
+We are constantly improving the course material, if you notice a problem or have a suggestion for improvement please let us know by making a [github issue](https://github.com/griffithlab/genviz.org).
+
