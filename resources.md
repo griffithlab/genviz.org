@@ -13,25 +13,25 @@ Below are some additional resources that users may find useful to supplement the
 ### Lecture slides
 
 #### [Physalia-courses](https://www.physalia-courses.org/), Freie Universität Berlin, Germany, 8-12 April 2019 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
-* [Module 0 Lecture - Instructor introduction](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module0_Introductions.pdf)
-* [Module 1 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module1_Lecture.pdf)
-* [Module 2 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module2_Lecture.pdf)
-* [Module 3 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module3_Lecture.pdf)
-* [Module 4 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module4_Lecture.pdf)
-* [Module 5 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module5_Lecture.pdf)
-* [Module 6 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module6_Lecture.pdf)
+* [Module 0 Lecture - Instructor introductions](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module0_Introductions.pdf)
+* [Module 1 Lecture - Introduction to genomic data visualization and interpretation](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module1_Lecture.pdf)
+* [Module 2 Lecture - R and ggplot](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module2_Lecture.pdf)
+* [Module 3 Lecture - GenVisR](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module3_Lecture.pdf)
+* [Module 4 Lecture - Expression](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module4_Lecture.pdf)
+* [Module 5 Lecture - Annotation](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module5_Lecture.pdf)
+* [Module 6 Lecture - Review](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module6_Lecture.pdf)
 
 #### [Evomics-workshops](http://evomics.org/), Cesky Krumlov, Czech Republic, 6-19 January 2019 ([course page](http://evomics.org/workshops/workshop-on-genomics/2019-workshop-on-genomics-cesky-krumlov/))
 * [Introduction to Genomic Data Visualization and Interpretation](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/WorkshopOnGenomics2019_Lecture.pdf)
 
 #### [Physalia-courses](https://www.physalia-courses.org/), Freie Universität Berlin, Germany, 11-15 September 2017 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
-* [Module 0 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module0_Introductions.pdf)
-* [Module 1 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module1_Lecture.pdf)
-* [Module 2 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module2_Lecture.pdf)
-* [Module 3 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module3_Lecture.pdf)
-* [Module 4 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module4_Lecture.pdf)
-* [Module 5 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module5_Lecture.pdf)
-* [Module 6 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module6_Lecture.pdf)
+* [Module 0 Lecture - Instructor introductions](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module0_Introductions.pdf)
+* [Module 1 Lecture - Introduction to genomic data visualization and interpretation](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module1_Lecture.pdf)
+* [Module 2 Lecture - R and ggplot](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module2_Lecture.pdf)
+* [Module 3 Lecture - GenVisR](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module3_Lecture.pdf)
+* [Module 4 Lecture - Expression](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module4_Lecture.pdf)
+* [Module 5 Lecture - Annotation](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module5_Lecture.pdf)
+* [Module 6 Lecture - Review](https://github.com/griffithlab/gen-viz-lectures/raw/1.0.0/GenViz_Module6_Lecture.pdf)
 
 ### Other Educational Resources for Topics Covered
 
