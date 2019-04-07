@@ -8,6 +8,8 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-02-01
 ---
 
+{:toc}
+
 Over this tutorial series, we will be using R extensively, the language underlying graphical programs [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html), [ggvis](https://cran.r-project.org/web/packages/ggvis/index.html), and [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html). We highly recommend familiarity with R for all students. This page is intended to provide a brief overview of R. However, there are a myriad of resources available that we recommend to supplement the information given here (See Additional Resources below).
 
 ## R and Rstudio
@@ -62,20 +64,25 @@ lapply(.libPaths(), dir)
 
 #### Bioconductor
 
-Bioconductor is another archive of R packages specific to bioinformatics and genomics. This archive is maintained by the Bioconductor core team and is updated bi-annually. To date, there are 2,541 [packages available via bioconductor](http://bioconductor.org/packages/release/BiocViews.html#___Software). Packages are categorized within biocViews as 'Software', 'AnnotationData', and 'ExperimentData.' You can explore the packages available on this webpage by searching within these tags, categorizing packages based upon relevant topics or types of analysis. Bioconductor packages are managed and installed using the [biocLite()](https://www.rdocumentation.org/packages/BiocInstaller/versions/1.22.3/topics/biocLite) function. Note that this function must be sourced (loaded from source code) before trying to install any Bioconductor packages. Bioconductor packages can be installed by running the following in an R terminal:
+Bioconductor is another archive of R packages specific to bioinformatics and genomics. This archive is maintained by the Bioconductor core team and is updated bi-annually. To date, there are 2,974 [packages available via bioconductor](http://bioconductor.org/packages/release/BiocViews.html#___Software). Packages are categorized within biocViews as 'Software', 'AnnotationData', and 'ExperimentData.' You can explore the packages available on this webpage by searching within these tags, categorizing packages based upon relevant topics or types of analysis. Bioconductor packages are managed and installed using the [biocLite()](https://www.rdocumentation.org/packages/BiocInstaller/versions/1.22.3/topics/biocLite) function. Note that this function must be sourced (loaded from source code) before trying to install any Bioconductor packages. Bioconductor packages can be installed by running the following in an R terminal:
 
 ```R
+
+# install biocmanager if it's not already there
+if (!requireNamespace("BiocManager"))
+    install.packages("BiocManager")
+
 # Install core bioconductor packages
 source("https://bioconductor.org/biocLite.R")
-biocLite()
+BiocManager::install()
 
 # Install specific bioconductor packages
 source("https://bioconductor.org/biocLite.R")
-biocLite("GenomicFeatures")
+BiocManager::install("GenomicFeatures")
 
-# upgrade bioconductor
+# upgrade installed bioconductor packages
 source("https://bioconductor.org/biocLite.R")
-biocLite("BiocUpgrade")
+BiocManager::install()
 ```
 
 ## Common file type extensions in R/Rstudio
