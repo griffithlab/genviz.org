@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-03-01
 ---
 
-The [Ensembl Genome Browser](http://www.ensembl.org/index.html) provides a portal to sequence data, gene annotations/predictions, and other types of data hosted in the various Ensembl databases. Many consider Ensembl to be the most comprehensive and systematic gene annotation resource in the world. They support a large number of species and make data available through a powerful web portal as well as through direct database downloads and APIs. Their excellent [Help & Documentation](http://www.ensembl.org/info/index.html) pages provide excellent instruction on using the website, data access, APIs, and their procedures for gene annotation and prediction. Their outreach team have put together [extensive teaching materials](http://www.ensembl.org/info/website/tutorials/index.html) that are available free online. Rather than duplicate effort, we have linked to some of their instructional videos below. We will review these and then perform some simple exercises to familiarize ourselves with the Ensembl Genome browser.
+The [Ensembl Genome Browser](http://www.ensembl.org/index.html) provides a portal to sequence data, gene annotations/predictions, and other types of data hosted in the various Ensembl databases. Many consider Ensembl to be the most comprehensive and systematic gene annotation resource in the world. Ensembl supports a large number of species and makes data available through a powerful web portal as well as through direct database downloads and APIs. Their excellent [Help & Documentation](http://www.ensembl.org/info/index.html) pages provide instruction on using the website, data access, APIs, and their procedures for gene annotation and prediction. Their outreach team have put together [extensive teaching materials](http://www.ensembl.org/info/website/tutorials/index.html) that are available for free online. Rather than duplicate effort, we have linked to some of their instructional videos below. We will review these and then perform some simple exercises to familiarize ourselves with the Ensembl Genome browser.
 
 ### Introduction to genome browsers using Ensembl
 
@@ -18,7 +18,7 @@ The [Ensembl Genome Browser](http://www.ensembl.org/index.html) provides a porta
 
 {% include question.html question="Does Ensembl produce its own genome assembly?" answer="No. Ensembl imports genome assemblies from other sources (e.g., the Genome Reference Consortium) and then annotates genes and other features to the same reference as available elsewhere (UCSC, NCBI, etc)."%}
 
-{% include question.html question="When do transcripts belong to the same gene?" answer="Transcripts that share exons are considered to belong to the same gene locus in Ensembl."%}
+{% include question.html question="When do transcripts belong to the same gene?" answer="Transcripts that share exons transcribed from the same strand are considered to belong to the same gene locus in Ensembl."%}
 
 {% include question.html question="What are the two main types of transcripts annotated in Ensembl?" answer="The two main types of transcripts annotated in Ensembl are (protein) coding and non-coding."%}
 <p><br></p>
@@ -27,7 +27,7 @@ The [Ensembl Genome Browser](http://www.ensembl.org/index.html) provides a porta
 
 {% include video.html id="ZpnQOOxXufM" %}
 <p><br></p>
-{% include question.html question="What is a stable identifier in Ensembl?" answer="Stable identifiers are IDs for features (gene, transcript, protein, exon, etc) that should not change even when underlying data and meta-data for those features change. Examples include ENSG..., ENST..., ENSP... for human Ensembl gene, transcript, and proteins. Other species will have modified prefixes but follow the same conventions. For example, Ensembl dog genes are named ENSCAFG..."%}
+{% include question.html question="What is a stable identifier in Ensembl?" answer="Stable identifiers are IDs for features (gene, transcript, protein, exon, etc.) that should not change even when underlying data and meta-data for those features change. Examples include ENSG..., ENST..., ENSP... for human Ensembl gene, transcript, and proteins. Other species will have modified prefixes but follow the same conventions. For example, Ensembl dog genes are named ENSCAFG..."%}
 
 {% include question.html question="How many protein coding transcripts does human CDKN2B have?" answer="Ensembl has two protein coding transcripts annotated for human CDKN2B."%}
 {% include question.html question="Which species has a CDKN2B orthologous gene that most closely matches human?" answer="The Chimpanzee CDKN2B is 100.00 similar to its human counterpart. This can be determined under the Comparative Genomics Gene Tree or Orthologues section of the human CDKN2B gene page."%}
@@ -62,7 +62,7 @@ Next, examine the 'Gene Gain/Loss Tree' for TP53. User your browser back button 
 
 ### Ensembl Data Display Exercise
 
-Using your knowledge of tissue-specific expression for a specific species/gene, explore the Gene Expression views in Ensembl. Does the available data confirm your knowledge of these genes. For example, considering human genes, we might investigate: MSLN (Mesothelin) - normally present on the mesothelial cells lining the pleura, peritoneum and pericardium and over-expressed in several cancers. Other interesting human/cancer tissue markers include: KLK3 (PSA), EPCAM, SCGB2A2 (Mammaglobin), etc. Below you can see an example for PSA.
+Using your knowledge of tissue-specific expression for a specific species/gene, explore the Gene Expression views in Ensembl. Does the available data confirm your knowledge of these genes. For example, considering human genes, we might investigate: MSLN (Mesothelin) - normally present on the mesothelial cells lining the pleura, peritoneum and pericardium and over-expressed in several cancers. Other interesting human/cancer tissue markers include: KLK3 (PSA), EPCAM, SCGB2A2 (Mammaglobin), CD19, etc. Below you can see an example for PSA.
 
 {% include figure.html image="/assets/Ensembl/ensembl_datadisplay_geneexpression.png" %}
 
@@ -71,4 +71,4 @@ Using your knowledge of tissue-specific expression for a specific species/gene, 
 <p><br></p>
 
 ### Ensembl Genomes - Extending Ensembl across the taxonomic space
-The [EnsemblGenomes](http://ensemblgenomes.org/) site hosts genome-scale data from ~57,000 species, most of which are not available through the core Ensembl. Data are organized into five taxonomic categories: bacteria (n=50364), protists (n=200), fungi (n=882), plants (n=47), and metazoa (n=68). Each generally provides at least a preliminary genome assembly, gene annotations, and to varying degrees includes: variation data, pan compara data, genome alignments, peptide alignments, and other alignments. If your species is not in Ensembl it is worth checking whether it is available in EnsemblGenomes.
+The [EnsemblGenomes](http://ensemblgenomes.org/) site hosts genome-scale data from ~57,000 species, most of which are not available through the core Ensembl. Data are organized into five taxonomic categories: bacteria (n=52520), protists (n=200), fungi (n=1802), plants (n=63), and metazoa (n=74). Each generally provides at least a preliminary genome assembly, gene annotations, and to varying degrees includes: variation data, pan compara data, genome alignments, peptide alignments, and other alignments. If your species is not in Ensembl it is worth checking whether it is available in EnsemblGenomes.
