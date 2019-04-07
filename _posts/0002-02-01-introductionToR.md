@@ -77,6 +77,15 @@ biocLite("GenomicFeatures")
 source("https://bioconductor.org/biocLite.R")
 biocLite("BiocUpgrade")
 ```
+
+## Common file type extensions in R/Rstudio
+
+- .R This is the primary file extension in R and denotes a file containing R code.
+- .Rproj Denotes an R project file, these are commonly used when developing R libraries in Rstudio but are usefull for analysis projects as well. Essentially they save settings in Rstudio.
+- .Rdata These files are R data files and are used
+- .Rmd Denotes Rmarkdown files, Rmarkdown provides a way to include R code within a markdown document. Common
+- .Rnw
+
 ## Documentation and example data in R
 
 As with any software, documentation is key to the usefullness for a user. R makes finding documentation very easy. In order to find the documentation for a specific function, simple enter "?" followed by the function name. This will pull up a manual specific to that function. If you enter this into the Rstudio terminal, the function's documentation immediately appears in the 'Help' tab of the lower right window of the screen. In addition, many packages have additional documentation in the form of vignettes. To view these vignettes from R use the [vignette()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/vignette) function, specifying the package name within the function call (e.g. vignette("grid")). The source code for any function in R can also be viewed by typing the function name into R without any parameters or parentheses.
