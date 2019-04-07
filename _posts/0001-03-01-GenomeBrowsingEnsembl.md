@@ -35,7 +35,7 @@ The [Ensembl Genome Browser](http://www.ensembl.org/index.html) provides a porta
 
 ### Data Visualization with Ensembl
 
-An excellent way to explore the data visualization possibilities with Ensembl is to use their [Find a Data Display](http://www.ensembl.org/info/website/gallery.html) page. This is linked directly from the [Ensembl home page](http://www.ensembl.org/index.html)(see red box below). From this page, you can you can choose a gene, region or variant and then browse a selection of relevant visualisations.
+An excellent way to explore the data visualization possibilities with Ensembl is to use their [Find a Data Display](http://www.ensembl.org/info/website/gallery.html) page. This is linked directly from the [Ensembl home page](http://www.ensembl.org/index.html) (see red box below). From this page, you can you can choose a gene, region or variant and then browse a selection of relevant visualisations.
 {% include figure.html image="/assets/Ensembl/ensembl_home_datadisplay.png"%}
 
 Navigate to the [Find a Data Display](http://www.ensembl.org/info/website/gallery.html) page. To illustrate, select 'Species' -> 'Human', 'Feature Type' -> 'Genes', and then 'Identifier' -> 'TP53'. You will be presented with a number of possible matches. Select the exact 'TP53' match and select 'Go'. The results page, at time of writing, returned a comprehensive set of 47 views for TP53 (ENSG00000141510) associated with: Sequence & Structure, Expression & Regulation, Transcripts & Proteins, Comparative Genomics, and Variants. We will display just a few examples here and then explore others through exercises.
