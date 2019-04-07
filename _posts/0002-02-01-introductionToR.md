@@ -80,11 +80,11 @@ biocLite("BiocUpgrade")
 
 ## Common file type extensions in R/Rstudio
 
-- .R This is the primary file extension in R and denotes a file containing R code.
-- .Rproj Denotes an R project file, these are commonly used when developing R libraries in Rstudio but are usefull for analysis projects as well. Essentially they save settings in Rstudio.
-- .Rdata These files are R data files and are used
-- .Rmd Denotes Rmarkdown files, Rmarkdown provides a way to include R code within a markdown document. Common
-- .Rnw
+- `.R` This is the primary file extension in R and denotes a file containing R code.
+- `.Rproj` Denotes an R project file, these are commonly used when developing R libraries in Rstudio but are usefull for analysis projects as well. Essentially they store saved settings in Rstudio.
+- `.Rdata` These files are R data files and are used to store data in a compressed format that are easily exported from and loaded in to R. They store R objects and are usefull if for example your R script takes awhile to run and you want to store results to avoid having to rerun the script.
+- `.Rmd` Denotes Rmarkdown files, Rmarkdown provides a way to include R code and results within a markdown document. Commonly used to present results in a convenient format and/or to document code in a more user readable way.
+- `.Rnw` Denotes a sweave file, similar to markdown it provides a way to intersperse texts, plots, and code in one document. The main difference being that instead of markdown syntax LaTeX is used instead.
 
 ## Documentation and example data in R
 
