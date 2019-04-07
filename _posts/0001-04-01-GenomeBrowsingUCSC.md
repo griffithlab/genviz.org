@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-04-01
 ---
 
-The [UCSC genome browser](https://genome.ucsc.edu/cgi-bin/hgGateway) is a powerful web application for exploring the genomes of a variety of organisms in the context of annotation tracks. Let's start by navigating to the UCSC genome browser homepage at [http://genome.ucsc.edu](http://genome.ucsc.edu) and clicking on Genome Browser. Over the course of this tutorial we will be highlighting features with a transparent textbox, please pay attention to these as they are relevant to the discussion.
+The [UCSC genome browser](https://genome.ucsc.edu/cgi-bin/hgGateway) is a powerful web application for exploring the genomes of a variety of organisms in the context of a rich set of annotation tracks. Let's start by navigating to the UCSC genome browser homepage at [http://genome.ucsc.edu](http://genome.ucsc.edu) and clicking on Genome Browser. Over the course of this tutorial we will be highlighting features with transparent (pink or green) textbox, please pay attention to these as they are relevant to the discussion.
 
 {% include figure.html image="/assets/UCSC/ucscHomePage.png" width="750" %}
 
@@ -20,7 +20,7 @@ This will take us to the browser gateway where we can select the organism we wis
 
 ### Navigating around the genome
 
-We are now in the genome browser for our chosen reference assembly, there is alot of information here, but let's start with the basics, navigating around. We can jump to a position or genome by entering them in the highlighted text box below, let's jump to **PIK3CA** which has coordinates **chr3:178,866,311-178,952,497**. After jumping to PIK3CA we can see in the image below that PIK3CA is 86,187 base pairs long and resides on the q arm of chromosome 3 (green text boxes). We can shift our viewing window with the arrow keys on the top left and we can zoom in and out using the zoom buttions on the right (red text boxes). In addition clicking and dragging inside the coordinate track within the browser will zoom to the window highlighted by such an action. Performing this action within any of the other tracks will shift the viewing window left or right. These are analogous to using the buttons mentioned above but allow for more user control.
+We are now in the genome browser for our chosen reference assembly. There is a lot of information here, but let's start with the basics, navigating around. We can jump to a position or gene by entering them in the highlighted text box below, let's jump to **PIK3CA** which has coordinates **chr3:178,866,311-178,952,497**. After jumping to PIK3CA we can see in the image below that PIK3CA is 86,187 base pairs long and resides on the q arm of chromosome 3 (green text boxes). We can shift our viewing window with the arrow keys on the top left and we can zoom in and out using the zoom buttions on the right (red text boxes). In addition clicking and dragging inside the coordinate track within the browser will zoom to the window highlighted by such an action. Performing this action within any of the other tracks will shift the viewing window left or right. These are analogous to using the buttons mentioned above but allow for more user control.
 
 {% include figure.html image="/assets/UCSC/navigating.png" width="950" %}
 
