@@ -51,12 +51,6 @@ Go through the following exercise to explore the functionality of this resource:
 
 {% include figure.html image="/assets/proteinpaint/proteinpaint7.png" width="1200" %}
 
-* Use the Microarray and RNA-seq expression tracks (if missing, these appear as <em>e</em> in the track list) to determine what kind of childhood tumors tend to have high *ERBB2* expression. 
-
-{% include figure.html image="/assets/proteinpaint/proteinpaint8.png" width="1200" %}
-
-* Note the use of two overlaid plots to display the RNA-seq expression values.  Individual points are plotted as an [empirical distribution function](https://en.wikipedia.org/wiki/Empirical_distribution_function) (EDF). The distribution is also summarized using a [box plot](https://en.wikipedia.org/wiki/Box_plot). How does one interpret an EDF? What are the features of a Box Plot?
-
 ### Importing custom data
 
 * Suppose we want to load a custom data set of our own variants into ProteinPaint. For illustration, we will use [CIViCs](http://www.civicdb.org) list of VHL variants. To get that list go to [www.civicdb.org](http://www.civicdb.org), select `SEARCH`, select the `Variants` tab, create a query where `Gene` `is` `VHL`, and hit the `Search` button. Once the query completes, use the `Get Data` option to `Download CSV`. Save this file. Rename it to CIViC-VHL-Variants.csv. We'll need to reformat the data before inporting it into ProteinPaint.
