@@ -70,7 +70,7 @@ dir()
 x = read.csv(file = "CIViC-VHL-Variants.csv", as.is=1:4)
 
 # Store only the variant names that we will parse for protein coordinates
-vhl_variants1 = x[,4] 
+vhl_variants1 = x[,2] 
 
 # Tidy up the names to remove the c. notations
 vhl_variants2 = gsub("\\s+\\(.*\\)", "", vhl_variants1, perl=TRUE)
