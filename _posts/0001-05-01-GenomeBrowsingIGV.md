@@ -80,7 +80,7 @@ We will be using the breast cancer cell line HCC1143 to visualize alignments. Fo
 
 **HCC1143 Alignments to hg19:**
 * [HCC1143.normal.21.19M-20M.bam](http://genomedata.org/gen-viz-workshop/IGV/HCC1143.normal.21.19M-20M.bam)
-* [HCC1143.normal.21.19M-20M.bam.bai](http://genomedata.org/gen-viz-workshop/IGV/hcc1143/HCC1143.normal.21.19M-20M.bam.bai)
+* [HCC1143.normal.21.19M-20M.bam.bai](http://genomedata.org/gen-viz-workshop/IGV/HCC1143.normal.21.19M-20M.bam.bai)
 
 Copy the files to your local drive, and in IGV choose `File` > `Load from File...`, select the bam file, and click `OK`. Note that the bam and index files must be in the same directory for IGV to load these properly. Alternatively, you can copy the link location and load `File` > `Load from URL...`.
 
@@ -239,6 +239,10 @@ Navigate to region `chr21:19,089,694-19,095,362`
 * Read pairs in RL pattern (instead of LR pattern)
 * Region is flanked by reads with poor mapping quality (white instead of grey)
 * Presence of reads with pairs on other chromosomes (coloured reads at the bottom when scrolling down)
+
+#### A Standard Operating Procedure (SOP) for Manual Review of Variants
+
+As illustrated above, manual review of sequence alignments is often necessary to confirm/validate called variants. Despite the widespread usage of manual review, published studies rarely document the procedure and best practices for this review. To address this, Barnell et al published a "[Standard operating procedure for somatic variant refinement of sequencing data with paired tumor and normal samples](https://doi.org/10.1038/s41436-018-0278-z)". This SOP documents methods and examples of how to categorize variants into four different classes (Somatic, Germline, Ambiguous or Fail) with 19 tags for common sources of sequence or analysis artifacts. This SOP supports and enhances manual somatic variant detection by improving reviewer accuracy while reducing the inter-reviewer variability for variant calling and annotation. 
 
 ### Visualization Part 3: Automating Tasks in IGV
 
