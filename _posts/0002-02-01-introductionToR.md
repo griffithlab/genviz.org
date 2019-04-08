@@ -99,6 +99,60 @@ As with any software, documentation is key to the usefullness for a user. R make
 
 R also has a variety of datasets pre-loaded. In order to view these, type [data()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/data) in your R terminal. We will be using a few of these data sets to illustrate key concepts in this lesson.
 
+## Overview of less common operators in R
+
+As in any language R has all of the basic operators available `+`, `-`, `&`, `|` etc. There are a few operators however that you will occassionally see that are not so familiar. For exmaple you might have noticed the use of `::` in the bioconductor section above. While we won't get into a discussion of all of the operators available in R let's go over a few that are commonly seen.
+
+- `::` Takes the syntax library::function and allows one to call an exported function from an installed R library without having to load the library.
+- `:::` Similar to above but allows one to call a function from an installed R library that is not exported and generally available to users.
+- `%in%` The `%` signs denote a special operator which take arguments on both the left and right side of the operator. In this example `%in%` will find element in a vector on the left hand side of the operator which are also present on the right hand side. This is intended to make the code slightly easier to read.
+- `$` Provides a way to access components of an S3 object, commonly seen applied to data frames which will be discussed a bit later.
+- `@` Provides a way to access slots in an S4 object, package authors should in theory provider functions to access slots however this is not always the case.
+- `%>%` While not part of a base R install the magrittr operator from the magrittr package provides the functionality of a pipe in R. It is intended to make code more readable instead of nesting functions whithin each other.
+- `` ` `` While perhaps not an operator the backtick provides a way to use an operation that would otherwise be illegal R syntax. You might see this if a data frame column has a space for example.
+
+With the explanations out of the way let's see these operators in practice. Start by installing the lubridate package which just makes working with dates easier.
+
+```R
+# Install the lubridate package
+install.packages("lubridate")
+
+# call a lubridate function without loading the library
+leap_year(2008)
+lubridate::leap_year(2008)
+
+# Examine a function not exported by the package, (calling a function without parenthesis will print the source code)
+check_period
+lubridate::check_period
+lubridate:::check_period
+
+# example of the include operation
+x <- c(1, 2, 3)
+y <- c(1, 3)
+x %in% y
+
+# access a compnent of an object
+g <- list(name = "braf", variant = "v600e")
+g$name
+g$variant
+
+# access a component of an object
+span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01"))
+period <- as.period(span)
+period@year
+period@month
+
+# pipe to a function
+insttall.packages("magritttr")
+library(magrittr)
+mtcars %>% head
+head(mtcars)
+
+# using backticks for illegal operations
+%in%(x, y)
+`%in%`(x, y)
+```
+
 ## Assignment and data types
 
 When working in any programming language, values are stored as variables. Defining a variable tells the language to allocate space in memory to store that variable. In R, a variable is assigned with the assignment operator "<-" or "=", which assigns a value to the variable in the user workspace or the current scope respectively. For the purposes of this course, assignment should always occur with the "<-" operator. All variables are stored in objects. The least complex object is the atomic vector. Atomic vectors contain values of only one specific data type. Atomic vectors come in several different flavors (object types) defined by their data type. The six main data types (and corresponding object types) for atomic vectors are: "double (numeric)", "integer", "character", "logical", "raw", and "complex". The data type can be checked with the [typeof()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/typeof) function. The object type can be checked with the [class()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/class) function. Alternatively, data type and object type can also be checked with the is.*() family of functions which will return a logical vector (True/False). Object and data types can also be coerced from one type to another using the as.*() family of functions. An example of each data type is shown below. In each case we will check the object and data type. We will also try coercing some objects/data from one type to another. Understanding and moving between data/object types is important because many R functions expect inputs to be of a certain type and will produce errors or unexpected results if provided with the wrong type.
