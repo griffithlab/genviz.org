@@ -8,11 +8,11 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0001-07-01
 ---
 
-[ProteinPaint](https://pecan.stjude.org/proteinpaint) is a tool made available as part of the [PeCan Data Portal](https://pecan.stjude.org/home). The principle goal of this data portal is to facilitate exploration of childhood cancer genomics data. However, some tools, such as ProteinPaint are generally useful for visualizing the recurrence of any set of variants in a gene in the context of protein domains and other information.
+[ProteinPaint](https://proteinpaint.stjude.org/) is a tool made available as part of the [PeCan Data Portal](https://pecan.stjude.org/home). The principle goal of this data portal is to facilitate exploration of childhood cancer genomics data. However, some tools, such as ProteinPaint are generally useful for visualizing the recurrence of any set of variants in a gene in the context of protein domains and other information.
 
 This section will provide a brief introduction to ProteinPaint's features and demonstrate its use with a few examples and exercises.
 
-The tool is entirely web based. First navigate to the tool's homepage: [ProteinPaint](https://pecan.stjude.org/proteinpaint). Note that it has its own [simple tutorial](https://docs.google.com/document/d/1JWKq3ScW62GISFGuJvAajXchcRenZ3HAvpaxILeGaw0/edit). 
+The tool is entirely web based. First navigate to the tool's homepage: [ProteinPaint](https://proteinpaint.stjude.org/). Note that it has its own [tutorials](https://docs.google.com/document/d/1JWKq3ScW62GISFGuJvAajXchcRenZ3HAvpaxILeGaw0/edit). 
 
 ### Guided tour of pre-loaded data
 
@@ -23,7 +23,7 @@ Go through the following exercise to explore the functionality of this resource:
 {% include figure.html image="/assets/proteinpaint/proteinpaint1.png" width="1200" %}
 
 * Select the gene name (top left) to view a summary of the gene.
-* Use the `CONFIG` option (right side) to change between display modes by selecting `switch display mode`. Try the `Splicing RNA` option.
+* Use the `CONFIG` option (right side) to change between display modes by selecting `switch display mode`. Try the `Splicing RNA` option. Note these options are also available from the gene summary view mentioned above.
 
 {% include figure.html image="/assets/proteinpaint/proteinpaint2.png" width="1200" %}
 
@@ -70,7 +70,7 @@ dir()
 x = read.csv(file = "CIViC-VHL-Variants.csv", as.is=1:4)
 
 # Store only the variant names that we will parse for protein coordinates
-vhl_variants1 = x[,2] 
+vhl_variants1 = x[,4] 
 
 # Tidy up the names to remove the c. notations
 vhl_variants2 = gsub("\\s+\\(.*\\)", "", vhl_variants1, perl=TRUE)
