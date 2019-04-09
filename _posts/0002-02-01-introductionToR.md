@@ -463,9 +463,10 @@ lubridate::check_period
 lubridate:::check_period
 
 # example of the include operation
-x <- c(1, 2, 3)
-y <- c(1, 3)
-x %in% y
+cancer_genes = c("BRAF","TP53","PTEN","BRCA1","MYC")
+de_genes = c("GAPDH","NADPH","PTEN","ACTN","TP53","ALDH2")
+de_genes %in% cancer_genes
+de_genes[de_genes %in% cancer_genes]
 
 # access a compnent of an object
 g <- list(name = "braf", variant = "v600e")
@@ -476,7 +477,7 @@ g$variant
 library(lubridate)
 
 # access a component of an object
-span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01"))
+span <- interval(ymd_hms("2008-11-02 01:30:03"), ymd_hms("2010-12-25 07:35:15"))
 period <- as.period(span)
 period@year
 period@month
@@ -488,13 +489,11 @@ mtcars %>% head
 head(mtcars)
 
 # using backticks for illegal operations
-%in%(x, y)
-`%in%`(x, y)
-
-# Using backticks for illegal operations part II
-1 + 1
-+(1, 1)
-`+`(1, 1)
+data <- data.frame(gene=c("EGFR","ERBB2","ERBB3"), exon_count=c(12,13,11), length=c(2244,2541,1976))
+names(data)[1]="gene name"
+data$exon_count
+data$gene name
+data$`gene name`
 
 ```
 
