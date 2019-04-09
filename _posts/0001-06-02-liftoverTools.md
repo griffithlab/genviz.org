@@ -56,9 +56,11 @@ In another situation you may have coordinates of a gene and wish to determine th
 
 ```R
 # install and load rtracklayer
-# source("https://bioconductor.org/biocLite.R")
-# biocLite("rtracklayer")
-library("rtracklayer")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("rtracklayer", version = "3.8")
+
+library(rtracklayer)
 ```
 
 The function we will be using from this package is [liftover()](https://www.rdocumentation.org/packages/rtracklayer/versions/1.32.1/topics/liftOver) and takes two arguments as input. The first of these is a [GRanges](https://www.rdocumentation.org/packages/GenomicRanges/versions/1.24.1/topics/GRanges-class) object specifying coordinates to perform the query on. This class is from the [GenomicRanges](https://www.rdocumentation.org/packages/GenomicRanges/versions/1.24.1) package maintained by bioconductor and was loaded automatically when we loaded the [rtracklayer](http://bioconductor.org/packages/release/bioc/html/rtracklayer.html) library. The second item we need is a [chain file](https://genome.ucsc.edu/goldenpath/help/chain.html), which is a format which describes pairwise alignments between sequences allowing for gaps. The UCSC website maintains a selection of these on it's [genome data page](http://hgdownload.soe.ucsc.edu/downloads.html). Navigate to this page and select "liftOver files" under the hg38 human genome, then download and extract the "hg38ToCanFam3.over.chain.gz" chain file.
