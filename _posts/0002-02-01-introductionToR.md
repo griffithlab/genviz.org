@@ -192,9 +192,16 @@ vec <- as.numeric(vec)
 # Determine which elements of the vector are >= 5
 vec >= 5
 
-# Determine the indices of the vector with values >= 5 and then extract those elements
-which(vec >= 5)
-vec[which(vec >= 5)]
+# Combine conditional expressions
+# Determine which elements of the vector are <=5 OR >=20
+vec <= 5 | vec >= 20
+
+# Determine which elements of the vector are >=5 AND <=20
+vec >= 5 & vec <= 20
+
+# Determine the indices of the vector with values >=5 AND <=20, then extract those elements
+which(vec >= 5 & vec <= 20)
+vec[which(vec >= 5 & vec <= 20)]
 
 # Do something similar, using which() but for a matrix.
 # Create a 5x10 matrix where values are randomly 1:10
@@ -505,16 +512,19 @@ First, download an existing pre-processed and normalized [gene expression datase
 Using the skills you've learned above:
 1. Read the file into R;
 2. Extract a matrix of just the expression data values (probeset vs. sample) without the probe and gene ID columns;
-3. Write custom functions to determine, for a vector, (A) the % of values with raw intensity >= 100 (Note: the data are currently on a log2 scale and should first be unlogged) AND (B) the coefficient of variation;
-4. Apply your custom functions to all the rows (probesets) of the expression matrix and save as separate vectors;
-5. Extract the subset of the matrix for which (A) the % of values with raw intensity of at least 100 is >= 20 AND (B) the COV >= 0.7;
+3. Convert the log2 values to raw (unlogged) expression values;
+4. Write custom functions to determine, for a vector, (A) the % of values with raw intensity >= 100 AND (B) the coefficient of variation;
+5. Apply your custom functions to all the rows (probesets) of the expression matrix, save as separate vectors (optionally add to the imported data frame);
+6. Extract the subset of the matrix for which (A) the % of values with raw intensity of at least 100 is >= 20 AND (B) the COV >= 0.7;
+
+How many probesets pass the filtering criteria above?
 
 {% include question.html question="Get a hint!" answer='When importing the expression data, you might consider using as.is to prevent R from interpreting probe and gene IDs as factors.'%}
 {% include question.html question="Get a hint!" answer='To reverse a log2 calculation in R you can use the format 2^X where X can be a vector or matrix of log2 values.'%}
 {% include question.html question="Get a hint!" answer='For the percent expression function, considering using the which and length functions.'%}
 {% include question.html question="Get a hint!" answer='The coefficient of variation is defined as sd/mean.'%}
 {% include question.html question="Get a hint!" answer='Save the results of applying each of your functions (percent expressed and COV) into vectors. Then, you can use the which and & functions to determine which probes meet both your conditions.'%}
-{% include question.html question="Answer" answer='There are 1454 probesets that have >= 20% of samples with raw intensity above 100 and COV >= 0.7. '%}
+{% include question.html question="Answer" answer='There are 1454 probesets that have >= 20% of samples with raw intensity above 100 and COV >= 0.7.'%}
 {% include question.html question="Solution" answer='This file contains the correct answer: <a href="http://genviz.org/assets/R/exercise1/introR_solution.R">introR_solution.R</a>.'%}
 
 ## Additional resources
