@@ -263,7 +263,7 @@ write.table(x=subsetdata, file=paste(outpath,"/subset.txt", sep=""), sep="\t", q
 
 Within this course, the majority of our analysis will involve analyzing data in the structure of data frames. This is the input ggplot2 expects and is a common and useful data structure throughout the R language. Data frames are 2 dimensional and store vectors, which can be accessed with either single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) or the [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator. When using single brackets [[]](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame), a comma is necessary for specifying rows and columns. This is done by calling the data frame [row(s), column(s)]. The [$](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Extract.data.frame) operator is used to specify a column name or variable within the data frame. In the following example, we will use the `mtcars` dataset, one of the preloaded datasets within the R framework. "cyl" is one of the categorical variables within the mtcars data frame, which allows us to specifically call an atomic vector.
 
-Data frames can be created using the [data.frame()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/data.frame) function and is generally the format of data imported into R. We can learn about the format of our data frame with functions such as [colnames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [rownames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [dim()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/dim), [nrow()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), [ncol()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), and [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/str). The example below shows the usefulness of some of these functions, but please use the help documentation for further information. Data frames can be combined in R using the [cbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/cbind) and [rbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/rbind) functions assuming the data frames being combined have the same column or row names, respectively. If they do not, functions exist within various packages to bind data frames and fill in NA values for columns or rows that do no match (refer to the plyr package for more information).
+Data frames can be created using the [data.frame()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/data.frame) function and is generally the format of data imported into R. We can learn about the format of our data frame with functions such as [colnames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [rownames()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/row%2Bcolnames), [dim()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/dim), [nrow()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), [ncol()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/nrow), and [str()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/str). The example below shows the usefulness of some of these functions, but please use the help documentation for further information. Data frames can be combined in R using the [cbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/cbind) and [rbind()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/rbind) functions assuming the data frames being combined have the same column or row lengths, respectively. If they do not, functions exist within various packages to bind data frames and fill in NA values for columns or rows that do no match (refer to the plyr package for more information).
 
 ```R
 # view the column names of a dataframe
@@ -290,26 +290,30 @@ During the course of an analysis, it is often useful to determine the frequency 
 # first load the plyr package if it's not loaded already
 library(plyr)
 
-# How many replicates are there for each species of the iris data?
+# Summarize the frequency of each value for a single variable
 count(iris$Species)
 
-# How many cars in the mtcars dataset have both 8 cylinders and 4 carburetors?
+# Summarize the frequency of each unique combination of values for two variables
 count(mtcars, c("cyl", "carb"))
 ```
 
-We can also use the [aggregate()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/aggregate) function to splice our data frames and perform more complicated analyses. The [aggregate()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/aggregate) function requires a formula, by which to splice the data frame, and a function to apply to the subsets described in the formula. In the example below, we will find the average displacement (disp) of cars with 8 cylinders (cyl) and/or 4 carburetors (carb). We will use formulas to splice the data frame by displacement and number of cylinders (disp~cyl) or displacement and number of cylinders and carburetors (disp~cyl + carb) and apply the function [mean()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/mean) to each subset.
+{% include question.html question="How many replicates are there for each species of the iris data?" answer='There are 50 replicates for each of the three species (setosa, versicolor, and virginica).'%}
+{% include question.html question="How many cars in the mtcars dataset have both 8 cylinders and 4 carburetors?" answer='There are 6 car models with 8 cylinders and 4 carburetors'%}
+
+
+We can also use the [aggregate()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/aggregate) function to slice/stratify our data frames and perform more complicated analyses. The [aggregate()](https://www.rdocumentation.org/packages/stats/versions/3.4.1/topics/aggregate) function requires a formula, by which to splice the data frame, and a function to apply to the subsets described in the formula. In the example below, we will find the average displacement (disp) of cars with 8 cylinders (cyl) and/or 4 carburetors (carb). We will use formulas to splice the data frame by displacement and number of cylinders (disp~cyl) or displacement and number of cylinders and carburetors (disp~cyl + carb) and apply the function [mean()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/mean) to each subset.
 
 ```R
-# find the mean displacement based on the number of cylinders
+# find the mean displacement stratified by the number of cylinders
 aggregate(data=mtcars, disp~cyl, mean)
 
-# find the mean displacement based on the number of cylinders and carburetors
+# find the mean displacement stratified by the combination of cylinders and carburetors
 aggregate(data=mtcars, disp~cyl + carb, mean)
 ```
 
 ## Apply family of functions
 
-If you are familiar with other coding languages, you are probably comfortable with looping through the elements of a data structure using functions such as [for()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control) and [while](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control). The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions in R make this much easier (and faster) by inherently looping through a data structure without having to increment throught the indices of the structure. The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family consists of [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) and [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) for lists, vectors, and data frames and [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) for data frames. [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the applied function as a list. [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the function as a vector or a simplified data structure (in comparison to lapply).
+If you are familiar with other coding languages, you are probably comfortable with looping through the elements of a data structure using functions such as [for()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control) and [while](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Control). The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family of functions in R make this much easier (and faster) by automatically looping through a data structure without having to increment through the indices of the structure. The [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) family consists of [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) and [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) for lists, vectors, and data frames and [apply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/apply) for data frames. [lapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the applied function as a list. [sapply()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/lapply) loops through a list, vector, or data frame, and returns the results of the function as a vector or a simplified data structure (in comparison to lapply).
 
 ```R
 # set a seed for consistency
@@ -343,7 +347,7 @@ apply(x, 1, min)
 apply(x, 2, min)
 ```
 
-Note: R is also very efficient at matrix operations. You can very easily and quickly apply simply operations to all the values of a matrix. For example, suppose you wanted to add a small value to every value in a matrix? Or divide all values in half
+Note: R is also very efficient at matrix operations. You can very easily and quickly apply simple operations to all the values of a matrix. For example, suppose you wanted to add a small value to every value in a matrix? Or divide all values in half
 
 ```R
 
