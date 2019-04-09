@@ -222,6 +222,7 @@ We can view the levels of a column within a dataframe with the [levels()](https:
 ```R
 # recreate plot p20 if it's not in your environment
 p20 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
+p20
 
 # view the order of levels in the reference and trv_type columns
 levels(variantData$reference)
@@ -231,9 +232,12 @@ levels(variantData$trv_type)
 variantData$reference <- factor(variantData$reference, levels=rev(levels(variantData$reference)))
 variantData$trv_type <- factor(variantData$trv_type, levels=rev(levels(variantData$trv_type)))
 
-# view plot p20 with the new order of variables
-p20 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
-p20
+# view the updated order of levels for the try_type column
+levels(variantData$trv_type)
+
+# view the same plot as p20 but with the new order of variables
+p21 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
+p21
 ```
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_bar_facetgrid_w_themes_reordered.png" width="450" %}
@@ -275,6 +279,8 @@ However if we want to group variables (stratify by some factor), such as when va
 ```R
 library(reshape2)
 Orange2 <- melt(data=Orange, id.vars=c("Tree"))
+head(Orange)
+head(Orange2)
 ggplot(Orange2, aes(x=value, fill=variable)) + geom_density()
 ```
 
