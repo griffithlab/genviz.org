@@ -34,7 +34,7 @@ Rstudio can be downloaded at [https://www.rstudio.com/](https://www.rstudio.com/
 
 #### CRAN
 
-Part of what makes R an attractive option for data analysis and visualization is the support it receives from a large community of developers. Part of this support comes from users adding new functionality to core R via functions and data through packages. The Comprehensive R Archive network (CRAN) is a network of servers that stores R, documentation, and many of the packages available for R. To date there are 9,975 [packages on CRAN](https://cran.r-project.org/web/packages/), these packages can be installed by running the install.packages() command in an R terminal. For example, to install the ['plyr'](https://cran.r-project.org/web/packages/plyr/index.html) package, run the following command in an R terminal:
+Part of what makes R an attractive option for data analysis and visualization is the support it receives from a large community of developers. Part of this support comes from users adding new functionality to core R via functions and data through packages. The Comprehensive R Archive network (CRAN) is a network of servers that stores R, documentation, and many of the packages available for R. To date there are 14,037 [packages on CRAN](https://cran.r-project.org/web/packages/), these packages can be installed by running the install.packages() command in an R terminal. For example, to install the ['plyr'](https://cran.r-project.org/web/packages/plyr/index.html) package, run the following command in an R terminal:
 ```R
 # Install the plyr package by Hadley Wickham
 install.packages("plyr")
@@ -64,94 +64,39 @@ lapply(.libPaths(), dir)
 
 #### Bioconductor
 
-Bioconductor is another archive of R packages specific to bioinformatics and genomics. This archive is maintained by the Bioconductor core team and is updated bi-annually. To date, there are 2,974 [packages available via bioconductor](http://bioconductor.org/packages/release/BiocViews.html#___Software). Packages are categorized within biocViews as 'Software', 'AnnotationData', and 'ExperimentData.' You can explore the packages available on this webpage by searching within these tags, categorizing packages based upon relevant topics or types of analysis. Bioconductor packages are managed and installed using the [biocLite()](https://www.rdocumentation.org/packages/BiocInstaller/versions/1.22.3/topics/biocLite) function. Note that this function must be sourced (loaded from source code) before trying to install any Bioconductor packages. Bioconductor packages can be installed by running the following in an R terminal:
+Bioconductor is another archive of R packages specific to bioinformatics and genomics. This archive is maintained by the Bioconductor core team and is updated bi-annually. To date, there are 2,974 [packages available via bioconductor](http://bioconductor.org/packages/release/BiocViews.html#___Software). Packages are categorized within biocViews as 'Software', 'AnnotationData', and 'ExperimentData.' You can explore the packages available on this webpage by searching within these tags, categorizing packages based upon relevant topics or types of analysis. Bioconductor packages are managed and installed using the [BiocManager()](https://cran.r-project.org/web/packages/BiocManager/vignettes/BiocManager.html) function. Note that the BiocManager function must be installed before trying to install any Bioconductor packages. Bioconductor packages can be installed by running the following in an R terminal:
 
 ```R
 
-# install biocmanager if it's not already there
+# Install biocmanager if it's not already there
 if (!requireNamespace("BiocManager"))
     install.packages("BiocManager")
 
 # Install core bioconductor packages
-source("https://bioconductor.org/biocLite.R")
 BiocManager::install()
 
 # Install specific bioconductor packages
-source("https://bioconductor.org/biocLite.R")
 BiocManager::install("GenomicFeatures")
 
-# upgrade installed bioconductor packages
-source("https://bioconductor.org/biocLite.R")
+# Upgrade installed bioconductor packages
 BiocManager::install()
+
 ```
 
 ## Common file type extensions in R/Rstudio
 
 - `.R` This is the primary file extension in R and denotes a file containing R code.
-- `.Rproj` Denotes an R project file, these are commonly used when developing R libraries in Rstudio but are usefull for analysis projects as well. Essentially they store saved settings in Rstudio.
-- `.Rdata` These files are R data files and are used to store data in a compressed format that are easily exported from and loaded in to R. They store R objects and are usefull if for example your R script takes awhile to run and you want to store results to avoid having to rerun the script.
+- `.Rproj` Denotes an R project file, these are commonly used when developing R libraries in Rstudio but are useful for analysis projects as well. Essentially they store saved settings in Rstudio.
+- `.Rdata` These files are R data files and are used to store data in a compressed format that are easily exported from and loaded in to R. They store R objects and are useful if for example your R script takes awhile to run and you want to store results to avoid having to rerun the script.
 - `.Rmd` Denotes Rmarkdown files, Rmarkdown provides a way to include R code and results within a markdown document. Commonly used to present results in a convenient format and/or to document code in a more user readable way.
-- `.Rnw` Denotes a sweave file, similar to markdown it provides a way to intersperse texts, plots, and code in one document. The main difference being that instead of markdown syntax LaTeX is used instead.
+- `.Rnw` Denotes a sweave file, similar to markdown it provides a way to intersperse texts, plots, and code in one document. The main difference being that instead of markdown syntax, LaTeX is used instead.
 
 ## Documentation and example data in R
 
-As with any software, documentation is key to the usefullness for a user. R makes finding documentation very easy. In order to find the documentation for a specific function, simple enter "?" followed by the function name. This will pull up a manual specific to that function. If you enter this into the Rstudio terminal, the function's documentation immediately appears in the 'Help' tab of the lower right window of the screen. In addition, many packages have additional documentation in the form of vignettes. To view these vignettes from R use the [vignette()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/vignette) function, specifying the package name within the function call (e.g. vignette("grid")). The source code for any function in R can also be viewed by typing the function name into R without any parameters or parentheses.
+As with any software, documentation is key to the usefulness for a user. R makes finding documentation very easy. In order to find the documentation for a specific function, simple enter "?" followed by the function name. This will pull up a manual specific to that function. If you enter this into the Rstudio terminal, the function's documentation immediately appears in the 'Help' tab of the lower right window of the screen. In addition, many packages have additional documentation in the form of vignettes. To view these vignettes from R use the [vignette()](https://www.rdocumentation.org/packages/utils/versions/3.5.3/topics/vignette) function, specifying the package name within the function call (e.g. vignette("grid")). The source code for any function in R can also be viewed by typing the function name into R without any parameters or parentheses.
 
-R also has a variety of datasets pre-loaded. In order to view these, type [data()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/data) in your R terminal. We will be using a few of these data sets to illustrate key concepts in this lesson.
+R also has a variety of datasets pre-loaded. In order to view these, type [data()](https://www.rdocumentation.org/packages/utils/versions/3.5.3/topics/data) in your R terminal. We will be using a few of these data sets to illustrate key concepts in this lesson.
 
-## Overview of less common operators in R
-
-As in any language R has all of the basic operators available `+`, `-`, `&`, `|` etc. There are a few operators however that you will occassionally see that are not so familiar. For exmaple you might have noticed the use of `::` in the bioconductor section above. While we won't get into a discussion of all of the operators available in R let's go over a few that are commonly seen.
-
-- `::` Takes the syntax library::function and allows one to call an exported function from an installed R library without having to load the library.
-- `:::` Similar to above but allows one to call a function from an installed R library that is not exported and generally available to users.
-- `%in%` The `%` signs denote a special operator which take arguments on both the left and right side of the operator. In this example `%in%` will find element in a vector on the left hand side of the operator which are also present on the right hand side. This is intended to make the code slightly easier to read.
-- `$` Provides a way to access components of an S3 object, commonly seen applied to data frames which will be discussed a bit later.
-- `@` Provides a way to access slots in an S4 object, package authors should in theory provider functions to access slots however this is not always the case.
-- `%>%` While not part of a base R install the magrittr operator from the magrittr package provides the functionality of a pipe in R. It is intended to make code more readable instead of nesting functions whithin each other.
-- `` ` `` While perhaps not an operator the backtick provides a way to use an operation that would otherwise be illegal R syntax. You might see this if a data frame column has a space for example.
-
-With the explanations out of the way let's see these operators in practice. Start by installing the lubridate package which just makes working with dates easier.
-
-```R
-# Install the lubridate package
-install.packages("lubridate")
-
-# call a lubridate function without loading the library
-leap_year(2008)
-lubridate::leap_year(2008)
-
-# Examine a function not exported by the package, (calling a function without parenthesis will print the source code)
-check_period
-lubridate::check_period
-lubridate:::check_period
-
-# example of the include operation
-x <- c(1, 2, 3)
-y <- c(1, 3)
-x %in% y
-
-# access a compnent of an object
-g <- list(name = "braf", variant = "v600e")
-g$name
-g$variant
-
-# access a component of an object
-span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01"))
-period <- as.period(span)
-period@year
-period@month
-
-# pipe to a function
-insttall.packages("magritttr")
-library(magrittr)
-mtcars %>% head
-head(mtcars)
-
-# using backticks for illegal operations
-%in%(x, y)
-`%in%`(x, y)
-```
 
 ## Assignment and data types
 
@@ -173,7 +118,7 @@ is.integer(bar)
 typeof(bar)
 class(bar)
 
-# character, used to represent strings
+# character, used to represent text strings
 baz <- "a"
 baz
 is.character(baz)
@@ -281,7 +226,7 @@ class(myList[[1]])
 myList[c(1,3)]
 ```
 
-It is important to address attributes in our discussion of data structures. All objects can contain attributes, which hold metadata regarding the object. An example of an attribute for vectors are names. We can give names to each element within a vector with the [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) function, labeling each element of the list with a corresponding name in addition to its index. Another type of data structure is a factor, which we will use extensively in ggplot2 to define the order of categorical variables. Factors hold metadata (attributes) regarding the order and the expected values. A factor can be specifically defined with the function [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor). The expected values and order attributes of a factor are specified with the "levels" param.
+It is important to address attributes in our discussion of data structures. All objects can contain attributes, which hold metadata regarding the object. An example of an attribute for vectors are names. We can give names to each element within a vector with the [names()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/names) function, labeling each element of the vector with a corresponding name in addition to its index. Another type of data structure is a factor, which we will use extensively in ggplot2 to define the order of categorical variables. Factors hold metadata (attributes) regarding the order and the expected values. A factor can be specifically defined with the function [factor()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/factor). The expected values and order attributes of a factor are specified with the "levels" param.
 
 ```R
 # create a named vector
@@ -296,7 +241,7 @@ vec <- factor(vec, levels=c(2, 1))
 
 ## Importing and exporting data
 
-As we have seen, data can be created on the fly in R with the various data structure functions. However it is much more likely that you will need to import data into R to perform analysis. Given the number of packages available, if a common filetype exists (XML, JSON, XLSX) R can probably import it. The most common situation is a simple delimited text file. For this the [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table) function and its various deriviatives are immensely useful. Type in ?read.table in your terminal for more information about its usage. Once data has been imported and analysis completed, you may need to export data back out of R. Similar to [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table), R has functions for this purpose. [write.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/write.table) will export the data given, in a variety of simple delimited text files, to the file path specified. See ?write.table for more information. Two common issues with importing data use these functions have to do with unrecognized missing/NULL values and unexpected data type coercion by R. Missing values are considered in a special way by R. If you use a notation for missing values that R doesn't expect (e.g., "N/A") in a data column that otherwise contains numbers, R may import that column as a vector of character values instead of a vector of numeric/integer values with missing values. To avoid this, you should always list your missing value notations using the `na.strings` parameter or use the default "NA" that R assumes. Similarly, R will attempt to recognize the data structure type for each column and coerce it to that type. Often with biological data, this results in creation of undesired factors and unexpected results down stream. This can be avoided with the `as.is` parameter.
+As we have seen, data can be created on the fly in R with the various data structure functions. However it is much more likely that you will need to import data into R to perform analysis. Given the number of packages available, if a common filetype exists (XML, JSON, XLSX), R can probably import it. The most common situation is a simple delimited text file. For this the [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table) function and its various deriviatives are immensely useful. Type in ?read.table in your terminal for more information about its usage. Once data has been imported and analysis completed, you may need to export data back out of R. Similar to [read.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/read.table), R has functions for this purpose. [write.table()](https://www.rdocumentation.org/packages/utils/versions/3.4.1/topics/write.table) will export the data given, in a variety of simple delimited text files, to the file path specified. See ?write.table for more information. Two common issues with importing data using these functions have to do with unrecognized missing/NULL values and unexpected data type coercion by R. Missing values are considered in a special way by R. If you use a notation for missing values that R doesn't expect (e.g., "N/A") in a data column that otherwise contains numbers, R may import that column as a vector of character values instead of a vector of numeric/integer values with missing values. To avoid this, you should always list your missing value notations using the `na.strings` parameter or use the default "NA" that R assumes. Similarly, R will attempt to recognize the data structure type for each column and coerce it to that type. Often with biological data, this results in creation of undesired factors and unexpected results downstream. This can be avoided with the `as.is` parameter.
 
 
 ```R
@@ -484,6 +429,71 @@ microbenchmark(mySum(x), sum(x), times = 1000L)
 ```
 
 In mySum(), we use a for loop to sum all the elements of the vector. The syntax is fairly straightforward. We loop over the length of the argument passed to x and designate i as the variable to store the iteration of the loop. Prior to that, we use an if statement to make sure the user has supplied only numeric values. This statement simply executes the block of code in curly brackets. If the expression in parenthesis is TRUE, we use an [!](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/Logic) to reverse the outcome of the result given by [is.numeric()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/numeric). All of this is defined as a function. These benchmark tests show that [sum()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/sum) is 2-3 orders of magnitude faster than our handwritten mySum() function.
+
+
+## Overview of less common operators in R
+
+As in any language R has all of the basic operators available `+`, `-`, `&`, `|` etc. There are a few operators however that you will occassionally see that are not so familiar. For exmaple you might have noticed the use of `::` in the bioconductor section above. While we won't get into a discussion of all of the operators available in R let's go over a few that are commonly seen.
+
+- `::` Takes the syntax library::function and allows one to call an exported function from an installed R library without having to load the library.
+- `:::` Similar to above but allows one to call a function from an installed R library that is not exported and generally available to users.
+- `%in%` The `%` signs denote a special operator which take arguments on both the left and right side of the operator. In this example `%in%` will find element in a vector on the left hand side of the operator which are also present on the right hand side. This is intended to make the code slightly easier to read.
+- `$` Provides a way to access components of an S3 object, commonly seen applied to data frames which will be discussed a bit later.
+- `@` Provides a way to access slots in an S4 object, package authors should in theory provider functions to access slots however this is not always the case.
+- `%>%` While not part of a base R install the magrittr operator from the magrittr package provides the functionality of a pipe in R. It is intended to make code more readable instead of nesting functions whithin each other.
+- `` ` `` While perhaps not an operator the backtick provides a way to use an operation that would otherwise be illegal R syntax. You might see this if a data frame column has a space for example.
+
+With the explanations out of the way let's see these operators in practice. Start by installing the lubridate package which just makes working with dates easier.
+
+```R
+# Install the lubridate package
+install.packages("lubridate")
+
+# call a lubridate function without loading the library
+leap_year(2008)
+lubridate::leap_year(2008)
+
+# Examine a function not exported by the package, (calling a function without parenthesis will print the source code)
+check_period
+lubridate::check_period
+lubridate:::check_period
+
+# example of the include operation
+x <- c(1, 2, 3)
+y <- c(1, 3)
+x %in% y
+
+# access a compnent of an object
+g <- list(name = "braf", variant = "v600e")
+g$name
+g$variant
+
+# Load the lubridate function
+library(lubridate)
+
+# access a component of an object
+span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01"))
+period <- as.period(span)
+period@year
+period@month
+
+# pipe to a function
+install.packages("magrittr")
+library(magrittr)
+mtcars %>% head
+head(mtcars)
+
+# using backticks for illegal operations
+%in%(x, y)
+`%in%`(x, y)
+
+# Using backticks for illegal operations part II
+1 + 1
++(1, 1)
+`+`(1, 1)
+
+```
+
 
 ### Practical Exercise
 
