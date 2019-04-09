@@ -279,6 +279,8 @@ However if we want to group variables (stratify by some factor), such as when va
 ```R
 library(reshape2)
 Orange2 <- melt(data=Orange, id.vars=c("Tree"))
+head(Orange)
+head(Orange2)
 ggplot(Orange2, aes(x=value, fill=variable)) + geom_density()
 ```
 
