@@ -73,7 +73,7 @@ vhl_variants2 = gsub("\\s+\\(.*\\)", "", vhl_variants1, perl=TRUE)
 vhl_variants3 = gsub("fs.*", "fs", vhl_variants2, perl=TRUE)
 
 # Limit to only those variants with a format like: L184P
-vhl_variants4 = vhl_variants3[grep("^\\w+\\d+\\w+", vhl_variants3, ignore.case = TRUE, perl=TRUE)]
+vhl_variants4 = vhl_variants3[grep("^\\w+\\d+\\w+$", vhl_variants3, ignore.case = TRUE, perl=TRUE)]
 
 # Store the variant names for later
 vhl_variant_names = vhl_variants4
