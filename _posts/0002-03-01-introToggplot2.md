@@ -231,6 +231,9 @@ levels(variantData$trv_type)
 variantData$reference <- factor(variantData$reference, levels=rev(levels(variantData$reference)))
 variantData$trv_type <- factor(variantData$trv_type, levels=rev(levels(variantData$trv_type)))
 
+# view the updated order of levels for the try_type column
+levels(variantData$trv_type)
+
 # view plot p20 with the new order of variables
 p20 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
 p20
