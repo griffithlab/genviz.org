@@ -265,6 +265,9 @@ grid::grid.text(unit(0.97,"npc"), 0.56, label = 'variant base', rot = 270, gp=gp
 
 ```
 
+{% include figure.html image="/assets/ggplot2/ggplot2_geom_bar_facetgrid_w_themes_reordered_tidy.png" width="450" %}
+
+
 ### Saving ggplot2 plots
 To save a plot or any graphical object in R, you first have to initalize a graphics device, this can be done with [pdf()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/pdf), [png()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png), [svg()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/cairo), [tiff()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png), and [jpeg()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png). You can then print the plot as you normally would and close the graphics device using [dev.off()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/dev). Alternatively ggplot2 has a function specifically for saving ggplot2 graphical objects called [ggsave()](http://ggplot2.tidyverse.org/reference/ggsave.html). A helpfull tip to keep in mind when saving plots is to allow enough space for the plot to be plotted, if the plot titles for example look truncated try increasing the size of the graphics device. Changes in the aspect ratio between a graphics device height and width will also change the final appearance of plots.
 
