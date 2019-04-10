@@ -244,6 +244,25 @@ p21
 
 We can see that reversing the order of levels in the reference column has subsequently reversed the reference facets (right side of plot). Similarily reversing the order of the trv_type column levels has reversed the labels on the x-axis.
 
+### manually fix some factor names, and add main x and y axis labels
+```R
+# reverse the order of the trv_type levels back to original state
+levels(variantData$trv_type)
+variantData$trv_type <- factor(variantData$trv_type, levels=rev(levels(variantData$trv_type)))
+levels(variantData$trv_type)
+
+# if we want to modify the name of some of the levels manually (e.g. to make shorter versions of some really long names) we can do the following
+levels(variantData$trv_type)[levels(variantData$trv_type)=="3_prime_untranslated_region"] <- "3p_utr"
+levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_flanking_region"] <- "5p_flank"
+levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_untranslated_region"] <- "5p_utr"
+
+# update the plot yet again
+p22 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
+p22
+
+```
+
+
 ### Saving ggplot2 plots
 To save a plot or any graphical object in R, you first have to initalize a graphics device, this can be done with [pdf()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/pdf), [png()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png), [svg()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/cairo), [tiff()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png), and [jpeg()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png). You can then print the plot as you normally would and close the graphics device using [dev.off()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/dev). Alternatively ggplot2 has a function specifically for saving ggplot2 graphical objects called [ggsave()](http://ggplot2.tidyverse.org/reference/ggsave.html). A helpfull tip to keep in mind when saving plots is to allow enough space for the plot to be plotted, if the plot titles for example look truncated try increasing the size of the graphics device. Changes in the aspect ratio between a graphics device height and width will also change the final appearance of plots.
 
