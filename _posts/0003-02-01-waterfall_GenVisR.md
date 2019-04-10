@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0003-02-01
 ---
 
-After sequencing a set of samples a common question to ask is what mutations are present in the sample/patient cohort. This type of data is often displayed in a heatmap like structure with rows and columns denotating genes and samples with these variables ordered in a hierarchical pattern based on recurrence. Such plots make viewing mutually exclusive and co-occurring mutational events a trivial task. The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function from the [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) package makes it easy to create these types of charts while also allowing additional data in the context of sample and gene data to be added to the plot. In this tutorial we will use the [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function to re-create panel C of figure 2 from the paper ["A Phase I Trial of BKM120 (Buparlisib) in Combination with Fulvestrant in Postmenopausal Women with Estrogen Receptor-Positive Metastatic Breast Cancer."](https://www.ncbi.nlm.nih.gov/pubmed/26563128).
+After sequencing a set of samples, a common question to ask is what mutations are present in the sample/patient cohort. This type of data is often displayed in a heatmap-like structure with rows and columns denotating genes and samples with these variables ordered in a hierarchical pattern based on recurrence. Such plots make viewing mutually exclusive and co-occurring mutational events a trivial task. The [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function from the [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) package makes it easy to create these types of charts while also allowing additional data in the context of sample and gene data to be added to the plot. In this tutorial we will use the [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) function to re-create panel C of figure 2 from the paper ["A Phase I Trial of BKM120 (Buparlisib) in Combination with Fulvestrant in Postmenopausal Women with Estrogen Receptor-Positive Metastatic Breast Cancer."](https://www.ncbi.nlm.nih.gov/pubmed/26563128).
 
 {% include figure.html image="/assets/GenVisR/BKM120_Waterfall_Final.png" width="950" link="http://clincancerres.aacrjournals.org/content/22/7/1583.long" title="Figure 2C" author="Ma et al. Clinical Cancer Research" license="AACR copyright" license_link="http://aacrjournals.org/content/authors/copyright-permissions-and-access" %}
 
@@ -53,11 +53,11 @@ set.seed(426)
 library(gridExtra)
 
 # Create a data frame of random elements to plot
-inputData <- data.frame(sample = sample(letters[1:5], 20, replace = TRUE), gene = sample(letters[1:5], 20, replace = TRUE), variant_class = sample(c("x", "y", "z"), 20, replace = TRUE))
+inputData <- data.frame(sample = sample(1:5, 20, replace = TRUE), gene = sample(letters[1:5], 20, replace = TRUE), variant_class = sample(c("silent", "frameshift", "missense"), 20, replace = TRUE))
 
 # Choose the most deleterious to plot with y being defined as the most
 # deleterious
-most_deleterious <- c("y", "z", "x")
+most_deleterious <- c("frameshift", "missense", "silent")
 
 # Plot the data with waterfall using the 'Custom' parameter
 p1 <- waterfall(inputData, fileType = "Custom", variant_class_order = most_deleterious, mainXlabel = TRUE, out="grob")
@@ -69,15 +69,14 @@ p2 <- waterfall(inputData, fileType = "Custom", variant_class_order = rev(most_d
 grid.arrange(p1, p2, ncol=2)
 
 # Summarize the mutation types for a given sample/gene
-inputData[inputData$sample=="e" & inputData$gene=="a",]
+inputData[inputData$sample=="5" & inputData$gene=="a",]
 
 ```
 
 {% include figure.html image="/assets/GenVisR/waterfall_hierarchy_example.png" width="950" %}
 
-Notice that in the figure above, the top left cell (sample: e, gene: a) has mutations of two types (y and z). Between the two plots we reversed the hierarchy of the mutations specified in `variant_class_order` causing mutation of type "z" to have a higher precedence in the right most plot. As we would expect [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) then displays the color for mutation type "z" instead of "y" in this cell. Let's go ahead and set a `variant_class_order` that makes sense for the breast cancer plot we're working on. Remember this must be a character vector and contain all mutation types in the data frame `mutationData`.
-```R
-
+Notice that in the figure above, the top left cell (sample: 5, gene: a) has mutations of two types (frameshift and missense). Between the two plots we reversed the hierarchy of the mutations specified in `variant_class_order` causing mutation of type "missense" to have a higher precedence in the right most plot. As we would expect [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) then displays the color for mutation type "missense" instead of "frameshift" in this cell. Let's go ahead and set a `variant_class_order` that makes sense for the breast cancer plot we're working on. Remember this must be a character vector and contain all mutation types in the data frame `mutationData`.
+``
 # Define a mutation hierarchy
 mutationHierarchy <- c("nonsense", "frame_shift_del", "frame_shift_ins", "in_frame_del", "splice_site_del", "splice_site", "missense", "splice_region", "rna")
 
