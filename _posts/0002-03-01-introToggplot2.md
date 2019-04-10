@@ -257,11 +257,13 @@ levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_flanking_reg
 levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_untranslated_region"] <- "5p_utr"
 
 # update the plot yet again
-p22 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank())
+p22 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="bottom", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank()) + ylab("variant count")
+p22 <- p22 +  theme(plot.margin = unit(c(1.5,1.5,0.2,0.2), "cm"))
 p22
+grid::grid.text(unit(0.5,"npc"), unit(.95,'npc'), label = 'reference base', rot = 0, gp=gpar(fontsize=11))
+grid::grid.text(unit(0.97,"npc"), 0.56, label = 'variant base', rot = 270, gp=gpar(fontsize=11))
 
 ```
-
 
 ### Saving ggplot2 plots
 To save a plot or any graphical object in R, you first have to initalize a graphics device, this can be done with [pdf()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/pdf), [png()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png), [svg()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/cairo), [tiff()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png), and [jpeg()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png). You can then print the plot as you normally would and close the graphics device using [dev.off()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/dev). Alternatively ggplot2 has a function specifically for saving ggplot2 graphical objects called [ggsave()](http://ggplot2.tidyverse.org/reference/ggsave.html). A helpfull tip to keep in mind when saving plots is to allow enough space for the plot to be plotted, if the plot titles for example look truncated try increasing the size of the graphics device. Changes in the aspect ratio between a graphics device height and width will also change the final appearance of plots.
