@@ -5,7 +5,7 @@ title: Advanced ggplot2
 categories:
     - Module-07-Appendix
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0007-03-01
+date: 0007-01-01
 ---
 
 We've gone over the basics of ggplot2 in the previous section, in this section we will go over some more advanced topics related to ggplot2 and its underlying concepts. We will explore how to modify core elements of a plot after it's created, how to plot separate plots on the same page, and how to make sure plots align to one another.
@@ -72,8 +72,8 @@ p3 <- ggplot() + geom_boxplot(data=geneCompare2, aes(x=gene_name, y=ucsc_cons, f
 We have our boxplots for missense mutations, it would be nice to know how many data points make up those boxplots as well. To do this we will just create two quick barcharts counting the mutations in the plots defined above.
 
 ```R
-p4 <- ggplot() + geom_bar(data=geneCompare1, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + theme(plot.background = element_rect(color="darkorange2", size=2)) + xlab("Frequency") + ylab("Gene")
-p5 <- ggplot() + geom_bar(data=geneCompare2, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + theme(plot.background = element_rect(color="black", size=2)) + xlab("Frequency") + ylab("Gene")
+p4 <- ggplot() + geom_bar(data=geneCompare1, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + theme(plot.background = element_rect(color="darkorange2", size=2)) + xlab("Gene") + ylab("Frequency")
+p5 <- ggplot() + geom_bar(data=geneCompare2, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + theme(plot.background = element_rect(color="black", size=2)) + xlab("Gene") + ylab("Frequency")
 ```
 {% include figure.html image="/assets/advanced_ggplot/p4_5.png" width="750"%}
 

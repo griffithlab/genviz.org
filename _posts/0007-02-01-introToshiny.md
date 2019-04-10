@@ -5,7 +5,7 @@ title: Introduction to shiny
 categories:
     - Module-07-Appendix
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0007-03-01
+date: 0007-02-01
 ---
 
 Interactive graphics is an emerging area within R. There are many libraries available to make interactive visualizations, however most of these libraries are still quite new. In this sub-module we will give a brief overview of [shiny](https://shiny.rstudio.com/), a web application framework within R for building interactive web pages. Using shiny we will build a simple application to display our data using reactive data sets and ggplot.
