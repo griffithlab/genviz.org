@@ -15,8 +15,9 @@ generally applicable gene-set enrichment ([gage](https://bioconductor.org/packag
 
 ```R
 # install gage
-source("https://bioconductor.org/biocLite.R")
-biocLite("gage")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("gage", version = "3.8")
 library(gage)
 
 # load the differential expression results fro the previous section

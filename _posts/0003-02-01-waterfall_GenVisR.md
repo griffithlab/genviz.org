@@ -141,7 +141,7 @@ clinicalData_2 <- melt(data=clinicalData_2, id.vars=c("sample"))
 sampleVec <- unique(mutationData$sample)
 sampleVec[!sampleVec %in% clinicalData$sample]
 
-# fix mutationBurden to match mutationData
+# fix clinical data to match mutationData
 clinicalData_2$sample <- gsub("^WU(0)+", "", clinicalData_2$sample)
 
 # create the waterfall plot
