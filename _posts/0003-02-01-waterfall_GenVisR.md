@@ -78,7 +78,7 @@ inputData[inputData$sample=="5" & inputData$gene=="a",]
 {% include figure.html image="/assets/GenVisR/waterfall_hierarchy_example.png" width="950" %}
 
 Notice that in the figure above, the top left cell (sample: 5, gene: a) has mutations of two types (frameshift and missense). Between the two plots we reversed the hierarchy of the mutations specified in `variant_class_order` causing mutation of type "missense" to have a higher precedence in the right most plot. As we would expect [waterfall()](https://www.rdocumentation.org/packages/GenVisR/versions/1.0.4/topics/waterfall) then displays the color for mutation type "missense" instead of "frameshift" in this cell. Let's go ahead and set a `variant_class_order` that makes sense for the breast cancer plot we're working on. Remember this must be a character vector and contain all mutation types in the data frame `mutationData`.
-``
+```R
 # Define a mutation hierarchy
 mutationHierarchy <- c("nonsense", "frame_shift_del", "frame_shift_ins", "in_frame_del", "splice_site_del", "splice_site", "missense", "splice_region", "rna")
 
