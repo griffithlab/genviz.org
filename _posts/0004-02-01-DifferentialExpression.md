@@ -8,12 +8,12 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-02-01
 ---
 
-Differential expression analysis is used to identify differences in the transcriptome (gene expression) across a cohort of samples. Oftentimes, it will be used to define the differences between multiple biological conditions (e.g. drug treated vs. untreated samples). There are many, many tools available to perform this type of analysis. In this course we will rely on a popular Bioconductor package [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). We will then make various visualizations to help interpret our results.
+Differential expression analysis is used to identify differences in the transcriptome (gene expression) across a cohort of samples. Often, it will be used to define the differences between multiple biological conditions (e.g. drug treated vs. untreated samples). There are many, many tools available to perform this type of analysis. In this course we will rely on a popular Bioconductor package [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). We will then make various visualizations to help interpret our results.
 
 ### Dataset
 For this analysis we will use the RNAseq data obtained from the [EBI Expression Atlas (GXA)](https://www.ebi.ac.uk/gxa). Specifically data set [E-GEOD-50760](https://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Downloads) which corresponds to [PMID: 25049118](https://www.ncbi.nlm.nih.gov/pubmed/25049118). This data consists of 54 samples from 18 individuals. Each individual has a primary colorectal cancer sample, a metastatic liver sample, and a normal sample of the surrounding colonic epithilium. The quantification data required to run differential expression analysis using DEseq2 are raw readcounts for either genes or transcripts. We will use the output from HTseq as a starting point.
 
-It can be downloaded from the GXA.Download these files for use in this exercise:
+The datafiles were originally downloaded from the GXA resource for use in this exercise (but we provide download commands below from within R):
 * Raw counts data from here:[E-GEOD-50760 raw counts](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts)
 * Sample information from here: [E-GEOD-50760 sample info](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design).
 
