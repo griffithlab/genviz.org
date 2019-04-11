@@ -138,10 +138,10 @@ This can take a few minutes to perform, for convenience a .RData object containi
 deseq2Data <- DESeq(deseq2Data)
 
 # 2. Load the R environment with this object from the web (optional)
-load(url("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/deseq2Data_v1.RData"))
+# load(url("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/deseq2Data_v1.RData"))
 
 # 3. Download the .Rdata file and load directly(optional)
-load("deseq2Data_v1.RData")
+# load("deseq2Data_v1.RData")
 ```
 
 ### Extracting results
