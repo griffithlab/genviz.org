@@ -132,7 +132,7 @@ The next step is to run the function [DEseq()](https://www.rdocumentation.org/pa
 
 This can take a few minutes to perform, for convenience a .RData object containing the resulting object is available to download [here](http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/deseq2Data_v1.RData). You can load this into your R environment with [load()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/load) either locally after downloading the file or directly through the web.
 
-You only need to do **one** of the following three options
+**NOTE:** You only need to do **one** of the following three options
 ```R
 # 1. Run pipeline for differential expression steps (if you set up parallel processing, set parallel = TRUE here)
 deseq2Data <- DESeq(deseq2Data)
