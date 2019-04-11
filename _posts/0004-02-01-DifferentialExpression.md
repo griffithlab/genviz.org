@@ -8,12 +8,12 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0004-02-01
 ---
 
-Differential expression analysis is used to identify differences in the transcriptome (gene expression) across a cohort of samples. Oftentimes, it will be used to define the differences between multiple biological conditions (e.g. drug treated vs. untreated samples). There are many, many tools available to perform this type of analysis. In this course we will rely on a popular Bioconductor package [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). We will then make various visualizations to help interpret our results.
+Differential expression analysis is used to identify differences in the transcriptome (gene expression) across a cohort of samples. Often, it will be used to define the differences between multiple biological conditions (e.g. drug treated vs. untreated samples). There are many, many tools available to perform this type of analysis. In this course we will rely on a popular Bioconductor package [DEseq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). We will then make various visualizations to help interpret our results.
 
 ### Dataset
 For this analysis we will use the RNAseq data obtained from the [EBI Expression Atlas (GXA)](https://www.ebi.ac.uk/gxa). Specifically data set [E-GEOD-50760](https://www.ebi.ac.uk/gxa/experiments/E-GEOD-50760/Downloads) which corresponds to [PMID: 25049118](https://www.ncbi.nlm.nih.gov/pubmed/25049118). This data consists of 54 samples from 18 individuals. Each individual has a primary colorectal cancer sample, a metastatic liver sample, and a normal sample of the surrounding colonic epithilium. The quantification data required to run differential expression analysis using DEseq2 are raw readcounts for either genes or transcripts. We will use the output from HTseq as a starting point.
 
-It can be downloaded from the GXA.Download these files for use in this exercise:
+The datafiles were originally downloaded from the GXA resource for use in this exercise (but we provide download commands below from within R):
 * Raw counts data from here:[E-GEOD-50760 raw counts](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/DifferentialSecondaryDataFiles.RnaSeq/raw-counts)
 * Sample information from here: [E-GEOD-50760 sample info](https://www.ebi.ac.uk/gxa/experiments-content/E-GEOD-50760/resources/ExperimentDesignFile.RnaSeq/experiment-design).
 
@@ -38,9 +38,11 @@ Let's go ahead and load the data and sample information into R from genomedata.o
 ```R
 # Read in the raw read counts
 rawCounts <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/E-GEOD-50760-raw-counts.tsv")
+head(rawCounts)
 
 # Read in the sample mappings
 sampleData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/E-GEOD-50760-experiment-design.tsv")
+head(sampleData)
 
 # Also save a copy for later
 sampleData_v2 <- sampleData
@@ -63,22 +65,24 @@ rownames(rawCounts) <- geneID
 head(rawCounts)
 
 # Convert sample variable mappings to an appropriate form that DESeq2 can read
+head(sampleData)
 rownames(sampleData) <- sampleData$Run
 keep <- c("Sample.Characteristic.biopsy.site.", "Sample.Characteristic.individual.")
 sampleData <- sampleData[,keep]
 colnames(sampleData) <- c("tissueType", "individualID")
 sampleData$individualID <- factor(sampleData$individualID)
+head(sampleData)
 
 # Put the columns of the count data in the same order as rows names of the sample mapping, then make sure it worked
 rawCounts <- rawCounts[,unique(rownames(sampleData))]
 all(colnames(rawCounts) == rownames(sampleData))
 
 # rename the tissue types
-a <- function(x){
+rename_tissues <- function(x){
   x <- switch(as.character(x), "normal"="normal-looking surrounding colonic epithelium", "primary tumor"="primary colorectal cancer",  "colorectal cancer metastatic in the liver"="metastatic colorectal cancer to the liver")
   return(x)
 }
-sampleData$tissueType <- unlist(lapply(sampleData$tissueType, a))
+sampleData$tissueType <- unlist(lapply(sampleData$tissueType, rename_tissues))
 
 # Order the tissue types so that it is sensible and make sure the control sample is first: normal sample -> primary tumor -> metastatic tumor
 sampleData$tissueType <- factor(sampleData$tissueType, levels=c("normal-looking surrounding colonic epithelium", "primary colorectal cancer", "metastatic colorectal cancer to the liver"))
@@ -128,7 +132,7 @@ The next step is to run the function [DEseq()](https://www.rdocumentation.org/pa
 
 This can take a few minutes to perform, for convenience a .RData object containing the resulting object is available to download [here](http://genomedata.org/gen-viz-workshop/intro_to_deseq2/tutorial/deseq2Data_v1.RData). You can load this into your R environment with [load()](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/load) either locally after downloading the file or directly through the web.
 
-You only need to do **one** of the following three options
+**NOTE:** You only need to do **one** of the following three options
 ```R
 # 1. Run pipeline for differential expression steps (if you set up parallel processing, set parallel = TRUE here)
 deseq2Data <- DESeq(deseq2Data)
