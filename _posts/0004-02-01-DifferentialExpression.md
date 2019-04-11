@@ -65,11 +65,13 @@ rownames(rawCounts) <- geneID
 head(rawCounts)
 
 # Convert sample variable mappings to an appropriate form that DESeq2 can read
+head(sampleData)
 rownames(sampleData) <- sampleData$Run
 keep <- c("Sample.Characteristic.biopsy.site.", "Sample.Characteristic.individual.")
 sampleData <- sampleData[,keep]
 colnames(sampleData) <- c("tissueType", "individualID")
 sampleData$individualID <- factor(sampleData$individualID)
+head(sampleData)
 
 # Put the columns of the count data in the same order as rows names of the sample mapping, then make sure it worked
 rawCounts <- rawCounts[,unique(rownames(sampleData))]
