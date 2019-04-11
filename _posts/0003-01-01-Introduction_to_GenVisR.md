@@ -34,4 +34,11 @@ library(GenVisR)
 ### More GenVisR Functions
 For a full list of GenVisR functions with descriptions and examples, see the GenVisR reference manual and vignette on the Bioconductor page at [https://bioconductor.org/packages/release/bioc/html/GenVisR.html](https://bioconductor.org/packages/release/bioc/html/GenVisR.html).
 
+### Getting Help
+
+* Visit [GenVisR page at BioConductor](https://bioconductor.org/packages/release/bioc/html/GenVisR.html)
+* Read [GenVisR Reference Manual](https://bioconductor.org/packages/release/bioc/manuals/GenVisR/man/GenVisR.pdf)
+* In R type `browseVignettes` to view available vignettes: [Introduction](https://bioconductor.org/packages/release/bioc/vignettes/GenVisR/inst/doc/Intro.html), [Visualizing Small Variants](https://bioconductor.org/packages/release/bioc/vignettes/GenVisR/inst/doc/Upcoming_Features.html), and [Waterfall](https://bioconductor.org/packages/release/bioc/vignettes/GenVisR/inst/doc/waterfall_introduction.html)
+* BioStar Tutorials: [waterfall](https://www.biostars.org/p/181159/) and [lolliplot](https://www.biostars.org/p/196576/) 
+
 [Module 3 Lecture](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module3_Lecture.pdf)

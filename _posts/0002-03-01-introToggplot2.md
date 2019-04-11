@@ -186,7 +186,7 @@ dim(variantData)
 head(x)
 ``` 
 
-### ggplot themes
+### ggplot Themes
 Almost every aspect of a ggplot object can be altered. We've already gone over how to alter the display of data but what if we want to alter the display of the non data elements? Fortunately there is a function for that called [theme()](http://ggplot2.tidyverse.org/reference/theme.html). You'll notice in the previous plot some of the x-axis names are colliding with one another, let's fix that and alter some of the theme parameters to make the plot more visually appealing.
 
 ```R
@@ -244,7 +244,7 @@ p21
 
 We can see that reversing the order of levels in the reference column has subsequently reversed the reference facets (right side of plot). Similarily reversing the order of the trv_type column levels has reversed the labels on the x-axis.
 
-### manually fix some factor names, and add main x and y axis labels
+### Manually fix some factor names, and add main x and y axis labels
 ```R
 # reverse the order of the trv_type levels back to original state
 levels(variantData$trv_type)
@@ -260,8 +260,11 @@ levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_untranslated
 p22 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="bottom", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank()) + ylab("variant count")
 p22 <- p22 +  theme(plot.margin = unit(c(1.5,1.5,0.2,0.2), "cm"))
 p22
-grid::grid.text(unit(0.5,"npc"), unit(.95,'npc'), label = 'reference base', rot = 0, gp=gpar(fontsize=11))
-grid::grid.text(unit(0.97,"npc"), 0.56, label = 'variant base', rot = 270, gp=gpar(fontsize=11))
+
+# add main x and y labels
+library(grid)
+grid.text(unit(0.5,"npc"), unit(.95,'npc'), label = 'reference base', rot = 0, gp=gpar(fontsize=11))
+grid.text(unit(0.97,"npc"), 0.56, label = 'variant base', rot = 270, gp=gpar(fontsize=11))
 
 ```
 
