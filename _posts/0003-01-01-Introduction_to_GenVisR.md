@@ -18,9 +18,14 @@ The advent of next generation sequencing (NGS) has allowed for the production of
 We recommend installing [GenVisR](https://bioconductor.org/packages/release/bioc/html/GenVisR.html) from bioconductor in order to ensure the most stable version.
 
 ```R
-# install the GenVisR package from Bioconductor
-source("https://bioconductor.org/biocLite.R")
-biocLite("GenVisR")
+# Install GenVisR
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("GenVisR", version = "3.8")
+
+#NOTE: If you have an older version of R/Bioconductor you may need to use the previous Bioconductor install method
+#source("https://bioconductor.org/biocLite.R")
+#biocLite("GenVisR")
 
 # load the package into R
 library(GenVisR)
