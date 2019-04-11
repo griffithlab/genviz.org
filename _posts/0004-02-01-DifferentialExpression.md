@@ -78,11 +78,11 @@ rawCounts <- rawCounts[,unique(rownames(sampleData))]
 all(colnames(rawCounts) == rownames(sampleData))
 
 # rename the tissue types
-a <- function(x){
+rename_tissues <- function(x){
   x <- switch(as.character(x), "normal"="normal-looking surrounding colonic epithelium", "primary tumor"="primary colorectal cancer",  "colorectal cancer metastatic in the liver"="metastatic colorectal cancer to the liver")
   return(x)
 }
-sampleData$tissueType <- unlist(lapply(sampleData$tissueType, a))
+sampleData$tissueType <- unlist(lapply(sampleData$tissueType, rename_tissues))
 
 # Order the tissue types so that it is sensible and make sure the control sample is first: normal sample -> primary tumor -> metastatic tumor
 sampleData$tissueType <- factor(sampleData$tissueType, levels=c("normal-looking surrounding colonic epithelium", "primary colorectal cancer", "metastatic colorectal cancer to the liver"))
