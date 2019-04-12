@@ -17,7 +17,7 @@ generally applicable gene-set enrichment ([gage](https://bioconductor.org/packag
 # install gage
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("gage", version = "3.8")
+BiocManager::install(c("gage","GO.db","AnnotationDbi","org.Hs.eg.db"), version = "3.8")
 library(gage)
 
 # load the differential expression results fro the previous section
@@ -49,8 +49,6 @@ We have our gene sets now however if you look at one of these objects containing
 
 ```R
 # load in libraries to annotate data
-source("https://bioconductor.org/biocLite.R")
-biocLite(c("AnnotationDbi","org.Hs.eg.db"))
 library(AnnotationDbi)
 library(org.Hs.eg.db)
 
