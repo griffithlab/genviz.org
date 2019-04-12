@@ -397,6 +397,7 @@ In the tutorial above we have completed the steps necessary to produce a dendrog
 3. convert the dendrogram and heatmaps to grobs
 4. align the gene dendrogram heights to match the heatmap (note: you don't need to worry about the legend in this case)
     1. you'll also need to repeat the tutorial steps for aligning the sample dendrogram since we have a new heatmap, consider this step 4B.
+    2. note that you can use unit.pmax to help you determine the max height and width of your grobs
 5. create a blank panel you can use this: `blankPanel<-grid.rect(gp=gpar(col="white"))`
 6. use the gridExtra package to position the panels and plot the result.
 
