@@ -70,6 +70,8 @@ names(tumor_v_normal_DE.fc) <- tumor_v_normal_DE$entrez
 ### Running pathway analysis
 We can now use the [gage()](https://www.rdocumentation.org/packages/gage/versions/2.22.0/topics/gage) function to obtain the significantly perturbed pathways from our differential expression experiment. By default the [gage](https://bioconductor.org/packages/release/bioc/html/gage.html) package performs this analysis while taking into account up and down regulation. Setting `same.dir=FALSE` will capture pathways perturbed without taking into account direction. This is generally not recommended for the GO groups as most genes within these gene sets are regulated in the same direction, however the same is not true for KEGG pathways and using this parameter may produce informative results in such cases.
 
+Note on the abbreviations below: "bp" refers to biological process, "mf" refers to molecular function, and "cc" refers to cellular process. These are the three main categories of gene ontology terms/annotations. 
+
 ```R
 # Run enrichment analysis on all log fc
 fc.kegg.sigmet.p <- gage(tumor_v_normal_DE.fc, gsets = kegg.sigmet.gs)
