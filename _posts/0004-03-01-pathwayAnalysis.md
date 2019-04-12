@@ -97,4 +97,4 @@ fc.go.mf.p.down <- as.data.frame(fc.go.mf.p$less)
 fc.go.cc.p.down <- as.data.frame(fc.go.cc.p$less)
 ```
 
-{% include question.html question="Which genes are in > 30% of significant pathways in the upregulated GO biological process results (q <= .05)" answer='Two genes are, RPS27A, UBA52. Here is an <a href="http://genviz.org/assets/pathway_analysis/exercise1/exercise1_pathway_analysis.R">Rscript</a> to get the correct answer.'%}
+{% include question.html question="Which genes are in > 30% of significant pathways in the upregulated GO biological process results (q <= .05)" answer='Two genes are, ATM, CCNB1. Here is an <a href="http://genviz.org/assets/pathway_analysis/exercise1/exercise1_pathway_analysis.R">Rscript</a> to get the correct answer.'%}
