@@ -46,7 +46,7 @@ The object stored in variable p1 will generate a blank plot in the bottom right 
 p1 <- p1 + geom_point()
 p1
 
-# The following is equivalent to above (method 2)
+# the following is equivalent to above (method 2)
 p2 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV))
 p2
 ```
@@ -206,7 +206,7 @@ p18
 p19 <- p18 + theme(legend.position="top", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"))
 p19
 
-# Let's remove the main x-axis label as well
+# let's remove the main x-axis label as well
 p20 <- p19 + theme(axis.title.x=element_blank())
 p20
 ```
@@ -283,7 +283,7 @@ dev.off()
 # alternatively ggsave will save the last plot made
 ggsave("p20.pdf", device="pdf")
 
-#note the current working directory where this file will have been saved
+# note the current working directory where this file will have been saved
 getwd()
 ```
 
@@ -317,6 +317,7 @@ ggplot(Orange2, aes(x=value, fill=variable)) + geom_density()
 Now that we've had an introduction to ggplot2 let's try a few practice examples. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
 
 Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) dataset we've been using to explore this.  Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
+
 ```R
 # load the dataset
 variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
