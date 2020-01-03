@@ -10,7 +10,7 @@ date: 0002-03-01
 
 There are at least three primary graphics programs available within the R environment. A package for [base R graphics](https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/00Index.html) is installed by default and provides a simple mechanism to quickly create graphs. [lattice](https://cran.r-project.org/web/packages/lattice/index.html) is another graphics package that attempts to improve on base R graphics by providing better defaults and the ability to easily display multivariate relationships. In particular, the package supports the creation of trellis graphs - graphs that display a variable or the relationship between variables, conditioned on one or more other variables. Finally, [ggplot2](http://ggplot2.org/) is a graphics program based on the [grammar of graphics](https://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf) ideology, and will be the primary focus of this course.
 
-In this module, we will explore basic use of ggplot2 to plot genomic data. For illustration, we will use a set of mutation data from Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](http://www.bloodjournal.org/content/129/4/473/tab-figures-only). You can download a cleaned up version of Supplemental Table S5 at [http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv)
+In this module, we will explore basic use of ggplot2 to plot genomic data. For illustration, we will use a set of mutation data from Supplemental Table S5 of the paper ["Recurrent somatic mutations affecting B-cell receptor signaling pathway genes in follicular lymphoma"](https://www.ncbi.nlm.nih.gov/pubmed/28064239). You can download a cleaned up version of Supplemental Table S5 at [http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv). These data come in TSV format, and consist of ~5000 lines, each with a somatic tumor genome variant and various annotations describing the variant (e.g. affected individual, predicted consequence, read counts, etc.).
 
 ### Introducing ggplot2 syntax
 ggplot is based on a system of layering graphical objects to create a final plot. We will start by installing and loading the [ggplot2](http://ggplot2.tidyverse.org/) library. Next, it is important to know that ggplot expects the data passed to it to be of class data.frame. After importing our data ('ggplot2ExampleData.tsv'), we will modify this data frame to include a 'coverage' (tumor_COV) variable. Then we can call the variantData data frame in our [ggplot()](http://ggplot2.tidyverse.org/reference/ggplot.html) function and compare the coverage variable to the variant allele frequency (tumor_VAF).
@@ -24,16 +24,16 @@ library(ggplot2)
 # note that in the following example we are loading directly from a URL (instead of downloading it to the instance first)
 variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
 
-#Familiarize yourself with the data in this file by looking at the 'head' (top) of the file
+# familiarize yourself with the data in this file by looking at the 'head' (top) of the file
 head(variantData)
 
-#Look at a selection of columns
+# look at a selection of columns
 variantData[1:5 ,c(1:9,16,18)]
 
 # make a coverage column since this doesn't exist yet
 variantData$tumor_COV <- variantData$tumor_ref_count + variantData$tumor_var_count
 
-# start making the plot
+# start making the plot to visualize the relationship between variant allele frequencies and read coverage
 p1 <- ggplot(data=variantData, aes(x=tumor_VAF, y=tumor_COV))
 p1
 ```
