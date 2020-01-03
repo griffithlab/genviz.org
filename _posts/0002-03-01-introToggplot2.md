@@ -1,7 +1,7 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: Introduction to ggplot2
+title: Introduction to ggplot2*
 categories:
     - Module-02-R
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
@@ -142,12 +142,12 @@ As an exercise, try manually changing the line colors in p9 using a similar meth
 {% include question.html question="Get a hint!" answer='look at <a href="http://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual()</a>'%}
 {% include question.html question="Solution" answer='ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, color=dataset)) + scale_color_manual(values=c("discovery"="#a13242", "extension"="#1a2930"))'%}
 
-Note that when you use the "color" aesthetic you modify the choice of line colors with scale_color_manual. When you use the "fill" aesthetic you modify the choice of fill colors with scale_fill_manual. If you would like to customize both the line and fill colors, you will need to define both the "color" and "fill" aesthetic. 
+Note that when you use the "color" aesthetic you modify the choice of line colors with scale_color_manual. When you use the "fill" aesthetic you modify the choice of fill colors with scale_fill_manual. If you would like to customize both the line and fill colors, you will need to define both the "color" and "fill" aesthetic.
 
-Try it. Use four different colors for the two line and two fill colors so that it is easy to see if it worked. 
+Try it. Use four different colors for the two line and two fill colors so that it is easy to see if it worked.
 
 ### Faceting
-Depending on the geometric object used there are up to 9 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets. 
+Depending on the geometric object used there are up to 9 ways to map an aesthetic to a variable. These are with the x-axis, y-axis, fill, colour, shape, alpha, size, labels, and facets.
 
 Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. There are two facet commands, [facet_wrap()](http://ggplot2.tidyverse.org/reference/facet_wrap.html) will create a 1 dimensional sequence of panels based on a one sided linear formula. Similarly [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) will create a 2 dimensional grid of panels. Let's try and answer a few quick questions about our data using facets.
 
@@ -171,7 +171,7 @@ p15
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_bar_facetgrid.png" width="450" %}
 
-Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, A->C, A->G, and A->T variants.   
+Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, A->C, A->G, and A->T variants.
 
 Also note how we are selecting a subset of the "variantData" data above. Try the following commands to breakdown how this works:
 ```
@@ -184,7 +184,7 @@ x = variantData[variantData$type == "SNP",]
 dim(x)
 dim(variantData)
 head(x)
-``` 
+```
 
 ### ggplot Themes
 Almost every aspect of a ggplot object can be altered. We've already gone over how to alter the display of data but what if we want to alter the display of the non data elements? Fortunately there is a function for that called [theme()](http://ggplot2.tidyverse.org/reference/theme.html). You'll notice in the previous plot some of the x-axis names are colliding with one another, let's fix that and alter some of the theme parameters to make the plot more visually appealing.
