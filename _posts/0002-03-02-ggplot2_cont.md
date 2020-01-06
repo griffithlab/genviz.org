@@ -69,3 +69,30 @@ We can start to see some interesting trends now, specifically chr6 appeears to h
 {% include question.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part5.png" width="950" %}
+
+Let's try another exercise, what if we don't care about the density of genes across chromosomes, but instead just want to know which chromosome has the highest gene burden. The code below will produce the data ggplot2 will need to plot this information
+
+```R
+geneFreq <- plyr::count(genes$seqnames)
+names(geneFreq) <- c("seqnames", "freq")
+chrLength <- as.data.frame(seqlengths(TxDb))
+chrLength$seqnames <- rownames(chrLength)
+colnames(chrLength) <- c("length","seqnames")
+chrGeneBurden <- merge(geneFreq, chrLength, all.x=TRUE, by="seqnames")
+chrGeneBurden$gene_per_mb <- chrGeneBurden$freq/chrGeneBurden$length * 1000000
+```
+
+Go ahead and try and reproduce the plot below, remember to keep adding layers to get closer to the final product and refer to the ggplot2 documention for help.
+
+{% include question.html question="What is the code to produce the plot below" answer='myChrOrder <- as.character(chrGeneBurden[order(chrGeneBurden$gene_per_mb),]$seqnames)
+chrGeneBurden$seqnames <- factor(chrGeneBurden$seqnames, levels=myChrOrder)<br><br>ggplot(chrGeneBurden, aes(seqnames, gene_per_mb)) +
+  geom_bar(stat="identity") +
+  geom_hline(yintercept = median(chrGeneBurden$gene_per_mb), linetype=2, color="tomato1") +
+  geom_text(aes(label=freq), angle=-55, hjust=1, nudge_y=.5) +
+  scale_x_discrete(expand=c(.05, .05)) +
+  scale_y_continuous(sec.axis = dup_axis(name="")) +
+  geom_point(aes(y=30, x=1), alpha=0) +
+  theme_bw() + theme(axis.text.x=element_text(angle=45,hjust=1)) +
+  ylab("Genes Per MB")
+'%}
+{% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part6.png" width="950" %}
