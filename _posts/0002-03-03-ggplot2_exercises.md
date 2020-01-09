@@ -50,12 +50,12 @@ genesOnChr6 <- genes[genes$seqnames %in% "chr6",]
 ```
 
 ### Exercise 1. Immune gene locations
-Okay, we have the core data we'll be using for this section, let's go ahead and use what we learned in the last section to answer a couple biologically relevant questions adding layers as we go to createmore complex plots. Let's first start with a relatively easy plot. Try plotting the **genomic center** of all immune genes on chromosome 6 with `geom_jitter()`, making sure to only jitter the height. You should use the `genesOnChr6` object we created above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values. You can set the Y position of each point to be anything (e.g. y = 1). This will be the center position for the jitter of each point on the y-axis.
+Okay, we have the core data we'll be using for this section, let's go ahead and use what we learned in the last section to answer a couple biologically relevant questions adding layers as we go to createmore complex plots. Let's first start with a relatively easy plot. Try plotting the **genomic center** of all immune genes on chromosome 6 with `geom_jitter()`, making sure to only jitter the height. You should use the `genesOnChr6` object we created above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values.
 
 {% include question.html question="Get a hint!" answer='you can calculate the center of the gene with the start and width columns in the DF, this can be done inside or outside of ggplot2'%}
 {% include question.html question="Get a hint!" answer='There is a parameter in geom_jitter() to control the ammount of jitter in both the x and y directions'%}
 {% include question.html question="Get a hint!" answer='What is passed to the Y axis does not matter numerically as long as it is consistent!'%}
-{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1)) + geom_jitter(width=0, alpha=.75)'%}
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1)) + geom_jitter(width=0, alpha=.75) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")'%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part7.png" width="950" %}
 
 Okay now let's try and highlight all HLA genes on the plot we just created, to do this we'll need a column specifying which genes are HLA related, the code below will do that for you.
@@ -68,13 +68,13 @@ genesOnChr6$isHLA <- ifelse(grepl("^HLA", genesOnChr6$Name), "HLA Gene", "Not HL
 Try to mimic the plot displayed below.
 
 {% include question.html question="Get a hint!" answer='You only need to change one thing here in the aes() call'%}
-{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75)'%}
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")'%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part8.png" width="950" %}
 
 Finally let's make some stylistic changes and clean the plot up a bit. Use theme() to remove the y-axis elements and add some custom colors to the points as is done in the plot below.
 
 {% include question.html question="Get a hint!" answer='to change the color you need to add one of the scale_*_manual(), i.e. scale_shape_manual, scale_linetype_manual() etc.'%}
-{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75) + scale_color_manual(values=c("seagreen3", "darkorange3")) + theme(axis.text.y=element_blank(), axis.title.y=element_blank(), axis.ticks.y=element_blank())
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75) + scale_color_manual(values=c("seagreen3", "darkorange3")) + theme(axis.text.y=element_blank(), axis.title.y=element_blank(), axis.ticks.y=element_blank()) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part9.png" width="950" %}
 
@@ -82,23 +82,23 @@ Finally let's make some stylistic changes and clean the plot up a bit. Use theme
 Okay let's try another example, lets look at the density of genes across all genomic coordinates. We'll start simple and keep adding layers to work our way up to a final plot. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
 
 {% include question.html question="Get a hint!" answer='Reminder, to plot the center coordinate of the gene you will need to make another columns in the data frame, you can do this within ggplot or just add another column.'%}
-{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density()'%}
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + xlab("Chromosomal position of genes (gene start + 0.5 * width)")'%}
 
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part1.png" width="950" %}
 
-Pretty easy right? As you would expect gene density is higher twoard the beginning of chromosomes simply because there is more overlap of genomic coordinates between chromosomes at the start (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
+Pretty easy right? As you would expect gene density is higher twoard the beginning of chromosomes simply because there is more overlap of genomic coordiantes between chromosomes at the star (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating adding a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
 
 {% include question.html question="Get a Hint!" answer='Look at the ggplot2 documentation for geom_rug()'%}
 {% include question.html question="Get a Hint!" answer='You will need to pass a subsetted data frame directly to geom_rug() with the data parameter'%}
 {% include question.html question="Get a Hint!" answer='within geom_rug() you want to pay attention to the sides and length parameters, again see ggplot2 documentation'%}
-{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc"))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part2.png" width="950" %}
 
 While were at it, let's go ahead and add a layer for the sense strand as well, this will go on the bottom of the plot instead of the plot. Go ahead and try and mimic the plot below.
 
 {% include question.html question="Get a Hint!" answer='Same concept as above, you should have 2 geom_rug() layers for this plot'%}
-{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part3.png" width="950" %}
 
@@ -108,13 +108,13 @@ We have are basic plot now, but it's still not very informative as all the data 
 {% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() +
   geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) +
   geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) +
-  facet_wrap(~seqnames, scales="free")
+  facet_wrap(~seqnames, scales="free") + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part4.png" width="950" %}
 
 We can start to see some interesting trends now, specifically chr6 appeears to have many genes on the p-arm of the chromosome compared to the q-arm. We can also see a couple regions where strand bias might be present, such as in the beginning of chromosome 15. Let's go ahead and finish things up by altering some of the theme aspects of the plot. Reproduce the plot below using theme()
 
-{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1)) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part5.png" width="950" %}
 

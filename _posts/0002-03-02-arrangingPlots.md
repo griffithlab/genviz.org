@@ -140,6 +140,7 @@ There is much more information on how gridExtra works in the various gridExtra v
 
 {% include figure.html image="/assets/advanced_ggplot/layout.4.png" width="550" %}
 
+{% include question.html question="Get a hint!" answer='the layout matrix should be 5 columns by 4 rows'%}
 {% include answer.html question="solution" answer='The solution is in <a href="http://genviz.org/assets/advanced_ggplot/exercise1/solution.R">solution.R</a>'%}
 
 Now that we understand the basics of how gridExtra works let's go ahead and make an attempt at a multi-panel figure. We'll put the main barchart on top, and match the boxplots with their specific barcharts on rows 2 and 3 of a layout. At the end you should see something like the figure below.
