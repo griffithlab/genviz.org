@@ -12,10 +12,10 @@ We have previously covered the core aspects of ggplot2. In this section we provi
 
 ### Load example data
 
-To start things off let's go ahead and load in a transcripts annotation database to work with. Bioconductor maintains many of these databases for different species/assemblies, here we load in one from Bioconductor for Hsapiens/HG38. You can view the many different transcript annotation databases bioconductor offers by looking for the [TxDb BiocView](https://bioconductor.org/packages/release/BiocViews.html#___TxDb) on bioconductor.
+To start things off let's go ahead and load in a transcripts annotation database to work with. Bioconductor maintains many of these databases for different species/assemblies, here we load in one from Bioconductor for the human reference genome (build HG38). You can view the many different transcript annotation databases bioconductor offers by looking for the [TxDb BiocView](https://bioconductor.org/packages/release/BiocViews.html#___TxDb) on bioconductor.
 
 ```R
-# install if not already
+# install if not already installed
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("TxDb.Hsapiens.UCSC.hg38.knownGene")
@@ -38,7 +38,7 @@ genes <- unique(genes[,c("group_name", "seqnames", "start", "end", "width", "str
 colnames(genes) <- c("gene_id", "seqnames", "start", "end", "width", "strand")
 ```
 
-Let's also grab a list of immune genes and annotate our data with these as well. The immune genes here come from the [pancancer immune profiling panel](https://www.nanostring.com/products/gene-expression-panels/gene-expression-panels-overview/hallmarks-cancer-gene-expression-panel-collection/pancancer-immune-profiling-panel).
+Let's also grab a list of immune genes and annotate our data with these as well. The immune genes here come from a [pancancer immune profiling panel](https://www.nanostring.com/products/gene-expression-panels/gene-expression-panels-overview/hallmarks-cancer-gene-expression-panel-collection/pancancer-immune-profiling-panel).
 
 ```R
 # read in the immune gene list
