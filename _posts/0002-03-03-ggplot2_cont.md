@@ -1,11 +1,11 @@
 ---
 feature_text: |
   ## Genomic Visualization and Interpretations
-title: ggplot2 Continued*
+title: ggplot2 exercises*
 categories:
     - Module-02-R
 feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
-date: 0002-03-02
+date: 0002-03-03
 ---
 
 In the previous section we covered the core aspects of ggplot2, In this section we provide some additional exercises to reinforce concepts.
