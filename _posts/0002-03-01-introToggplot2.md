@@ -188,7 +188,9 @@ p15
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_bar_facetgrid.png" width="450" %}
 
-Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, A->C, A->G, and A->T variants.
+What do we see in this last plot? Which base changes are most common in this data set? Do we expect a random/uniform distribution of base changes?
+
+Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, C->A, G->A, and T->A variants. Overall the most common mutations are G->A and C->T. In other words we are seeing more transitions than transversions: G->A (purine -> purine transition) and C->T (pyrimidine to pyrimidine transition). This is what we expect for [various reasons](https://www.albert.io/blog/what-is-the-difference-between-purines-and-pyrimidines/). 
 
 Also note how we are selecting a subset of the "variantData" data above. Try the following commands to breakdown how this works:
 ```
