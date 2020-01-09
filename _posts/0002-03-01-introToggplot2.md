@@ -272,8 +272,8 @@ levels(variantData$trv_type)
 
 # if we want to modify the name of some of the levels manually (e.g. to make shorter versions of some really long names) we can do the following
 levels(variantData$trv_type)[levels(variantData$trv_type)=="3_prime_untranslated_region"] <- "3p_utr"
-levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_flanking_region"] <- "5p_flank"
 levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_untranslated_region"] <- "5p_utr"
+levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_flanking_region"] <- "5p_flank"
 
 # update the plot yet again
 p22 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="bottom", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank()) + ylab("variant count")
