@@ -138,7 +138,7 @@ p9 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, color=dataset))
 p9
 
 # let's add a bit more detail
-p10 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, fill=dataset), alpha=.75, colour="black", adjust=.5)
+p10 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, fill=dataset), alpha=.75, adjust=.5)
 p10
 
 # and let's change the colors some more
