@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-03-03
 ---
 
-We have previously covered the core aspects of ggplot2, In this section we provide some additional exercises to reinforce concepts.
+We have previously covered the core aspects of ggplot2, In this section we provide some exercises to reinforce concepts.
 
 To start things off let's go ahead and load in a transcripts annotation database to work with. Bioconductor maintains many of these databases for different species/assemblies, here we load in one from Bioconductor for Hsapiens/HG38. You can view the many different transcript annotation databases bioconductor offers by looking for the [TxDb BiocView](https://bioconductor.org/packages/release/BiocViews.html#___TxDb) on bioconductor.
 
@@ -47,6 +47,7 @@ genes <- merge(genes, immuneGenes, by.x=c("gene_id"), by.y=c("entrez"), all.x=TR
 genesOnChr6 <- genes[genes$seqnames %in% "chr6",]
 ```
 
+### Immune genes
 Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more complicated plot. Let's first start with a relatively easy plot, try plotting all immune genes on chromosome 6 with geom_jitter(), making sure to only jitter the height. You should use the `genesOnChr6` object we create above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values.
 
 {% include question.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1)) + geom_jitter(width=0, alpha=.75)'%}
@@ -70,6 +71,7 @@ Finally let's make some stylistic changes and clean the plot up a bit. Use theme
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part9.png" width="950" %}
 
+### Gene Density
 Okay let's try another examplle, lets look at the density of genes across all genomic coordinates. We'll start simple and keep adding layers to work our way up to a final plot. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
 
 {% include question.html question="Get a hint!" answer='To plot the center coordinate of the gene you will need to make another columns in the data frame, you can do this within ggplot or just add another column.'%}
@@ -106,6 +108,7 @@ We can start to see some interesting trends now, specifically chr6 appeears to h
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part5.png" width="950" %}
 
+### Gene Burden
 Let's try another exercise, what if we don't care about the density of genes across chromosomes, but instead just want to know which chromosome has the highest gene burden. The code below will produce the data ggplot2 will need to plot this information
 
 ```R
@@ -132,3 +135,35 @@ chrGeneBurden$seqnames <- factor(chrGeneBurden$seqnames, levels=myChrOrder)<br><
   ylab("Genes Per MB")
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part6.png" width="950" %}
+
+### VAF violin
+Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) dataset we used in the introduction to ggplot2 section to explore this.  Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
+
+```R
+# load the dataset
+variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
+variantData <- variantData[variantData$dataset == "discovery",]
+```
+{% include figure.html image="/assets/ggplot2/ggplot2Example1.png" width="950" %}
+{% include question.html question="Get a hint!" answer='look at geom_violin(), change labels with xlab() and ylab()'%}
+{% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("Sample") + ylab("Variant Allele Fraction")'%}
+
+Looking good, but the plot looks dull, try adding some color to the violin plots and let's see where the points for the underlying data actually reside.
+
+{% include figure.html image="/assets/ggplot2/ggplot2Example2.png" width="950" %}
+{% include question.html question="Get a hint!" answer='Try using geom_jitter() to offset points'%}
+{% include question.html question="What is the code to create the violin plot above?" answer='ggplot(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + geom_violin(aes(fill=Simple_name)) + geom_jitter(width=.1, alpha=.5) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
+
+Finally let's add some more detail, specifically let's annotate how many points actually make up each violin. The code below will construct the extra data you'll need to make the final plot.
+
+```R
+library(plyr)
+variantDataCount <- count(variantData, "Simple_name")
+variantDataMax <- aggregate(data=variantData, tumor_VAF ~ Simple_name, max)
+variantDataMerge <- merge(variantDataMax, variantDataCount)
+head(variantDataMerge)
+```
+
+{% include figure.html image="/assets/ggplot2/ggplot2Example3.png" width="950" %}
+{% include question.html question="Get a hint!" answer='You will need to pass variantDataMerge to geom_text()'%}
+{% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF, fill=Simple_name)) + geom_jitter(data=variantData, aes(x=Simple_name, y=tumor_VAF), width=.1, alpha=.5) + geom_text(data=variantDataMerge, aes(x=Simple_name, y=tumor_VAF + 5, label=freq)) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}

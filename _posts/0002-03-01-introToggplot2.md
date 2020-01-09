@@ -349,37 +349,3 @@ ggplot(Orange2, aes(x=value, fill=variable)) + geom_density() + geom_point(data=
 ```
 
 {% include figure.html image="/assets/ggplot2/ggplot2_tips_invisiblelayer.png" width="450" %}
-
-### ggplot2 Practice examples
-Now that we've had an introduction to ggplot2 let's try a few practice examples. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
-
-Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) dataset we've been using to explore this.  Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
-
-```R
-# load the dataset
-variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
-variantData <- variantData[variantData$dataset == "discovery",]
-```
-{% include figure.html image="/assets/ggplot2/ggplot2Example1.png" width="950" %}
-{% include question.html question="Get a hint!" answer='look at geom_violin(), change labels with xlab() and ylab()'%}
-{% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("Sample") + ylab("Variant Allele Fraction")'%}
-
-Looking good, but the plot looks dull, try adding some color to the violin plots and let's see where the points for the underlying data actually reside.
-
-{% include figure.html image="/assets/ggplot2/ggplot2Example2.png" width="950" %}
-{% include question.html question="Get a hint!" answer='Try using geom_jitter() to offset points'%}
-{% include question.html question="What is the code to create the violin plot above?" answer='ggplot(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + geom_violin(aes(fill=Simple_name)) + geom_jitter(width=.1, alpha=.5) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
-
-Finally let's add some more detail, specifically let's annotate how many points actually make up each violin. The code below will construct the extra data you'll need to make the final plot.
-
-```R
-library(plyr)
-variantDataCount <- count(variantData, "Simple_name")
-variantDataMax <- aggregate(data=variantData, tumor_VAF ~ Simple_name, max)
-variantDataMerge <- merge(variantDataMax, variantDataCount)
-head(variantDataMerge)
-```
-
-{% include figure.html image="/assets/ggplot2/ggplot2Example3.png" width="950" %}
-{% include question.html question="Get a hint!" answer='You will need to pass variantDataMerge to geom_text()'%}
-{% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF, fill=Simple_name)) + geom_jitter(data=variantData, aes(x=Simple_name, y=tumor_VAF), width=.1, alpha=.5) + geom_text(data=variantDataMerge, aes(x=Simple_name, y=tumor_VAF + 5, label=freq)) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
