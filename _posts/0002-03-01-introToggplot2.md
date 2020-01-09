@@ -182,7 +182,7 @@ p14 <- p13 + facet_wrap(~reference)
 p14
 
 # which transitions and transversions occur most frequently?
-p15 <- p14 + facet_grid(variant ~ reference)
+p15 <- p13 + facet_grid(variant ~ reference)
 p15
 ```
 
