@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-03-03
 ---
 
-In the previous section we covered the core aspects of ggplot2, In this section we provide some additional exercises to reinforce concepts.
+We have previously covered the core aspects of ggplot2, In this section we provide some additional exercises to reinforce concepts.
 
 To start things off let's go ahead and load in a transcripts annotation database to work with. Bioconductor maintains many of these databases for different species/assemblies, here we load in one from Bioconductor for Hsapiens/HG38. You can view the many different transcript annotation databases bioconductor offers by looking for the [TxDb BiocView](https://bioconductor.org/packages/release/BiocViews.html#___TxDb) on bioconductor.
 
@@ -32,6 +32,16 @@ genes <- genes(TxDb, columns=c("gene_id"))
 genes <- as.data.frame(genes)
 chromosomes <- paste0("chr", c(1:22,"X","Y"))
 genes <- genes[genes$seqnames %in% chromosomes,]
+```
+
+Let's also grab a list of immune genes and annotate our data with these as well. The immune genes here come from the [pancancer immune profiling panel](https://www.nanostring.com/products/gene-expression-panels/gene-expression-panels-overview/hallmarks-cancer-gene-expression-panel-collection/pancancer-immune-profiling-panel).
+
+```R
+# read in the immune gene list
+immuneGenes <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/immuneGenes.tsv")
+
+# merge the immune gene annotations onto the gene object
+genes <- merge(genes, immuneGenes, by.x=c("gene_id"), by.y=c("entrez"), all.x=TRUE)
 ```
 
 Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more compicated plot. To start let's look at the density of genes across genomic coordinates. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
