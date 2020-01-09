@@ -140,7 +140,7 @@ Go ahead and try and reproduce the plot below, remember to keep adding layers to
 
 {% include question.html question="Get a Hint!" answer='We dont go step by step for this one, you will need geom_bar(), geom_hline(), geom_text() as the core elements'%}
 {% include question.html question="Get a Hint!" answer='you can make a secondary axis with the scale_y_continuous() layer, you only need one scale_y_continuous()'%}
-{% include answer.html question="What is the code to produce the plot below" answer='myChrOrder <- as.character(chrGeneBurden[order(chrGeneBurden$gene_per_mb),]$seqnames)
+{% include answer.html question="What is the code to produce the plot below" answer='myChrOrder <- as.character(chrGeneBurden[order(chrGeneBurden$gene_per_mb),]$seqnames)<br>
 chrGeneBurden$seqnames <- factor(chrGeneBurden$seqnames, levels=myChrOrder)<br><br>ggplot(chrGeneBurden, aes(seqnames, gene_per_mb)) +
   geom_bar(stat="identity") +
   geom_hline(yintercept = median(chrGeneBurden$gene_per_mb), linetype=2, color="tomato1") +
