@@ -82,7 +82,7 @@ Finally let's make some stylistic changes and clean the plot up a bit. Use theme
 Okay let's try another example, lets look at the density of genes across all genomic coordinates. We'll start simple and keep adding layers to work our way up to a final plot. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
 
 {% include question.html question="Get a hint!" answer='Reminder, to plot the center coordinate of the gene you will need to make another columns in the data frame, you can do this within ggplot or just add another column.'%}
-{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density()'%}
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density()'%}
 
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part1.png" width="950" %}
 
