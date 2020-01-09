@@ -49,17 +49,12 @@ genes <- merge(genes, immuneGenes, by.x=c("gene_id"), by.y=c("entrez"), all.x=TR
 genesOnChr6 <- genes[genes$seqnames %in% "chr6",]
 ```
 
-<<<<<<< HEAD
-### Immune genes
-Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more complicated plot. Let's first start with a relatively easy plot, try plotting the **genomic center** of all immune genes on chromosome 6 with `geom_jitter()`, making sure to only jitter the height. You should use the `genesOnChr6` object we create above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values.
-=======
 ### Exercise 1. Immune gene locations
-Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more complicated plot. Let's first start with a relatively easy plot, try plotting all immune genes on chromosome 6 with geom_jitter(), making sure to only jitter the height. You should use the `genesOnChr6` object we create above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values.
->>>>>>> d52c8a04098597a2bd4ae0c7e51406b2c49187c2
+Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more complicated plot. Let's first start with a relatively easy plot, try plotting the **genomic center** of all immune genes on chromosome 6 with `geom_jitter()`, making sure to only jitter the height. You should use the `genesOnChr6` object we create above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values.
 
 {% include question.html question="Get a hint!" answer='you can calculate the center of the gene with the start and width columns in the DF, this can be done inside or outside of ggplot2'%}
 {% include question.html question="Get a hint!" answer='There is a parameter in geom_jitter() to control the ammount of jitter in both the x and y directions'%}
-{% include question.html question="Get a hint!" answer='What is passed to the Y axis doesn't matter numerically as llong as it's consistent!'%}
+{% include question.html question="Get a hint!" answer='What is passed to the Y axis does not matter numerically as long as it is consistent!'%}
 {% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1)) + geom_jitter(width=0, alpha=.75)'%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part7.png" width="950" %}
 
@@ -72,6 +67,7 @@ genesOnChr6$isHLA <- ifelse(grepl("^HLA", genesOnChr6$Name), "HLA Gene", "Not HL
 
 Try to mimic the plot displayed below.
 
+{% include question.html question="Get a hint!" answer='You only need to change one thing here in the aes() call'%}
 {% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75)'%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part8.png" width="950" %}
 
