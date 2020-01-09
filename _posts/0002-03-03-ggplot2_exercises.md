@@ -131,7 +131,7 @@ We can start to see some interesting trends now, specifically chr6 appeears to h
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part5.png" width="950" %}
 
 ### Exercise 3. Gene burden of each chromosome
-Let's try another exercise, what if we don't care about the density of genes across chromosomes, but instead just want to know which chromosome has the highest gene burden. The code below will produce the data ggplot2 will need to plot this information
+Let's try another exercise, what if we don't care about the density of genes across chromosomes, but instead just want to know which chromosome has the highest overall average gene density. The code below will produce the data ggplot2 will need to plot this information.
 
 ```R
 geneFreq <- plyr::count(genes$seqnames)
