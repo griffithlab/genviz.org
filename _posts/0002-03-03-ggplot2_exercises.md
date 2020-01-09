@@ -24,7 +24,7 @@ library(TxDb.Hsapiens.UCSC.hg38.knownGene)
 TxDb <- TxDb.Hsapiens.UCSC.hg38.knownGene
 ```
 
-It is beyond the purpose of this workshop to explain everything a TxDb object stores. In the code below we are just extract gene related data from chromosome 1-22,X,Y to plot. Note that in the dataframe we produce below the Gene ID is an Entrez ID.
+It is beyond the purpose of this workshop to explain everything a TxDb object stores. In the code below we are just extracting gene related data from chromosome 1-22,X,Y to plot. Note that in the dataframe we produce below the Gene ID is an Entrez ID.
 
 ```R
 # obtain gene locations from the TxDb object as a data frame
