@@ -97,7 +97,7 @@ Pretty easy right? As you would expect gene density is higher twoard the beginni
 
 While were at it, let's go ahead and add a layer for the sense strand as well, this will go on the bottom of the plot instead of the plot. Go ahead and try and mimic the plot below.
 
-{% include question.html question="Get a Hint!" answer='Same concept as above, you should have 2 geom_rug() layers for this plot%}
+{% include question.html question="Get a Hint!" answer='Same concept as above, you should have 2 geom_rug() layers for this plot'%}
 {% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part3.png" width="950" %}
