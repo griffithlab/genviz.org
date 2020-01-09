@@ -174,7 +174,7 @@ p12a <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_typ
 p12a
 
 # what is the relation of tiers to mutation type
-p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier))
+p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + theme(axis.text.x = element_text(angle = 90))
 p13
 
 # which reference base is most often mutated
