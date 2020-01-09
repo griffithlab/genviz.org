@@ -97,13 +97,14 @@ Pretty easy right? As you would expect gene density is higher twoard the beginni
 
 While were at it, let's go ahead and add a layer for the sense strand as well, this will go on the bottom of the plot instead of the plot. Go ahead and try and mimic the plot below.
 
+{% include question.html question="Get a Hint!" answer='Same concept as above, you should have 2 geom_rug() layers for this plot%}
 {% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part3.png" width="950" %}
 
 We have are basic plot now, but it's still not very informative as all the data from the different chromosomes are colliding with each other. Let's go ahead and fix this by making multiple plots from the same data split out by chromosome. Recall from the privous section that there is a very easy way to do this. Also pay particular attention to how the axis are set for each individual plot and produce the result below.
 
-{% include question.html question="Get a Hint!" answer='look at the ggplot2 documentation for facet_wrap()'%}
+{% include question.html question="Get a Hint!" answer='look at the ggplot2 documentation for facet_wrap(), particularly the scales parameter in facet_wrap()'%}
 {% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() +
   geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) +
   geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) +
@@ -132,6 +133,8 @@ chrGeneBurden$gene_per_mb <- chrGeneBurden$freq/chrGeneBurden$length * 1000000
 
 Go ahead and try and reproduce the plot below, remember to keep adding layers to get closer to the final product and refer to the ggplot2 documention for help.
 
+{% include question.html question="Get a Hint!" answer='We dont go step by step for this one, you will need geom_bar(), geom_hline(), geom_text() as the core elements'%}
+{% include question.html question="Get a Hint!" answer='you can make a secondary axis with the scale_y_continuous() layer, you only need one scale_y_continuous()'%}
 {% include answer.html question="What is the code to produce the plot below" answer='myChrOrder <- as.character(chrGeneBurden[order(chrGeneBurden$gene_per_mb),]$seqnames)
 chrGeneBurden$seqnames <- factor(chrGeneBurden$seqnames, levels=myChrOrder)<br><br>ggplot(chrGeneBurden, aes(seqnames, gene_per_mb)) +
   geom_bar(stat="identity") +
