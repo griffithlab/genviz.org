@@ -120,7 +120,7 @@ Above we chose "darkorchid4" which has a hex value of "#68228B". However the poi
 The syntax used in p8 makes sense if we want to display our points in a single color and we want to specify that color. The syntax used in p7 doesn't make sense as used above but something similar could be used if we really did want to color each point according to a real factor in the data. For example, coloring points by the 'dataset', 'type', or 'variant' variables could be informative. Try one of these now.
 
 ```R
-# color each point according to the 'dataset' of the variant 
+# color each point according to the 'dataset' of the variant
 p7a <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color=dataset)) + scale_y_continuous(trans="log2")
 p7a
 
@@ -329,6 +329,17 @@ ggplot(Orange2, aes(x=value, fill=variable)) + geom_density()
 ```
 
 {% include figure.html image="/assets/ggplot2/ggplot2_long_geom_density.png" width="450" %}
+
+### Extra tips and tricks
+Almost done, in this last section, we will just mention a couple tips that you might find usefull. We'll use the `Orange2` dataset from above to illustrate. By default with large intergers such as genomic coordinates R will tend to display these in scientific notation. Many do not actually like this, you can commify axis values using the comma functions from the scales package as illustrated in the plot below. **You will need to load the `scales` library for this to work.
+
+```R
+library(scales)
+ggplot(Orange2, aes(x=value, fill=variable)) + geom_density() + scale_x_continuous(labels=comma)
+```
+
+{% include figure.html image="/assets/ggplot2/ggplot2_tips_commify.png" width="450" %}
+
 
 ### ggplot2 Practice examples
 Now that we've had an introduction to ggplot2 let's try a few practice examples. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
