@@ -98,14 +98,14 @@ Pretty easy right? As you would expect gene density is higher toward the beginni
 While were at it, let's go ahead and add a layer for the sense strand as well, this will go on the bottom of the plot instead of the plot. Go ahead and try and mimic the plot below.
 
 {% include question.html question="Get a Hint!" answer='Same concept as above, you should have 2 geom_rug() layers for this plot'%}
-{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part3.png" width="950" %}
 
 We have are basic plot now, but it's still not very informative as all the data from the different chromosomes are colliding with each other. Let's go ahead and fix this by making multiple plots from the same data split out by chromosome. Recall from the previous section that there is a very easy way to do this. Also pay particular attention to how the axis are set for each individual plot and produce the result below.
 
 {% include question.html question="Get a Hint!" answer='look at the ggplot2 documentation for facet_wrap(), particularly the scales parameter in facet_wrap()'%}
-{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() +
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density() +
   geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) +
   geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) +
   facet_wrap(~seqnames, scales="free")
@@ -114,7 +114,7 @@ We have are basic plot now, but it's still not very informative as all the data 
 
 We can start to see some interesting trends now, specifically chr6 appeears to have many genes on the p-arm of the chromosome compared to the q-arm. We can also see a couple regions where strand bias might be present, such as in the beginning of chromosome 15. Let's go ahead and finish things up by altering some of the theme aspects of the plot. Reproduce the plot below using theme()
 
-{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part5.png" width="950" %}
 
