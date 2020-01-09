@@ -95,7 +95,7 @@ Note that adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/refe
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_point_logscale.png" width="450" %}
 
 ### Applying different aesthetics
-While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code ([hex codes explained](http://research.stowers.org/mcm/efg/R/Color/Chart/)) or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
+While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code ([hex codes explained](https://stackoverflow.com/questions/22239803/how-does-hexadecimal-color-work)) or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
 
 ```R
 # list colors in R
@@ -117,7 +117,20 @@ Above we chose "darkorchid4" which has a hex value of "#68228B". However the poi
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_point_purple.png" width="450" %}
 
-Building on the above concept, we can utilize the colour aesthetic to more specifically visualize our data. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor the colour aesthetic.
+The syntax used in p8 makes sense if we want to display our points in a single color and we want to specify that color. The syntax used in p7 doesn't make sense as used above but something similar could be used if we really did want to color each point according to a real factor in the data. For example, coloring points by the 'dataset', 'type', or 'variant' variables could be informative. Try one of these now.
+
+```R
+# color each point according to the 'dataset' of the variant 
+p7a <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color=dataset)) + scale_y_continuous(trans="log2")
+p7a
+
+# color each point according to the 'type' of the variant
+p7b <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color=type)) + scale_y_continuous(trans="log2")
+p7b
+
+```
+
+Building on the above concepts, we could now try using the colour aesthetic to visualize our data as a density plot. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor the colour aesthetic.
 
 ```
 # get a density curve of tumor vafs
@@ -125,7 +138,7 @@ p9 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, color=dataset))
 p9
 
 # let's add a bit more detail
-p10 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, fill=dataset), alpha=.75, colour="black", adjust=.5)
+p10 <- ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, fill=dataset), alpha=.75, adjust=.5)
 p10
 
 # and let's change the colors some more
@@ -135,7 +148,7 @@ p11
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_density.png" width="450" %}
 
-In the p9 plot, we told the [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the data based upon the 'dataset' column using the colour aesthetic. We see that our result contains two density curves that use two different colored lines to specify our datasets. In p10, we are telling our [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the datasets using the "fill" aesthetic instead. We globally assign the line colour ("black") and the fill transparency (alpha=0.75). In addition, we utilize the adjust parameter to reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Now, our datasets are specified by the fill (or filled in color) of each density curve. In p11 (shown above), we append the [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html) layer to manually define the fill colours we would like to appear in the plot.
+In the p9 plot, we told the [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the data based upon the 'dataset' column using the colour aesthetic. We see that our result contains two density curves that use two different colored lines to specify our datasets. In p10, we are telling our [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) layer to differentiate the datasets using the "fill" aesthetic instead. We globally assign the fill transparency (alpha=0.75). In addition, we utilize the adjust parameter to reduce the smoothing [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) uses when computing it's estimate. Now, our datasets are specified by the fill (or filled in color) of each density curve. In p11 (shown above), we append the [scale_fill_manual()](http://ggplot2.tidyverse.org/reference/scale_manual.html) layer to manually define the fill colours we would like to appear in the plot.
 
 As an exercise, try manually changing the line colors in p9 using a similar method as that used in p11.
 
@@ -155,6 +168,10 @@ Faceting in ggplot allows us to quickly create multiple related plots at once wi
 # what is the most common mutation type among SNP's
 p12 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type))
 p12
+
+# use theme() rotate the labels for readability (more on themes below)
+p12a <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type)) + theme(axis.text.x = element_text(angle = 90))
+p12a
 
 # what is the relation of tiers to mutation type
 p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier))
