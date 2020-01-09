@@ -50,7 +50,7 @@ genesOnChr6 <- genes[genes$seqnames %in% "chr6",]
 ### Immune genes
 Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more complicated plot. Let's first start with a relatively easy plot, try plotting all immune genes on chromosome 6 with geom_jitter(), making sure to only jitter the height. You should use the `genesOnChr6` object we create above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values.
 
-{% include question.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1)) + geom_jitter(width=0, alpha=.75)'%}
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1)) + geom_jitter(width=0, alpha=.75)'%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part7.png" width="950" %}
 
 Okay now let's try and highlight all HLA genes on the plot we just created, to do this we'll need a column specifying which genes are HLA related, the code below will do that for you.
@@ -62,12 +62,12 @@ genesOnChr6$isHLA <- ifelse(grepl("^HLA", genesOnChr6$Name), "HLA Gene", "Not HL
 
 Try to mimic the plot displayed below.
 
-{% include question.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75)'%}
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75)'%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part8.png" width="950" %}
 
 Finally let's make some stylistic changes and clean the plot up a bit. Use theme() to remove the y-axis elements and add some custom colors to the points as is done in the plot below.
 
-{% include question.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75) + scale_color_manual(values=c("seagreen3", "darkorange3")) + theme(axis.text.y=element_blank(), axis.title.y=element_blank(), axis.ticks.y=element_blank())
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75) + scale_color_manual(values=c("seagreen3", "darkorange3")) + theme(axis.text.y=element_blank(), axis.title.y=element_blank(), axis.ticks.y=element_blank())
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part9.png" width="950" %}
 
@@ -82,20 +82,20 @@ Okay let's try another examplle, lets look at the density of genes across all ge
 Pretty easy right? As you would expect gene density is higher twoard the beginning of chromosomes simply because there is more overlap of genomic coordiantes between chromosomes at the star (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating adding a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
 
 {% include question.html question="Get a Hint!" answer='Look at the ggplot2 documentation for geom_rug()'%}
-{% include question.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc"))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc"))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part2.png" width="950" %}
 
 While were at it, let's go ahead and add a layer for the sense strand as well, this will go on the bottom of the plot instead of the plot. Go ahead and try and mimic the plot below.
 
-{% include question.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part3.png" width="950" %}
 
 We have are basic plot now, but it's still not very informative as all the data from the different chromosomes are colliding with each other. Let's go ahead and fix this by making multiple plots from the same data split out by chromosome. Recall from the privous section that there is a very easy way to do this. Also pay particular attention to how the axis are set for each individual plot and produce the result below.
 
 {% include question.html question="Get a Hint!" answer='look at the ggplot2 documentation for facet_wrap()'%}
-{% include question.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() +
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() +
   geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) +
   geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) +
   facet_wrap(~seqnames, scales="free")
@@ -104,7 +104,7 @@ We have are basic plot now, but it's still not very informative as all the data 
 
 We can start to see some interesting trends now, specifically chr6 appeears to have many genes on the p-arm of the chromosome compared to the q-arm. We can also see a couple regions where strand bias might be present, such as in the beginning of chromosome 15. Let's go ahead and finish things up by altering some of the theme aspects of the plot. Reproduce the plot below using theme()
 
-{% include question.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1))
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part5.png" width="950" %}
 
@@ -123,7 +123,7 @@ chrGeneBurden$gene_per_mb <- chrGeneBurden$freq/chrGeneBurden$length * 1000000
 
 Go ahead and try and reproduce the plot below, remember to keep adding layers to get closer to the final product and refer to the ggplot2 documention for help.
 
-{% include question.html question="What is the code to produce the plot below" answer='myChrOrder <- as.character(chrGeneBurden[order(chrGeneBurden$gene_per_mb),]$seqnames)
+{% include answer.html question="What is the code to produce the plot below" answer='myChrOrder <- as.character(chrGeneBurden[order(chrGeneBurden$gene_per_mb),]$seqnames)
 chrGeneBurden$seqnames <- factor(chrGeneBurden$seqnames, levels=myChrOrder)<br><br>ggplot(chrGeneBurden, aes(seqnames, gene_per_mb)) +
   geom_bar(stat="identity") +
   geom_hline(yintercept = median(chrGeneBurden$gene_per_mb), linetype=2, color="tomato1") +
@@ -146,13 +146,13 @@ variantData <- variantData[variantData$dataset == "discovery",]
 ```
 {% include figure.html image="/assets/ggplot2/ggplot2Example1.png" width="950" %}
 {% include question.html question="Get a hint!" answer='look at geom_violin(), change labels with xlab() and ylab()'%}
-{% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("Sample") + ylab("Variant Allele Fraction")'%}
+{% include answer.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + theme(axis.text.x=element_text(angle=90, hjust=1)) + xlab("Sample") + ylab("Variant Allele Fraction")'%}
 
 Looking good, but the plot looks dull, try adding some color to the violin plots and let's see where the points for the underlying data actually reside.
 
 {% include figure.html image="/assets/ggplot2/ggplot2Example2.png" width="950" %}
 {% include question.html question="Get a hint!" answer='Try using geom_jitter() to offset points'%}
-{% include question.html question="What is the code to create the violin plot above?" answer='ggplot(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + geom_violin(aes(fill=Simple_name)) + geom_jitter(width=.1, alpha=.5) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
+{% include answer.html question="What is the code to create the violin plot above?" answer='ggplot(data=variantData, aes(x=Simple_name, y=tumor_VAF)) + geom_violin(aes(fill=Simple_name)) + geom_jitter(width=.1, alpha=.5) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
 
 Finally let's add some more detail, specifically let's annotate how many points actually make up each violin. The code below will construct the extra data you'll need to make the final plot.
 
@@ -166,4 +166,4 @@ head(variantDataMerge)
 
 {% include figure.html image="/assets/ggplot2/ggplot2Example3.png" width="950" %}
 {% include question.html question="Get a hint!" answer='You will need to pass variantDataMerge to geom_text()'%}
-{% include question.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF, fill=Simple_name)) + geom_jitter(data=variantData, aes(x=Simple_name, y=tumor_VAF), width=.1, alpha=.5) + geom_text(data=variantDataMerge, aes(x=Simple_name, y=tumor_VAF + 5, label=freq)) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
+{% include answer.html question="What is the code to create the violin plot above?" answer='ggplot() + geom_violin(data=variantData, aes(x=Simple_name, y=tumor_VAF, fill=Simple_name)) + geom_jitter(data=variantData, aes(x=Simple_name, y=tumor_VAF), width=.1, alpha=.5) + geom_text(data=variantDataMerge, aes(x=Simple_name, y=tumor_VAF + 5, label=freq)) + theme(axis.text.x=element_text(angle=90, hjust=1), legend.position="none") + xlab("Sample") + ylab("Variant Allele Fraction")'%}
