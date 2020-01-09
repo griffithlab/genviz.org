@@ -190,7 +190,7 @@ p15
 
 What do we see in this last plot? Which base changes are most common in this data set? Do we expect a random/uniform distribution of base changes?
 
-Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, C->A, G->A, and T->A variants. Overall the most common mutations are G->A and C->T. In other words we are seeing more transitions than transversions: G->A (purine -> purine transition) and C->T (pyrimidine to pyrimidine transition). This is what we expect for [various reasons](https://www.albert.io/blog/what-is-the-difference-between-purines-and-pyrimidines/). 
+Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, C->A, G->A, and T->A variants. Overall the most common mutations are G->A and C->T. In other words we are seeing more transitions than transversions: G->A (purine -> purine transition) and C->T (pyrimidine to pyrimidine transition). This is what we expect for [various reasons](https://www.albert.io/blog/what-is-the-difference-between-purines-and-pyrimidines/).
 
 Also note how we are selecting a subset of the "variantData" data above. Try the following commands to breakdown how this works:
 ```
@@ -333,7 +333,7 @@ ggplot(Orange2, aes(x=value, fill=variable)) + geom_density()
 {% include figure.html image="/assets/ggplot2/ggplot2_long_geom_density.png" width="450" %}
 
 ### Extra tips and tricks
-Almost done, in this last section, we will just mention a couple tips that you might find usefull. We'll use the `Orange2` dataset from above to illustrate. By default with large intergers such as genomic coordinates R will tend to display these in scientific notation. Many do not actually like this, you can commify axis values using the comma functions from the scales package as illustrated in the plot below. **You will need to load the `scales` library for this to work.
+Almost done, in this last section, we will just mention a couple tips that you might find usefull. We'll use the `Orange2` dataset from above to illustrate. By default with large intergers such as genomic coordinates R will tend to display these in scientific notation. Many do not actually like this, you can commify axis values using the comma functions from the scales package as illustrated in the plot below. **You will need to load the `scales` library for this to work.**
 
 ```R
 library(scales)
