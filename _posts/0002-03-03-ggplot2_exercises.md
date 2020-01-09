@@ -73,6 +73,7 @@ Try to mimic the plot displayed below.
 
 Finally let's make some stylistic changes and clean the plot up a bit. Use theme() to remove the y-axis elements and add some custom colors to the points as is done in the plot below.
 
+{% include question.html question="Get a hint!" answer='to change the color you need to add one of the scale_*_manual(), i.e. scale_shape_manual, scale_linetype_manual() etc.'%}
 {% include answer.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75) + scale_color_manual(values=c("seagreen3", "darkorange3")) + theme(axis.text.y=element_blank(), axis.title.y=element_blank(), axis.ticks.y=element_blank())
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part9.png" width="950" %}
