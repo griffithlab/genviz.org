@@ -165,7 +165,7 @@ Depending on the geometric object used there are up to 9 ways to map an aestheti
 Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. There are two facet commands, [facet_wrap()](http://ggplot2.tidyverse.org/reference/facet_wrap.html) will create a 1 dimensional sequence of panels based on a one sided linear formula. Similarly [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) will create a 2 dimensional grid of panels. Let's try and answer a few quick questions about our data using facets.
 
 ```R
-# what is the most common mutation type among SNP's
+# what is the most common mutation type among SNPs?
 p12 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type))
 p12
 
@@ -173,15 +173,15 @@ p12
 p12a <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type)) + theme(axis.text.x = element_text(angle = 90))
 p12a
 
-# what is the relation of tiers to mutation type
+# what is the relation of tiers to mutation type?
 p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + theme(axis.text.x = element_text(angle = 90))
 p13
 
-# which reference base is most often mutated
+# which reference base is most often mutated?
 p14 <- p13 + facet_wrap(~reference)
 p14
 
-# which transitions and transversions occur most frequently
+# which transitions and transversions occur most frequently?
 p15 <- p14 + facet_grid(variant ~ reference)
 p15
 ```
