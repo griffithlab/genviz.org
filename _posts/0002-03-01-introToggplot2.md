@@ -342,6 +342,13 @@ ggplot(Orange2, aes(x=value, fill=variable)) + geom_density() + scale_x_continuo
 
 {% include figure.html image="/assets/ggplot2/ggplot2_tips_commify.png" width="450" %}
 
+We've gone over how to set axis limits, but what if you have a faceted plot and you want very specific axis limits for each facet? Unfortunately applying an `xlim()` layer would apply to all facets. One way around this is to use "invisible data". For the plot below we add an invisible layer to the alter the x-limits of the age facet.
+
+```R
+ggplot(Orange2, aes(x=value, fill=variable)) + geom_density() + geom_point(data=data.frame(Tree=1, variable="age", value=3500), aes(x=value, y=0), alpha=0) + facet_wrap(~variable, scales="free")
+```
+
+{% include figure.html image="/assets/ggplot2/ggplot2_tips_invisiblelayer.png" width="450" %}
 
 ### ggplot2 Practice examples
 Now that we've had an introduction to ggplot2 let's try a few practice examples. In the section below we will provide instructions for loading and manipulating a dataset, a plot will then be provided and we ask that you attempt to recreate it. The boxes below will give the answers.
