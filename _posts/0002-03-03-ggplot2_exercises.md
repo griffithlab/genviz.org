@@ -149,7 +149,7 @@ chrGeneBurden$seqnames <- factor(chrGeneBurden$seqnames, levels=myChrOrder)<br><
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part6.png" width="950" %}
 
 ### Exercise 4. Variant allele frequency distributions
-Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity and to determine the existense of sub-clonal populations among the tumor. Let's use the [ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) dataset we used in the introduction to ggplot2 section to explore this.  Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
+Often it is useful to compare tumor variant allele frequencies among samples to get a sense of the tumor purity, heterogeneity, aneuploidy and to determine the existence of sub-clonal cell populations within the tumor. Let's use the [ggplot2ExampleData.tsv](http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv) dataset we used in the introduction to ggplot2 section to explore this.Run the R code below to make sure you have the data loaded, then try re-creating the plots below. You'll find hints and answers below each plot.
 
 ```R
 # load the dataset
