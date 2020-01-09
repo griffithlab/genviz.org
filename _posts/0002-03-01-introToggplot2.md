@@ -165,7 +165,7 @@ Depending on the geometric object used there are up to 9 ways to map an aestheti
 Faceting in ggplot allows us to quickly create multiple related plots at once with a single command. There are two facet commands, [facet_wrap()](http://ggplot2.tidyverse.org/reference/facet_wrap.html) will create a 1 dimensional sequence of panels based on a one sided linear formula. Similarly [facet_grid()](http://ggplot2.tidyverse.org/reference/facet_grid.html) will create a 2 dimensional grid of panels. Let's try and answer a few quick questions about our data using facets.
 
 ```R
-# what is the most common mutation type among SNP's
+# what is the most common mutation type among SNPs?
 p12 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type))
 p12
 
@@ -173,22 +173,24 @@ p12
 p12a <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type)) + theme(axis.text.x = element_text(angle = 90))
 p12a
 
-# what is the relation of tiers to mutation type
-p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier))
+# what is the relation of tiers to mutation type?
+p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + theme(axis.text.x = element_text(angle = 90))
 p13
 
-# which reference base is most often mutated
+# which reference base is most often mutated?
 p14 <- p13 + facet_wrap(~reference)
 p14
 
-# which transitions and transversions occur most frequently
-p15 <- p14 + facet_grid(variant ~ reference)
+# which transitions and transversions occur most frequently?
+p15 <- p13 + facet_grid(variant ~ reference)
 p15
 ```
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_bar_facetgrid.png" width="450" %}
 
-Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, A->C, A->G, and A->T variants.
+What do we see in this last plot? Which base changes are most common in this data set? Do we expect a random/uniform distribution of base changes?
+
+Note that the variant bases in this plot are along the Y-axis, and the reference bases are along the X-axis. Thus the first row of panels is A->A, C->A, G->A, and T->A variants. Overall the most common mutations are G->A and C->T. In other words we are seeing more transitions than transversions: G->A (purine -> purine transition) and C->T (pyrimidine to pyrimidine transition). This is what we expect for [various reasons](https://www.albert.io/blog/what-is-the-difference-between-purines-and-pyrimidines/). 
 
 Also note how we are selecting a subset of the "variantData" data above. Try the following commands to breakdown how this works:
 ```
