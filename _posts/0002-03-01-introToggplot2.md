@@ -277,13 +277,15 @@ levels(variantData$trv_type)[levels(variantData$trv_type)=="5_prime_flanking_reg
 
 # update the plot yet again
 p22 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + facet_grid(variant ~ reference) + theme_bw() + theme(axis.text.x=element_text(angle=45, hjust=1), legend.position="bottom", strip.text=element_text(colour="white"), strip.background=element_rect(fill="black"), axis.title.x=element_blank()) + ylab("variant count")
+
+# add some space around the margins of the plot
 p22 <- p22 +  theme(plot.margin = unit(c(1.5,1.5,0.2,0.2), "cm"))
 p22
 
 # add main x and y labels
 library(grid)
-grid.text(unit(0.5,"npc"), unit(.95,'npc'), label = 'reference base', rot = 0, gp=gpar(fontsize=11))
-grid.text(unit(0.97,"npc"), 0.56, label = 'variant base', rot = 270, gp=gpar(fontsize=11))
+grid.text(unit(0.5,"npc"), unit(0.95,"npc"), label = "reference base", rot = 0, gp=gpar(fontsize=11))
+grid.text(unit(0.97,"npc"), 0.56, label = "variant base", rot = 270, gp=gpar(fontsize=11))
 
 ```
 
