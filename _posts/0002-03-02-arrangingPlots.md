@@ -8,7 +8,7 @@ feature_image: "assets/genvis-dna-bg_optimized_v1a.png"
 date: 0002-03-02
 ---
 
-We've gone over the basics of ggplot2 in the previous section, in this section we will go over some more advanced topics related to ggplot2 and its underlying concepts. We will explore how to modify core elements of a plot after it's created, how to plot separate plots on the same page, and how to make sure plots align to one another.
+We've gone over the basics of ggplot2 in the previous section, in this section we will go over some tecniques to create multi-panel figures within R.
 
 #### Creating initial plots
 
@@ -142,3 +142,5 @@ grid.arrange(p1, p4, p5, p2, p3, layout_matrix=layout)
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/arrangedPlot.1.png" width="750" %}
+
+**More advanced topics related to this section are included in the course appendix [here](https://genviz.org/module-07-appendix/0007/01/01/advancedggplot2/).**
