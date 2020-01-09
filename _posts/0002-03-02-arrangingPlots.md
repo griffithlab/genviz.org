@@ -41,6 +41,8 @@ geneCount$gene_name <- factor(geneCount$gene_name, levels=geneOrder)
 
 # make the barchart
 p1 <- ggplot() + geom_bar(data=geneCount, aes(x=gene_name, y=freq, fill=type), stat="identity") + xlab("Gene") + ylab("Frequency") + scale_fill_manual("Mutation", values=c("#F97F51", "#55E6C1")) + theme_bw() + theme(plot.background = element_rect(color="red", size=2))
+p1
+
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/p1.png" width="550" %}
@@ -53,6 +55,8 @@ geneCompare1 <- geneCompare1[,c("gene_name", "trv_type", "ucsc_cons")]
 geneCompare1 <- geneCompare1[geneCompare1$trv_type == "missense",]
 geneCompare1$ucsc_cons <- as.numeric(as.character(geneCompare1$ucsc_cons))
 p2 <- ggplot() + geom_boxplot(data=geneCompare1, aes(x=gene_name, y=ucsc_cons, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + xlab("Gene") + ylab("Conservation\nscore") + theme(plot.background = element_rect(color="dodgerblue", size=2))
+p2
+
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/p2.png" width="550" %}
@@ -65,6 +69,8 @@ geneCompare2 <- geneCompare2[,c("gene_name", "trv_type", "ucsc_cons")]
 geneCompare2 <- geneCompare2[geneCompare2$trv_type == "missense",]
 geneCompare2$ucsc_cons <- as.numeric(as.character(geneCompare2$ucsc_cons))
 p3 <- ggplot() + geom_boxplot(data=geneCompare2, aes(x=gene_name, y=ucsc_cons, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + xlab("Gene") + ylab("Conservation\nscore") + theme(plot.background = element_rect(color="green", size=2))
+p3
+
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/p3.png" width="550" %}
@@ -73,13 +79,17 @@ We have our boxplots for missense mutations, it would be nice to know how many d
 
 ```R
 p4 <- ggplot() + geom_bar(data=geneCompare1, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + theme(plot.background = element_rect(color="darkorange2", size=2)) + xlab("Gene") + ylab("Frequency")
+p4
+
 p5 <- ggplot() + geom_bar(data=geneCompare2, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + theme(plot.background = element_rect(color="black", size=2)) + xlab("Gene") + ylab("Frequency")
+p5
+
 ```
 {% include figure.html image="/assets/advanced_ggplot/p4_5.png" width="750"%}
 
 #### Arranging plots
 
-With our initial plots created wouldn't it be nice if we could plot these all at once. The good new is that we can, there are a number of packages for available to achieve this. Currently the most widley used are probably [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html), [cowplot](https://cran.r-project.org/web/packages/cowplot/index.html), and [egg](https://cran.r-project.org/web/packages/egg/index.html). In this course we will use gridExtra; before working on our own data, let's illustrate some basic concepts in gridExtra. Below we will load the grid library in order to create some visual objects to visualize, and the gridExtra library to arrange these plots. We then create our objects to visualize, grob1-grob4. Theres no need to understand how these objects are created, this is just done to have something intuitive to use when arranging. Our next step is to create the layout for arrangment, we do this by creating a matrix where each unique element in the matrix (1, 2, 3, 4) corresponds to one of our objects to visualize. For example in the layout we use below we have 3 rows and 4 columns in which to place our visualizations. We specify the first row should all be one plot, the second row should be split between plots 2 and 3, and the third row should be split between plots 2 and 4. We then pass grid.arrange our objects to plot and the layout, so in this case grob1 corresponds to the element 1 in the matrix since grob1 is supplied first to grid.arrange.
+With our initial plots created wouldn't it be nice if we could plot these all at once. The good news is that we can. There are a number of packages for available to achieve this. Currently the most widley used are probably [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html), [cowplot](https://cran.r-project.org/web/packages/cowplot/index.html), and [egg](https://cran.r-project.org/web/packages/egg/index.html). In this course we will use gridExtra; before working on our own data, let's illustrate some basic concepts in gridExtra. Below we will load the grid library in order to create some visual objects to visualize, and use the gridExtra library to arrange these plots. We then create our objects to visualize, grob1-grob4. Theres no need to understand how these objects are created, this is just done to have something intuitive to use when arranging. Our next step is to create the layout for arrangment, we do this by creating a matrix where each unique element in the matrix (1, 2, 3, 4) corresponds to one of our objects to visualize. For example in the layout we use below we have 3 rows and 4 columns in which to place our visualizations. We specify the first row should all be one plot, the second row should be split between plots 2 and 3, and the third row should be split between plots 2 and 4. We then pass grid.arrange our objects to plot and the layout, so in this case grob1 corresponds to the element 1 in the matrix since grob1 is supplied first to grid.arrange.
 
 ```R
 # make objects to illustrate gridExtra functionality
@@ -114,7 +124,7 @@ grid.arrange(grob1, grob2, grob3, grob4, layout_matrix=layout)
 
 {% include figure.html image="/assets/advanced_ggplot/layout.2.png" width="550" %}
 
-We can also adjust the size of element relative to our layout matrix. for example below we say that each row, there are 3, should take up 20%, 40% and 40% of the arranged plot respectively.
+We can also adjust the size of element relative to our layout matrix. For example, below we say that each row (there are 3), should take up 20%, 40% and 40% of the arranged plot respectively.
 
 ```R
 layout <- rbind(c(1, 1, NA, 1, 1),
