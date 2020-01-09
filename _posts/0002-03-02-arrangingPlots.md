@@ -41,6 +41,8 @@ geneCount$gene_name <- factor(geneCount$gene_name, levels=geneOrder)
 
 # make the barchart
 p1 <- ggplot() + geom_bar(data=geneCount, aes(x=gene_name, y=freq, fill=type), stat="identity") + xlab("Gene") + ylab("Frequency") + scale_fill_manual("Mutation", values=c("#F97F51", "#55E6C1")) + theme_bw() + theme(plot.background = element_rect(color="red", size=2))
+p1
+
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/p1.png" width="550" %}
@@ -53,6 +55,8 @@ geneCompare1 <- geneCompare1[,c("gene_name", "trv_type", "ucsc_cons")]
 geneCompare1 <- geneCompare1[geneCompare1$trv_type == "missense",]
 geneCompare1$ucsc_cons <- as.numeric(as.character(geneCompare1$ucsc_cons))
 p2 <- ggplot() + geom_boxplot(data=geneCompare1, aes(x=gene_name, y=ucsc_cons, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + xlab("Gene") + ylab("Conservation\nscore") + theme(plot.background = element_rect(color="dodgerblue", size=2))
+p2
+
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/p2.png" width="550" %}
@@ -65,6 +69,8 @@ geneCompare2 <- geneCompare2[,c("gene_name", "trv_type", "ucsc_cons")]
 geneCompare2 <- geneCompare2[geneCompare2$trv_type == "missense",]
 geneCompare2$ucsc_cons <- as.numeric(as.character(geneCompare2$ucsc_cons))
 p3 <- ggplot() + geom_boxplot(data=geneCompare2, aes(x=gene_name, y=ucsc_cons, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + xlab("Gene") + ylab("Conservation\nscore") + theme(plot.background = element_rect(color="green", size=2))
+p3
+
 ```
 
 {% include figure.html image="/assets/advanced_ggplot/p3.png" width="550" %}
@@ -73,7 +79,11 @@ We have our boxplots for missense mutations, it would be nice to know how many d
 
 ```R
 p4 <- ggplot() + geom_bar(data=geneCompare1, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#e1b12c")) + theme_bw() + theme(plot.background = element_rect(color="darkorange2", size=2)) + xlab("Gene") + ylab("Frequency")
+p4
+
 p5 <- ggplot() + geom_bar(data=geneCompare2, aes(x=gene_name, fill=gene_name)) + scale_fill_manual("Gene", values=c("#e84118", "#4cd137")) + theme_bw() + theme(plot.background = element_rect(color="black", size=2)) + xlab("Gene") + ylab("Frequency")
+p5
+
 ```
 {% include figure.html image="/assets/advanced_ggplot/p4_5.png" width="750"%}
 
