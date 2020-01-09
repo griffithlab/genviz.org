@@ -86,7 +86,11 @@ Okay let's try another example, lets look at the density of genes across all gen
 
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part1.png" width="950" %}
 
+<<<<<<< HEAD
 Pretty easy right? As you would expect gene density is higher twoard the beginning of chromosomes simply because there is more overlap of genomic coordiantes between chromosomes at the star (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating adding a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
+=======
+Pretty easy right? As you would expect gene density is higher toward the beginning of chromosomes simply because there is more overlap of genomic coordinates between chromosomes at the start (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
+>>>>>>> ad4e20656fa523dab86b6aafeb22aaeff10fd487
 
 {% include question.html question="Get a Hint!" answer='Look at the ggplot2 documentation for geom_rug()'%}
 {% include question.html question="Get a Hint!" answer='You will need to pass a subsetted data frame directly to geom_rug() with the data parameter'%}
@@ -98,14 +102,18 @@ Pretty easy right? As you would expect gene density is higher twoard the beginni
 While were at it, let's go ahead and add a layer for the sense strand as well, this will go on the bottom of the plot instead of the plot. Go ahead and try and mimic the plot below.
 
 {% include question.html question="Get a Hint!" answer='Same concept as above, you should have 2 geom_rug() layers for this plot'%}
+<<<<<<< HEAD
 {% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
+=======
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc"))
+>>>>>>> ad4e20656fa523dab86b6aafeb22aaeff10fd487
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part3.png" width="950" %}
 
-We have are basic plot now, but it's still not very informative as all the data from the different chromosomes are colliding with each other. Let's go ahead and fix this by making multiple plots from the same data split out by chromosome. Recall from the privous section that there is a very easy way to do this. Also pay particular attention to how the axis are set for each individual plot and produce the result below.
+We have are basic plot now, but it's still not very informative as all the data from the different chromosomes are colliding with each other. Let's go ahead and fix this by making multiple plots from the same data split out by chromosome. Recall from the previous section that there is a very easy way to do this. Also pay particular attention to how the axis are set for each individual plot and produce the result below.
 
 {% include question.html question="Get a Hint!" answer='look at the ggplot2 documentation for facet_wrap(), particularly the scales parameter in facet_wrap()'%}
-{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() +
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density() +
   geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) +
   geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) +
   facet_wrap(~seqnames, scales="free") + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
@@ -114,7 +122,11 @@ We have are basic plot now, but it's still not very informative as all the data 
 
 We can start to see some interesting trends now, specifically chr6 appeears to have many genes on the p-arm of the chromosome compared to the q-arm. We can also see a couple regions where strand bias might be present, such as in the beginning of chromosome 15. Let's go ahead and finish things up by altering some of the theme aspects of the plot. Reproduce the plot below using theme()
 
+<<<<<<< HEAD
 {% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1)) + xlab("Chromosomal position of genes (gene start + 0.5 * width)")
+=======
+{% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc")) + geom_rug(data=genes[genes$strand == "+",], aes(x=start + .5*width), color="darkorchid4", sides="b", alpha=.1, length=unit(0.1, "npc")) + facet_wrap(~seqnames, scales="free") + theme_bw() + theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(angle=45, hjust=1))
+>>>>>>> ad4e20656fa523dab86b6aafeb22aaeff10fd487
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part5.png" width="950" %}
 
