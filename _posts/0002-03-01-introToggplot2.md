@@ -169,6 +169,10 @@ Faceting in ggplot allows us to quickly create multiple related plots at once wi
 p12 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type))
 p12
 
+# use theme() rotate the labels for readability (more on themes below)
+p12a <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type)) + theme(axis.text.x = element_text(angle = 90))
+p12a
+
 # what is the relation of tiers to mutation type
 p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier))
 p13
