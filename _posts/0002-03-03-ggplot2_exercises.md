@@ -28,10 +28,12 @@ It is beyond the purpose of this workshop to explain everything a TxDb object st
 
 ```R
 # obtain gene locations from the TxDb object as a data frame
-genes <- genes(TxDb, columns=c("gene_id"))
+genes <- genes(TxDb, columns=c("gene_id"), single.strand.genes.only=FALSE)
 genes <- as.data.frame(genes)
 chromosomes <- paste0("chr", c(1:22,"X","Y"))
 genes <- genes[genes$seqnames %in% chromosomes,]
+genes <- unique(genes[,c("group_name", "seqnames", "start", "end", "width", "strand")])
+colnames(genes) <- c("gene_id", "seqnames", "start", "end", "width", "strand")
 ```
 
 Let's also grab a list of immune genes and annotate our data with these as well. The immune genes here come from the [pancancer immune profiling panel](https://www.nanostring.com/products/gene-expression-panels/gene-expression-panels-overview/hallmarks-cancer-gene-expression-panel-collection/pancancer-immune-profiling-panel).
@@ -42,9 +44,33 @@ immuneGenes <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplo
 
 # merge the immune gene annotations onto the gene object
 genes <- merge(genes, immuneGenes, by.x=c("gene_id"), by.y=c("entrez"), all.x=TRUE)
+genesOnChr6 <- genes[genes$seqnames %in% "chr6",]
 ```
 
-Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more compicated plot. To start let's look at the density of genes across genomic coordinates. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
+Okay, we have the core data we'll be using for this section, let's go ahead and use what we know to answer a couple biologically relevant questions adding layers as we go to create a more complicated plot. Let's first start with a relatively easy plot, try plotting all immune genes on chromosome 6 with geom_jitter(), making sure to only jitter the height. You should use the `genesOnChr6` object we create above, at the end you should see something like the plot below. Hint, we only annotated immune genes, you can use na.omit() to remove any rows with NA values.
+
+{% include question.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1)) + geom_jitter(width=0, alpha=.75)'%}
+{% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part7.png" width="950" %}
+
+Okay now let's try and highlight all HLA genes on the plot we just created, to do this we'll need a column specifying which genes are HLA related, the code below will do that for you.
+
+```R
+# make column specifying what genes are HLA or not
+genesOnChr6$isHLA <- ifelse(grepl("^HLA", genesOnChr6$Name), "HLA Gene", "Not HLA Gene")
+```
+
+Try to mimic the plot displayed below.
+
+{% include question.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75)'%}
+{% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part8.png" width="950" %}
+
+Finally let's make some stylistic changes and clean the plot up a bit. Use theme() to remove the y-axis elements and add some custom colors to the points as is done in the plot below.
+
+{% include question.html question="What is the code to produce the plot below?" answer='ggplot(na.omit(genesOnChr6), aes(x=start + .5*width, y=1, color=isHLA)) + geom_jitter(width=0, alpha=.75) + scale_color_manual(values=c("seagreen3", "darkorange3")) + theme(axis.text.y=element_blank(), axis.title.y=element_blank(), axis.ticks.y=element_blank())
+'%}
+{% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part9.png" width="950" %}
+
+Okay let's try another examplle, lets look at the density of genes across all genomic coordinates. We'll start simple and keep adding layers to work our way up to a final plot. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
 
 {% include question.html question="Get a hint!" answer='To plot the center coordinate of the gene you will need to make another columns in the data frame, you can do this within ggplot or just add another column.'%}
 {% include question.html question="What is the code to produce the plot below?" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density()'%}
