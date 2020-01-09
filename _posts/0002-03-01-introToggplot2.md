@@ -153,7 +153,7 @@ In the p9 plot, we told the [geom_density()](http://ggplot2.tidyverse.org/refere
 As an exercise, try manually changing the line colors in p9 using a similar method as that used in p11.
 
 {% include question.html question="Get a hint!" answer='look at <a href="http://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual()</a>'%}
-{% include question.html question="Solution" answer='ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, color=dataset)) + scale_color_manual(values=c("discovery"="#a13242", "extension"="#1a2930"))'%}
+{% include answer.html question="Solution" answer='ggplot() + geom_density(data=variantData, aes(x=tumor_VAF, color=dataset)) + scale_color_manual(values=c("discovery"="#a13242", "extension"="#1a2930"))'%}
 
 Note that when you use the "color" aesthetic you modify the choice of line colors with scale_color_manual. When you use the "fill" aesthetic you modify the choice of fill colors with scale_fill_manual. If you would like to customize both the line and fill colors, you will need to define both the "color" and "fill" aesthetic.
 
