@@ -86,11 +86,7 @@ Okay let's try another example, lets look at the density of genes across all gen
 
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part1.png" width="950" %}
 
-<<<<<<< HEAD
-Pretty easy right? As you would expect gene density is higher twoard the beginning of chromosomes simply because there is more overlap of genomic coordiantes between chromosomes at the star (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating adding a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
-=======
 Pretty easy right? As you would expect gene density is higher toward the beginning of chromosomes simply because there is more overlap of genomic coordinates between chromosomes at the start (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
->>>>>>> ad4e20656fa523dab86b6aafeb22aaeff10fd487
 
 {% include question.html question="Get a Hint!" answer='Look at the ggplot2 documentation for geom_rug()'%}
 {% include question.html question="Get a Hint!" answer='You will need to pass a subsetted data frame directly to geom_rug() with the data parameter'%}
