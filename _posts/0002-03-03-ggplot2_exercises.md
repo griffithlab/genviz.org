@@ -79,16 +79,18 @@ Finally let's make some stylistic changes and clean the plot up a bit. Use theme
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part9.png" width="950" %}
 
 ### Exercise 2. Gene density by chromosome
-Okay let's try another examplle, lets look at the density of genes across all genomic coordinates. We'll start simple and keep adding layers to work our way up to a final plot. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
+Okay let's try another example, lets look at the density of genes across all genomic coordinates. We'll start simple and keep adding layers to work our way up to a final plot. Try to recreate the plot below by plotting the density of the genes acorss the genome. Use the gene center coordinate of the gene for this.
 
-{% include question.html question="Get a hint!" answer='To plot the center coordinate of the gene you will need to make another columns in the data frame, you can do this within ggplot or just add another column.'%}
-{% include question.html question="What is the code to produce the plot below?" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density()'%}
+{% include question.html question="Get a hint!" answer='Reminder, to plot the center coordinate of the gene you will need to make another columns in the data frame, you can do this within ggplot or just add another column.'%}
+{% include answer.html question="What is the code to produce the plot below?" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density()'%}
 
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part1.png" width="950" %}
 
 Pretty easy right? As you would expect gene density is higher twoard the beginning of chromosomes simply because there is more overlap of genomic coordiantes between chromosomes at the star (i.e. all chromosomes start at 1, but are of different lengths). Now let's add to our plot by creating adding a rug layer for genes on the anti-sense strand. Place this rug on the top of the plot, alter the transparency, color, and size of the rug. when your done your plot should look similar to the one below.
 
 {% include question.html question="Get a Hint!" answer='Look at the ggplot2 documentation for geom_rug()'%}
+{% include question.html question="Get a Hint!" answer='You will need to pass a subsetted data frame directly to geom_rug() with the data parameter'%}
+{% include question.html question="Get a Hint!" answer='within geom_rug() you want to pay attention to the sides and length parameters, again see ggplot2 documentation'%}
 {% include answer.html question="What is the code to produce the plot below" answer='ggplot(data=genes, aes(x=start + .5*width,)) + geom_density() + geom_rug(data=genes[genes$strand == "-",], aes(x=start + .5*width), color="tomato3", sides="t", alpha=.1, length=unit(0.1, "npc"))
 '%}
 {% include figure.html image="/assets/ggplot2/ggplot2_cont_density_part2.png" width="950" %}
