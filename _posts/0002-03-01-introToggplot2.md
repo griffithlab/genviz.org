@@ -117,7 +117,20 @@ Above we chose "darkorchid4" which has a hex value of "#68228B". However the poi
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_point_purple.png" width="450" %}
 
-Building on the above concept, we can utilize the colour aesthetic to more specifically visualize our data. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor the colour aesthetic.
+The syntax used in p8 makes sense if we want to display our points in a single color and we want to specify that color. The syntax used in p7 doesn't make sense as used above but something similar could be used if we really did want to color each point according to a real factor in the data. For example, coloring points by the 'dataset', 'type', or 'variant' variables could be informative. Try one of these now.
+
+```R
+# color each point according to the 'dataset' of the variant 
+p7a <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color=dataset)) + scale_y_continuous(trans="log2")
+p7a
+
+# color each point according to the 'type' of the variant
+p7b <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color=type)) + scale_y_continuous(trans="log2")
+p7b
+
+```
+
+Building on the above concepts, we could now try using the colour aesthetic to visualize our data as a density plot. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor the colour aesthetic.
 
 ```
 # get a density curve of tumor vafs
