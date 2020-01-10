@@ -12,6 +12,9 @@ Below are some additional resources that users may find useful to supplement the
 
 ### Lecture slides
 
+#### [Evomics-workshops](http://evomics.org/), Cesky Krumlov, Czech Republic, 5-18 January 2020 ([course page](http://evomics.org/2020-workshop-on-genomics-cesky-krumlov-czech-republic/))
+* [Introduction to Genomic Data Visualization and Interpretation](https://github.com/griffithlab/gen-viz-lectures/raw/master/WorkshopOnGenomics2020_Lecture.pdf)
+
 #### [Physalia-courses](https://www.physalia-courses.org/), Freie Universität Berlin, Germany, 8-12 April 2019 ([course page](https://www.physalia-courses.org/courses-workshops/course14/))
 * [Module 0 Lecture - Instructor introductions](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module0_Introductions.pdf)
 * [Module 1 Lecture - Introduction to genomic data visualization and interpretation](https://github.com/griffithlab/gen-viz-lectures/raw/master/GenViz_Module1_Lecture.pdf)
