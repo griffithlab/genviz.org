@@ -16,9 +16,9 @@ To start things off let's go ahead and load in a transcripts annotation database
 
 ```R
 # install if not already installed
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("TxDb.Hsapiens.UCSC.hg38.knownGene")
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install("TxDb.Hsapiens.UCSC.hg38.knownGene")
 
 # load the library
 library(ggplot2)
