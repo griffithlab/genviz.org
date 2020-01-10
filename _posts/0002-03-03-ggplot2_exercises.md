@@ -169,8 +169,8 @@ Looking good, but the plot looks dull, try adding some color to the violin plots
 Finally let's add some more detail, specifically let's annotate how many points actually make up each violin. The code below will construct the extra data you'll need to make the final plot.
 
 ```R
-library(plyr)
-variantDataCount <- count(variantData, "Simple_name")
+# library(plyr)
+variantDataCount <- plyr::count(variantData, "Simple_name")
 variantDataMax <- aggregate(data=variantData, tumor_VAF ~ Simple_name, max)
 variantDataMerge <- merge(variantDataMax, variantDataCount)
 head(variantDataMerge)
