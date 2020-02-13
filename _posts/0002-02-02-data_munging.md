@@ -78,3 +78,22 @@ varData[,.N,by=.(chromosome_name, strand)]
 # count the number of entries per chromosome for the discovery set
 varData[dataset=="discovery",.N,by=.(chromosome_name)]
 ```
+
+We've seen some examples on manipulating data.table objects so at this point let's talk about a best practice feature of data.table, the ability to update a data.table object by reference. In current versions of R, 3.X.X at the time of this writing, when manipulating a column of a data frame the entire column get's copied into internal memory, the column is updated, and is then added into the original data frame. This means that if you had a single column data frame taking up 2GB of memory and wanted to update it that operation would use 4GB. This is part of the reason R has a reputation as a memory hog. Fortunatley data.table has the option of updating columns by reference with the `:=` operator. When using this no copy of the data is made but rather a reference is made mapping the old value to the new value. Let's go over some examples for how it works. We will used the gc() function for a rough estimate of memory ussage as the ussual methods don't account for garbage collection which would skew results in this case. See this [link](https://stackoverflow.com/questions/58278838/memory-profiling-with-data-table) for an explanation as to why.
+
+```R
+# create a data.table and data.frame for illustration purposes
+myDF <- data.frame("V1"=c(1:10000), "V2"=c(1:10000))
+myDT <- data.table("V1"=c(1:10000), "V2"=c(1:10000))
+
+# profile the data.frame and data.table memory ussage for adding two columns
+gc(myDF$V3 <- myDF$V1 + myDF$V2)
+gc(myDT[,"V3" := V1 + V2])
+
+# modify just a single value and profile
+gc(myDF[1,"V1"] <- 100)
+gc(myDT[1,"V1" := 100])
+
+# did I mention you can modify by reference multiple columns at once
+myDT[,c("rev_v1", "rev_v2") := .(rev(V1), rev(V2))]
+```
