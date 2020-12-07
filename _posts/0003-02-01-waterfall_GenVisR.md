@@ -19,7 +19,7 @@ To begin let's install and load the [GenVisR](https://bioconductor.org/packages/
 # Install and load GenVisR
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("GenVisR", version = "3.8")
+BiocManager::install("GenVisR")
 
 library(GenVisR)
 
