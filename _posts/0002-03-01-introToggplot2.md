@@ -22,7 +22,7 @@ library(ggplot2)
 
 # load Supplemental Table S5
 # note that in the following example we are loading directly from a URL (instead of downloading it to the instance first)
-variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
+variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv", stringsAsFactors=TRUE)
 
 # familiarize yourself with the data in this file by looking at the 'head' (top) of the file
 head(variantData)
