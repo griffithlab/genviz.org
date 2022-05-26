@@ -150,7 +150,7 @@ p7b
 
 ```
 
-Building on the above concepts, we could now try using the colour aesthetic to visualize our data as a density plot. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor the colour aesthetic.
+Building on the above concepts, we could now try using the colour aesthetic to visualize our data as a density plot. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor for the colour aesthetic.
 
 ```
 # get a density curve of tumor vafs
@@ -197,7 +197,7 @@ p12a
 p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + theme(axis.text.x = element_text(angle = 90))
 p13
 
-# which reference base is most often mutated?
+# which reference base is most often mutated? compare p13 and p14 to understand what facet_wrap is doing here
 p14 <- p13 + facet_wrap(~reference)
 p14
 
