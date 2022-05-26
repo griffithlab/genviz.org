@@ -32,9 +32,10 @@ library(plyr)
 
 # count the number of variants for each gene/mutation type and format for ggplot
 geneCount <- count(variantData, vars=c("gene_name", "type"))
+head(geneCount, 10)
 geneCount <- geneCount[geneCount$freq > 20,]
 
-# to order samples for ggplot also get a total count overall
+# to order samples for ggplot also get a total count overall (SNPs + InDels)
 geneCountOverall <- aggregate(data=geneCount, freq ~ gene_name, sum)
 geneOrder <- geneCountOverall[order(geneCountOverall$freq),]$gene_name
 geneCount$gene_name <- factor(geneCount$gene_name, levels=geneOrder)
@@ -112,6 +113,8 @@ grid.arrange(grob1, grob2, grob3, grob4, layout_matrix=layout)
 
 {% include figure.html image="/assets/advanced_ggplot/layout.1.png" width="550" %}
 
+Note how the numbers above in the rbind expression correspond to the layout produced. The first row has object 1 spanning across four columns. The second row is split eveny between object 2 and 3.  The third row is split evenly between object 2 and 4.
+
 It is also possible to add empty cells in our layout by inserting NA into our layout matrix. Below we split out grob2 from grob3 and grob4.
 
 ```R
@@ -143,7 +146,7 @@ There is much more information on how gridExtra works in the various gridExtra v
 {% include question.html question="Get a hint!" answer='the layout matrix should be 5 columns by 4 rows'%}
 {% include answer.html question="solution" answer='The solution is in <a href="http://genviz.org/assets/advanced_ggplot/exercise1/solution.R">solution.R</a>'%}
 
-Now that we understand the basics of how gridExtra works let's go ahead and make an attempt at a multi-panel figure. We'll put the main barchart on top, and match the boxplots with their specific barcharts on rows 2 and 3 of a layout. At the end you should see something like the figure below.
+Now that we understand the basics of how gridExtra works let's go ahead and make an attempt at a multi-panel figure. We'll put the main barchart on top, and match the boxplots with their specific barcharts on rows 2 and 3 of a layout. At the end you should see something like the figure below. Note that for this exercise each plot has a colored border to help visualize the layout. To make the plot cleaner we would drop that by removing the "theme(plot.background = element_rect()" entries above when each plot is generated.
 
 ```R
 layout <- rbind(c(1, 1),
