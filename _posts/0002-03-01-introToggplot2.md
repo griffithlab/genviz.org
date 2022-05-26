@@ -107,6 +107,7 @@ p6a
 
 ```
 
+{% include figure.html image="/assets/ggplot2/ggplot2_geom_hexbin.png" width="450" %}
 
 ### Applying different aesthetics
 While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code ([hex codes explained](https://stackoverflow.com/questions/22239803/how-does-hexadecimal-color-work)) or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
