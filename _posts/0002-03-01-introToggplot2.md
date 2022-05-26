@@ -94,6 +94,20 @@ Note that adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/refe
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_point_logscale.png" width="450" %}
 
+
+Discussion: What are the pros and cons of the three approaches above? Are there other approaches we might consider?
+
+
+```R
+# method 4, show all the data on linear scale but use a density plotting function to better see where the bulk of data point are
+# also add some additional annotations, customize color palette, etc.
+install.package("hexbin")
+p6a = ggplot(data=variantData, aes(x=tumor_VAF, y=tumor_COV)) + geom_hex(bins=75) + scale_fill_continuous(type = "viridis") + theme_bw() + xlab("Variant allele fraction (VAF)") + ylab("Sequence depth (aka Read coverage)") + ggtitle("Somatic tumor variants - VAF vs Coverage")
+p6a
+
+```
+
+
 ### Applying different aesthetics
 While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code ([hex codes explained](https://stackoverflow.com/questions/22239803/how-does-hexadecimal-color-work)) or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
 
