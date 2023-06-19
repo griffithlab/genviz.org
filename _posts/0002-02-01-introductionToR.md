@@ -505,7 +505,7 @@ data$`gene name`
 ```
 
 
-### Practical Exercise
+### Optional Practical Exercise (Advanced)
 
 First, download an existing pre-processed and normalized [gene expression dataset](https://github.com/obigriffith/biostar-tutorials/raw/master/MachineLearning/testset_gcrma.txt) (right-click and save as). This dataset represents the GCRMA normalized data for 12030 probesets (Affymetrix U133A) from 189 Estrogen Receptor (ER) positive breast cancers. It includes Affymetrix probeset id, Entrez Gene ID, and Gene Symbol in addition to 189 expression values per probeset (row).
 
