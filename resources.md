@@ -12,6 +12,9 @@ Below are some additional resources that users may find useful to supplement the
 
 ### Lecture slides
 
+#### [Evomics-workshops](http://evomics.org/), Cesky Krumlov, Czech Republic, 22 May - 4 June 2022 ([course page](https://evomics.org/2022-workshop-on-genomics-cesky-krumlov/))
+* [Introduction to Genomic Data Visualization and Interpretation](https://github.com/griffithlab/gen-viz-lectures/raw/master/WorkshopOnGenomics2022_Lecture.pdf)
+
 #### [Evomics-workshops](http://evomics.org/), Cesky Krumlov, Czech Republic, 5-18 January 2020 ([course page](http://evomics.org/2020-workshop-on-genomics-cesky-krumlov-czech-republic/))
 * [Introduction to Genomic Data Visualization and Interpretation](https://github.com/griffithlab/gen-viz-lectures/raw/master/WorkshopOnGenomics2020_Lecture.pdf)
 

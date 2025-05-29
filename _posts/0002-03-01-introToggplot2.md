@@ -22,7 +22,7 @@ library(ggplot2)
 
 # load Supplemental Table S5
 # note that in the following example we are loading directly from a URL (instead of downloading it to the instance first)
-variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv")
+variantData <- read.delim("http://genomedata.org/gen-viz-workshop/intro_to_ggplot2/ggplot2ExampleData.tsv", stringsAsFactors=TRUE)
 
 # familiarize yourself with the data in this file by looking at the 'head' (top) of the file
 head(variantData)
@@ -94,6 +94,21 @@ Note that adjusting the [scale_y_continuous()](http://ggplot2.tidyverse.org/refe
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_point_logscale.png" width="450" %}
 
+
+Discussion: What are the pros and cons of the three approaches above? Are there other approaches we might consider?
+
+
+```R
+# method 4, show all the data on linear scale but use a density plotting function to better see where the bulk of data point are
+# also add some additional annotations, customize color palette, etc.
+install.package("hexbin")
+p6a = ggplot(data=variantData, aes(x=tumor_VAF, y=tumor_COV)) + geom_hex(bins=75) + scale_fill_continuous(type = "viridis") + theme_bw() + xlab("Variant allele fraction (VAF)") + ylab("Sequence depth (aka Read coverage)") + ggtitle("Somatic tumor variants - VAF vs Coverage")
+p6a
+
+```
+
+{% include figure.html image="/assets/ggplot2/ggplot2_geom_hexbin.png" width="450" %}
+
 ### Applying different aesthetics
 While these plots look pretty good, we can make them more aesthetically pleasing by defining the color of the points within the aesthetic. We can specify a color by either the hex code ([hex codes explained](https://stackoverflow.com/questions/22239803/how-does-hexadecimal-color-work)) or by naming it from R's internal color pallette, a full list of which is available [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). Alternatively, you can list colors by typing [colors()](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/colors) in the R terminal.
 
@@ -101,19 +116,24 @@ While these plots look pretty good, we can make them more aesthetically pleasing
 # list colors in R
 colors()
 
+# obtain hex code for a specific color called "dark orchid"
+install.packages("gplots")
+library(gplots)
+col2hex("darkorchid")
+
 # what happens when we try to add color within the aesthetic?
-p7 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color="#68228B")) + scale_y_continuous(trans="log2")
+p7 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV, color="#9932CC")) + scale_y_continuous(trans="log2")
 p7
 
 # and what happens when we try to add color within the geom?
-p8 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV), color="#68228B") + scale_y_continuous(trans="log2")
+p8 <- ggplot() + geom_point(data=variantData, aes(x=tumor_VAF, y=tumor_COV), color="#9932CC") + scale_y_continuous(trans="log2")
 p8
 
 ```
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_point_red.png" width="450" %}
 
-Above we chose "darkorchid4" which has a hex value of "#68228B". However the points in the first plot (p7) are red and not the expected purple color. Our points are appearing miscolored based upon how ggplot is interpreting the aesthetic mappings. When the color aesthetic is specified for geom_point it expects a factor variable by which to color points. If we wanted to, for example, color all missense variants with one color, nonsense variants with another color, and so on we could supply a factor for variant type to the color aesthetic in this way. But, when we specified a quoted hex code, ggplot assumed we wanted to create such a factor with all values equal to the provided text string. It did this for us and then used its internal color scheme to color that variable all according to the single category in the factor variable. By specifying the color outside the aesthetic mapping, geom_point knows to apply the color 'darkorchid4' to all of the points specified in the [geom_point()](http://ggplot2.tidyverse.org/reference/geom_point.html) layer (p8).
+Above we chose "darkorchid4" which has a hex value of "#9932CC". However the points in the first plot (p7) are red and not the expected purple color. Our points are appearing miscolored based upon how ggplot is interpreting the aesthetic mappings. When the color aesthetic is specified for geom_point it expects a factor variable by which to color points. If we wanted to, for example, color all missense variants with one color, nonsense variants with another color, and so on we could supply a factor for variant type to the color aesthetic in this way. But, when we specified a quoted hex code, ggplot assumed we wanted to create such a factor with all values equal to the provided text string. It did this for us and then used its internal color scheme to color that variable all according to the single category in the factor variable. By specifying the color outside the aesthetic mapping, geom_point knows to apply the color 'darkorchid4' to all of the points specified in the [geom_point()](http://ggplot2.tidyverse.org/reference/geom_point.html) layer (p8).
 
 {% include figure.html image="/assets/ggplot2/ggplot2_geom_point_purple.png" width="450" %}
 
@@ -130,7 +150,7 @@ p7b
 
 ```
 
-Building on the above concepts, we could now try using the colour aesthetic to visualize our data as a density plot. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor the colour aesthetic.
+Building on the above concepts, we could now try using the colour aesthetic to visualize our data as a density plot. For example, what if we wanted to know if the 'discovery' or 'extension' cohorts within our data (specified by the 'dataset' variable) had a higher tumor purity? We will use [geom_density()](http://ggplot2.tidyverse.org/reference/geom_density.html) to plot a density kernel of the tumor VAF values, but colour the cohort based upon the dataset subsets. As described above, we will supply a factor for the colour aesthetic.
 
 ```
 # get a density curve of tumor vafs
@@ -177,7 +197,7 @@ p12a
 p13 <- ggplot(variantData[variantData$type == "SNP",]) + geom_bar(aes(x=trv_type, fill=tier)) + theme(axis.text.x = element_text(angle = 90))
 p13
 
-# which reference base is most often mutated?
+# which reference base is most often mutated? compare p13 and p14 to understand what facet_wrap is doing here
 p14 <- p13 + facet_wrap(~reference)
 p14
 
