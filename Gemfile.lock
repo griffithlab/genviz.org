@@ -27,10 +27,13 @@ GEM
       console (~> 1.10)
       io-event (~> 1.1)
       timers (~> 4.1)
+    base64 (0.3.0)
+    bigdecimal (4.1.3)
     colorator (1.1.0)
     concurrent-ruby (1.3.5)
     console (1.16.2)
       fiber-local
+    csv (3.3.6)
     em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
@@ -41,8 +44,7 @@ GEM
     fiber-local (1.0.0)
     forwardable-extended (2.6.0)
     gemoji (4.1.0)
-    google-protobuf (3.25.5-x86_64-darwin)
-    google-protobuf (3.25.5-x86_64-linux)
+    google-protobuf (3.25.5)
     hashery (2.1.2)
     html-pipeline (2.14.3)
       activesupport (>= 2)
@@ -106,7 +108,9 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.4.0)
     minitest (5.25.5)
-    nokogiri (1.19.3-x86_64-darwin)
+    nokogiri (1.18.9-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.9-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.3-x86_64-linux-gnu)
       racc (~> 1.4)
@@ -129,6 +133,8 @@ GEM
     rouge (4.1.0)
     ruby-rc4 (0.1.5)
     safe_yaml (1.0.5)
+    sass-embedded (1.62.0-arm64-darwin)
+      google-protobuf (~> 3.21)
     sass-embedded (1.62.0-x86_64-darwin)
       google-protobuf (~> 3.21)
     sass-embedded (1.62.0-x86_64-linux-gnu)
@@ -147,11 +153,15 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  arm64-darwin-24
   x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
   alembic-jekyll-theme!
+  base64 (~> 0.3.0)
+  bigdecimal (~> 4.1)
+  csv (~> 3.3)
   html-proofer
   kramdown-parser-gfm
   rake
