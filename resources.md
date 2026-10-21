@@ -51,7 +51,7 @@ Below are some additional resources that users may find useful to supplement the
 * [UCSC Genome Browser Training Videos](https://genome.ucsc.edu/training/vids/)
 
 #### Introduction to R
-* [R Tutorial in a web browser](http://tryr.codeschool.com/)
+* [R Tutorial in a web browser](https://coddy.tech/landing/r)
 * [R Tutorial 1](http://www.cyclismo.org/tutorial/R/)
 * [R Tutorial 2](http://www.r-tutor.com/r-introduction)
 * [R practice](https://codefights.com/)
